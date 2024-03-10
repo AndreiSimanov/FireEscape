@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using FireEscape.ViewModels;
+using FireEscape.Services;
+using FireEscape.View;
 namespace FireEscape
 {
     public static class MauiProgram
@@ -19,6 +22,15 @@ namespace FireEscape
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+
+
+            builder.Services.AddSingleton<ProtocolService>();
+            builder.Services.AddSingleton<ProtocolsViewModel>();
+            builder.Services.AddSingleton<MainPage>();
+
+            //builder.Services.AddTransient<ProtocolDetailsViewModel>();
+            //builder.Services.AddTransient<ProtocolDetailsPage>();
 
             return builder.Build();
         }
