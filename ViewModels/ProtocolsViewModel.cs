@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FireEscape.Services;
 using System.Collections.ObjectModel;
@@ -7,10 +8,10 @@ using Protocol = FireEscape.Models.Protocol;
 
 namespace FireEscape.ViewModels
 {
-    public partial class ProtocolsViewModel: BaseViewModel
+    public partial class ProtocolsViewModel : BaseViewModel
     {
-
-        public ObservableCollection<Protocol> Protocols { get; private set; } = new();
+        [ObservableProperty]
+        public ObservableCollection<Protocol> protocols = new();
         ProtocolService protocolService;
 
 
@@ -33,16 +34,7 @@ namespace FireEscape.ViewModels
             {
                 IsBusy = true;
                 var protocols = await protocolService.GetProtocols();
-
-                if (Protocols.Count != 0)
-                    Protocols.Clear();
-
-
-                //!! Protocols = protocols.ToObservableCollection();
-
-                foreach (var protocol in protocols)
-                    Protocols.Add(protocol);
-
+                Protocols = protocols.ToObservableCollection();
             }
             catch (Exception ex)
             {

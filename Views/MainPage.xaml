@@ -42,13 +42,11 @@
                     <DataTemplate x:DataType="model:Protocol">
                         <Grid Padding="10" HorizontalOptions="Fill">
                             <Frame HeightRequest="125">
-                                <!--
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolsViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers> 
-                                -->
                                 <Grid Padding="0" ColumnDefinitions="125,*">
                                     <Image
                                             Aspect="AspectFill"

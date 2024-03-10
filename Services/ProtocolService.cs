@@ -18,8 +18,8 @@ namespace FireEscape.Services
             _protocolList = JsonSerializer.Deserialize(contents, ProtocolContext.Default.ListProtocol)  ;
             */
 
-            protocolList.Add(new Protocol() { Name = "test name1", Details = "test details1", Location = "test location1", Image = "dotnet_bot.png" });
-            protocolList.Add(new Protocol() { Name = "test name2", Details = "test details2", Location = "test location2", Image = "dotnet_bot.png" });
+            protocolList.Add(new Protocol() { Name = "test name1", Details = "test details1", Location = "test location1", Image = "nophoto.png" });
+            protocolList.Add(new Protocol() { Name = "test name2", Details = "test details2", Location = "test location2", Image = "nophoto.png" });
             return protocolList;
         }
 
