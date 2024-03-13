@@ -1,6 +1,4 @@
-﻿using FireEscape.ViewModels;
-
-namespace FireEscape.View;
+﻿namespace FireEscape.View;
 
 public partial class MainPage : ContentPage
 {
@@ -8,5 +6,11 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel;
+    }
+
+    private void ContentPage_Appearing(object sender, EventArgs e)
+    {
+        var viewModel = BindingContext as ProtocolsViewModel;
+        viewModel?.GetProtocolsCommand.Execute(null);
     }
 }

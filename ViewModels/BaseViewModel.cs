@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace FireEscape.ViewModels
+﻿namespace FireEscape.ViewModels
 {
     public partial class BaseViewModel : ObservableObject
     {
@@ -9,7 +7,7 @@ namespace FireEscape.ViewModels
         bool isBusy;
 
         [ObservableProperty]
-        string title;
+        string? title;
 
         public bool IsNotBusy => !IsBusy;
     }

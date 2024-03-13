@@ -1,7 +1,4 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using FireEscape.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Protocol = FireEscape.Models.Protocol;
@@ -27,7 +24,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task GetProtocolsAsync()
         {
-            if (IsBusy)
+            if (IsBusy || Protocols?.Count != 0)
                 return;
 
             try
