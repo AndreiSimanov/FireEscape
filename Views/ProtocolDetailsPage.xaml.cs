@@ -1,9 +1,10 @@
-namespace FireEscape.View;
+namespace FireEscape.Views;
 
 public partial class ProtocolDetailsPage : ContentPage
 {
-	public ProtocolDetailsPage()
+	public ProtocolDetailsPage(ProtocolsViewModel viewModel)
 	{
 		InitializeComponent();
-	}
+        BindingContext = viewModel;
+    }
 }

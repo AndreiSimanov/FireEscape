@@ -26,7 +26,7 @@ namespace FireEscape
             builder.Services.AddSingleton<ProtocolsViewModel>();
             builder.Services.AddSingleton<MainPage>();
 
-            //builder.Services.AddTransient<ProtocolDetailsViewModel>();
+            builder.Services.AddTransient<ProtocolViewModel>();
             builder.Services.AddTransient<ProtocolDetailsPage>();
 
             return builder.Build();

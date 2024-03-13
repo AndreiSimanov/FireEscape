@@ -1,4 +1,4 @@
-﻿namespace FireEscape.View;
+﻿namespace FireEscape.Views;
 
 public partial class MainPage : ContentPage
 {

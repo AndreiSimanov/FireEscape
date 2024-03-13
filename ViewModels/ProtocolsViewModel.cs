@@ -11,7 +11,6 @@ namespace FireEscape.ViewModels
         public ObservableCollection<Protocol> protocols = new();
         ProtocolService protocolService;
 
-
         public ProtocolsViewModel(ProtocolService protocolService)
         {
             Title = "Fire Escape";
@@ -43,6 +42,14 @@ namespace FireEscape.ViewModels
                 IsBusy = false;
                 IsRefreshing = false;
             }
+        }
+
+        [RelayCommand]
+        async Task GoToDetails(Protocol protocol)
+        {
+            if (protocol == null)
+                return;
+            await Shell.Current.GoToAsync(nameof(ProtocolDetailsPage), true, new Dictionary<string, object> { { nameof(Protocol), protocol } });
         }
     }
 }
