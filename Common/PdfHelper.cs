@@ -3,6 +3,9 @@ using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using iText.Layout;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
+using System.Text.RegularExpressions;
 
 namespace FireEscape.Common
 {
@@ -30,9 +33,9 @@ namespace FireEscape.Common
                 LineSeparator ls = new LineSeparator(new SolidLine());
                 document.Add(ls);
                 var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocol.Image))
-                    .SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+                    .SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER)
+                    .SetRotationAngle(GetRotation(protocol.Image));
 
-                //pdfImage.SetRotationAngle(-90 * Math.PI / 180);
                 document.Add(pdfImage);
 
                 Paragraph footer = new Paragraph("Don't forget to like and subscribe!")
@@ -48,6 +51,25 @@ namespace FireEscape.Common
             {
                 File = new ReadOnlyFile(filePath)
             });
+        }
+
+        private static double GetRotation(string filePath)
+        {
+            var angle = 0;
+
+            var orientation = ImageMetadataReader.ReadMetadata(filePath)
+                .OfType<ExifIfd0Directory>()
+                .FirstOrDefault()?
+                .GetDescription(ExifIfd0Directory.TagOrientation);
+
+            if (!string.IsNullOrEmpty(orientation))
+            {
+                var angleStr = Regex.Match(orientation, @"\d+").Value;
+                if (!string.IsNullOrEmpty(angleStr))
+                    angle = int.Parse(angleStr);
+            }
+
+            return -angle * Math.PI / 180;
         }
     }
 }
