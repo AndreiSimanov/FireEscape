@@ -27,9 +27,7 @@ namespace FireEscape.Services
 
         public async Task CreatePdfAsync(Protocol protocol)
         {
-            //todo: Create Pdf file and add to the file system
-            await Task.Delay(100);
-            throw new NotImplementedException("The CreatePdfAsync method is not implemented yet.");
+            await PdfHelper.MakePdfFileAsync(protocol);
         }
 
         public async Task<List<Protocol>> GetProtocolsAsync()
@@ -74,7 +72,6 @@ namespace FireEscape.Services
                 if (photo != null)
                 {
                     var photoFilePath = Path.Combine(AppRes.ContentFolder, photo.FileName);
-
                     using (var photoStream = await photo.OpenReadAsync())
                     using (var outputFile = new FileStream(photoFilePath, FileMode.Create, FileAccess.Write))
                     {

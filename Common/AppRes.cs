@@ -11,7 +11,18 @@
         public const string ERROR = "Error";
         public const string OK = "Ok";
 
-        public static string ContentFolder => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        public static string ContentFolder
+        {
+            get
+            {
+#if ANDROID
+		    var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
+		    return docsDirectory.AbsoluteFile.Path;
+#else
+                return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#endif
+            }
+        }
 
         public static T? Get<T>(string resourceName)
         {
