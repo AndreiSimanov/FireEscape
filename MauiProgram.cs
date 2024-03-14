@@ -23,11 +23,11 @@ namespace FireEscape
 
 
             builder.Services.AddSingleton<ProtocolService>();
-            builder.Services.AddSingleton<ProtocolsViewModel>();
+            builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
 
             builder.Services.AddTransient<ProtocolViewModel>();
-            builder.Services.AddTransient<ProtocolDetailsPage>();
+            builder.Services.AddTransient<ProtocolPage>();
 
             return builder.Build();
         }

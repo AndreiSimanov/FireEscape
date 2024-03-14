@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FireEscape.Views.ProtocolPage"
+             xmlns:model="clr-namespace:FireEscape.Models"
+             xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+             Title="{StaticResource ProtocolPageTitle}"
+             x:DataType="viewmodel:ProtocolViewModel"
+             Disappearing="ContentPage_Disappearing">
+
+    <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
+        <Grid RowDefinitions="Auto,Auto,*">
+            <BoxView
+                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                Grid.RowSpan="2"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"/>
+
+            <Border StrokeShape="RoundRectangle 80"
+                    Stroke="White"
+                    StrokeThickness="10"
+                    HeightRequest="172"
+                    WidthRequest="172"
+                    Margin="0,8,0,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <Image Aspect="AspectFill"
+                       WidthRequest="180"
+                       HeightRequest="180"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Source="{Binding  Protocol.Image}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolViewModel}}, Path=AddProtocolPhotoCommand}"
+                            CommandParameter="{Binding .}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Border>
+
+            <Label Style="{StaticResource LargeLabel}" 
+                   Grid.Row="1"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   Text="{Binding Protocol.Name}" 
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,8"/>
+
+            <VerticalStackLayout Grid.Row="2" Padding="10" Spacing="10">
+
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding Protocol.Details}" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding Protocol.Location, StringFormat='Location: {0}'}" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding Protocol.Name, StringFormat='Population: {0}'}" />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -6,7 +6,8 @@
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
-            Routing.RegisterRoute(nameof(ProtocolDetailsPage), typeof(ProtocolDetailsPage));
+            Routing.RegisterRoute(nameof(ProtocolPage), typeof(ProtocolPage));
+            
         }
     }
 }

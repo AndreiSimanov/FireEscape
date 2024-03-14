@@ -8,7 +8,7 @@
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
              Title="{StaticResource MainPageTitle}"
-             x:DataType="viewmodel:ProtocolsViewModel"
+             x:DataType="viewmodel:MainViewModel"
              Appearing="ContentPage_Appearing">
 
     <ContentPage.Behaviors>
@@ -16,65 +16,102 @@
     </ContentPage.Behaviors>
 
     <Grid
-    ColumnDefinitions="*,*"
-    ColumnSpacing="5"
-    RowDefinitions="*,Auto"
-    RowSpacing="0"
-    BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
-        <RefreshView
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="Auto,*"
+        RowSpacing="0"
+        BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
+        <Button
         Grid.ColumnSpan="2"
-        Command="{Binding GetProtocolsCommand}"
-        IsRefreshing="{Binding IsRefreshing}">
+        Margin="10"
+        Command="{Binding AddProtocolCommand}"
+        IsEnabled="{Binding IsNotBusy}"
+        Style="{StaticResource ButtonView }"
+        Text="+" />
+        <RefreshView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Command="{Binding GetProtocolsCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
             <CollectionView
+                    x:Name="protocols"
                     ItemsSource="{Binding Protocols}"
                     SelectionMode="None">
                 <CollectionView.EmptyView>
-                    <StackLayout Padding="100">
-                        <Image
-                                HorizontalOptions="Center"
-                                HeightRequest="160"
-                                WidthRequest="160"
-                                Source="nodata.png"
-                                VerticalOptions="Center" />
-                    </StackLayout>
+                    <Border StrokeShape="RoundRectangle 80"
+                    Stroke="White"
+                    StrokeThickness="6"
+                    HeightRequest="172"
+                    WidthRequest="172"
+                    Margin="0,8,0,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start">
+                     <Image BackgroundColor="White"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            HeightRequest="160"
+                            WidthRequest="160"
+                            Source="nodata.png"/>
+                    </Border>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Protocol">
-                        <Grid Padding="10" HorizontalOptions="Fill">
-                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolsViewModel}}, Path=GoToDetailsCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers> 
-                                <Grid Padding="0" ColumnDefinitions="125,*">
-                                    <Image
-                                            Aspect="AspectFill"
-                                            HeightRequest="125"
-                                            Source="{Binding Image}"
-                                            WidthRequest="125" />
-                                    <VerticalStackLayout
-                                            VerticalOptions="Center"
-                                            Grid.Column="1"
-                                            Padding="10">
-                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Location}" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </Grid>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                               IconImageSource="pdf.png"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CreatePdfCommand}"
+                                               CommandParameter="{Binding .}">
+                                    </SwipeItem>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                               IconImageSource="delete.png"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteProtocolCommand}"
+                                               CommandParameter="{Binding .}">
+                                    </SwipeItem>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Grid Padding="10" HorizontalOptions="Fill">
+                                <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers> 
+                                    <Grid Padding="0" ColumnDefinitions="125,*">
+                                        <Image
+                                                Aspect="AspectFill"
+                                                HeightRequest="115"
+                                                WidthRequest="115" 
+                                                Source="{Binding Image}"/>
+                                        <VerticalStackLayout
+                                                VerticalOptions="Center"
+                                                Grid.Column="1"
+                                                Padding="10">
+                                            <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
+                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding Location}" />
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Address}" />
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Created}" />
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-
         <ActivityIndicator
         Grid.RowSpan="2"
         Grid.ColumnSpan="2"
         HorizontalOptions="Fill"
         IsRunning="{Binding IsBusy}"
         IsVisible="{Binding IsBusy}"
-        Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"  
+        Color="White"  
         VerticalOptions="Center" />
     </Grid>
 

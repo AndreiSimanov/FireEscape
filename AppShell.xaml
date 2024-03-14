@@ -5,11 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:FireEscape.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="Fire Escape">
+    Title="{StaticResource AppTitle}">
 
-    <ShellContent
-        Title="Fire Escape"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <ShellContent  Title="{StaticResource AppTitle}" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+    <ShellContent Title="{StaticResource ProtocolPageTitle}" ContentTemplate="{DataTemplate local:ProtocolPage}" Route="ProtocolPage" />
 
 </Shell>

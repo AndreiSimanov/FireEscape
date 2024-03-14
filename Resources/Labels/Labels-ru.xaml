@@ -4,7 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <x:String x:Key="AppTitle">Fire Escape</x:String>
     <x:String x:Key="MainPageTitle">Список протоколов</x:String>
+    <x:String x:Key="DeleteProtocol">Удалить протокол?</x:String>
     <x:String x:Key="ProtocolPageTitle">Протокол</x:String>
+    <x:String x:Key="NewProtocol">Новый протокол</x:String>
+    <x:String x:Key="NoPhoto">nophoto.png</x:String>
+
+    <x:String x:Key="Delete">Удалить</x:String>
+    <x:String x:Key="Cancel">Отмена</x:String>
+    <x:String x:Key="Error">Ошибка</x:String>
+    <x:String x:Key="Ok">Ок</x:String>
 
 </ResourceDictionary>
