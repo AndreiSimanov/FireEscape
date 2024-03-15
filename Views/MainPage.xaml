@@ -3,18 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              ios:Page.UseSafeArea="True"
              x:Class="FireEscape.Views.MainPage"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
-             Title="{StaticResource MainPageTitle}"
+             Title="{x:Static lang:AppResources.MainPageTitle}"
              x:DataType="viewmodel:MainViewModel"
              Appearing="ContentPage_Appearing">
 
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{AppThemeBinding Light={StaticResource OffBlack}, Dark={StaticResource OffBlack}}" />
     </ContentPage.Behaviors>
-
+    
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
@@ -22,12 +23,12 @@
         RowSpacing="0"
         BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
         <Button
-        Grid.ColumnSpan="2"
-        Margin="10"
-        Command="{Binding AddProtocolCommand}"
-        IsEnabled="{Binding IsNotBusy}"
-        Style="{StaticResource ButtonView }"
-        Text="+" />
+            Grid.ColumnSpan="2"
+            Margin="10"
+            Command="{Binding AddProtocolCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Style="{StaticResource ButtonView }"
+            Text="+" />
         <RefreshView
             Grid.Row="1"
             Grid.ColumnSpan="2"
@@ -36,7 +37,7 @@
             <CollectionView
                     x:Name="protocols"
                     ItemsSource="{Binding Protocols}"
-                    SelectionMode="None">
+                    SelectionMode="Single">
                 <CollectionView.EmptyView>
                     <Border StrokeShape="RoundRectangle 80"
                     Stroke="White"
@@ -56,7 +57,7 @@
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Protocol">
-                        <SwipeView>
+                        <SwipeView  Style="{StaticResource TransparentSelection}" SwipeChanging="OnSwipeChanging"  SwipeEnded="OnSwipeEnded">
                             <SwipeView.LeftItems>
                                 <SwipeItems>
                                     <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
@@ -81,7 +82,7 @@
                                         <TapGestureRecognizer 
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}"
                                                 CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers> 
+                                    </Frame.GestureRecognizers>
                                     <Grid Padding="0" ColumnDefinitions="125,*">
                                         <Image
                                                 Aspect="AspectFill"

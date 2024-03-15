@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using FireEscape.Resources.Languages;
+using Microsoft.Extensions.Logging;
+using System.Globalization;
 
 namespace FireEscape
 {

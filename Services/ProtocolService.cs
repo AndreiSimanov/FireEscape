@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using FireEscape.Resources.Languages;
+using System.Text.Json;
 
 namespace FireEscape.Services
 {
@@ -86,7 +87,7 @@ namespace FireEscape.Services
         {
             if (string.IsNullOrEmpty(path))
                 return;
-            if (!string.Equals(path, AppRes.Get<string>(AppRes.NO_PHOTO)) &&
+            if (!string.Equals(path, AppResources.NoPhoto) &&
                 File.Exists(path))
                 File.Delete(path);
         }

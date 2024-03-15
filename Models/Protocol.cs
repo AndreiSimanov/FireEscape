@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FireEscape.Resources.Languages;
+using System.Text.Json.Serialization;
 
 namespace FireEscape.Models
 {
@@ -13,8 +14,8 @@ namespace FireEscape.Models
 
     public class Protocol
     {
-        public string Name { get; set; } = AppRes.Get<string>(AppRes.NEW_PROTOCOL)!;
-        public string Image { get; set; } = AppRes.Get<string>(AppRes.NO_PHOTO)!;
+        public string Name { get; set; } = AppResources.NewProtocol!;
+        public string Image { get; set; } = AppResources.NoPhoto!;
         public int ProtocolNum { get; set; } = 1;
         public string? Location { get; set; }
         public DateTime ProtocolDate { get; set; } = DateTime.Now;

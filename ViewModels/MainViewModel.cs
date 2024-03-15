@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
+using FireEscape.Resources.Languages;
 using System.Collections.ObjectModel;
 using Protocol = FireEscape.Models.Protocol;
 
@@ -73,10 +74,10 @@ namespace FireEscape.ViewModels
             if (IsBusy || protocol == null)
                 return;
 
-            var action = await Shell.Current.DisplayActionSheet(AppRes.Get<string>(AppRes.DELETE_PROTOCOL), 
-                AppRes.Get<string>(AppRes.CANCEL), 
-                AppRes.Get<string>(AppRes.DELETE));
-            if (string.Equals(action, AppRes.Get<string>(AppRes.CANCEL)))
+            var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, 
+                AppResources.Cancel, 
+                AppResources.Delete);
+            if (string.Equals(action, AppResources.Cancel))
                 return;
             try
             {

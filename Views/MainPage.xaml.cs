@@ -2,24 +2,46 @@
 
 public partial class MainPage : ContentPage
 {
+    double swipeOffSet = 0;
+
     public MainPage(MainViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
     }
 
+    private MainViewModel? MainViewModel
+    {
+        get
+        {
+            return BindingContext as MainViewModel;
+        }
+    }
+
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
-        var viewModel = BindingContext as MainViewModel;
-        if (viewModel != null)
+        if (MainViewModel != null)
         {
-            viewModel?.GetProtocolsCommand.Execute(null);
-            if (viewModel?.SelectedProtocol != null)
+            MainViewModel.GetProtocolsCommand.Execute(null);
+            if (MainViewModel.SelectedProtocol != null)
             {
-                var index = viewModel.Protocols.IndexOf(viewModel.SelectedProtocol);
+                var index = MainViewModel.Protocols.IndexOf(MainViewModel.SelectedProtocol);
                 protocols.ScrollTo(index);
-                viewModel.SelectedProtocol = null;
+                MainViewModel.SelectedProtocol = null;
             }
+        }
+    }
+
+    public void OnSwipeChanging(object sender, SwipeChangingEventArgs args)
+    {
+        swipeOffSet = args.Offset;
+    }
+
+    public void OnSwipeEnded(object sender, SwipeEndedEventArgs args) // Reduce Swipeview Sensitivity .Net Maui https://stackoverflow.com/questions/72635530/reduce-swipeview-sensitivity-net-maui
+    {
+        if (!args.IsOpen && swipeOffSet < 5 && swipeOffSet > -5 && MainViewModel != null)
+        {
+            MainViewModel.GoToDetailsCommand.Execute(protocols.SelectedItem);
         }
     }
 }
