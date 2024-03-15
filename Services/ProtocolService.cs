@@ -1,5 +1,6 @@
 ﻿using FireEscape.Resources.Languages;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace FireEscape.Services
@@ -61,8 +62,8 @@ namespace FireEscape.Services
         {
             var filePath = protocol.SourceFile?? Path.Combine(AppSettingsExtension.ContentFolder, Guid.NewGuid().ToString() + ".json");
             protocol.Updated = DateTime.Now;
-            using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
-              await JsonSerializer.SerializeAsync(fs, protocol);
+            using var fs = File.Create(filePath);
+            await JsonSerializer.SerializeAsync(fs, protocol);
             protocol.SourceFile = filePath;
             if (!protocolList.Contains(protocol))
                 protocolList.Insert(0, protocol);
@@ -89,7 +90,7 @@ namespace FireEscape.Services
             var files = Directory.GetFiles(AppSettingsExtension.ContentFolder, "*.json");
             foreach (var file in files)
             {
-                using (FileStream fs = new FileStream(file, FileMode.Open))
+                using (var fs = File.OpenRead(file))
                 {
                     Protocol? protocol = null;
                     try
@@ -97,8 +98,9 @@ namespace FireEscape.Services
                         protocol = await JsonSerializer.DeserializeAsync<Protocol>(fs);
                     
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Debug.WriteLine($"Error: {ex.Message}");
                         protocol = CreateBrokenProtocol(file);
                     }
 
@@ -110,16 +112,6 @@ namespace FireEscape.Services
                 }
             }
 
-            /*
-            protocolList.Add(new Protocol() { Name = "Протокол 1", Details = "Test details1", Location = "Test location1"});
-            protocolList.Add(new Protocol() { Name = "Протокол 2", Details = "Test details2", Location = "Test location2"});
-            protocolList.Add(new Protocol() { Name = "Протокол 3", Details = "Test details2", Location = "Test location2"});
-            protocolList.Add(new Protocol() { Name = "Протокол 4", Details = "Test details2", Location = "Test location2"});
-            protocolList.Add(new Protocol() { Name = "Протокол 5", Details = "Test details2", Location = "Test location2"});
-            protocolList.Add(new Protocol() { Name = "Протокол 6", Details = "Test details2", Location = "Test location2"});
-            protocolList.Add(new Protocol() { Name = "Протокол 7", Details = "Test details2", Location = "Test location2"});
-            protocolList.Add(new Protocol() { Name = "Протокол 8", Details = "Test details2", Location = "Test location2"});
-            */
             protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
             return protocolList;
         }
@@ -135,7 +127,7 @@ namespace FireEscape.Services
                 {
                     var photoFilePath = Path.Combine(AppSettingsExtension.ContentFolder, photo.FileName);
                     using (var photoStream = await photo.OpenReadAsync())
-                    using (var outputFile = new FileStream(photoFilePath, FileMode.Create, FileAccess.Write))
+                    using (var outputFile = File.Create(photoFilePath))
                     {
                         await photoStream.CopyToAsync(outputFile);
                     }

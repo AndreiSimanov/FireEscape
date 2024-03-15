@@ -6,7 +6,6 @@ using iText.Layout;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
 using System.Text.RegularExpressions;
-using FireEscape.Resources.Languages;
 
 namespace FireEscape.Common
 {
