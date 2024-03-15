@@ -6,7 +6,6 @@ namespace FireEscape.Models
 
     public enum FireEscapeType 
     {
-        P1,
         P1_1,
         P1_2,
         P2
@@ -14,20 +13,18 @@ namespace FireEscape.Models
 
     public class Protocol
     {
-        public string Name { get; set; } = AppResources.NewProtocol!;
-        public string Image { get; set; } = AppResources.NoPhoto!;
-        public int ProtocolNum { get; set; } = 1;
-        public string? Location { get; set; }
-        public DateTime ProtocolDate { get; set; } = DateTime.Now;
-        public string? Address { get; set; }
-        public int FireEscapeNum { get; set; } = 1;
-        public FireEscapeType FireEscapeType { get; set; } = FireEscapeType.P1;
+        public required string Name { get; set; }
+        public required string Image { get; set; }
+        public int ProtocolNum { get; set; }
+        public required string Location { get; set; } 
+        public DateTime ProtocolDate { get; set; }
+        public required string Address { get; set; }
+        public int FireEscapeNum { get; set; }
+        public FireEscapeType FireEscapeType { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
 
-
-        public DateTime Created { get; set; } = DateTime.Now;
-        public DateTime Updated { get; set; } = DateTime.Now;
-
-        public string? Details { get; set; }
+        public required string Details { get; set; }
 
         [JsonIgnore]
         public string? File { get; set; }

@@ -15,7 +15,7 @@ namespace FireEscape.Common
         {
             string fileName = "protocol.pdf"; //todo: changt file name to the protocol attribute 
 
-            var filePath = Path.Combine(AppRes.ContentFolder, fileName);
+            var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
 
             using (PdfWriter writer = new PdfWriter(filePath))
             {

@@ -1,4 +1,6 @@
-﻿namespace FireEscape.ViewModels
+﻿using FireEscape.Resources.Languages;
+
+namespace FireEscape.ViewModels
 {
     [QueryProperty(nameof(Protocol), nameof(Protocol))]
     public partial class ProtocolViewModel : BaseViewModel
@@ -6,7 +8,7 @@
         [ObservableProperty]
         Protocol? protocol;
 
-        ProtocolService protocolService;
+        readonly ProtocolService protocolService;
 
         public ProtocolViewModel(ProtocolService protocolService)
         {
@@ -26,7 +28,7 @@
             }
             catch (Exception ex)
             {
-                await ProcessExeptionAsync("Unable to add photo to the protocol", ex);
+                await ProcessExeptionAsync(AppResources.AddPhotoError, ex);
             }
             finally
             {
@@ -45,7 +47,7 @@
             }
             catch (Exception ex)
             {
-                await ProcessExeptionAsync("Unable to save the protocol", ex);
+                await ProcessExeptionAsync(AppResources.SaveProtocolError, ex);
             }
             finally
             {

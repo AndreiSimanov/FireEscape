@@ -61,6 +61,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to add photo to the protocol.
+        /// </summary>
+        internal static string AddPhotoError {
+            get {
+                return ResourceManager.GetString("AddPhotoError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to add protocol.
+        /// </summary>
+        internal static string AddProtocolError {
+            get {
+                return ResourceManager.GetString("AddProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fire Escape.
         /// </summary>
         internal static string AppTitle {
@@ -70,11 +88,29 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Broken data.
+        /// </summary>
+        internal static string BrokenData {
+            get {
+                return ResourceManager.GetString("BrokenData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create PDF file.
+        /// </summary>
+        internal static string CreatePdfFileError {
+            get {
+                return ResourceManager.GetString("CreatePdfFileError", resourceCulture);
             }
         }
         
@@ -97,11 +133,29 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to delete protocol.
+        /// </summary>
+        internal static string DeleteProtocolError {
+            get {
+                return ResourceManager.GetString("DeleteProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get protocols.
+        /// </summary>
+        internal static string GetProtocolsError {
+            get {
+                return ResourceManager.GetString("GetProtocolsError", resourceCulture);
             }
         }
         
@@ -147,6 +201,15 @@ namespace FireEscape.Resources.Languages {
         internal static string ProtocolPageTitle {
             get {
                 return ResourceManager.GetString("ProtocolPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save the protocol.
+        /// </summary>
+        internal static string SaveProtocolError {
+            get {
+                return ResourceManager.GetString("SaveProtocolError", resourceCulture);
             }
         }
     }

@@ -1,6 +1,5 @@
-﻿using FireEscape.Resources.Languages;
-using Microsoft.Extensions.Logging;
-using System.Globalization;
+﻿using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace FireEscape
 {
@@ -9,9 +8,16 @@ namespace FireEscape
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
+            using var stream = GetStreamFromFile("appsettings.json");
+            var configuration = new ConfigurationBuilder().AddJsonStream(stream!).Build();
+            builder.Configuration.AddConfiguration(configuration);
+            
+
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseAppSettings(configuration)
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -22,8 +28,6 @@ namespace FireEscape
     		builder.Logging.AddDebug();
 #endif
 
-
-
             builder.Services.AddSingleton<ProtocolService>();
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
@@ -32,6 +36,14 @@ namespace FireEscape
             builder.Services.AddTransient<ProtocolPage>();
 
             return builder.Build();
+        }
+
+        public static Stream? GetStreamFromFile(string filename)
+        {
+            var assembly = typeof(App).GetTypeInfo().Assembly;
+            var assemblyName = assembly.GetName().Name;
+            var stream = assembly.GetManifestResourceStream($"{assemblyName}.{filename}");
+            return stream;
         }
     }
 }

@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddPhotoError" xml:space="preserve">
+    <value>Unable to add photo to the protocol</value>
+  </data>
+  <data name="AddProtocolError" xml:space="preserve">
+    <value>Unable to add protocol</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Fire Escape</value>
   </data>
+  <data name="BrokenData" xml:space="preserve">
+    <value>Broken data</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="CreatePdfFileError" xml:space="preserve">
+    <value>Unable to create PDF file</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -129,8 +141,14 @@
   <data name="DeleteProtocol" xml:space="preserve">
     <value>Delete the protocol?</value>
   </data>
+  <data name="DeleteProtocolError" xml:space="preserve">
+    <value>Unable to delete protocol</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="GetProtocolsError" xml:space="preserve">
+    <value>Unable to get protocols</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>Protocol list</value>
@@ -146,5 +164,8 @@
   </data>
   <data name="ProtocolPageTitle" xml:space="preserve">
     <value>Protocol</value>
+  </data>
+  <data name="SaveProtocolError" xml:space="preserve">
+    <value>Unable to save the protocol</value>
   </data>
 </root>

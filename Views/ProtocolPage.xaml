@@ -48,10 +48,9 @@
                    Margin="0,0,0,8"/>
 
             <VerticalStackLayout Grid.Row="2" Padding="10" Spacing="10">
-
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding Protocol.Name, StringFormat='Название протокола: {0}'}" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding Protocol.Location, StringFormat='Место: {0}'}" />
                 <Label Style="{StaticResource MediumLabel}" Text="{Binding Protocol.Details}" />
-                <Label Style="{StaticResource SmallLabel}" Text="{Binding Protocol.Location, StringFormat='Location: {0}'}" />
-                <Label Style="{StaticResource SmallLabel}" Text="{Binding Protocol.Name, StringFormat='Population: {0}'}" />
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

@@ -36,7 +36,7 @@ namespace FireEscape.ViewModels
             }
             catch (Exception ex)
             {
-                await ProcessExeptionAsync("Unable to get protocols", ex);
+                await ProcessExeptionAsync(AppResources.GetProtocolsError, ex);
             }
             finally
             {
@@ -52,15 +52,14 @@ namespace FireEscape.ViewModels
                 return;
             try
             {
-                var protocol = new Protocol();
+                var protocol = await protocolService.CreateProtocol();
                 Protocols.Insert(0, protocol);
-                await protocolService.SaveProtocolAsync(protocol);
                 SelectedProtocol = protocol;
                 await GoToDetailsAsync(protocol);
             }
             catch (Exception ex)
             {
-                await ProcessExeptionAsync("Unable to add protocol", ex);
+                await ProcessExeptionAsync(AppResources.AddProtocolError, ex);
             }
             finally
             {
@@ -86,7 +85,7 @@ namespace FireEscape.ViewModels
             }
             catch (Exception ex)
             {
-                await ProcessExeptionAsync("Unable to delete protocol", ex);
+                await ProcessExeptionAsync(AppResources.DeleteProtocolError, ex);
             }
             finally
             {
@@ -106,7 +105,7 @@ namespace FireEscape.ViewModels
             }
             catch (Exception ex)
             {
-                await ProcessExeptionAsync("Unable to create PDF file", ex);
+                await ProcessExeptionAsync(AppResources.CreatePdfFileError, ex);
             }
             finally
             {

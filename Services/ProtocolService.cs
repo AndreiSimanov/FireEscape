@@ -1,4 +1,5 @@
 ﻿using FireEscape.Resources.Languages;
+using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace FireEscape.Services
@@ -6,10 +7,59 @@ namespace FireEscape.Services
     public class ProtocolService
     {
         List<Protocol> protocolList = new();
+        NewProtocolSettings settings;
+
+        public ProtocolService(IOptions<NewProtocolSettings> settings) 
+        {
+            this.settings = settings.Value;
+        
+
+            //this.configuration = configuration;
+            /*
+            // Bind a configuration section to an instance of Settings class
+            var settings = configuration.GetSection("ProtocolSettings").Get<DefaultProtocolSettings>();
+
+            foreach (var endpoint in settings.Locatons)
+            {
+                Console.WriteLine(endpoint);
+            }
+
+
+            // Read simple values
+            Console.WriteLine($"Server: {settings.Server}");
+            Console.WriteLine($"Database: {settings.Database}");
+
+            // Read nested objects
+            Console.WriteLine("Endpoints: ");
+
+            foreach (Endpoint endpoint in settings.Endpoints)
+            {
+                Console.WriteLine($"{endpoint.IPAddress}:{endpoint.Port}");
+            }
+            */
+        }    
+
+        public async Task<Protocol> CreateProtocol() 
+        {
+            var protocol = new Protocol() {
+                Name = settings.Name,
+                Image = AppResources.NoPhoto!,
+                ProtocolNum = settings.ProtocolNum,
+                Location = settings.Location,
+                ProtocolDate = DateTime.Today,
+                Address = string.Empty,
+                FireEscapeNum = settings.FireEscapeNum,
+                Details = string.Empty,
+                Created = DateTime.Now
+            };
+
+            await SaveProtocolAsync(protocol);
+            return protocol;
+        } 
  
         public async Task SaveProtocolAsync(Protocol protocol)
         {
-            var filePath = protocol.File?? Path.Combine(AppRes.ContentFolder, Guid.NewGuid().ToString() + ".json");
+            var filePath = protocol.File?? Path.Combine(AppSettingsExtension.ContentFolder, Guid.NewGuid().ToString() + ".json");
             protocol.Updated = DateTime.Now;
             using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
               await JsonSerializer.SerializeAsync(fs, protocol);
@@ -35,12 +85,22 @@ namespace FireEscape.Services
         {
             if (protocolList.Count > 0)
                 return protocolList;
-            var files = Directory.GetFiles(AppRes.ContentFolder, "*.json");
+            var files = Directory.GetFiles(AppSettingsExtension.ContentFolder, "*.json");
             foreach (var file in files)
             {
                 using (FileStream fs = new FileStream(file, FileMode.Open))
                 {
-                    var protocol = await JsonSerializer.DeserializeAsync<Protocol>(fs);
+                    Protocol? protocol = null;
+                    try
+                    {
+                        protocol = await JsonSerializer.DeserializeAsync<Protocol>(fs);
+                    
+                    }
+                    catch (Exception)
+                    {
+                        protocol = CreateBrokenProtocol(file);
+                    }
+
                     if (protocol != null)
                     {
                         protocol.File = file;
@@ -72,7 +132,7 @@ namespace FireEscape.Services
 
                 if (photo != null)
                 {
-                    var photoFilePath = Path.Combine(AppRes.ContentFolder, photo.FileName);
+                    var photoFilePath = Path.Combine(AppSettingsExtension.ContentFolder, photo.FileName);
                     using (var photoStream = await photo.OpenReadAsync())
                     using (var outputFile = new FileStream(photoFilePath, FileMode.Create, FileAccess.Write))
                     {
@@ -90,6 +150,23 @@ namespace FireEscape.Services
             if (!string.Equals(path, AppResources.NoPhoto) &&
                 File.Exists(path))
                 File.Delete(path);
+        }
+
+
+        private Protocol CreateBrokenProtocol(string file)
+        {
+            var protocol = new Protocol()
+            {
+                Name = AppResources.BrokenData,
+                Image = AppResources.NoPhoto!,
+                ProtocolNum = 0,
+                Location = string.Empty,
+                Address = string.Empty,
+                FireEscapeNum = 0,
+                Details = string.Empty,
+                File= file
+            };
+            return protocol;
         }
     }
 }

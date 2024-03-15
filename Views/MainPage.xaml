@@ -10,6 +10,7 @@
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
              Title="{x:Static lang:AppResources.MainPageTitle}"
              x:DataType="viewmodel:MainViewModel"
+             Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
 
     <ContentPage.Behaviors>
