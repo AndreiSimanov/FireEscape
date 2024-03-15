@@ -59,20 +59,21 @@ namespace FireEscape.Services
  
         public async Task SaveProtocolAsync(Protocol protocol)
         {
-            var filePath = protocol.File?? Path.Combine(AppSettingsExtension.ContentFolder, Guid.NewGuid().ToString() + ".json");
+            var filePath = protocol.SourceFile?? Path.Combine(AppSettingsExtension.ContentFolder, Guid.NewGuid().ToString() + ".json");
             protocol.Updated = DateTime.Now;
             using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
               await JsonSerializer.SerializeAsync(fs, protocol);
-            protocol.File = filePath;
+            protocol.SourceFile = filePath;
             if (!protocolList.Contains(protocol))
                 protocolList.Insert(0, protocol);
         }
 
         public void DeleteProtocol(Protocol protocol)
         {
-            DeleteImageFile(protocol.Image);
-            if (File.Exists(protocol.File))
-                File.Delete(protocol.File);
+            if (protocol.HasImage)
+                File.Delete(protocol.Image);
+            if (File.Exists(protocol.SourceFile))
+                File.Delete(protocol.SourceFile);
             protocolList.Remove(protocol);
         }
 
@@ -103,7 +104,7 @@ namespace FireEscape.Services
 
                     if (protocol != null)
                     {
-                        protocol.File = file;
+                        protocol.SourceFile = file;
                         protocolList.Add(protocol);
                     }
                 }
@@ -138,20 +139,13 @@ namespace FireEscape.Services
                     {
                         await photoStream.CopyToAsync(outputFile);
                     }
-                    DeleteImageFile(protocol.Image);
+                    if (protocol.HasImage)
+                        File.Delete(protocol.Image);
+
                     protocol.Image = photoFilePath;
                 }
             }
         }
-        private void DeleteImageFile(string path)
-        {
-            if (string.IsNullOrEmpty(path))
-                return;
-            if (!string.Equals(path, AppResources.NoPhoto) &&
-                File.Exists(path))
-                File.Delete(path);
-        }
-
 
         private Protocol CreateBrokenProtocol(string file)
         {
@@ -164,7 +158,7 @@ namespace FireEscape.Services
                 Address = string.Empty,
                 FireEscapeNum = 0,
                 Details = string.Empty,
-                File= file
+                SourceFile= file
             };
             return protocol;
         }

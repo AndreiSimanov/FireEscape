@@ -6,6 +6,7 @@ using iText.Layout;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
 using System.Text.RegularExpressions;
+using FireEscape.Resources.Languages;
 
 namespace FireEscape.Common
 {
@@ -32,11 +33,14 @@ namespace FireEscape.Common
                 document.Add(subheader);
                 LineSeparator ls = new LineSeparator(new SolidLine());
                 document.Add(ls);
-                var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocol.Image))
-                    .SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER)
-                    .SetRotationAngle(GetRotation(protocol.Image));
 
-                document.Add(pdfImage);
+                if (protocol.HasImage)
+                {
+                    var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocol.Image))
+                        .SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER)
+                        .SetRotationAngle(GetRotation(protocol.Image));
+                    document.Add(pdfImage);
+                }
 
                 Paragraph footer = new Paragraph("Don't forget to like and subscribe!")
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT)

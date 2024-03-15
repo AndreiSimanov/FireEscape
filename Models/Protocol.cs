@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace FireEscape.Models
 {
-
     public enum FireEscapeType 
     {
         P1_1,
@@ -27,6 +26,9 @@ namespace FireEscape.Models
         public required string Details { get; set; }
 
         [JsonIgnore]
-        public string? File { get; set; }
+        public string? SourceFile { get; set; }
+
+        [JsonIgnore]
+        public bool HasImage => !string.IsNullOrWhiteSpace(Image) && !string.Equals(Image, AppResources.NoPhoto) && File.Exists(Image);
     }
 }
