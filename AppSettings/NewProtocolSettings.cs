@@ -3,8 +3,8 @@
     public class NewProtocolSettings
     {
         public required string Location { get; set; }
-        public int ProtocolNum { get; set; }
-        public int FireEscapeNum { get; set; }
+        public uint ProtocolNum { get; set; }
+        public uint FireEscapeNum { get; set; }
 
 
        // public Endpoint[]? Endpoints { get; set; }
