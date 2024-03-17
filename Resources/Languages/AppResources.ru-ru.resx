@@ -123,6 +123,12 @@
   <data name="AddProtocolError" xml:space="preserve">
     <value>Невозможно добавить протокол</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес объекта:</value>
+  </data>
+  <data name="AddressHint" xml:space="preserve">
+    <value>Укажите адрес объекта</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Fire Escape</value>
   </data>
@@ -147,11 +153,32 @@
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
+  <data name="FireEscapeMountTypesHint" xml:space="preserve">
+    <value>Укажите тип установки лестницы</value>
+  </data>
+  <data name="FireEscapeNum" xml:space="preserve">
+    <value>Номер испытуемого объекта:</value>
+  </data>
+  <data name="FireEscapeObjectHint" xml:space="preserve">
+    <value>Укажите название объекта</value>
+  </data>
+  <data name="FireEscapeTypesHint" xml:space="preserve">
+    <value>Укажите тип лестницы</value>
+  </data>
   <data name="GetProtocolsError" xml:space="preserve">
     <value>Невозможно получить список протоколов</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Место:</value>
+  </data>
+  <data name="LocationHint" xml:space="preserve">
+    <value>Укажите город / область</value>
+  </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>Список протоколов</value>
+  </data>
+  <data name="MakePhotoHint" xml:space="preserve">
+    <value>Сделать фотографию</value>
   </data>
   <data name="NewProtocol" xml:space="preserve">
     <value>Новый протокол</value>
@@ -159,8 +186,17 @@
   <data name="NoPhoto" xml:space="preserve">
     <value>nophoto.png</value>
   </data>
+  <data name="ObjectСharacteristics" xml:space="preserve">
+    <value>Характеристики объекта:</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="ProtocolDate" xml:space="preserve">
+    <value>Дата протокола:</value>
+  </data>
+  <data name="ProtocolNum" xml:space="preserve">
+    <value>Номер протокола:</value>
   </data>
   <data name="ProtocolPageTitle" xml:space="preserve">
     <value>Протокол</value>

@@ -8,12 +8,14 @@ namespace FireEscape.Services
     public class ProtocolService
     {
         List<Protocol> protocolList = new();
-        NewProtocolSettings settings;
+        readonly NewProtocolSettings settings;
+        readonly ProtocolPropertiesDictionary protocolPropertiesDictionary;
 
-        public ProtocolService(IOptions<NewProtocolSettings> settings) 
+        public ProtocolService(IOptions<NewProtocolSettings> settings, IOptions<ProtocolPropertiesDictionary> protocolPropertiesDictionary) 
         {
             this.settings = settings.Value;
-        
+            this.protocolPropertiesDictionary = protocolPropertiesDictionary.Value;
+
 
             //this.configuration = configuration;
             /*
@@ -43,14 +45,13 @@ namespace FireEscape.Services
         public async Task<Protocol> CreateProtocol() 
         {
             var protocol = new Protocol() {
-                Name = settings.Name,
                 Image = AppResources.NoPhoto!,
                 ProtocolNum = settings.ProtocolNum,
                 Location = settings.Location,
                 ProtocolDate = DateTime.Today,
-                Address = string.Empty,
                 FireEscapeNum = settings.FireEscapeNum,
-                Details = string.Empty,
+                FireEscapeType = protocolPropertiesDictionary.FireEscapeTypes![0],
+                FireEscapeMountType = protocolPropertiesDictionary.FireEscapeMountTypes![0],
                 Created = DateTime.Now
             };
 
@@ -85,6 +86,10 @@ namespace FireEscape.Services
 
         public async Task<List<Protocol>> GetProtocolsAsync()
         {
+
+
+
+
             if (protocolList.Count > 0)
                 return protocolList;
             var files = Directory.GetFiles(AppSettingsExtension.ContentFolder, "*.json");
@@ -143,13 +148,8 @@ namespace FireEscape.Services
         {
             var protocol = new Protocol()
             {
-                Name = AppResources.BrokenData,
+                FireEscapeObject = AppResources.BrokenData,
                 Image = AppResources.NoPhoto!,
-                ProtocolNum = 0,
-                Location = string.Empty,
-                Address = string.Empty,
-                FireEscapeNum = 0,
-                Details = string.Empty,
                 SourceFile= file
             };
             return protocol;

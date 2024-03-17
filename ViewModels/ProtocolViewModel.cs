@@ -1,4 +1,5 @@
 ﻿using FireEscape.Resources.Languages;
+using Microsoft.Extensions.Options;
 
 namespace FireEscape.ViewModels
 {
@@ -9,12 +10,13 @@ namespace FireEscape.ViewModels
         Protocol? protocol;
 
         readonly ProtocolService protocolService;
+        public ProtocolPropertiesDictionary ProtocolPropertiesDictionary { get; private set; }
 
-        public ProtocolViewModel(ProtocolService protocolService)
+        public ProtocolViewModel(ProtocolService protocolService, IOptions<ProtocolPropertiesDictionary> protocolPropertiesDictionary)
         {
             this.protocolService = protocolService;
+            ProtocolPropertiesDictionary = protocolPropertiesDictionary.Value;
         }
-
 
         [RelayCommand]
         async Task AddProtocolPhotoAsync()

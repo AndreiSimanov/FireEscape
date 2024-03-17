@@ -123,6 +123,12 @@
   <data name="AddProtocolError" xml:space="preserve">
     <value>Unable to add protocol</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address:</value>
+  </data>
+  <data name="AddressHint" xml:space="preserve">
+    <value>Specify address:</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Fire Escape</value>
   </data>
@@ -147,11 +153,32 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="FireEscapeMountTypesHint" xml:space="preserve">
+    <value>Specify  fire escape mount type</value>
+  </data>
+  <data name="FireEscapeNum" xml:space="preserve">
+    <value>Test object number:</value>
+  </data>
+  <data name="FireEscapeObjectHint" xml:space="preserve">
+    <value>Specify  fire escape object name</value>
+  </data>
+  <data name="FireEscapeTypesHint" xml:space="preserve">
+    <value>Specify  fire escape type</value>
+  </data>
   <data name="GetProtocolsError" xml:space="preserve">
     <value>Unable to get protocols</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="LocationHint" xml:space="preserve">
+    <value>Specify city/region</value>
+  </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>Protocol list</value>
+  </data>
+  <data name="MakePhotoHint" xml:space="preserve">
+    <value>Click image to make a photo</value>
   </data>
   <data name="NewProtocol" xml:space="preserve">
     <value>New protocol</value>
@@ -159,8 +186,17 @@
   <data name="NoPhoto" xml:space="preserve">
     <value>nophoto.png</value>
   </data>
+  <data name="ObjectСharacteristics" xml:space="preserve">
+    <value>Object сharacteristics:</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="ProtocolDate" xml:space="preserve">
+    <value>Protocol date:</value>
+  </data>
+  <data name="ProtocolNum" xml:space="preserve">
+    <value>Protocol number:</value>
   </data>
   <data name="ProtocolPageTitle" xml:space="preserve">
     <value>Protocol</value>

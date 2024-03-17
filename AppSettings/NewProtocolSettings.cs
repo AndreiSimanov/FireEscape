@@ -2,11 +2,10 @@
 {
     public class NewProtocolSettings
     {
-        public required string Name { get; set; }
         public required string Location { get; set; }
         public int ProtocolNum { get; set; }
         public int FireEscapeNum { get; set; }
-        public string[]? Locatons { get; set; }
+
 
        // public Endpoint[]? Endpoints { get; set; }
     }

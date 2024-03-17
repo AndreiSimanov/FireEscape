@@ -10,7 +10,7 @@ namespace FireEscape.ViewModels
         [ObservableProperty]
         public ObservableCollection<Protocol> protocols = new();
 
-        ProtocolService protocolService;
+        readonly ProtocolService protocolService;
 
         public MainViewModel(ProtocolService protocolService)
         {

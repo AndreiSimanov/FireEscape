@@ -78,26 +78,27 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                <Frame HeightRequest="150" Style="{StaticResource CardView}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}"
                                                 CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    <Grid Padding="0" ColumnDefinitions="125,*">
-                                        <Image
+                                    <Grid ColumnDefinitions="125,*">
+                                        <Image  HorizontalOptions="End"
                                                 Aspect="AspectFill"
-                                                HeightRequest="115"
-                                                WidthRequest="115" 
+                                                HeightRequest="110"
+                                                WidthRequest="110" 
                                                 Source="{Binding Image}"/>
                                         <VerticalStackLayout
                                                 VerticalOptions="Center"
                                                 Grid.Column="1"
+                                                Spacing="5"
                                                 Padding="10">
-                                            <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
-                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding Location}" />
-                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Address}" />
-                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Created}" />
+                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObject}" />
+                                            <Label Text="{Binding FireEscapeType}" />
+                                            <Label Text="{Binding FullAddress,  StringFormat='Адрес: {0}'}" />
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding ProtocolDate, StringFormat='Дата протокола: {0:dd.MM.yyyy}'}" />
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Frame>

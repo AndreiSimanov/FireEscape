@@ -11,11 +11,6 @@
 
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
         <Grid RowDefinitions="Auto,Auto,*">
-            <BoxView
-                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                Grid.RowSpan="2"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"/>
 
             <Border StrokeShape="RoundRectangle 80"
                     Stroke="White"
@@ -39,18 +34,37 @@
                 </Image>
             </Border>
 
-            <Label Style="{StaticResource LargeLabel}" 
+            <Label Style="{StaticResource MediumLabel}" 
                    Grid.Row="1"
-                   TextColor="White"
+                   TextColor="Yellow"
                    FontAttributes="Bold"
-                   Text="{Binding Protocol.Name}" 
+                   Text="{x:Static lang:AppResources.MakePhotoHint}" 
                    HorizontalOptions="Center"
                    Margin="0,0,0,8"/>
 
-            <VerticalStackLayout Grid.Row="2" Padding="10" Spacing="10">
-                <Label Style="{StaticResource SmallLabel}" Text="{Binding Protocol.Name, StringFormat='Название протокола: {0}'}" />
-                <Label Style="{StaticResource SmallLabel}" Text="{Binding Protocol.Location, StringFormat='Место: {0}'}" />
+            <VerticalStackLayout Grid.Row="2" Padding="5" Spacing="5">
+                <Label Text="{x:Static lang:AppResources.ProtocolNum}" />
+                <Entry Keyboard="Numeric"  Text="{Binding Protocol.ProtocolNum}"/>
+                <Label Text="{x:Static lang:AppResources.ProtocolDate}" />
+                <DatePicker  Date="{Binding Protocol.ProtocolDate}" />
+                <Label Text="{x:Static lang:AppResources.Location}" />
+                <Entry Placeholder="{x:Static lang:AppResources.LocationHint}" Text="{Binding Protocol.Location}"/>
+                <Label Text="{x:Static lang:AppResources.Address}" />
+                <Entry Placeholder="{x:Static lang:AppResources.AddressHint}" Text="{Binding Protocol.Address}"/>
+                <Label Text="{x:Static lang:AppResources.FireEscapeNum}" />
+                <Entry Keyboard="Numeric"  Text="{Binding Protocol.FireEscapeNum}"/>
+                <Label Text="{x:Static lang:AppResources.ObjectСharacteristics}" />
+                <Picker Title = "{x:Static lang:AppResources.FireEscapeTypesHint}" 
+                        ItemsSource="{Binding ProtocolPropertiesDictionary.FireEscapeTypes}"
+                        SelectedItem="{Binding Protocol.FireEscapeType}"/>
+                <Picker Title = "{x:Static lang:AppResources.FireEscapeMountTypesHint}" 
+                        ItemsSource="{Binding ProtocolPropertiesDictionary.FireEscapeMountTypes}"
+                        SelectedItem="{Binding Protocol.FireEscapeMountType}"/>
+                <Entry Placeholder="{x:Static lang:AppResources.FireEscapeObjectHint}" Text="{Binding Protocol.FireEscapeObject}"/>
+
                 <Label Style="{StaticResource MediumLabel}" Text="{Binding Protocol.Details}" />
+                
+
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

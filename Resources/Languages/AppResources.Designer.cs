@@ -79,6 +79,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address:.
+        /// </summary>
+        internal static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify address:.
+        /// </summary>
+        internal static string AddressHint {
+            get {
+                return ResourceManager.GetString("AddressHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fire Escape.
         /// </summary>
         internal static string AppTitle {
@@ -151,6 +169,42 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specify  fire escape mount type.
+        /// </summary>
+        internal static string FireEscapeMountTypesHint {
+            get {
+                return ResourceManager.GetString("FireEscapeMountTypesHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test object number:.
+        /// </summary>
+        internal static string FireEscapeNum {
+            get {
+                return ResourceManager.GetString("FireEscapeNum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify  fire escape object name.
+        /// </summary>
+        internal static string FireEscapeObjectHint {
+            get {
+                return ResourceManager.GetString("FireEscapeObjectHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify  fire escape type.
+        /// </summary>
+        internal static string FireEscapeTypesHint {
+            get {
+                return ResourceManager.GetString("FireEscapeTypesHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to get protocols.
         /// </summary>
         internal static string GetProtocolsError {
@@ -160,11 +214,38 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location:.
+        /// </summary>
+        internal static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify city/region.
+        /// </summary>
+        internal static string LocationHint {
+            get {
+                return ResourceManager.GetString("LocationHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Protocol list.
         /// </summary>
         internal static string MainPageTitle {
             get {
                 return ResourceManager.GetString("MainPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click image to make a photo.
+        /// </summary>
+        internal static string MakePhotoHint {
+            get {
+                return ResourceManager.GetString("MakePhotoHint", resourceCulture);
             }
         }
         
@@ -187,11 +268,38 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Object сharacteristics:.
+        /// </summary>
+        internal static string ObjectСharacteristics {
+            get {
+                return ResourceManager.GetString("ObjectСharacteristics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         internal static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Protocol date:.
+        /// </summary>
+        internal static string ProtocolDate {
+            get {
+                return ResourceManager.GetString("ProtocolDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Protocol number:.
+        /// </summary>
+        internal static string ProtocolNum {
+            get {
+                return ResourceManager.GetString("ProtocolNum", resourceCulture);
             }
         }
         
