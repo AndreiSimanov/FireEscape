@@ -21,6 +21,9 @@ namespace FireEscape.Models
         public float StairHeight { get; set; }
         public uint StairWidth { get; set; }
         public uint StepsCount { get; set; }
+        public bool WeldSeamQuality { get; set; }
+        public bool ProtectiveQuality { get; set; }
+
         public string Details { get; set; } = string.Empty;
 
         [JsonIgnore]

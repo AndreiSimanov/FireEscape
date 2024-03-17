@@ -61,13 +61,21 @@
                         ItemsSource="{Binding ProtocolPropertiesDictionary.FireEscapeMountTypes}"
                         SelectedItem="{Binding Protocol.FireEscapeMountType}"/>
                 <Entry Placeholder="{x:Static lang:AppResources.FireEscapeObjectHint}" Text="{Binding Protocol.FireEscapeObject}"/>
-                <Label Style="{StaticResource MediumLabel}" Text="{Binding Protocol.Details}" />
                 <Label Text="Высота лестницы (м):" />
                 <Entry Keyboard="Numeric"  Text="{Binding Protocol.StairHeight}"/>
                 <Label Text="Ширина лестницы (мм):" />
                 <Entry Keyboard="Numeric"  Text="{Binding Protocol.StairWidth}"/>
                 <Label Text="Количество ступеней:" />
                 <Entry Keyboard="Numeric"  Text="{Binding Protocol.StepsCount}"/>
+                <StackLayout Orientation="Horizontal" >
+                    <Label  VerticalTextAlignment="Center" Text="Качество сварных швов соответствует ГОСТ" />
+                    <CheckBox Color="White" IsChecked ="{Binding Protocol.WeldSeamQuality}" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label VerticalTextAlignment="Center" Text="Качество защитных покрытий ГОСТ" />
+                    <CheckBox Color="White" IsChecked ="{Binding Protocol.ProtectiveQuality}" />
+                </StackLayout>
+
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

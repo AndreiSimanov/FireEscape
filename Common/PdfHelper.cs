@@ -126,6 +126,16 @@ namespace FireEscape.Common
                     : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.")
                 }));
 
+                document.Add(new Paragraph()
+                    .SetFixedLeading(12)
+                   .AddAll(new[] {
+                    new Text("Визуальный осмотр ").SetBold(),
+                    new Text("сварных швов лестниц и ограждений "),
+                    new Text( protocol.WeldSeamQuality ? "соответствует" : "не соответствует" ).SetBold(),
+                    new Text(" ГОСТ 5264 - 80. Качество защитных покрытий от коррозии  "),
+                    new Text( protocol.ProtectiveQuality ? "соответствует" : "не соответствует" ).SetBold(),
+                    new Text("  ГОСТ 9.302 - 88."),
+                }));
 
                 document.Add(new Paragraph(" "));
                 if (protocol.HasImage)
