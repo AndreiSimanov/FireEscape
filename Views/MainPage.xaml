@@ -95,8 +95,8 @@
                                                 Grid.Column="1"
                                                 Spacing="5"
                                                 Padding="10">
-                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObject}" />
-                                            <Label Text="{Binding FireEscapeType}" />
+                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObjectName}" />
+                                            <Label Text="{Binding FireEscape.FireEscapeType}" />
                                             <Label Text="{Binding FullAddress,  StringFormat='Адрес: {0}'}" />
                                             <Label Style="{StaticResource SmallLabel}" Text="{Binding ProtocolDate, StringFormat='Дата протокола: {0:dd.MM.yyyy}'}" />
                                         </VerticalStackLayout>

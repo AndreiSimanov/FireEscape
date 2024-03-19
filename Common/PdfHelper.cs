@@ -18,149 +18,23 @@ namespace FireEscape.Common
         const string FONT_NAME = "times.ttf";
         public static async Task MakePdfFileAsync(Protocol protocol)
         {
-            string fileName = "protocol.pdf"; //todo: changt file name to the protocol attribute 
+            var fileName = "protocol.pdf"; //todo: changt file name to the protocol attribute 
 
             var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
             var fontFilePath = await AddFontIfNotExisit();
 
-            using (PdfWriter writer = new PdfWriter(filePath))
+            using (var writer = new PdfWriter(filePath))
             {
-                PdfDocument pdf = new PdfDocument(writer);
-                Document document = new Document(pdf);
+                var pdf = new PdfDocument(writer);
+                var document = new Document(pdf);
                 var font = PdfFontFactory.CreateFont(fontFilePath, "Identity-H");
                 document.SetFont(font);
                 document.SetFontSize(12);
 
-                document.Add(new Paragraph("ПРОТОКОЛ № " + protocol.ProtocolNum)
-                    .SetFixedLeading(5)
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetBold()
-                    .SetFirstLineIndent(0));
-
-                document.Add(new Paragraph(protocol.FireEscapeType.Description)
-                    .SetFixedLeading(5)
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetBold());
-
-                Table table = new Table(2)
-                    .UseAllAvailableWidth()
-                    .SetBorder(Border.NO_BORDER);
-
-                var locationCell = new Cell()
-                    .Add(new Paragraph(protocol.Location)
-                    .SetTextAlignment(TextAlignment.LEFT)
-                    .SetBold())
-                    .SetBorder(Border.NO_BORDER);
-
-                var dateCell = new Cell()
-                    .Add(new Paragraph(string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate))
-                    .SetTextAlignment(TextAlignment.RIGHT)
-                    .SetBold())
-                    .SetBorder(Border.NO_BORDER);
-
-                table
-                    .AddCell(locationCell)
-                    .AddCell(dateCell);
-                document.Add(table);
-
-                document.Add(new Paragraph(" "));
-
-                document.Add(new Paragraph()
-                    .SetFixedLeading(12)
-                    .AddAll(new[]{
-                        new Text("Характеристика объекта: ").SetBold(),
-                        new Text((protocol.FireEscapeType.BaseFireEscapeTypeEnum == BaseFireEscapeTypeEnum.P2 ?
-                            "маршевая лестница тип П2"
-                            : protocol.FireEscapeType.Name) + ", "),
-                        new Text(protocol.FireEscapeMountType + " "),
-                        new Text(protocol.FireEscapeObject).SetBold()})
-                    );
-
-                document.Add(new Paragraph()
-                    .AddAll(new[] {
-                    new Text(" по адресу: "),
-                    new Text(protocol.FullAddress).SetBold()})
-                   );
-
-                document.Add(new Paragraph("Номер испытуемого объекта: № " + protocol.FireEscapeNum)
-                    .SetFixedLeading(8)
-                    .SetBold());
-
-                document.Add(new Paragraph()
-                    .SetFixedLeading(8)
-                   .AddAll(new[] {
-                    new Text("Высота лестницы: ").SetBold(),
-                    new Text(protocol.StairHeight.ToString()).SetBold().SetUnderline(),
-                    new Text(" м.")
-                }));
-
-                document.Add(new Paragraph()
-                    .SetFixedLeading(8)
-                   .AddAll(new[] {
-                    new Text("Ширина лестницы: ").SetBold(),
-                    new Text(protocol.StairWidth.ToString()).SetBold().SetUnderline(),
-                    new Text(" мм.")
-                }));
-
-                document.Add(new Paragraph()
-                    .SetFixedLeading(8)
-                   .AddAll(new[] {
-                    new Text("Количество ступеней: ").SetBold(),
-                    new Text(protocol.StepsCount.ToString()).SetBold().SetUnderline(),
-                    new Text(" шт.")
-                }));
-
-                document.Add(new Paragraph()
-                    .SetFixedLeading(12)
-                   .AddAll(new[] {
-                    new Text("Условия проведения испытания: ").SetBold(),
-                    new Text("скорость ветра до 10 м/с, время суток - дневное, в условиях визуальной видимости испытателей друг друга.")
-                }));
-
-                document.Add(new Paragraph()
-                    .SetFixedLeading(12)
-                   .AddAll(new[] {
-                    new Text("Средства испытаний: ").SetBold(),
-                    new Text(protocol.FireEscapeType.BaseFireEscapeTypeEnum == BaseFireEscapeTypeEnum.P2 ?
-                    "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
-                    : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.")
-                }));
-
-                document.Add(new Paragraph()
-                    .SetFixedLeading(12)
-                   .AddAll(new[] {
-                    new Text("Визуальный осмотр ").SetBold(),
-                    new Text("сварных швов лестниц и ограждений "),
-                    new Text( protocol.WeldSeamQuality ? "соответствует" : "не соответствует" ).SetBold(),
-                    new Text(" ГОСТ 5264 - 80. Качество защитных покрытий от коррозии  "),
-                    new Text( protocol.ProtectiveQuality ? "соответствует" : "не соответствует" ).SetBold(),
-                    new Text("  ГОСТ 9.302 - 88."),
-                }));
-
-                document.Add(new Paragraph(" "));
-                if (protocol.HasImage)
-                {
-                    var pageSize = pdf.GetDefaultPageSize();
-                    
-
-                    var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocol.Image))
-                        .SetHorizontalAlignment(HorizontalAlignment.CENTER)
-                        .SetMaxWidth(pageSize.GetWidth()/1.5f)
-                        .SetMaxHeight(pageSize.GetHeight() / 1.5f)
-                        .SetRotationAngle(GetRotation(protocol.Image));
-                    document.Add(pdfImage);
-                }
-
-                /*
-                LineSeparator ls = new LineSeparator(new SolidLine());
-                document.Add(ls);
-
-                Paragraph footer = new Paragraph("Don't forget to like and subscribe!")
-                    .SetTextAlignment(TextAlignment.RIGHT)
-                    .SetFontColor(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY)
-                    .SetFontSize(14);
-                document.Add(footer);
-                */
+                MakePdfHeader(document, protocol);
+                MakePdfFireEscapeOverview(document, protocol);
+                MakePdfImage(pdf, document, protocol);
+                MakePdfFooter(document, protocol);
 
                 document.Close();
             }
@@ -168,6 +42,149 @@ namespace FireEscape.Common
             {
                 File = new ReadOnlyFile(filePath)
             });
+        }
+
+        private static void MakePdfHeader(Document document, Protocol protocol)
+        {
+            document.Add(new Paragraph("ПРОТОКОЛ № " + protocol.ProtocolNum)
+                .SetFixedLeading(5)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetBold()
+                .SetFirstLineIndent(0));
+
+            var fireEscapeTypeDescription = protocol.FireEscape.IsEvacuation
+                ? "испытания пожарной эвакуационной лестницы"
+                : protocol.FireEscape.FireEscapeType.FireEscapeTypeEnum == FireEscapeTypeEnum.P2
+                    ? "испытания пожарной маршевой лестницы"
+                    : "испытания пожарной лестницы";
+            
+            document.Add(new Paragraph(fireEscapeTypeDescription)
+                .SetFixedLeading(5)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetBold());
+
+            var table = new Table(2)
+                .UseAllAvailableWidth()
+                .SetBorder(Border.NO_BORDER);
+
+            var locationCell = new Cell()
+                .Add(new Paragraph(protocol.Location)
+                .SetTextAlignment(TextAlignment.LEFT)
+                .SetBold())
+                .SetBorder(Border.NO_BORDER);
+
+            var dateCell = new Cell()
+                .Add(new Paragraph(string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate))
+                .SetTextAlignment(TextAlignment.RIGHT)
+                .SetBold())
+                .SetBorder(Border.NO_BORDER);
+
+            table
+                .AddCell(locationCell)
+                .AddCell(dateCell);
+            document.Add(table);
+
+            document.Add(new Paragraph(" "));
+        }
+
+        private static void MakePdfFireEscapeOverview(Document document, Protocol protocol)
+        {
+            document.Add(new Paragraph()
+                .SetFixedLeading(12)
+                .AddAll(new[]{
+                    new Text("Характеристика объекта: ").SetBold(),
+                    new Text((protocol.FireEscape.FireEscapeType.BaseFireEscapeTypeEnum == BaseFireEscapeTypeEnum.P2
+                        ? "маршевая лестница тип П2"
+                        : protocol.FireEscape.FireEscapeType.Name) + ", "),
+                    new Text(protocol.FireEscape.FireEscapeMountType + " "),
+                    new Text(protocol.FireEscapeObject).SetBold()})
+            );
+
+            document.Add(new Paragraph()
+                .AddAll(new[] {
+                    new Text(" по адресу: "),
+                    new Text(protocol.FullAddress).SetBold()})
+               );
+
+            document.Add(new Paragraph("Номер испытуемого объекта: № " + protocol.FireEscapeNum)
+                .SetFixedLeading(8)
+                .SetBold());
+
+            document.Add(new Paragraph()
+                .SetFixedLeading(8)
+                .AddAll(new[] {
+                    new Text("Высота лестницы: ").SetBold(),
+                    new Text(protocol.FireEscape.StairHeight.ToString()).SetBold().SetUnderline(),
+                    new Text(" м.")}));
+
+            document.Add(new Paragraph()
+                .SetFixedLeading(8)
+                .AddAll(new[] {
+                    new Text("Ширина лестницы: ").SetBold(),
+                    new Text(protocol.FireEscape.StairWidth.ToString()).SetBold().SetUnderline(),
+                    new Text(" мм.")}));
+
+            document.Add(new Paragraph()
+                .SetFixedLeading(8)
+                .AddAll(new[] {
+                    new Text("Количество ступеней: ").SetBold(),
+                    new Text(protocol.FireEscape.StepsCount.ToString()).SetBold().SetUnderline(),
+                    new Text(" шт.")}));
+
+            document.Add(new Paragraph()
+                .SetFixedLeading(12)
+                .AddAll(new[] {
+                    new Text("Условия проведения испытания: ").SetBold(),
+                    new Text("скорость ветра до 10 м/с, время суток - дневное, в условиях визуальной видимости испытателей друг друга.")}));
+
+            document.Add(new Paragraph()
+                .SetFixedLeading(12)
+                .AddAll(new[] {
+                    new Text("Средства испытаний: ").SetBold(),
+                    new Text(protocol.FireEscape.FireEscapeType.BaseFireEscapeTypeEnum == BaseFireEscapeTypeEnum.P2 ?
+                    "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
+                    : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.")}));
+
+            document.Add(new Paragraph()
+                .SetFixedLeading(12)
+                .AddAll(new[] {
+                    new Text("Визуальный осмотр ").SetBold(),
+                    new Text("сварных швов лестниц и ограждений "),
+                    new Text( protocol.FireEscape.WeldSeamQuality ? "соответствует" : "не соответствует" ).SetBold(),
+                    new Text(" ГОСТ 5264 - 80. Качество защитных покрытий от коррозии  "),
+                    new Text( protocol.FireEscape.ProtectiveQuality ? "соответствует" : "не соответствует" ).SetBold(),
+                    new Text("  ГОСТ 9.302 - 88.")}));
+
+            document.Add(new Paragraph(" "));
+        }
+
+        private static void MakePdfImage(PdfDocument pdf, Document document, Protocol protocol)
+        {
+            if (!protocol.HasImage)
+                return;
+
+            var pageSize = pdf.GetDefaultPageSize();
+            var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocol.Image))
+                .SetHorizontalAlignment(HorizontalAlignment.CENTER)
+                .SetMaxWidth(pageSize.GetWidth() / 1.5f)
+                .SetMaxHeight(pageSize.GetHeight() / 1.5f)
+                .SetRotationAngle(GetRotation(protocol.Image));
+            document.Add(pdfImage);
+            document.Add(new Paragraph(" "));
+        }
+
+        private static void MakePdfFooter(Document document, Protocol protocol)
+        {
+            if (string.IsNullOrEmpty(protocol.Customer))
+                return;
+
+            document.Add(new Paragraph()
+                .SetFixedLeading(8)
+                .AddAll(new[] {
+                    new Text("Присутствовали: Представитель Заказчика "),
+                    new Text(protocol.Customer).SetBold()}));
+            document.Add(new Paragraph("М.П.").SetFixedLeading(8));
+            document.Add(new Paragraph("_______________ / ___________ /").SetTextAlignment(TextAlignment.RIGHT));
         }
 
         private static async Task<string> AddFontIfNotExisit()
@@ -202,3 +219,15 @@ namespace FireEscape.Common
         }
     }
 }
+
+
+/*
+LineSeparator ls = new LineSeparator(new SolidLine());
+document.Add(ls);
+
+Paragraph footer = new Paragraph("Don't forget to like and subscribe!")
+    .SetTextAlignment(TextAlignment.RIGHT)
+    .SetFontColor(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY)
+    .SetFontSize(14);
+document.Add(footer);
+*/

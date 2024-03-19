@@ -54,13 +54,18 @@
                 <Label Text="{x:Static lang:AppResources.FireEscapeNum}" />
                 <Entry Keyboard="Numeric"  Text="{Binding Protocol.FireEscapeNum}"/>
                 <Label Text="{x:Static lang:AppResources.ObjectСharacteristics}" />
+                <Entry Placeholder="{x:Static lang:AppResources.FireEscapeObjectHint}" Text="{Binding Protocol.FireEscapeObject}"/>
+                <Label Text="{x:Static lang:AppResources.Customer}" />
+                <Entry Placeholder="{x:Static lang:AppResources.CustomerHint}" Text="{Binding Protocol.Customer}"/>
+                <!--
+
                 <Picker Title = "{x:Static lang:AppResources.FireEscapeTypesHint}" 
                         ItemsSource="{Binding ProtocolPropertiesDictionary.FireEscapeTypes}"
                         SelectedItem="{Binding Protocol.FireEscapeType}"/>
                 <Picker Title = "{x:Static lang:AppResources.FireEscapeMountTypesHint}" 
                         ItemsSource="{Binding ProtocolPropertiesDictionary.FireEscapeMountTypes}"
                         SelectedItem="{Binding Protocol.FireEscapeMountType}"/>
-                <Entry Placeholder="{x:Static lang:AppResources.FireEscapeObjectHint}" Text="{Binding Protocol.FireEscapeObject}"/>
+
                 <Label Text="Высота лестницы (м):" />
                 <Entry Keyboard="Numeric"  Text="{Binding Protocol.StairHeight}"/>
                 <Label Text="Ширина лестницы (мм):" />
@@ -75,7 +80,8 @@
                     <Label VerticalTextAlignment="Center" Text="Качество защитных покрытий ГОСТ" />
                     <CheckBox Color="White" IsChecked ="{Binding Protocol.ProtectiveQuality}" />
                 </StackLayout>
-
+-->
+                
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

@@ -15,23 +15,24 @@ namespace FireEscape.Models
         public DateTime ProtocolDate { get; set; }
         public string Address { get; set; } = string.Empty;
         public uint FireEscapeNum { get; set; }
-        public FireEscapeType FireEscapeType { get; set; }
-        public string FireEscapeMountType { get; set; } = string.Empty;
-        public string FireEscapeObject { get; set; } = string.Empty;
-        public float StairHeight { get; set; }
-        public uint StairWidth { get; set; }
-        public uint StepsCount { get; set; }
-        public bool WeldSeamQuality { get; set; }
-        public bool ProtectiveQuality { get; set; }
-
         public string Details { get; set; } = string.Empty;
+        public string FireEscapeObject { get; set; } = string.Empty;
+        public string Customer { get; set; } = string.Empty;
+
+        public FireEscape FireEscape { get; set; } = new();
+
+        [JsonIgnore]
+        public string FireEscapeObjectName => string.IsNullOrWhiteSpace(FireEscapeObject)
+            ? string.IsNullOrWhiteSpace(Customer) ? AppResources.FireEscape : Customer
+            : FireEscapeObject;
 
         [JsonIgnore]
         public string FullAddress => Location + ", " + Address;
         [JsonIgnore]
         public bool HasImage => !string.IsNullOrWhiteSpace(Image) && !string.Equals(Image, AppResources.NoPhoto) && File.Exists(Image);
-        public List<BaseFireEscape> FireEscapes { get; set; } = new();
-        [JsonIgnore]
-        public BaseFireEscape? CurrentFireEscape => FireEscapes?.FirstOrDefault(item => item.BaseFireEscapeTypeEnum == FireEscapeType.BaseFireEscapeTypeEnum);
+
+
+
+
     }
 }

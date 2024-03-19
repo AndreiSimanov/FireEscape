@@ -40,21 +40,30 @@ namespace FireEscape.Services
                 Console.WriteLine($"{endpoint.IPAddress}:{endpoint.Port}");
             }
             */
-        }    
+        }
 
-        public async Task<Protocol> CreateProtocol() 
+
+        private Protocol CreateDefaultProtocol()
         {
-            var protocol = new Protocol() {
+            return new Protocol()
+            {
                 Image = AppResources.NoPhoto!,
                 ProtocolNum = settings.ProtocolNum,
                 Location = settings.Location,
                 ProtocolDate = DateTime.Today,
                 FireEscapeNum = settings.FireEscapeNum,
-                FireEscapeType = protocolPropertiesDictionary.FireEscapeTypes![0],
-                FireEscapeMountType = protocolPropertiesDictionary.FireEscapeMountTypes![0],
+                FireEscape = new Models.FireEscape()
+                {
+                    FireEscapeType = protocolPropertiesDictionary.FireEscapeTypes![0],
+                    FireEscapeMountType = protocolPropertiesDictionary.FireEscapeMountTypes![0]
+                },
                 Created = DateTime.Now
             };
+        }
 
+        public async Task<Protocol> CreateProtocol() 
+        {
+            var protocol = CreateDefaultProtocol();
             await SaveProtocolAsync(protocol);
             return protocol;
         } 
@@ -86,10 +95,6 @@ namespace FireEscape.Services
 
         public async Task<List<Protocol>> GetProtocolsAsync()
         {
-
-
-
-
             if (protocolList.Count > 0)
                 return protocolList;
             var files = Directory.GetFiles(AppSettingsExtension.ContentFolder, "*.json");
@@ -106,7 +111,10 @@ namespace FireEscape.Services
                     catch (Exception ex)
                     {
                         Debug.WriteLine($"Error: {ex.Message}");
-                        protocol = CreateBrokenProtocol(file);
+
+                        protocol = CreateDefaultProtocol();
+                        protocol.FireEscapeObject = AppResources.BrokenData;
+                        protocol.SourceFile = file;
                     }
 
                     if (protocol != null)
@@ -116,7 +124,6 @@ namespace FireEscape.Services
                     }
                 }
             }
-
             protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
             return protocolList;
         }
@@ -142,17 +149,6 @@ namespace FireEscape.Services
                     protocol.Image = photoFilePath;
                 }
             }
-        }
-
-        private Protocol CreateBrokenProtocol(string file)
-        {
-            var protocol = new Protocol()
-            {
-                FireEscapeObject = AppResources.BrokenData,
-                Image = AppResources.NoPhoto!,
-                SourceFile= file
-            };
-            return protocol;
         }
     }
 }

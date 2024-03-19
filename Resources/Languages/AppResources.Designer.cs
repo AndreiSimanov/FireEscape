@@ -133,6 +133,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer representative.
+        /// </summary>
+        internal static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify representative of the customer.
+        /// </summary>
+        internal static string CustomerHint {
+            get {
+                return ResourceManager.GetString("CustomerHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string Delete {
@@ -169,7 +187,16 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify  fire escape mount type.
+        ///   Looks up a localized string similar to Fire escape.
+        /// </summary>
+        internal static string FireEscape {
+            get {
+                return ResourceManager.GetString("FireEscape", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify fire escape mount type.
         /// </summary>
         internal static string FireEscapeMountTypesHint {
             get {
@@ -187,7 +214,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify  fire escape object name.
+        ///   Looks up a localized string similar to Specify fire escape object name.
         /// </summary>
         internal static string FireEscapeObjectHint {
             get {
@@ -196,7 +223,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify  fire escape type.
+        ///   Looks up a localized string similar to Specify fire escape type.
         /// </summary>
         internal static string FireEscapeTypesHint {
             get {

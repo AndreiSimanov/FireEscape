@@ -141,6 +141,12 @@
   <data name="CreatePdfFileError" xml:space="preserve">
     <value>Невозможно создать PDF файл</value>
   </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Представитель Заказчика</value>
+  </data>
+  <data name="CustomerHint" xml:space="preserve">
+    <value>Укажите представителя заказчика</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
+  </data>
+  <data name="FireEscape" xml:space="preserve">
+    <value>Пожарная лестница</value>
   </data>
   <data name="FireEscapeMountTypesHint" xml:space="preserve">
     <value>Укажите тип установки лестницы</value>

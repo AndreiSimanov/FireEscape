@@ -141,6 +141,12 @@
   <data name="CreatePdfFileError" xml:space="preserve">
     <value>Unable to create PDF file</value>
   </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer representative</value>
+  </data>
+  <data name="CustomerHint" xml:space="preserve">
+    <value>Specify representative of the customer</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -153,17 +159,20 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="FireEscape" xml:space="preserve">
+    <value>Fire escape</value>
+  </data>
   <data name="FireEscapeMountTypesHint" xml:space="preserve">
-    <value>Specify  fire escape mount type</value>
+    <value>Specify fire escape mount type</value>
   </data>
   <data name="FireEscapeNum" xml:space="preserve">
     <value>Test object number:</value>
   </data>
   <data name="FireEscapeObjectHint" xml:space="preserve">
-    <value>Specify  fire escape object name</value>
+    <value>Specify fire escape object name</value>
   </data>
   <data name="FireEscapeTypesHint" xml:space="preserve">
-    <value>Specify  fire escape type</value>
+    <value>Specify fire escape type</value>
   </data>
   <data name="GetProtocolsError" xml:space="preserve">
     <value>Unable to get protocols</value>
