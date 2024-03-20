@@ -40,7 +40,7 @@
                    Text="{x:Static lang:AppResources.MakePhotoHint}" 
                    HorizontalOptions="Center"
                    Margin="0,0,0,8"/>
-            <VerticalStackLayout Grid.Row="2" Padding="5" Spacing="5">
+            <VerticalStackLayout Grid.Row="2" Padding="5" Spacing="5" Margin="10" >
                 <Label Text="{x:Static lang:AppResources.ProtocolNum}" />
                 <Entry Keyboard="Numeric"  Text="{Binding Protocol.ProtocolNum}"/>
                 <Label Text="{x:Static lang:AppResources.ProtocolDate}" />
@@ -51,7 +51,7 @@
                 <Entry Placeholder="{x:Static lang:AppResources.AddressHint}" Text="{Binding Protocol.Address}"/>
                 <Label Text="{x:Static lang:AppResources.FireEscapeNum}" />
                 <Entry Keyboard="Numeric"  Text="{Binding Protocol.FireEscapeNum}"/>
-                <Label Text="{x:Static lang:AppResources.ObjectСharacteristics}" />
+                <Label Text="{x:Static lang:AppResources.FireEscapeObject}" />
                 <Entry Placeholder="{x:Static lang:AppResources.FireEscapeObjectHint}" Text="{Binding Protocol.FireEscapeObject}"/>
                 <Label Text="{x:Static lang:AppResources.Customer}" />
                 <Entry Placeholder="{x:Static lang:AppResources.CustomerHint}" Text="{Binding Protocol.Customer}"/>

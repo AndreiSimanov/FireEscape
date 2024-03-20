@@ -8,9 +8,9 @@ namespace FireEscape.Models
         public bool IsEvacuation { get; set; }
         public string FireEscapeMountType { get; set; } = string.Empty;
         
-        public float StairHeight { get; set; }
-        public uint StairWidth { get; set; }
-        public uint StepsCount { get; set; }
+        public float? StairHeight { get; set; }
+        public uint? StairWidth { get; set; }
+        public uint? StepsCount { get; set; }
         public bool WeldSeamQuality { get; set; }
         public bool ProtectiveQuality { get; set; }
         public List<BaseFireEscape> FireEscapes { get; set; } = new();

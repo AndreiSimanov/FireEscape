@@ -142,7 +142,7 @@
     <value>Невозможно создать PDF файл</value>
   </data>
   <data name="Customer" xml:space="preserve">
-    <value>Представитель Заказчика</value>
+    <value>Представитель заказчика</value>
   </data>
   <data name="CustomerHint" xml:space="preserve">
     <value>Укажите представителя заказчика</value>
@@ -168,11 +168,14 @@
   <data name="FireEscapeNum" xml:space="preserve">
     <value>Номер испытуемого объекта:</value>
   </data>
+  <data name="FireEscapeObject" xml:space="preserve">
+    <value>Название объекта:</value>
+  </data>
   <data name="FireEscapeObjectHint" xml:space="preserve">
     <value>Укажите название объекта</value>
   </data>
   <data name="FireEscapePageTitle" xml:space="preserve">
-    <value>Характеристики пожарной лестницы</value>
+    <value>Характеристики лестницы</value>
   </data>
   <data name="FireEscapeTypesHint" xml:space="preserve">
     <value>Укажите тип лестницы</value>
@@ -197,9 +200,6 @@
   </data>
   <data name="NoPhoto" xml:space="preserve">
     <value>nophoto.png</value>
-  </data>
-  <data name="ObjectСharacteristics" xml:space="preserve">
-    <value>Характеристики объекта:</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>

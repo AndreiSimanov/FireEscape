@@ -214,6 +214,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fire escape object name:.
+        /// </summary>
+        internal static string FireEscapeObject {
+            get {
+                return ResourceManager.GetString("FireEscapeObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Specify fire escape object name.
         /// </summary>
         internal static string FireEscapeObjectHint {
@@ -300,15 +309,6 @@ namespace FireEscape.Resources.Languages {
         internal static string NoPhoto {
             get {
                 return ResourceManager.GetString("NoPhoto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Object сharacteristics:.
-        /// </summary>
-        internal static string ObjectСharacteristics {
-            get {
-                return ResourceManager.GetString("ObjectСharacteristics", resourceCulture);
             }
         }
         

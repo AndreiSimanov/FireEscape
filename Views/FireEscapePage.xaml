@@ -8,10 +8,14 @@
              Title="{x:Static lang:AppResources.FireEscapePageTitle}"
              x:DataType="viewmodel:FireEscapeViewModel">
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
-        <VerticalStackLayout Padding="5" Spacing="5">
+        <VerticalStackLayout Padding="5" Spacing="5" Margin="10" >
             <Picker Title = "{x:Static lang:AppResources.FireEscapeTypesHint}" 
                         ItemsSource="{Binding FireEscapePropertiesDictionary.FireEscapeTypes}"
                         SelectedItem="{Binding FireEscape.FireEscapeType}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label VerticalTextAlignment="Center" Text="Эвакуационная лестница" />
+                <CheckBox Color="White" IsChecked ="{Binding FireEscape.IsEvacuation}" />
+            </StackLayout>
             <Picker Title = "{x:Static lang:AppResources.FireEscapeMountTypesHint}" 
                         ItemsSource="{Binding FireEscapePropertiesDictionary.FireEscapeMountTypes}"
                         SelectedItem="{Binding FireEscape.FireEscapeMountType}"/>

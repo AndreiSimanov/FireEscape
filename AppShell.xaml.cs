@@ -5,9 +5,9 @@
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
-            Routing.RegisterRoute(nameof(ProtocolPage), typeof(ProtocolPage));
             Routing.RegisterRoute(nameof(FireEscapePage), typeof(FireEscapePage));
+            Routing.RegisterRoute(nameof(ProtocolPage), typeof(ProtocolPage));
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         }
     }
 }
