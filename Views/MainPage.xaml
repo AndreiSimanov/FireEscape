@@ -14,7 +14,9 @@
              Appearing="ContentPage_Appearing">
 
     <ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{AppThemeBinding Light={StaticResource OffBlack}, Dark={StaticResource OffBlack}}" />
+        <toolkit:StatusBarBehavior 
+            StatusBarColor="{ AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black} }"
+            StatusBarStyle="{ AppThemeBinding Light=DarkContent, Dark=LightContent }" />
     </ContentPage.Behaviors>
     
     <Grid
@@ -26,6 +28,7 @@
         <Button
             Grid.ColumnSpan="2"
             Margin="10"
+            FontSize="30"
             Command="{Binding AddProtocolCommand}"
             IsEnabled="{Binding IsNotBusy}"
             Style="{StaticResource ButtonView }"

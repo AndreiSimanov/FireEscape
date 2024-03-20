@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FireEscape.Views.FireEscapePage"
+             xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+             xmlns:model="clr-namespace:FireEscape.Models"
+             xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+             Title="{x:Static lang:AppResources.FireEscapePageTitle}"
+             x:DataType="viewmodel:FireEscapeViewModel">
+    <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
+        <VerticalStackLayout Padding="5" Spacing="5">
+            <Picker Title = "{x:Static lang:AppResources.FireEscapeTypesHint}" 
+                        ItemsSource="{Binding FireEscapePropertiesDictionary.FireEscapeTypes}"
+                        SelectedItem="{Binding FireEscape.FireEscapeType}"/>
+            <Picker Title = "{x:Static lang:AppResources.FireEscapeMountTypesHint}" 
+                        ItemsSource="{Binding FireEscapePropertiesDictionary.FireEscapeMountTypes}"
+                        SelectedItem="{Binding FireEscape.FireEscapeMountType}"/>
+            <Label Text="Высота лестницы (м):" />
+            <Entry Keyboard="Numeric"  Text="{Binding FireEscape.StairHeight}"/>
+            <Label Text="Ширина лестницы (мм):" />
+            <Entry Keyboard="Numeric"  Text="{Binding FireEscape.StairWidth}"/>
+            <Label Text="Количество ступеней:" />
+            <Entry Keyboard="Numeric"  Text="{Binding FireEscape.StepsCount}"/>
+            <StackLayout Orientation="Horizontal" >
+                <Label  VerticalTextAlignment="Center" Text="Качество сварных швов соответствует ГОСТ" />
+                <CheckBox Color="White" IsChecked ="{Binding FireEscape.WeldSeamQuality}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label VerticalTextAlignment="Center" Text="Качество защитных покрытий ГОСТ" />
+                <CheckBox Color="White" IsChecked ="{Binding FireEscape.ProtectiveQuality}" />
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

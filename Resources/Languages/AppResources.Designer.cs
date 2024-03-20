@@ -223,6 +223,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fire escape properties.
+        /// </summary>
+        internal static string FireEscapePageTitle {
+            get {
+                return ResourceManager.GetString("FireEscapePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Specify fire escape type.
         /// </summary>
         internal static string FireEscapeTypesHint {

@@ -171,6 +171,9 @@
   <data name="FireEscapeObjectHint" xml:space="preserve">
     <value>Specify fire escape object name</value>
   </data>
+  <data name="FireEscapePageTitle" xml:space="preserve">
+    <value>Fire escape properties</value>
+  </data>
   <data name="FireEscapeTypesHint" xml:space="preserve">
     <value>Specify fire escape type</value>
   </data>

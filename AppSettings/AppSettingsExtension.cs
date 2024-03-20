@@ -3,12 +3,12 @@
     public static class AppSettingsExtension
     {
         private const string NEW_PROTOCOL_SETTINGS = "NewProtocolSettings";
-        private const string PROTOCOL_PROPERTIES_DICTIONARY = "ProtocolPropertiesDictionary";
+        private const string FIREESCAPE_PROPERTIES_DICTIONARY = "FireEscapePropertiesDictionary";
 
         public static MauiAppBuilder UseAppSettings(this MauiAppBuilder builder, IConfiguration configuration)
         {
             builder.Services.Configure<NewProtocolSettings>(options => configuration.GetSection(NEW_PROTOCOL_SETTINGS).Bind(options));
-            builder.Services.Configure<ProtocolPropertiesDictionary>(options => configuration.GetSection(PROTOCOL_PROPERTIES_DICTIONARY).Bind(options));
+            builder.Services.Configure<FireEscapePropertiesDictionary>(options => configuration.GetSection(FIREESCAPE_PROPERTIES_DICTIONARY).Bind(options));
             return builder;
         }
 

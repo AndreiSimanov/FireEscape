@@ -150,12 +150,10 @@
     <Style x:Key="ButtonView" TargetType="Button">
         <Setter Property="BorderColor" Value="#DDDDDD" />
         <Setter Property="Padding" Value="0" />
-        <Setter Property="FontSize" Value="30" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource CardBackgroundDark}}" />
         <Setter Property="CornerRadius" Value="10" />
     </Style>
-
 
     <Style TargetType="ImageButton">
         <Setter Property="Opacity" Value="1" />
@@ -474,5 +472,18 @@
             </VisualStateGroupList>
         </Setter>
     </Style>
+
+    <Style x:Key="BaseStyle" TargetType="Element">
+        <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+        <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource Primary}, Default=White}" />
+        <Setter Property="Shell.TitleColor" Value="White" />
+        <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+        <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource PrimaryDark},Dark={StaticResource Primary} }" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource Primary}}" />
+    </Style>
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" ApplyToDerivedTypes="True" />
 
 </ResourceDictionary>

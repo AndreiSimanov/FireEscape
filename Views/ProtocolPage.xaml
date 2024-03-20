@@ -11,7 +11,6 @@
 
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
         <Grid RowDefinitions="Auto,Auto,*">
-
             <Border StrokeShape="RoundRectangle 80"
                     Stroke="White"
                     StrokeThickness="10"
@@ -41,7 +40,6 @@
                    Text="{x:Static lang:AppResources.MakePhotoHint}" 
                    HorizontalOptions="Center"
                    Margin="0,0,0,8"/>
-
             <VerticalStackLayout Grid.Row="2" Padding="5" Spacing="5">
                 <Label Text="{x:Static lang:AppResources.ProtocolNum}" />
                 <Entry Keyboard="Numeric"  Text="{Binding Protocol.ProtocolNum}"/>
@@ -57,31 +55,11 @@
                 <Entry Placeholder="{x:Static lang:AppResources.FireEscapeObjectHint}" Text="{Binding Protocol.FireEscapeObject}"/>
                 <Label Text="{x:Static lang:AppResources.Customer}" />
                 <Entry Placeholder="{x:Static lang:AppResources.CustomerHint}" Text="{Binding Protocol.Customer}"/>
-                <!--
-
-                <Picker Title = "{x:Static lang:AppResources.FireEscapeTypesHint}" 
-                        ItemsSource="{Binding ProtocolPropertiesDictionary.FireEscapeTypes}"
-                        SelectedItem="{Binding Protocol.FireEscapeType}"/>
-                <Picker Title = "{x:Static lang:AppResources.FireEscapeMountTypesHint}" 
-                        ItemsSource="{Binding ProtocolPropertiesDictionary.FireEscapeMountTypes}"
-                        SelectedItem="{Binding Protocol.FireEscapeMountType}"/>
-
-                <Label Text="Высота лестницы (м):" />
-                <Entry Keyboard="Numeric"  Text="{Binding Protocol.StairHeight}"/>
-                <Label Text="Ширина лестницы (мм):" />
-                <Entry Keyboard="Numeric"  Text="{Binding Protocol.StairWidth}"/>
-                <Label Text="Количество ступеней:" />
-                <Entry Keyboard="Numeric"  Text="{Binding Protocol.StepsCount}"/>
-                <StackLayout Orientation="Horizontal" >
-                    <Label  VerticalTextAlignment="Center" Text="Качество сварных швов соответствует ГОСТ" />
-                    <CheckBox Color="White" IsChecked ="{Binding Protocol.WeldSeamQuality}" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label VerticalTextAlignment="Center" Text="Качество защитных покрытий ГОСТ" />
-                    <CheckBox Color="White" IsChecked ="{Binding Protocol.ProtectiveQuality}" />
-                </StackLayout>
--->
-                
+                <Button Margin="10" 
+                        Command="{Binding GoToDetailsCommand}" 
+                        IsEnabled="{Binding IsNotBusy}" 
+                        Style="{StaticResource ButtonView }"
+                        Text="Параметры пожарной лестницы" />
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

@@ -9,12 +9,12 @@ namespace FireEscape.Services
     {
         List<Protocol> protocolList = new();
         readonly NewProtocolSettings settings;
-        readonly ProtocolPropertiesDictionary protocolPropertiesDictionary;
+        readonly FireEscapePropertiesDictionary fireEscapePropertiesDictionary;
 
-        public ProtocolService(IOptions<NewProtocolSettings> settings, IOptions<ProtocolPropertiesDictionary> protocolPropertiesDictionary) 
+        public ProtocolService(IOptions<NewProtocolSettings> settings, IOptions<FireEscapePropertiesDictionary> fireEscapePropertiesDictionary) 
         {
             this.settings = settings.Value;
-            this.protocolPropertiesDictionary = protocolPropertiesDictionary.Value;
+            this.fireEscapePropertiesDictionary = fireEscapePropertiesDictionary.Value;
 
 
             //this.configuration = configuration;
@@ -54,8 +54,8 @@ namespace FireEscape.Services
                 FireEscapeNum = settings.FireEscapeNum,
                 FireEscape = new Models.FireEscape()
                 {
-                    FireEscapeType = protocolPropertiesDictionary.FireEscapeTypes![0],
-                    FireEscapeMountType = protocolPropertiesDictionary.FireEscapeMountTypes![0]
+                    FireEscapeType = fireEscapePropertiesDictionary.FireEscapeTypes![0],
+                    FireEscapeMountType = fireEscapePropertiesDictionary.FireEscapeMountTypes![0]
                 },
                 Created = DateTime.Now
             };

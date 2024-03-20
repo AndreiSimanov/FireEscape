@@ -32,12 +32,12 @@ public partial class MainPage : ContentPage
         }
     }
 
-    public void OnSwipeChanging(object sender, SwipeChangingEventArgs args)
+    private void OnSwipeChanging(object sender, SwipeChangingEventArgs args)
     {
         swipeOffSet = args.Offset;
     }
 
-    public void OnSwipeEnded(object sender, SwipeEndedEventArgs args) // Reduce Swipeview Sensitivity .Net Maui https://stackoverflow.com/questions/72635530/reduce-swipeview-sensitivity-net-maui
+    private void OnSwipeEnded(object sender, SwipeEndedEventArgs args) // Reduce Swipeview Sensitivity .Net Maui https://stackoverflow.com/questions/72635530/reduce-swipeview-sensitivity-net-maui
     {
         if (!args.IsOpen && swipeOffSet < 5 && swipeOffSet > -5 && MainViewModel != null)
         {

@@ -1,5 +1,4 @@
 ﻿using FireEscape.Resources.Languages;
-using Microsoft.Extensions.Options;
 
 namespace FireEscape.ViewModels
 {
@@ -10,12 +9,10 @@ namespace FireEscape.ViewModels
         Protocol? protocol;
 
         readonly ProtocolService protocolService;
-        public ProtocolPropertiesDictionary ProtocolPropertiesDictionary { get; private set; }
 
-        public ProtocolViewModel(ProtocolService protocolService, IOptions<ProtocolPropertiesDictionary> protocolPropertiesDictionary)
+        public ProtocolViewModel(ProtocolService protocolService)
         {
             this.protocolService = protocolService;
-            ProtocolPropertiesDictionary = protocolPropertiesDictionary.Value;
         }
 
         [RelayCommand]
@@ -55,6 +52,15 @@ namespace FireEscape.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        [RelayCommand]
+        async Task GoToDetailsAsync()
+        {
+
+            if (IsBusy || Protocol == null)
+                return;
+            await Shell.Current.GoToAsync(nameof(FireEscapePage), true, new Dictionary<string, object> { { nameof(FireEscape), Protocol.FireEscape } });
         }
     }
 }
