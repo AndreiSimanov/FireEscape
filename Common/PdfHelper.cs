@@ -23,21 +23,21 @@ namespace FireEscape.Common
             var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
             var fontFilePath = await AddFontIfNotExisit();
 
-            using (var writer = new PdfWriter(filePath))
-            {
-                var pdf = new PdfDocument(writer);
-                var document = new Document(pdf);
-                var font = PdfFontFactory.CreateFont(fontFilePath, "Identity-H");
-                document.SetFont(font);
-                document.SetFontSize(12);
+            using var writer = new PdfWriter(filePath);
 
-                MakePdfHeader(document, protocol);
-                MakePdfFireEscapeOverview(document, protocol);
-                MakePdfImage(pdf, document, protocol);
-                MakePdfFooter(document, protocol);
+            var pdf = new PdfDocument(writer);
+            var document = new Document(pdf);
+            var font = PdfFontFactory.CreateFont(fontFilePath, "Identity-H");
+            document.SetFont(font);
+            document.SetFontSize(12);
 
-                document.Close();
-            }
+            MakePdfHeader(document, protocol);
+            MakePdfFireEscapeOverview(document, protocol);
+            MakePdfImage(pdf, document, protocol);
+            MakePdfFooter(document, protocol);
+
+            document.Close();
+
             await Launcher.OpenAsync(new OpenFileRequest
             {
                 File = new ReadOnlyFile(filePath)
@@ -192,12 +192,10 @@ namespace FireEscape.Common
             var fontFilePath = Path.Combine(AppSettingsExtension.ContentFolder, FONT_NAME);
             if (!File.Exists(fontFilePath))
             {
-                using (var stream = await FileSystem.OpenAppPackageFileAsync(FONT_NAME))
-                using (var fileStream = new FileStream(fontFilePath, FileMode.Create, FileAccess.Write))
-                {
-                    await stream.CopyToAsync(fileStream);
-                    await stream.FlushAsync();
-                }
+                using var stream = await FileSystem.OpenAppPackageFileAsync(FONT_NAME);
+                using var fileStream = new FileStream(fontFilePath, FileMode.Create, FileAccess.Write);
+                await stream.CopyToAsync(fileStream);
+                await stream.FlushAsync();
             }
             return fontFilePath;
         }

@@ -1,5 +1,4 @@
-﻿
-namespace FireEscape.AppSettings
+﻿namespace FireEscape.AppSettings
 {
     public class FireEscapePropertiesDictionary
     {

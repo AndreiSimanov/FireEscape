@@ -175,7 +175,7 @@
     <value>Укажите название объекта</value>
   </data>
   <data name="FireEscapePageTitle" xml:space="preserve">
-    <value>Характеристики лестницы</value>
+    <value>Параметры лестницы</value>
   </data>
   <data name="FireEscapeTypesHint" xml:space="preserve">
     <value>Укажите тип лестницы</value>

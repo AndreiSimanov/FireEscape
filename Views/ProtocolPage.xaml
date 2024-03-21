@@ -59,7 +59,7 @@
                         Command="{Binding GoToDetailsCommand}" 
                         IsEnabled="{Binding IsNotBusy}" 
                         Style="{StaticResource ButtonView }"
-                        Text="Параметры пожарной лестницы" />
+                        Text="{x:Static lang:AppResources.FireEscapePageTitle}" />
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

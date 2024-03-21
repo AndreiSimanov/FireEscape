@@ -27,7 +27,7 @@ namespace FireEscape
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            builder.Services.AddSingleton<DropboxService>();
             builder.Services.AddSingleton<ProtocolService>();
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();

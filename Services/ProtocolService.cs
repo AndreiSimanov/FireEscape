@@ -8,38 +8,13 @@ namespace FireEscape.Services
     public class ProtocolService
     {
         List<Protocol> protocolList = new();
-        readonly NewProtocolSettings settings;
+        readonly NewProtocolSettings newProtocolSettings;
         readonly FireEscapePropertiesDictionary fireEscapePropertiesDictionary;
 
-        public ProtocolService(IOptions<NewProtocolSettings> settings, IOptions<FireEscapePropertiesDictionary> fireEscapePropertiesDictionary) 
+        public ProtocolService(IOptions<NewProtocolSettings> newProtocolSettings, IOptions<FireEscapePropertiesDictionary> fireEscapePropertiesDictionary) 
         {
-            this.settings = settings.Value;
+            this.newProtocolSettings = newProtocolSettings.Value;
             this.fireEscapePropertiesDictionary = fireEscapePropertiesDictionary.Value;
-
-
-            //this.configuration = configuration;
-            /*
-            // Bind a configuration section to an instance of Settings class
-            var settings = configuration.GetSection("ProtocolSettings").Get<DefaultProtocolSettings>();
-
-            foreach (var endpoint in settings.Locatons)
-            {
-                Console.WriteLine(endpoint);
-            }
-
-
-            // Read simple values
-            Console.WriteLine($"Server: {settings.Server}");
-            Console.WriteLine($"Database: {settings.Database}");
-
-            // Read nested objects
-            Console.WriteLine("Endpoints: ");
-
-            foreach (Endpoint endpoint in settings.Endpoints)
-            {
-                Console.WriteLine($"{endpoint.IPAddress}:{endpoint.Port}");
-            }
-            */
         }
 
 
@@ -48,10 +23,10 @@ namespace FireEscape.Services
             return new Protocol()
             {
                 Image = AppResources.NoPhoto!,
-                ProtocolNum = settings.ProtocolNum,
-                Location = settings.Location,
+                ProtocolNum = newProtocolSettings.ProtocolNum,
+                Location = newProtocolSettings.Location,
                 ProtocolDate = DateTime.Today,
-                FireEscapeNum = settings.FireEscapeNum,
+                FireEscapeNum = newProtocolSettings.FireEscapeNum,
                 FireEscape = new Models.FireEscape()
                 {
                     FireEscapeType = fireEscapePropertiesDictionary.FireEscapeTypes![0],
@@ -100,28 +75,25 @@ namespace FireEscape.Services
             var files = Directory.GetFiles(AppSettingsExtension.ContentFolder, "*.json");
             foreach (var file in files)
             {
-                using (var fs = File.OpenRead(file))
+                using var fs = File.OpenRead(file);
+                Protocol? protocol = null;
+                try
                 {
-                    Protocol? protocol = null;
-                    try
-                    {
-                        protocol = await JsonSerializer.DeserializeAsync<Protocol>(fs);
-                    
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"Error: {ex.Message}");
+                    protocol = await JsonSerializer.DeserializeAsync<Protocol>(fs);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error: {ex.Message}");
 
-                        protocol = CreateDefaultProtocol();
-                        protocol.FireEscapeObject = AppResources.BrokenData;
-                        protocol.SourceFile = file;
-                    }
+                    protocol = CreateDefaultProtocol();
+                    protocol.FireEscapeObject = AppResources.BrokenData;
+                    protocol.SourceFile = file;
+                }
 
-                    if (protocol != null)
-                    {
-                        protocol.SourceFile = file;
-                        protocolList.Add(protocol);
-                    }
+                if (protocol != null)
+                {
+                    protocol.SourceFile = file;
+                    protocolList.Add(protocol);
                 }
             }
             protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
@@ -138,11 +110,10 @@ namespace FireEscape.Services
                 if (photo != null)
                 {
                     var photoFilePath = Path.Combine(AppSettingsExtension.ContentFolder, photo.FileName);
-                    using (var photoStream = await photo.OpenReadAsync())
-                    using (var outputFile = File.Create(photoFilePath))
-                    {
-                        await photoStream.CopyToAsync(outputFile);
-                    }
+                    using var photoStream = await photo.OpenReadAsync();
+                    using var outputFile = File.Create(photoFilePath);
+                    await photoStream.CopyToAsync(outputFile);
+
                     if (protocol.HasImage)
                         File.Delete(protocol.Image);
 
