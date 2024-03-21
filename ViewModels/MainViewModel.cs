@@ -25,103 +25,76 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task GetProtocolsAsync()
         {
-            if (IsBusy)
-                return;
-
-            try
+            await DoCommand(async () =>
             {
-                IsBusy = true;
-                var protocols = await protocolService.GetProtocolsAsync();
-                Protocols = protocols.ToObservableCollection();
-            }
-            catch (Exception ex)
-            {
-                await ProcessExeptionAsync(AppResources.GetProtocolsError, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-                IsRefreshing = false;
-            }
+                try
+                {
+                    var protocols = await protocolService.GetProtocolsAsync();
+                    Protocols = protocols.ToObservableCollection();
+                }
+                finally
+                {
+                    IsRefreshing = false;
+                }
+            },
+            AppResources.GetProtocolsError);
         }
 
         [RelayCommand]
         async Task AddProtocolAsync()
         {
-            if (IsBusy)
-                return;
-            try
+            await DoCommand(async () =>
             {
-                var protocol = await protocolService.CreateProtocol();
+                var protocol = await protocolService.CreateProtocolAsync();
                 Protocols.Insert(0, protocol);
                 SelectedProtocol = protocol;
-                await GoToDetailsAsync(protocol);
-            }
-            catch (Exception ex)
-            {
-                await ProcessExeptionAsync(AppResources.AddProtocolError, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            },
+            AppResources.AddProtocolError);
+
+            if (SelectedProtocol != null)
+                await GoToDetailsAsync(SelectedProtocol);
         }
 
         [RelayCommand]
         async Task DeleteProtocol(Protocol protocol)
         {
-            if (IsBusy || protocol == null)
-                return;
+            await DoCommand(async () =>
+            {
+                var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol,
+                    AppResources.Cancel,
+                    AppResources.Delete);
+                if (string.Equals(action, AppResources.Cancel))
+                    return;
 
-            var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, 
-                AppResources.Cancel, 
-                AppResources.Delete);
-            if (string.Equals(action, AppResources.Cancel))
-                return;
-            try
-            {
-                protocolService.DeleteProtocol(protocol);
+                await protocolService.DeleteProtocol(protocol);
                 Protocols.Remove(protocol);
-            }
-            catch (Exception ex)
-            {
-                await ProcessExeptionAsync(AppResources.DeleteProtocolError, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            },
+            protocol,
+            AppResources.DeleteProtocolError);
         }
 
         [RelayCommand]
-        async Task CreatePdfAsync(Protocol protocol)
+        async Task CreateReportAsync(Protocol protocol)
         {
-            if (IsBusy || protocol == null)
-                return;
-
-            try
+            await DoCommand(async () =>
             {
-                await protocolService.CreatePdfAsync(protocol);
-            }
-            catch (Exception ex)
-            {
-                await ProcessExeptionAsync(AppResources.CreatePdfFileError, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                await protocolService.CreateReportAsync(protocol);
+            },
+            protocol,
+            AppResources.CreateReportError);
         }
-
 
         [RelayCommand]
         async Task GoToDetailsAsync(Protocol protocol)
         {
-            if (protocol == null)
-                return;
-            SelectedProtocol = protocol;
-            await Shell.Current.GoToAsync(nameof(ProtocolPage), true, new Dictionary<string, object> { { nameof(Protocol), protocol } });
-            //  await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
+            await DoCommand(async () =>
+            {
+                SelectedProtocol = protocol;
+                await Shell.Current.GoToAsync(nameof(ProtocolPage), true, new Dictionary<string, object> { { nameof(Protocol), protocol } });
+                // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
+            },
+            protocol,
+            AppResources.EditProtocolError);
         }
     }
 }

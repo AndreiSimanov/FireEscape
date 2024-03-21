@@ -18,49 +18,38 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task AddProtocolPhotoAsync()
         {
-            if (IsBusy || Protocol == null)
-                return;
-            try
+            await DoCommand(async () =>
             {
-                await protocolService.AddProtocolPhotoAsync(Protocol);
+                await protocolService.AddProtocolPhotoAsync(Protocol!);
                 OnPropertyChanged(nameof(Protocol));
-            }
-            catch (Exception ex)
-            {
-                await ProcessExeptionAsync(AppResources.AddPhotoError, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+
+            },
+            Protocol!,
+            AppResources.AddPhotoError);
         }
+
 
         [RelayCommand]
         async Task SaveProtocolAsync()
         {
-            if (IsBusy || Protocol == null)
-                return;
-            try
+            await DoCommand(async () =>
             {
-                await protocolService.SaveProtocolAsync(Protocol);
-            }
-            catch (Exception ex)
-            {
-                await ProcessExeptionAsync(AppResources.SaveProtocolError, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+                await protocolService.SaveProtocolAsync(Protocol!);
+            },
+            Protocol!,
+            AppResources.SaveProtocolError);
         }
+
 
         [RelayCommand]
         async Task GoToDetailsAsync()
         {
-
-            if (IsBusy || Protocol == null)
-                return;
-            await Shell.Current.GoToAsync(nameof(FireEscapePage), true, new Dictionary<string, object> { { nameof(FireEscape), Protocol.FireEscape } });
+            await DoCommand(async () =>
+            {
+                await Shell.Current.GoToAsync(nameof(FireEscapePage), true, new Dictionary<string, object> { { nameof(FireEscape), Protocol!.FireEscape } });
+            },
+            Protocol!,
+            AppResources.EditFireEscapeError);
         }
     }
 }

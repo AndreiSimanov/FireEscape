@@ -1,19 +1,18 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Dropbox.Api.Files;
 using Dropbox.Api;
+using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Net.Http.Json;
-using Dropbox.Api.Files;
-using Dropbox.Api.Users;
+using System.Text;
 
-namespace FireEscape.Services
+namespace FireEscape.Repositories
 {
-    public class DropboxService
+    public class DropboxRepository
     {
         readonly DropboxSettings dropboxSettings;
         readonly HttpClient httpClient;
 
-        public DropboxService(IOptions<DropboxSettings> dropboxSettings)
+        public DropboxRepository(IOptions<DropboxSettings> dropboxSettings)
         {
             this.dropboxSettings = dropboxSettings.Value;
             httpClient = new HttpClient();
@@ -35,12 +34,6 @@ namespace FireEscape.Services
             return Encoding.Default.GetString(s);
         }
 
-        public async Task<ListFolderResult> ListFolderAsync(string folder)
-        {
-            using var dbx = new DropboxClient(await GetTokenAsync());
-            return await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
-        }
-
         public async Task<string> UploadAsync(string sourceFilePath, string destinationFilePath)
         {
             using var dbx = new DropboxClient(await GetTokenAsync());
@@ -57,14 +50,8 @@ namespace FireEscape.Services
             await File.WriteAllBytesAsync(destinationFilePath, content);
         }
 
-        public async Task<FullAccount> GetCurrentAccountAsync()
-        {
-            var token = await GetTokenAsync();
-            using var dbx = new DropboxClient(token);
-            return await dbx.Users.GetCurrentAccountAsync();
-        }
-
         private string GetAppPath() => "/" + dropboxSettings.FolderName + "/";
+
         private string GetJsonPath(string key) => GetAppPath() + key + ".json";
 
         private async Task<string?> GetTokenAsync()
@@ -82,8 +69,22 @@ namespace FireEscape.Services
             }
             return null;
         }
-    }
 
+        /*
+        public async Task<FullAccount> GetCurrentAccountAsync()
+        {
+            var token = await GetTokenAsync();
+            using var dbx = new DropboxClient(token);
+            return await dbx.Users.GetCurrentAccountAsync();
+        }
+
+        public async Task<ListFolderResult> ListFolderAsync(string folder)
+        {
+            using var dbx = new DropboxClient(await GetTokenAsync());
+            return await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
+        }
+        */
+    }
     struct AccessToken
     {
         public string access_token { get; set; }

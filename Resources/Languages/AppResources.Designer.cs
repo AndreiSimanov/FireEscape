@@ -124,11 +124,11 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to create PDF file.
+        ///   Looks up a localized string similar to Unable to create report file.
         /// </summary>
-        internal static string CreatePdfFileError {
+        internal static string CreateReportError {
             get {
-                return ResourceManager.GetString("CreatePdfFileError", resourceCulture);
+                return ResourceManager.GetString("CreateReportError", resourceCulture);
             }
         }
         
@@ -174,6 +174,24 @@ namespace FireEscape.Resources.Languages {
         internal static string DeleteProtocolError {
             get {
                 return ResourceManager.GetString("DeleteProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to edit the fire escape properties.
+        /// </summary>
+        internal static string EditFireEscapeError {
+            get {
+                return ResourceManager.GetString("EditFireEscapeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to edit the protocol.
+        /// </summary>
+        internal static string EditProtocolError {
+            get {
+                return ResourceManager.GetString("EditProtocolError", resourceCulture);
             }
         }
         

@@ -113,6 +113,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Common\" />
 	  <Folder Include="Resources\Labels\" />
 	</ItemGroup>
 

@@ -66,7 +66,8 @@
                                 <SwipeItems>
                                     <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
                                                IconImageSource="pdf.png"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CreatePdfCommand}"
+                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CreateReportCommand}"
                                                CommandParameter="{Binding .}">
                                     </SwipeItem>
                                 </SwipeItems>
@@ -75,6 +76,7 @@
                                 <SwipeItems>
                                     <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
                                                IconImageSource="delete.png"
+                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteProtocolCommand}"
                                                CommandParameter="{Binding .}">
                                     </SwipeItem>

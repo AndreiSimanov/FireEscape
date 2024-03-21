@@ -35,7 +35,7 @@ namespace FireEscape.AppSettings
 #endif
             }
         }
-        /*
+
         public static string? DeviceIdentifier
         {
             get
@@ -53,7 +53,5 @@ namespace FireEscape.AppSettings
 #endif
             }
         }
-        */
     }
-  
 }

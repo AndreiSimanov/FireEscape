@@ -138,8 +138,8 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
-  <data name="CreatePdfFileError" xml:space="preserve">
-    <value>Невозможно создать PDF файл</value>
+  <data name="CreatePdfFileErrorCreateReportError" xml:space="preserve">
+    <value>Невозможно создать файл отчета</value>
   </data>
   <data name="Customer" xml:space="preserve">
     <value>Представитель заказчика</value>
@@ -155,6 +155,12 @@
   </data>
   <data name="DeleteProtocolError" xml:space="preserve">
     <value>Невозможно удалить протокол</value>
+  </data>
+  <data name="EditFireEscapeError" xml:space="preserve">
+    <value>Невозможно отркдактировать параметры лестницы</value>
+  </data>
+  <data name="EditProtocolError" xml:space="preserve">
+    <value>Невозможно отредактировать протокол</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>

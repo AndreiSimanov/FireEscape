@@ -1,125 +1,67 @@
-﻿using FireEscape.Resources.Languages;
-using Microsoft.Extensions.Options;
-using System.Diagnostics;
-using System.Text.Json;
-
-namespace FireEscape.Services
+﻿namespace FireEscape.Services
 {
     public class ProtocolService
     {
         List<Protocol> protocolList = new();
-        readonly NewProtocolSettings newProtocolSettings;
-        readonly FireEscapePropertiesDictionary fireEscapePropertiesDictionary;
+        readonly IProtocolRepository protocolRepository;
+        readonly IReportRepository reportRepository;
 
-        public ProtocolService(IOptions<NewProtocolSettings> newProtocolSettings, IOptions<FireEscapePropertiesDictionary> fireEscapePropertiesDictionary) 
+        public ProtocolService(IProtocolRepository protocolRepository, IReportRepository reportRepository) 
         {
-            this.newProtocolSettings = newProtocolSettings.Value;
-            this.fireEscapePropertiesDictionary = fireEscapePropertiesDictionary.Value;
+            this.protocolRepository = protocolRepository;
+            this.reportRepository = reportRepository;
         }
 
-
-        private Protocol CreateDefaultProtocol()
+        public async Task<Protocol> CreateProtocolAsync() 
         {
-            return new Protocol()
-            {
-                Image = AppResources.NoPhoto!,
-                ProtocolNum = newProtocolSettings.ProtocolNum,
-                Location = newProtocolSettings.Location,
-                ProtocolDate = DateTime.Today,
-                FireEscapeNum = newProtocolSettings.FireEscapeNum,
-                FireEscape = new Models.FireEscape()
-                {
-                    FireEscapeType = fireEscapePropertiesDictionary.FireEscapeTypes![0],
-                    FireEscapeMountType = fireEscapePropertiesDictionary.FireEscapeMountTypes![0]
-                },
-                Created = DateTime.Now
-            };
-        }
-
-        public async Task<Protocol> CreateProtocol() 
-        {
-            var protocol = CreateDefaultProtocol();
-            await SaveProtocolAsync(protocol);
+            var protocol = await protocolRepository.CreateProtocolAsync();
+            protocolList.Insert(0, protocol);
             return protocol;
         } 
  
         public async Task SaveProtocolAsync(Protocol protocol)
         {
-            var filePath = protocol.SourceFile?? Path.Combine(AppSettingsExtension.ContentFolder, Guid.NewGuid().ToString() + ".json");
-            protocol.Updated = DateTime.Now;
-            using var fs = File.Create(filePath);
-            await JsonSerializer.SerializeAsync(fs, protocol);
-            protocol.SourceFile = filePath;
+            await protocolRepository.SaveProtocolAsync(protocol);
             if (!protocolList.Contains(protocol))
                 protocolList.Insert(0, protocol);
         }
 
-        public void DeleteProtocol(Protocol protocol)
+        public async Task DeleteProtocol(Protocol protocol)
         {
-            if (protocol.HasImage)
-                File.Delete(protocol.Image);
-            if (File.Exists(protocol.SourceFile))
-                File.Delete(protocol.SourceFile);
+            await protocolRepository.DeleteProtocol(protocol);
             protocolList.Remove(protocol);
-        }
-
-        public async Task CreatePdfAsync(Protocol protocol)
-        {
-            await PdfHelper.MakePdfFileAsync(protocol);
         }
 
         public async Task<List<Protocol>> GetProtocolsAsync()
         {
-            if (protocolList.Count > 0)
-                return protocolList;
-            var files = Directory.GetFiles(AppSettingsExtension.ContentFolder, "*.json");
-            foreach (var file in files)
+            if (!protocolList.Any())
             {
-                using var fs = File.OpenRead(file);
-                Protocol? protocol = null;
-                try
-                {
-                    protocol = await JsonSerializer.DeserializeAsync<Protocol>(fs);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"Error: {ex.Message}");
-
-                    protocol = CreateDefaultProtocol();
-                    protocol.FireEscapeObject = AppResources.BrokenData;
-                    protocol.SourceFile = file;
-                }
-
-                if (protocol != null)
-                {
-                    protocol.SourceFile = file;
-                    protocolList.Add(protocol);
-                }
-            }
-            protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
+                protocolList = await protocolRepository.GetProtocolsAsync();
+                protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
+            }    
             return protocolList;
         }
-
 
         public async Task AddProtocolPhotoAsync(Protocol protocol)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 var photo = await MediaPicker.Default.CapturePhotoAsync();
-
-                if (photo != null)
-                {
-                    var photoFilePath = Path.Combine(AppSettingsExtension.ContentFolder, photo.FileName);
-                    using var photoStream = await photo.OpenReadAsync();
-                    using var outputFile = File.Create(photoFilePath);
-                    await photoStream.CopyToAsync(outputFile);
-
-                    if (protocol.HasImage)
-                        File.Delete(protocol.Image);
-
-                    protocol.Image = photoFilePath;
-                }
+                await protocolRepository.AddProtocolPhotoAsync(protocol, photo);
             }
+        }
+
+        public async Task CreateReportAsync(Protocol protocol)
+        {
+            var fileName = "protocol"; //todo: change file name to some protocol attribute 
+            var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
+
+            filePath = await reportRepository.CreateReportAsync(protocol, filePath);
+
+            await Launcher.OpenAsync(new OpenFileRequest
+            {
+                File = new ReadOnlyFile(filePath)
+            });
         }
     }
 }

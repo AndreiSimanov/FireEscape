@@ -1,5 +1,4 @@
-﻿global using FireEscape.Common;
-global using FireEscape.AppSettings;
+﻿global using FireEscape.AppSettings;
 global using FireEscape.Views;
 global using FireEscape.ViewModels;
 global using FireEscape.Models;
@@ -8,3 +7,5 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Maui;
 global using Microsoft.Extensions.Configuration;
+global using FireEscape.Repositories.Interfaces;
+global using FireEscape.Repositories;

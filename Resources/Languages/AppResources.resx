@@ -138,8 +138,8 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="CreatePdfFileError" xml:space="preserve">
-    <value>Unable to create PDF file</value>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Unable to create report file</value>
   </data>
   <data name="Customer" xml:space="preserve">
     <value>Customer representative</value>
@@ -155,6 +155,12 @@
   </data>
   <data name="DeleteProtocolError" xml:space="preserve">
     <value>Unable to delete protocol</value>
+  </data>
+  <data name="EditFireEscapeError" xml:space="preserve">
+    <value>Unable to edit the fire escape properties</value>
+  </data>
+  <data name="EditProtocolError" xml:space="preserve">
+    <value>Unable to edit the protocol</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using FireEscape.Repositories.Interfaces;
+using Microsoft.Extensions.Logging;
 using System.Reflection;
 
 namespace FireEscape
@@ -27,8 +28,13 @@ namespace FireEscape
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<DropboxService>();
+            builder.Services.AddSingleton<IProtocolRepository, ProtocolRepository>();
+            builder.Services.AddSingleton<IReportRepository, PdfWriterRepository>();
+
+            builder.Services.AddSingleton<DropboxRepository>();
+            builder.Services.AddSingleton<ApplicationService>();
             builder.Services.AddSingleton<ProtocolService>();
+
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
 

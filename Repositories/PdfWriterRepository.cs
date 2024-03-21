@@ -10,37 +10,37 @@ using Cell = iText.Layout.Element.Cell;
 using TextAlignment = iText.Layout.Properties.TextAlignment;
 using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 using Border = iText.Layout.Borders.Border;
-
-namespace FireEscape.Common
+namespace FireEscape.Repositories
 {
-    public static class PdfHelper
+    public class PdfWriterRepository : IReportRepository
     {
         const string FONT_NAME = "times.ttf";
-        public static async Task MakePdfFileAsync(Protocol protocol)
+
+        public async Task<string> CreateReportAsync(Protocol protocol, string filePath)
         {
-            var fileName = "protocol.pdf"; //todo: changt file name to the protocol attribute 
+            return await MakePdfFileAsync(protocol, filePath);
+        }
 
-            var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
+        public static async Task<string> MakePdfFileAsync(Protocol protocol, string filePath)
+        {
             var fontFilePath = await AddFontIfNotExisit();
-
-            using var writer = new PdfWriter(filePath);
-
-            var pdf = new PdfDocument(writer);
-            var document = new Document(pdf);
-            var font = PdfFontFactory.CreateFont(fontFilePath, "Identity-H");
-            document.SetFont(font);
-            document.SetFontSize(12);
-
-            MakePdfHeader(document, protocol);
-            MakePdfFireEscapeOverview(document, protocol);
-            MakePdfImage(pdf, document, protocol);
-            MakePdfFooter(document, protocol);
-
-            document.Close();
-
-            await Launcher.OpenAsync(new OpenFileRequest
+            return await Task.Run(() =>
             {
-                File = new ReadOnlyFile(filePath)
+                filePath = filePath + ".pdf";
+                using var writer = new PdfWriter(filePath);
+                var pdf = new PdfDocument(writer);
+                var document = new Document(pdf);
+                var font = PdfFontFactory.CreateFont(fontFilePath, "Identity-H");
+                document.SetFont(font);
+                document.SetFontSize(12);
+
+                MakePdfHeader(document, protocol);
+                MakePdfFireEscapeOverview(document, protocol);
+                MakePdfImage(pdf, document, protocol);
+                MakePdfFooter(document, protocol);
+
+                document.Close();
+                return filePath;
             });
         }
 
@@ -57,7 +57,7 @@ namespace FireEscape.Common
                 : protocol.FireEscape.FireEscapeType.FireEscapeTypeEnum == FireEscapeTypeEnum.P2
                     ? "испытания пожарной маршевой лестницы"
                     : "испытания пожарной лестницы";
-            
+
             document.Add(new Paragraph(fireEscapeTypeDescription)
                 .SetFixedLeading(5)
                 .SetTextAlignment(TextAlignment.CENTER)
@@ -219,13 +219,3 @@ namespace FireEscape.Common
 }
 
 
-/*
-LineSeparator ls = new LineSeparator(new SolidLine());
-document.Add(ls);
-
-Paragraph footer = new Paragraph("Don't forget to like and subscribe!")
-    .SetTextAlignment(TextAlignment.RIGHT)
-    .SetFontColor(iText.Kernel.Colors.ColorConstants.LIGHT_GRAY)
-    .SetFontSize(14);
-document.Add(footer);
-*/
