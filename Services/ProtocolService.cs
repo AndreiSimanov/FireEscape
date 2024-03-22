@@ -51,12 +51,12 @@
             }
         }
 
-        public async Task CreateReportAsync(Protocol protocol)
+        public async Task CreateReportAsync(Protocol protocol, UserAccount? userAccount)
         {
             var fileName = "protocol"; //todo: change file name to some protocol attribute 
             var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
 
-            filePath = await reportRepository.CreateReportAsync(protocol, filePath);
+            filePath = await reportRepository.CreateReportAsync(protocol, userAccount, filePath);
 
             await Launcher.OpenAsync(new OpenFileRequest
             {

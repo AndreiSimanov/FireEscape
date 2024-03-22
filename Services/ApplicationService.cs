@@ -23,7 +23,7 @@ namespace FireEscape.Services
             return IsValidUserAccount(await GetUserAccount());
         }
 
-        private async Task<UserAccount?> GetUserAccount()
+        public async Task<UserAccount?> GetUserAccount()
         {
             var json = Preferences.Default.Get(USER_ACCOUNT, string.Empty);
             var userAccount = string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<UserAccount>(json);
@@ -95,10 +95,5 @@ namespace FireEscape.Services
         }
     }
 
-    public class UserAccount
-    { 
-        public string? Id { get; set; }
-        public string? Name { get; set; }
-        public DateTime? ExpirationDate { get; set; }
-    }
+
 }

@@ -16,12 +16,12 @@ namespace FireEscape.Repositories
     {
         const string FONT_NAME = "times.ttf";
 
-        public async Task<string> CreateReportAsync(Protocol protocol, string filePath)
+        public async Task<string> CreateReportAsync(Protocol protocol, UserAccount? userAccount, string filePath)
         {
-            return await MakePdfFileAsync(protocol, filePath);
+            return await MakePdfFileAsync(protocol, userAccount, filePath);
         }
 
-        public static async Task<string> MakePdfFileAsync(Protocol protocol, string filePath)
+        public static async Task<string> MakePdfFileAsync(Protocol protocol, UserAccount? userAccount,  string filePath)
         {
             var fontFilePath = await AddFontIfNotExisit();
             return await Task.Run(() =>
@@ -37,7 +37,7 @@ namespace FireEscape.Repositories
                 MakePdfHeader(document, protocol);
                 MakePdfFireEscapeOverview(document, protocol);
                 MakePdfImage(pdf, document, protocol);
-                MakePdfFooter(document, protocol);
+                MakePdfFooter(document, protocol, userAccount);
 
                 document.Close();
                 return filePath;
@@ -173,8 +173,10 @@ namespace FireEscape.Repositories
             document.Add(new Paragraph(" "));
         }
 
-        private static void MakePdfFooter(Document document, Protocol protocol)
+        private static void MakePdfFooter(Document document, Protocol protocol, UserAccount? userAccount)
         {
+            document.Add(new Paragraph(userAccount == null ? string.Empty : userAccount.Name));
+
             if (string.IsNullOrWhiteSpace(protocol.Customer))
                 return;
 
