@@ -89,7 +89,7 @@ namespace FireEscape.ViewModels
                 {
                     await Shell.Current.DisplayAlert("", 
                         string.Format(AppResources.UnregisteredApplicationMessage
-                        , AppSettingsExtension.DeviceIdentifier), AppResources.Ok);
+                        , AppSettingsExtension.DeviceIdentifier), AppResources.OK);
                 }
             },
             protocol,

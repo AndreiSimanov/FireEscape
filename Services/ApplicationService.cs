@@ -1,5 +1,5 @@
 ﻿using FireEscape.Resources.Languages;
-using Microsoft.Maui.Networking;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -8,11 +8,14 @@ namespace FireEscape.Services
     public class ApplicationService
     {
         const string USER_ACCOUNT = "UserAccount";
+        readonly ApplicationSettings applicationSettings;
         readonly DropboxRepository dropboxRepository;
+        
 
-        public ApplicationService(DropboxRepository dropboxRepository)
+        public ApplicationService(DropboxRepository dropboxRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             this.dropboxRepository = dropboxRepository;
+            this.applicationSettings = applicationSettings.Value;
         }
 
         public async Task<bool> CheckApplicationExpiration()
@@ -40,7 +43,7 @@ namespace FireEscape.Services
            
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
             {
-                await Shell.Current.DisplayAlert(AppResources.NoConnectivity, AppResources.CheckInternetMessage, AppResources.Ok);
+                await Shell.Current.DisplayAlert(AppResources.NoConnectivity, AppResources.CheckInternetMessage, AppResources.OK);
                 return null;
             }
 
@@ -49,7 +52,7 @@ namespace FireEscape.Services
 
             try
             {
-                json = await dropboxRepository.DownloadJsonAsync(AppSettingsExtension.DeviceIdentifier);
+                json = await dropboxRepository.DownloadJsonAsync(AppSettingsExtension.DeviceIdentifier, applicationSettings.UserAccountsFolderName);
             }
             catch (Exception ex) 
             {
@@ -65,7 +68,7 @@ namespace FireEscape.Services
                 try
                 {
 
-                    await dropboxRepository.UploadJsonAsync(AppSettingsExtension.DeviceIdentifier, json);
+                    await dropboxRepository.UploadJsonAsync(AppSettingsExtension.DeviceIdentifier, json, applicationSettings.UserAccountsFolderName);
                 }
                 catch (Exception ex)
                 {

@@ -216,8 +216,8 @@
   <data name="NoPhoto" xml:space="preserve">
     <value>nophoto.png</value>
   </data>
-  <data name="Ok" xml:space="preserve">
-    <value>Ok</value>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="ProtocolDate" xml:space="preserve">
     <value>Protocol date: </value>

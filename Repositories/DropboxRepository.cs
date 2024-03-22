@@ -17,19 +17,18 @@ namespace FireEscape.Repositories
             this.dropboxSettings = dropboxSettings.Value;
         }
 
-        public async Task<string> UploadJsonAsync(string key, string value)
+        public async Task<string> UploadJsonAsync(string key, string value, string folder = "")
         {
             using var dbx = new DropboxClient(await GetTokenAsync());
             using var mem = new MemoryStream(Encoding.UTF8.GetBytes(value ?? ""));
-            var updated = await dbx.Files.UploadAsync(GetJsonPath(key), WriteMode.Overwrite.Instance, body: mem);
+            var updated = await dbx.Files.UploadAsync(GetJsonPath(key, folder), WriteMode.Overwrite.Instance, body: mem);
             return updated.Id;
         }
 
-        public async Task<string> DownloadJsonAsync(string key)
+        public async Task<string> DownloadJsonAsync(string key, string folder = "" )
         {
             using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
-            var path = GetJsonPath(key);
-            using var response = await dbx.Files.DownloadAsync(path);
+            using var response = await dbx.Files.DownloadAsync(GetJsonPath(key, folder));
             var s = await response.GetContentAsByteArrayAsync();
             return Encoding.Default.GetString(s);
         }
@@ -50,11 +49,14 @@ namespace FireEscape.Repositories
             await File.WriteAllBytesAsync(destinationFilePath, content);
         }
 
-        private string GetAppPath() => "/" + dropboxSettings.FolderName + "/";
+        private string GetAppPath() => "/" + dropboxSettings.ApplicationFolderName + "/";
 
-        private string GetJsonPath(string key) => GetAppPath() + key + ".json";
+        private string GetJsonPath(string key, string folder) => GetAppPath()
+            + (string.IsNullOrWhiteSpace(folder) ? string.Empty : folder + "/")
+            + key
+            + ".json";
 
-        private async Task<string?> GetTokenAsync()
+        private async Task<string?> GetTokenAsync() // https://stackoverflow.com/questions/71524238/how-to-create-not-expires-token-in-dropbox-api-v2
         {
             using var request = new HttpRequestMessage(new HttpMethod("POST"), dropboxSettings.TokenUri);
             var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(dropboxSettings.AppKey + ":" + dropboxSettings.AppSecret));
@@ -93,13 +95,13 @@ namespace FireEscape.Repositories
         public int expires_in { get; set; }
     }
 
-    public class AndroidMessageHandler : HttpClientHandler
+    class AndroidMessageHandler : HttpClientHandler // (HTTP 400 Bad Request On Download) https://github.com/dropbox/dropbox-sdk-dotnet/issues/77#issuecomment-1153300385
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (request.RequestUri.AbsolutePath.Contains("files/download"))
+            if (request.RequestUri!.AbsolutePath.Contains("files/download"))
             {
-                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                request.Content!.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             }
             return base.SendAsync(request, cancellationToken);
         }
