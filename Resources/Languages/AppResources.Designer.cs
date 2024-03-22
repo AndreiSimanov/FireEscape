@@ -106,6 +106,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Администратор.
+        /// </summary>
+        internal static string Administrator {
+            get {
+                return ResourceManager.GetString("Administrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fire Escape.
         /// </summary>
         internal static string AppTitle {
@@ -219,6 +228,15 @@ namespace FireEscape.Resources.Languages {
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Срок окончания учетной записи: .
+        /// </summary>
+        internal static string ExpirationDate {
+            get {
+                return ResourceManager.GetString("ExpirationDate", resourceCulture);
             }
         }
         
@@ -426,6 +444,24 @@ namespace FireEscape.Resources.Languages {
         internal static string UnregisteredApplicationMessage {
             get {
                 return ResourceManager.GetString("UnregisteredApplicationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Идентификатор учетной записи: .
+        /// </summary>
+        internal static string UserAccountId {
+            get {
+                return ResourceManager.GetString("UserAccountId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя пользователя: .
+        /// </summary>
+        internal static string UserAccountName {
+            get {
+                return ResourceManager.GetString("UserAccountName", resourceCulture);
             }
         }
         

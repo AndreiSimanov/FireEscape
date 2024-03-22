@@ -64,18 +64,40 @@
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}"
                                                 CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    <Grid ColumnDefinitions="125,*">
-                                        <VerticalStackLayout
+                                    <VerticalStackLayout
                                                 VerticalOptions="Center"
                                                 Grid.Column="1"
                                                 Spacing="5"
                                                 Padding="10">
-                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding Id}" />
-                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding Name}"/>
-                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding ExpirationDate, StringFormat='{0:dd.MM.yyyy}'}"/>
-                                            <CheckBox IsChecked ="{Binding IsAdmin}"/>
-                                        </VerticalStackLayout>
-                                    </Grid>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.UserAccountId}" />
+                                                    <Span Text="{Binding Id}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.UserAccountName}" />
+                                                    <Span Text="{Binding Name}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.ExpirationDate}" />
+                                                    <Span Text="{Binding ExpirationDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label VerticalTextAlignment="Center" Text="{x:Static lang:AppResources.Administrator}" />
+                                            <CheckBox IsEnabled ="False"  IsChecked ="{Binding IsAdmin}" />
+                                        </StackLayout>
+                                    </VerticalStackLayout>
                                 </Frame>
                             </Grid>
                         </SwipeView>
@@ -92,6 +114,4 @@
         Color="White"  
         VerticalOptions="Center" />
     </Grid>
-
-
 </ContentPage>

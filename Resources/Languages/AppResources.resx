@@ -132,6 +132,9 @@
   <data name="AddressStringFormat" xml:space="preserve">
     <value>Адрес: </value>
   </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Администратор</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Fire Escape</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Срок окончания учетной записи: </value>
   </data>
   <data name="FireEscape" xml:space="preserve">
     <value>Пожарная лестница</value>
@@ -239,6 +245,12 @@
   </data>
   <data name="UnregisteredApplicationMessage" xml:space="preserve">
     <value>Незарегистрированная версия приложения. Сообщите номер {0} вендору приложения.</value>
+  </data>
+  <data name="UserAccountId" xml:space="preserve">
+    <value>Идентификатор учетной записи: </value>
+  </data>
+  <data name="UserAccountName" xml:space="preserve">
+    <value>Имя пользователя: </value>
   </data>
   <data name="UserAccountsPageTitle" xml:space="preserve">
     <value>Пользователи</value>

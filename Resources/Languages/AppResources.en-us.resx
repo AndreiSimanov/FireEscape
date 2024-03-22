@@ -132,6 +132,9 @@
   <data name="AddressStringFormat" xml:space="preserve">
     <value>Address: </value>
   </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Fire Escape</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Expiration date: </value>
   </data>
   <data name="FireEscape" xml:space="preserve">
     <value>Fire escape</value>
@@ -239,6 +245,12 @@
   </data>
   <data name="UnregisteredApplicationMessage" xml:space="preserve">
     <value>Unregistered application version. Please report number {0} to the application vendor.</value>
+  </data>
+  <data name="UserAccountId" xml:space="preserve">
+    <value>Account identifier: </value>
+  </data>
+  <data name="UserAccountName" xml:space="preserve">
+    <value>User name: </value>
   </data>
   <data name="UserAccountsPageTitle" xml:space="preserve">
     <value>Users</value>
