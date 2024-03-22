@@ -31,7 +31,7 @@ namespace FireEscape
             builder.Services.AddSingleton<IReportRepository, PdfWriterRepository>();
 
             builder.Services.AddSingleton<DropboxRepository>();
-            builder.Services.AddSingleton<ApplicationService>();
+            builder.Services.AddSingleton<UserAccountService>();
             builder.Services.AddSingleton<ProtocolService>();
 
             builder.Services.AddSingleton<MainViewModel>();

@@ -29,21 +29,25 @@
             Grid.ColumnSpan="2"
             Margin="10"
             FontSize="30"
-            Command="{Binding AddProtocolCommand}"
             IsEnabled="{Binding IsNotBusy}"
             Style="{StaticResource ButtonView }"
-            Text="+" />
+            Text="+">
+            <Button.GestureRecognizers>
+                <TapGestureRecognizer  NumberOfTapsRequired = "2" Command="{Binding OpenAdminPageCommand}"/>
+                <TapGestureRecognizer  Command="{Binding AddProtocolCommand}"/>
+            </Button.GestureRecognizers>
+        </Button>
         <RefreshView
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Command="{Binding GetProtocolsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
             <CollectionView
-                    x:Name="protocols"
-                    ItemsSource="{Binding Protocols}"
-                    SelectionMode="Single">
-                <CollectionView.EmptyView>
-                    <Border StrokeShape="RoundRectangle 80"
+                x:Name="protocols"
+                ItemsSource="{Binding Protocols}"
+                SelectionMode="Single">
+            <CollectionView.EmptyView>
+                <Border StrokeShape="RoundRectangle 80"
                     Stroke="White"
                     StrokeThickness="6"
                     HeightRequest="172"
@@ -57,7 +61,7 @@
                             HeightRequest="160"
                             WidthRequest="160"
                             Source="nodata.png"/>
-                    </Border>
+                </Border>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Protocol">
@@ -136,5 +140,4 @@
         Color="White"  
         VerticalOptions="Center" />
     </Grid>
-
 </ContentPage>

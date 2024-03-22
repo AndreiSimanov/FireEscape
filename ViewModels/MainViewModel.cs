@@ -11,12 +11,13 @@ namespace FireEscape.ViewModels
         public ObservableCollection<Protocol> protocols = new();
 
         readonly ProtocolService protocolService;
-        readonly ApplicationService applicationService;
+        readonly UserAccountService userAccountService;
 
-        public MainViewModel(ProtocolService protocolService, ApplicationService applicationService)
+        public MainViewModel(ProtocolService protocolService, UserAccountService userAccountService)
         {
             this.protocolService = protocolService;
-            this.applicationService = applicationService;
+            this.userAccountService = userAccountService;
+
         }
         
         public Protocol? SelectedProtocol { get; set; }
@@ -80,10 +81,10 @@ namespace FireEscape.ViewModels
         {
             await DoCommand(async () =>
             {
-                var noExpiration = await applicationService.CheckApplicationExpiration();
+                var noExpiration = await userAccountService.CheckApplicationExpiration();
                 if (noExpiration)
                 {
-                    var userAccount = await applicationService.GetUserAccount();
+                    var userAccount = await userAccountService.GetUserAccount();
                     await protocolService.CreateReportAsync(protocol, userAccount);
                 }
                 else 
@@ -108,6 +109,20 @@ namespace FireEscape.ViewModels
             },
             protocol,
             AppResources.EditProtocolError);
+        }
+
+        [RelayCommand]
+        async Task OpenAdminPageAsync()
+        {
+            await DoCommand(async () =>
+            {
+                var userAccount = await userAccountService.DownloadUserAccountAsync();
+                if (userAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
+                {
+                    await Shell.Current.DisplayAlert("", "Open admin form", AppResources.OK);
+                }
+            },
+            AppResources.AddProtocolError);
         }
     }
 }

@@ -21,7 +21,7 @@
                         ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeMountTypes}"
                         SelectedItem="{Binding FireEscape.FireEscapeMountType}"/>
             <Label Text="Высота лестницы (м):" />
-            <Entry Keyboard="Plain" Text="{Binding FireEscape.StairHeight}">
+            <Entry Text="{Binding FireEscape.StairHeight}">
                 <Entry.Behaviors>
                     <toolkit:NumericValidationBehavior 
                          InvalidStyle="{StaticResource InvalidEntryStyle}"

@@ -7,7 +7,6 @@ namespace FireEscape.Models
         public FireEscapeType FireEscapeType { get; set; }
         public bool IsEvacuation { get; set; }
         public string FireEscapeMountType { get; set; } = string.Empty;
-        
         public float? StairHeight { get; set; }
         public uint? StairWidth { get; set; }
         public uint? StepsCount { get; set; }

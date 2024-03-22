@@ -5,14 +5,14 @@ using System.Text.Json;
 
 namespace FireEscape.Services
 {
-    public class ApplicationService
+    public class UserAccountService
     {
         const string USER_ACCOUNT = "UserAccount";
         readonly ApplicationSettings applicationSettings;
         readonly DropboxRepository dropboxRepository;
         
 
-        public ApplicationService(DropboxRepository dropboxRepository, IOptions<ApplicationSettings> applicationSettings)
+        public UserAccountService(DropboxRepository dropboxRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             this.dropboxRepository = dropboxRepository;
             this.applicationSettings = applicationSettings.Value;
@@ -36,7 +36,7 @@ namespace FireEscape.Services
             return userAccount;
         }
 
-        async private Task<UserAccount?> DownloadUserAccountAsync ()
+        public async Task<UserAccount?> DownloadUserAccountAsync ()
         {
             if (string.IsNullOrWhiteSpace( AppSettingsExtension.DeviceIdentifier))
                 return null;
@@ -62,7 +62,11 @@ namespace FireEscape.Services
 
             if (string.IsNullOrWhiteSpace(json))
             {
-                userAccount = new UserAccount() { Id = AppSettingsExtension.DeviceIdentifier, ExpirationDate = DateTime.Now };
+                userAccount = new UserAccount() { 
+                    Id = AppSettingsExtension.DeviceIdentifier, 
+                    Roles = new List<string> { UserAccount.UserRole }, 
+                    ExpirationDate = DateTime.Now };
+
                 json = JsonSerializer.Serialize(userAccount);
 
                 try
@@ -83,7 +87,7 @@ namespace FireEscape.Services
             return userAccount;
         }
 
-        private bool IsValidUserAccount(UserAccount? userAccount)
+        public bool IsValidUserAccount(UserAccount? userAccount)
         {
             return
                 userAccount != null
@@ -94,6 +98,4 @@ namespace FireEscape.Services
                 && string.Equals(userAccount.Id, AppSettingsExtension.DeviceIdentifier);
         }
     }
-
-
 }
