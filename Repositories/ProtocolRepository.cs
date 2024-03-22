@@ -1,5 +1,4 @@
-﻿using FireEscape.Repositories.Interfaces;
-using FireEscape.Resources.Languages;
+﻿using FireEscape.Resources.Languages;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Text.Json;
@@ -9,12 +8,12 @@ namespace FireEscape.Repositories
     public class ProtocolRepository : IProtocolRepository
     {
         readonly NewProtocolSettings newProtocolSettings;
-        readonly FireEscapePropertiesDictionary fireEscapePropertiesDictionary;
+        readonly FireEscapePropertiesSettings FireEscapePropertiesSettings;
 
-        public ProtocolRepository(IOptions<NewProtocolSettings> newProtocolSettings, IOptions<FireEscapePropertiesDictionary> fireEscapePropertiesDictionary)
+        public ProtocolRepository(IOptions<NewProtocolSettings> newProtocolSettings, IOptions<FireEscapePropertiesSettings> FireEscapePropertiesSettings)
         {
             this.newProtocolSettings = newProtocolSettings.Value;
-            this.fireEscapePropertiesDictionary = fireEscapePropertiesDictionary.Value;
+            this.FireEscapePropertiesSettings = FireEscapePropertiesSettings.Value;
         }
 
         public async Task<Protocol> CreateProtocolAsync()
@@ -101,8 +100,8 @@ namespace FireEscape.Repositories
                 FireEscapeNum = newProtocolSettings.FireEscapeNum,
                 FireEscape = new Models.FireEscape()
                 {
-                    FireEscapeType = fireEscapePropertiesDictionary.FireEscapeTypes![0],
-                    FireEscapeMountType = fireEscapePropertiesDictionary.FireEscapeMountTypes![0]
+                    FireEscapeType = FireEscapePropertiesSettings.FireEscapeTypes![0],
+                    FireEscapeMountType = FireEscapePropertiesSettings.FireEscapeMountTypes![0]
                 },
                 Created = DateTime.Now
             };

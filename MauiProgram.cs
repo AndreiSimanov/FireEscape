@@ -1,5 +1,4 @@
-﻿using FireEscape.Repositories.Interfaces;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.Reflection;
 
 namespace FireEscape

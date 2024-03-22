@@ -97,6 +97,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address: .
+        /// </summary>
+        internal static string AddressStringFormat {
+            get {
+                return ResourceManager.GetString("AddressStringFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fire Escape.
         /// </summary>
         internal static string AppTitle {
@@ -120,6 +129,15 @@ namespace FireEscape.Resources.Languages {
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check internet and try again..
+        /// </summary>
+        internal static string CheckInternetMessage {
+            get {
+                return ResourceManager.GetString("CheckInternetMessage", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No connectivity.
+        /// </summary>
+        internal static string NoConnectivity {
+            get {
+                return ResourceManager.GetString("NoConnectivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to nophoto.png.
         /// </summary>
         internal static string NoPhoto {
@@ -340,7 +367,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Protocol date:.
+        ///   Looks up a localized string similar to Protocol date: .
         /// </summary>
         internal static string ProtocolDate {
             get {
@@ -372,6 +399,15 @@ namespace FireEscape.Resources.Languages {
         internal static string SaveProtocolError {
             get {
                 return ResourceManager.GetString("SaveProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unregistered application version. Please report number {0} to the application vendor..
+        /// </summary>
+        internal static string UnregisteredApplicationMessage {
+            get {
+                return ResourceManager.GetString("UnregisteredApplicationMessage", resourceCulture);
             }
         }
     }

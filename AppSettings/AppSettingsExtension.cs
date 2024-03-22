@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls.PlatformConfiguration;
-
-#if ANDROID
+﻿#if ANDROID
 using Android.Provider;
 #elif IOS || MACCATALYST
 using UIKit;
@@ -13,13 +11,13 @@ namespace FireEscape.AppSettings
     {
         private const string DROPBOX_SETTINGS = "DropboxSettings";
         private const string NEW_PROTOCOL_SETTINGS = "NewProtocolSettings";
-        private const string FIREESCAPE_PROPERTIES_DICTIONARY = "FireEscapePropertiesDictionary";
+        private const string FIREESCAPE_PROPERTIES_SETTINGS = "FireEscapePropertiesSettings";
 
         public static MauiAppBuilder UseAppSettings(this MauiAppBuilder builder, IConfiguration configuration)
         {
             builder.Services.Configure<DropboxSettings>(options => configuration.GetSection(DROPBOX_SETTINGS).Bind(options));
             builder.Services.Configure<NewProtocolSettings>(options => configuration.GetSection(NEW_PROTOCOL_SETTINGS).Bind(options));
-            builder.Services.Configure<FireEscapePropertiesDictionary>(options => configuration.GetSection(FIREESCAPE_PROPERTIES_DICTIONARY).Bind(options));
+            builder.Services.Configure<FireEscapePropertiesSettings>(options => configuration.GetSection(FIREESCAPE_PROPERTIES_SETTINGS).Bind(options));
             return builder;
         }
 

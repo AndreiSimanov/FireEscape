@@ -175,7 +175,7 @@ namespace FireEscape.Repositories
 
         private static void MakePdfFooter(Document document, Protocol protocol)
         {
-            if (string.IsNullOrEmpty(protocol.Customer))
+            if (string.IsNullOrWhiteSpace(protocol.Customer))
                 return;
 
             document.Add(new Paragraph()
@@ -207,10 +207,10 @@ namespace FireEscape.Repositories
                 .OfType<ExifIfd0Directory>()
                 .FirstOrDefault()?
                 .GetDescription(ExifIfd0Directory.TagOrientation);
-            if (!string.IsNullOrEmpty(orientation))
+            if (!string.IsNullOrWhiteSpace(orientation))
             {
                 var angleStr = Regex.Match(orientation, @"\d+").Value;
-                if (!string.IsNullOrEmpty(angleStr))
+                if (!string.IsNullOrWhiteSpace(angleStr))
                     angle = int.Parse(angleStr);
             }
             return -angle * Math.PI / 180;

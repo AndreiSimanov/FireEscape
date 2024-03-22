@@ -129,6 +129,9 @@
   <data name="AddressHint" xml:space="preserve">
     <value>Укажите адрес объекта</value>
   </data>
+  <data name="AddressStringFormat" xml:space="preserve">
+    <value>Адрес: </value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Fire Escape</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
+  </data>
+  <data name="CheckInternetMessage" xml:space="preserve">
+    <value>Проверьте подключение к интернет и повторите операцию.</value>
   </data>
   <data name="CreatePdfFileErrorCreateReportError" xml:space="preserve">
     <value>Невозможно создать файл отчета</value>
@@ -204,6 +210,9 @@
   <data name="NewProtocol" xml:space="preserve">
     <value>Новый протокол</value>
   </data>
+  <data name="NoConnectivity" xml:space="preserve">
+    <value>Нет подключения</value>
+  </data>
   <data name="NoPhoto" xml:space="preserve">
     <value>nophoto.png</value>
   </data>
@@ -211,7 +220,7 @@
     <value>Ok</value>
   </data>
   <data name="ProtocolDate" xml:space="preserve">
-    <value>Дата протокола:</value>
+    <value>Дата протокола: </value>
   </data>
   <data name="ProtocolNum" xml:space="preserve">
     <value>Номер протокола:</value>
@@ -221,5 +230,8 @@
   </data>
   <data name="SaveProtocolError" xml:space="preserve">
     <value>Невозможно сохранить протокол</value>
+  </data>
+  <data name="UnregisteredApplicationMessage" xml:space="preserve">
+    <value>Незарегистрированная версия приложения. Сообщите номер {0} вендору приложения.</value>
   </data>
 </root>

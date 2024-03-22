@@ -102,8 +102,22 @@
                                                 Padding="10">
                                             <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObjectName}" />
                                             <Label Text="{Binding FireEscape.FireEscapeType}" />
-                                            <Label Text="{Binding FullAddress,  StringFormat='Адрес: {0}'}" />
-                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding ProtocolDate, StringFormat='Дата протокола: {0:dd.MM.yyyy}'}" />
+                                            <Label>
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                        <Span Text="{Binding FullAddress}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Style="{StaticResource SmallLabel}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
+                                                        <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Frame>

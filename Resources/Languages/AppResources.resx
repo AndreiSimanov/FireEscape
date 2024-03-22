@@ -129,6 +129,9 @@
   <data name="AddressHint" xml:space="preserve">
     <value>Specify address:</value>
   </data>
+  <data name="AddressStringFormat" xml:space="preserve">
+    <value>Address: </value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Fire Escape</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="CheckInternetMessage" xml:space="preserve">
+    <value>Please check internet and try again.</value>
   </data>
   <data name="CreateReportError" xml:space="preserve">
     <value>Unable to create report file</value>
@@ -204,6 +210,9 @@
   <data name="NewProtocol" xml:space="preserve">
     <value>New protocol</value>
   </data>
+  <data name="NoConnectivity" xml:space="preserve">
+    <value>No connectivity</value>
+  </data>
   <data name="NoPhoto" xml:space="preserve">
     <value>nophoto.png</value>
   </data>
@@ -211,7 +220,7 @@
     <value>Ok</value>
   </data>
   <data name="ProtocolDate" xml:space="preserve">
-    <value>Protocol date:</value>
+    <value>Protocol date: </value>
   </data>
   <data name="ProtocolNum" xml:space="preserve">
     <value>Protocol number:</value>
@@ -221,5 +230,8 @@
   </data>
   <data name="SaveProtocolError" xml:space="preserve">
     <value>Unable to save the protocol</value>
+  </data>
+  <data name="UnregisteredApplicationMessage" xml:space="preserve">
+    <value>Unregistered application version. Please report number {0} to the application vendor.</value>
   </data>
 </root>

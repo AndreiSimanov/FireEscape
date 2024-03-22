@@ -11,10 +11,12 @@ namespace FireEscape.ViewModels
         public ObservableCollection<Protocol> protocols = new();
 
         readonly ProtocolService protocolService;
+        readonly ApplicationService applicationService;
 
-        public MainViewModel(ProtocolService protocolService)
+        public MainViewModel(ProtocolService protocolService, ApplicationService applicationService)
         {
             this.protocolService = protocolService;
+            this.applicationService = applicationService;
         }
         
         public Protocol? SelectedProtocol { get; set; }
@@ -78,7 +80,17 @@ namespace FireEscape.ViewModels
         {
             await DoCommand(async () =>
             {
-                await protocolService.CreateReportAsync(protocol);
+                var noExpiration = await applicationService.CheckApplicationExpiration();
+                if (noExpiration)
+                {
+                    await protocolService.CreateReportAsync(protocol);
+                }
+                else 
+                {
+                    await Shell.Current.DisplayAlert("", 
+                        string.Format(AppResources.UnregisteredApplicationMessage
+                        , AppSettingsExtension.DeviceIdentifier), AppResources.Ok);
+                }
             },
             protocol,
             AppResources.CreateReportError);

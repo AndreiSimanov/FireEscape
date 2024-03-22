@@ -10,12 +10,11 @@ namespace FireEscape.Repositories
     public class DropboxRepository
     {
         readonly DropboxSettings dropboxSettings;
-        readonly HttpClient httpClient;
+        readonly HttpClient httpClient = new HttpClient(new AndroidMessageHandler());
 
         public DropboxRepository(IOptions<DropboxSettings> dropboxSettings)
         {
             this.dropboxSettings = dropboxSettings.Value;
-            httpClient = new HttpClient();
         }
 
         public async Task<string> UploadJsonAsync(string key, string value)
@@ -28,8 +27,9 @@ namespace FireEscape.Repositories
 
         public async Task<string> DownloadJsonAsync(string key)
         {
-            using var dbx = new DropboxClient(await GetTokenAsync());
-            using var response = await dbx.Files.DownloadAsync(GetJsonPath(key));
+            using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
+            var path = GetJsonPath(key);
+            using var response = await dbx.Files.DownloadAsync(path);
             var s = await response.GetContentAsByteArrayAsync();
             return Encoding.Default.GetString(s);
         }
@@ -44,7 +44,7 @@ namespace FireEscape.Repositories
 
         public async Task DownloadAsync(string sourceFilePath, string destinationFilePath)
         {
-            using var dbx = new DropboxClient(await GetTokenAsync());
+            using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
             using var response = await dbx.Files.DownloadAsync(GetAppPath() + sourceFilePath);
             var content = await response.GetContentAsByteArrayAsync();
             await File.WriteAllBytesAsync(destinationFilePath, content);
@@ -59,7 +59,7 @@ namespace FireEscape.Repositories
             using var request = new HttpRequestMessage(new HttpMethod("POST"), dropboxSettings.TokenUri);
             var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(dropboxSettings.AppKey + ":" + dropboxSettings.AppSecret));
             request.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64authorization}");
-            request.Content = new StringContent(dropboxSettings.RefreshToken + "&grant_type=refresh_token");
+            request.Content = new StringContent("refresh_token="+ dropboxSettings.RefreshToken + "&grant_type=refresh_token");
             request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             var response = await httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
@@ -67,6 +67,7 @@ namespace FireEscape.Repositories
                 var accessToken = await response.Content.ReadFromJsonAsync<AccessToken>();
                 return accessToken.access_token;
             }
+
             return null;
         }
 
@@ -90,5 +91,17 @@ namespace FireEscape.Repositories
         public string access_token { get; set; }
         public string token_type { get; set; }
         public int expires_in { get; set; }
+    }
+
+    public class AndroidMessageHandler : HttpClientHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            if (request.RequestUri.AbsolutePath.Contains("files/download"))
+            {
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            }
+            return base.SendAsync(request, cancellationToken);
+        }
     }
 }
