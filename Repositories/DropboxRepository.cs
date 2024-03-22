@@ -44,6 +44,12 @@ namespace FireEscape.Repositories
             }
         }
 
+        public async Task DeleteJsonAsync(string key, string folder = "")
+        {
+            using var dbx = new DropboxClient(await GetTokenAsync());
+            await dbx.Files.DeleteV2Async(GetJsonPath(key, folder));
+        }
+
         public async Task<string> UploadAsync(string sourceFilePath, string destinationFilePath)
         {
             using var dbx = new DropboxClient(await GetTokenAsync());
@@ -98,11 +104,6 @@ namespace FireEscape.Repositories
             return await dbx.Users.GetCurrentAccountAsync();
         }
 
-        public async Task<ListFolderResult> ListFolderAsync(string folder)
-        {
-            using var dbx = new DropboxClient(await GetTokenAsync());
-            return await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
-        }
         */
     }
     struct AccessToken

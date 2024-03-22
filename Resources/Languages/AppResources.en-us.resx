@@ -165,6 +165,12 @@
   <data name="DeleteProtocolError" xml:space="preserve">
     <value>Unable to delete protocol</value>
   </data>
+  <data name="DeleteUserAccount" xml:space="preserve">
+    <value>Delete the uesr account?</value>
+  </data>
+  <data name="DeleteUserAccountError" xml:space="preserve">
+    <value>Unable to delete user account</value>
+  </data>
   <data name="EditFireEscapeError" xml:space="preserve">
     <value>Unable to edit the fire escape properties</value>
   </data>

@@ -25,6 +25,7 @@ namespace FireEscape.ViewModels
             {
                 try
                 {
+                    UserAccounts.Clear();
                     await foreach (var item in userAccountService.GetUserAccountsAsync())
                     {
                         UserAccounts.Add(item);
@@ -36,6 +37,24 @@ namespace FireEscape.ViewModels
                 }
             },
             AppResources.GetUserAccountsError);
+        }
+
+        [RelayCommand]
+        async Task DeleteUserAccountAsync(UserAccount userAccount)
+        {
+            await DoCommand(async () =>
+            {
+                var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteUserAccount,
+                    AppResources.Cancel,
+                    AppResources.Delete);
+                if (string.Equals(action, AppResources.Cancel))
+                    return;
+
+                await userAccountService.DeleteUserAccount(userAccount);
+                UserAccounts.Remove(userAccount);
+            },
+            userAccount,
+            AppResources.DeleteUserAccountError);
         }
     }
 }

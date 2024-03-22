@@ -20,9 +20,9 @@ namespace FireEscape.ViewModels
             await Shell.Current.DisplayAlert(AppResources.Error, ex.Message, AppResources.OK);
         }
 
-        protected async Task DoCommand(Func<Task> func, Protocol protocol, string exceptionCaption)
+        protected async Task DoCommand(Func<Task> func, object item, string exceptionCaption)
         {
-            if (protocol != null)
+            if (item != null)
                 await DoCommand(func, exceptionCaption);
         }
 

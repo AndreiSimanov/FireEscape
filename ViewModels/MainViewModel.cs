@@ -58,7 +58,7 @@ namespace FireEscape.ViewModels
         }
 
         [RelayCommand]
-        async Task DeleteProtocol(Protocol protocol)
+        async Task DeleteProtocolAsync(Protocol protocol)
         {
             await DoCommand(async () =>
             {

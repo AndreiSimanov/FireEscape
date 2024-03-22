@@ -205,6 +205,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Удалить учетную запись?.
+        /// </summary>
+        internal static string DeleteUserAccount {
+            get {
+                return ResourceManager.GetString("DeleteUserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно удалить учетную запись пользователя.
+        /// </summary>
+        internal static string DeleteUserAccountError {
+            get {
+                return ResourceManager.GetString("DeleteUserAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно отркдактировать параметры лестницы.
         /// </summary>
         internal static string EditFireEscapeError {

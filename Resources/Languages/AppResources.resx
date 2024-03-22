@@ -165,6 +165,12 @@
   <data name="DeleteProtocolError" xml:space="preserve">
     <value>Невозможно удалить протокол</value>
   </data>
+  <data name="DeleteUserAccount" xml:space="preserve">
+    <value>Удалить учетную запись?</value>
+  </data>
+  <data name="DeleteUserAccountError" xml:space="preserve">
+    <value>Невозможно удалить учетную запись пользователя</value>
+  </data>
   <data name="EditFireEscapeError" xml:space="preserve">
     <value>Невозможно отркдактировать параметры лестницы</value>
   </data>

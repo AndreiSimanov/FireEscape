@@ -24,7 +24,6 @@
             Command="{Binding GetUserAccountsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
             <CollectionView
-                x:Name="userAccounts"
                 ItemsSource="{Binding UserAccounts}"
                 SelectionMode="Single">
                 <CollectionView.EmptyView>
@@ -51,8 +50,8 @@
                                 <SwipeItems>
                                     <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
                                                IconImageSource="delete.png"
-                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteUserAccountCommand}"
+                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel } }, Path=IsNotBusy}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel}}, Path=DeleteUserAccountCommand}"
                                                CommandParameter="{Binding .}">
                                     </SwipeItem>
                                 </SwipeItems>
@@ -61,7 +60,7 @@
                                 <Frame HeightRequest="150" Style="{StaticResource CardView}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel}}, Path=GoToDetailsCommand}"
                                                 CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
                                     <VerticalStackLayout

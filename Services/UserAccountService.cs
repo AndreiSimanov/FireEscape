@@ -121,5 +121,10 @@ namespace FireEscape.Services
                 }
             }
         }
+
+        public async Task DeleteUserAccount(UserAccount userAccount)
+        {
+            await dropboxRepository.DeleteJsonAsync(userAccount.Id!, applicationSettings.UserAccountsFolderName);
+        }
     }
 }
