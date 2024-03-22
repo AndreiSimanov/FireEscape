@@ -118,100 +118,100 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddPhotoError" xml:space="preserve">
-    <value>Невозможно добавить фотографию в  протокол</value>
+    <value>Unable to add photo to the protocol</value>
   </data>
   <data name="AddProtocolError" xml:space="preserve">
-    <value>Невозможно добавить протокол</value>
+    <value>Unable to add protocol</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Адрес объекта:</value>
+    <value>Address:</value>
   </data>
   <data name="AddressHint" xml:space="preserve">
-    <value>Укажите адрес объекта</value>
+    <value>Specify address:</value>
   </data>
   <data name="AddressStringFormat" xml:space="preserve">
-    <value>Адрес: </value>
+    <value>Address: </value>
   </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Fire Escape</value>
   </data>
   <data name="BrokenData" xml:space="preserve">
-    <value>Поврежденные данные</value>
+    <value>Broken data</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Отмена</value>
+    <value>Cancel</value>
   </data>
   <data name="CheckInternetMessage" xml:space="preserve">
-    <value>Проверьте подключение к интернет и повторите операцию.</value>
+    <value>Please check internet and try again.</value>
   </data>
-  <data name="CreatePdfFileErrorCreateReportError" xml:space="preserve">
-    <value>Невозможно создать файл отчета</value>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Unable to create report file</value>
   </data>
   <data name="Customer" xml:space="preserve">
-    <value>Представитель заказчика</value>
+    <value>Customer representative</value>
   </data>
   <data name="CustomerHint" xml:space="preserve">
-    <value>Укажите представителя заказчика</value>
+    <value>Specify representative of the customer</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Delete</value>
   </data>
   <data name="DeleteProtocol" xml:space="preserve">
-    <value>Удалить протокол?</value>
+    <value>Delete the protocol?</value>
   </data>
   <data name="DeleteProtocolError" xml:space="preserve">
-    <value>Невозможно удалить протокол</value>
+    <value>Unable to delete protocol</value>
   </data>
   <data name="EditFireEscapeError" xml:space="preserve">
-    <value>Невозможно отркдактировать параметры лестницы</value>
+    <value>Unable to edit the fire escape properties</value>
   </data>
   <data name="EditProtocolError" xml:space="preserve">
-    <value>Невозможно отредактировать протокол</value>
+    <value>Unable to edit the protocol</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Error</value>
   </data>
   <data name="FireEscape" xml:space="preserve">
-    <value>Пожарная лестница</value>
+    <value>Fire escape</value>
   </data>
   <data name="FireEscapeMountTypesHint" xml:space="preserve">
-    <value>Укажите тип установки лестницы</value>
+    <value>Specify fire escape mount type</value>
   </data>
   <data name="FireEscapeNum" xml:space="preserve">
-    <value>Номер испытуемого объекта:</value>
+    <value>Test object number:</value>
   </data>
   <data name="FireEscapeObject" xml:space="preserve">
-    <value>Название объекта:</value>
+    <value>Fire escape object name:</value>
   </data>
   <data name="FireEscapeObjectHint" xml:space="preserve">
-    <value>Укажите название объекта</value>
+    <value>Specify fire escape object name</value>
   </data>
   <data name="FireEscapePageTitle" xml:space="preserve">
-    <value>Параметры лестницы</value>
+    <value>Fire escape properties</value>
   </data>
   <data name="FireEscapeTypesHint" xml:space="preserve">
-    <value>Укажите тип лестницы</value>
+    <value>Specify fire escape type</value>
   </data>
   <data name="GetProtocolsError" xml:space="preserve">
-    <value>Невозможно получить список протоколов</value>
+    <value>Unable to get protocols</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Место:</value>
+    <value>Location:</value>
   </data>
   <data name="LocationHint" xml:space="preserve">
-    <value>Укажите город / область</value>
+    <value>Specify city/region</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
-    <value>Список протоколов</value>
+    <value>Protocol list</value>
   </data>
   <data name="MakePhotoHint" xml:space="preserve">
-    <value>Сделать фотографию</value>
+    <value>Click image to make a photo</value>
   </data>
   <data name="NewProtocol" xml:space="preserve">
-    <value>Новый протокол</value>
+    <value>New protocol</value>
   </data>
   <data name="NoConnectivity" xml:space="preserve">
-    <value>Нет подключения</value>
+    <value>No connectivity</value>
   </data>
   <data name="NoPhoto" xml:space="preserve">
     <value>nophoto.png</value>
@@ -220,18 +220,18 @@
     <value>OK</value>
   </data>
   <data name="ProtocolDate" xml:space="preserve">
-    <value>Дата протокола: </value>
+    <value>Protocol date: </value>
   </data>
   <data name="ProtocolNum" xml:space="preserve">
-    <value>Номер протокола:</value>
+    <value>Protocol number:</value>
   </data>
   <data name="ProtocolPageTitle" xml:space="preserve">
-    <value>Протокол</value>
+    <value>Protocol</value>
   </data>
   <data name="SaveProtocolError" xml:space="preserve">
-    <value>Невозможно сохранить протокол</value>
+    <value>Unable to save the protocol</value>
   </data>
   <data name="UnregisteredApplicationMessage" xml:space="preserve">
-    <value>Незарегистрированная версия приложения. Сообщите номер {0} вендору приложения.</value>
+    <value>Unregistered application version. Please report number {0} to the application vendor.</value>
   </data>
 </root>

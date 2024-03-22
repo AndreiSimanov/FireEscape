@@ -1,4 +1,6 @@
-﻿#if ANDROID
+﻿using Microsoft.Maui.Controls.PlatformConfiguration;
+
+#if ANDROID
 using Android.Provider;
 #elif IOS || MACCATALYST
 using UIKit;
@@ -41,13 +43,14 @@ namespace FireEscape.AppSettings
             get
             {
 #if WINDOWS
-                return WindowsIdentifier.GetProcessorId();
+                //return WindowsIdentifier.GetProcessorId();
+                return null;
                 
 #elif ANDROID
                 return Android.Provider.Settings.Secure.GetString(Android.App.Application.Context.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
 
 #elif IOS || MACCATALYST
-                return UIDevice.CurrentDevice.IdentifierForVendor?.ToString(); 
+                return UIDevice.CurrentDevice.IdentifierForVendor?.ToString();
 #else
                 return null;
 #endif
