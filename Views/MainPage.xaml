@@ -33,7 +33,7 @@
             Style="{StaticResource ButtonView }"
             Text="+">
             <Button.GestureRecognizers>
-                <TapGestureRecognizer  NumberOfTapsRequired = "2" Command="{Binding OpenAdminPageCommand}"/>
+                <TapGestureRecognizer  NumberOfTapsRequired = "2" Command="{Binding OpenUserAccountsPageCommand}"/>
                 <TapGestureRecognizer  Command="{Binding AddProtocolCommand}"/>
             </Button.GestureRecognizers>
         </Button>

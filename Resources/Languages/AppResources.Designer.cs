@@ -61,7 +61,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to add photo to the protocol.
+        ///   Looks up a localized string similar to Невозможно добавить фотографию в  протокол.
         /// </summary>
         internal static string AddPhotoError {
             get {
@@ -70,7 +70,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to add protocol.
+        ///   Looks up a localized string similar to Невозможно добавить протокол.
         /// </summary>
         internal static string AddProtocolError {
             get {
@@ -79,7 +79,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Address:.
+        ///   Looks up a localized string similar to Адрес объекта:.
         /// </summary>
         internal static string Address {
             get {
@@ -88,7 +88,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify address:.
+        ///   Looks up a localized string similar to Укажите адрес объекта.
         /// </summary>
         internal static string AddressHint {
             get {
@@ -97,7 +97,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Address: .
+        ///   Looks up a localized string similar to Адрес: .
         /// </summary>
         internal static string AddressStringFormat {
             get {
@@ -115,7 +115,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Broken data.
+        ///   Looks up a localized string similar to Поврежденные данные.
         /// </summary>
         internal static string BrokenData {
             get {
@@ -124,7 +124,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Отмена.
         /// </summary>
         internal static string Cancel {
             get {
@@ -133,7 +133,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please check internet and try again..
+        ///   Looks up a localized string similar to Проверьте подключение к интернет и повторите операцию..
         /// </summary>
         internal static string CheckInternetMessage {
             get {
@@ -142,7 +142,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to create report file.
+        ///   Looks up a localized string similar to Невозможно создать файл отчета.
         /// </summary>
         internal static string CreateReportError {
             get {
@@ -151,7 +151,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer representative.
+        ///   Looks up a localized string similar to Представитель заказчика.
         /// </summary>
         internal static string Customer {
             get {
@@ -160,7 +160,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify representative of the customer.
+        ///   Looks up a localized string similar to Укажите представителя заказчика.
         /// </summary>
         internal static string CustomerHint {
             get {
@@ -169,7 +169,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Удалить.
         /// </summary>
         internal static string Delete {
             get {
@@ -178,7 +178,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete the protocol?.
+        ///   Looks up a localized string similar to Удалить протокол?.
         /// </summary>
         internal static string DeleteProtocol {
             get {
@@ -187,7 +187,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to delete protocol.
+        ///   Looks up a localized string similar to Невозможно удалить протокол.
         /// </summary>
         internal static string DeleteProtocolError {
             get {
@@ -196,7 +196,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to edit the fire escape properties.
+        ///   Looks up a localized string similar to Невозможно отркдактировать параметры лестницы.
         /// </summary>
         internal static string EditFireEscapeError {
             get {
@@ -205,7 +205,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to edit the protocol.
+        ///   Looks up a localized string similar to Невозможно отредактировать протокол.
         /// </summary>
         internal static string EditProtocolError {
             get {
@@ -214,7 +214,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Ошибка.
         /// </summary>
         internal static string Error {
             get {
@@ -223,7 +223,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fire escape.
+        ///   Looks up a localized string similar to Пожарная лестница.
         /// </summary>
         internal static string FireEscape {
             get {
@@ -232,7 +232,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify fire escape mount type.
+        ///   Looks up a localized string similar to Укажите тип установки лестницы.
         /// </summary>
         internal static string FireEscapeMountTypesHint {
             get {
@@ -241,7 +241,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test object number:.
+        ///   Looks up a localized string similar to Номер испытуемого объекта:.
         /// </summary>
         internal static string FireEscapeNum {
             get {
@@ -250,7 +250,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fire escape object name:.
+        ///   Looks up a localized string similar to Название объекта:.
         /// </summary>
         internal static string FireEscapeObject {
             get {
@@ -259,7 +259,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify fire escape object name.
+        ///   Looks up a localized string similar to Укажите название объекта.
         /// </summary>
         internal static string FireEscapeObjectHint {
             get {
@@ -268,7 +268,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fire escape properties.
+        ///   Looks up a localized string similar to Параметры лестницы.
         /// </summary>
         internal static string FireEscapePageTitle {
             get {
@@ -277,7 +277,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify fire escape type.
+        ///   Looks up a localized string similar to Укажите тип лестницы.
         /// </summary>
         internal static string FireEscapeTypesHint {
             get {
@@ -286,7 +286,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to get protocols.
+        ///   Looks up a localized string similar to Невозможно получить список протоколов.
         /// </summary>
         internal static string GetProtocolsError {
             get {
@@ -295,7 +295,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Location:.
+        ///   Looks up a localized string similar to Место:.
         /// </summary>
         internal static string Location {
             get {
@@ -304,7 +304,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify city/region.
+        ///   Looks up a localized string similar to Укажите город / область.
         /// </summary>
         internal static string LocationHint {
             get {
@@ -313,7 +313,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Protocol list.
+        ///   Looks up a localized string similar to Список протоколов.
         /// </summary>
         internal static string MainPageTitle {
             get {
@@ -322,7 +322,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click image to make a photo.
+        ///   Looks up a localized string similar to Сделать фотографию.
         /// </summary>
         internal static string MakePhotoHint {
             get {
@@ -331,7 +331,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New protocol.
+        ///   Looks up a localized string similar to Новый протокол.
         /// </summary>
         internal static string NewProtocol {
             get {
@@ -340,7 +340,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No connectivity.
+        ///   Looks up a localized string similar to Нет подключения.
         /// </summary>
         internal static string NoConnectivity {
             get {
@@ -367,7 +367,16 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Protocol date: .
+        ///   Looks up a localized string similar to Невозможно отредкатировать учетные записи пользователей.
+        /// </summary>
+        internal static string OpenUserAccountsPageError {
+            get {
+                return ResourceManager.GetString("OpenUserAccountsPageError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата протокола: .
         /// </summary>
         internal static string ProtocolDate {
             get {
@@ -376,7 +385,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Protocol number:.
+        ///   Looks up a localized string similar to Номер протокола:.
         /// </summary>
         internal static string ProtocolNum {
             get {
@@ -385,7 +394,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Protocol.
+        ///   Looks up a localized string similar to Протокол.
         /// </summary>
         internal static string ProtocolPageTitle {
             get {
@@ -394,7 +403,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to save the protocol.
+        ///   Looks up a localized string similar to Невозможно сохранить протокол.
         /// </summary>
         internal static string SaveProtocolError {
             get {
@@ -403,11 +412,20 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unregistered application version. Please report number {0} to the application vendor..
+        ///   Looks up a localized string similar to Незарегистрированная версия приложения. Сообщите номер {0} вендору приложения..
         /// </summary>
         internal static string UnregisteredApplicationMessage {
             get {
                 return ResourceManager.GetString("UnregisteredApplicationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователи.
+        /// </summary>
+        internal static string UserAccountsPageTitle {
+            get {
+                return ResourceManager.GetString("UserAccountsPageTitle", resourceCulture);
             }
         }
     }

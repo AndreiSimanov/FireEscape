@@ -219,6 +219,9 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="OpenUserAccountsPageError" xml:space="preserve">
+    <value>Unable to edit user accounts</value>
+  </data>
   <data name="ProtocolDate" xml:space="preserve">
     <value>Protocol date: </value>
   </data>
@@ -233,5 +236,8 @@
   </data>
   <data name="UnregisteredApplicationMessage" xml:space="preserve">
     <value>Unregistered application version. Please report number {0} to the application vendor.</value>
+  </data>
+  <data name="UserAccountsPageTitle" xml:space="preserve">
+    <value>Users</value>
   </data>
 </root>

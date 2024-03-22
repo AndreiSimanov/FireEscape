@@ -17,9 +17,8 @@ namespace FireEscape.ViewModels
         {
             this.protocolService = protocolService;
             this.userAccountService = userAccountService;
-
         }
-        
+
         public Protocol? SelectedProtocol { get; set; }
 
         [ObservableProperty]
@@ -87,9 +86,9 @@ namespace FireEscape.ViewModels
                     var userAccount = await userAccountService.GetUserAccount();
                     await protocolService.CreateReportAsync(protocol, userAccount);
                 }
-                else 
+                else
                 {
-                    await Shell.Current.DisplayAlert("", 
+                    await Shell.Current.DisplayAlert("",
                         string.Format(AppResources.UnregisteredApplicationMessage
                         , AppSettingsExtension.DeviceIdentifier), AppResources.OK);
                 }
@@ -112,17 +111,17 @@ namespace FireEscape.ViewModels
         }
 
         [RelayCommand]
-        async Task OpenAdminPageAsync()
+        async Task OpenUserAccountsPageAsync()
         {
             await DoCommand(async () =>
             {
                 var userAccount = await userAccountService.DownloadUserAccountAsync();
                 if (userAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
                 {
-                    await Shell.Current.DisplayAlert("", "Open admin form", AppResources.OK);
+                    await Shell.Current.GoToAsync(nameof(UserAccountsPage), true);
                 }
             },
-            AppResources.AddProtocolError);
+            AppResources.OpenUserAccountsPageError);
         }
     }
 }

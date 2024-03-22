@@ -144,7 +144,7 @@
   <data name="CheckInternetMessage" xml:space="preserve">
     <value>Проверьте подключение к интернет и повторите операцию.</value>
   </data>
-  <data name="CreatePdfFileErrorCreateReportError" xml:space="preserve">
+  <data name="CreateReportError" xml:space="preserve">
     <value>Невозможно создать файл отчета</value>
   </data>
   <data name="Customer" xml:space="preserve">
@@ -219,6 +219,9 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="OpenUserAccountsPageError" xml:space="preserve">
+    <value>Невозможно отредкатировать учетные записи пользователей</value>
+  </data>
   <data name="ProtocolDate" xml:space="preserve">
     <value>Дата протокола: </value>
   </data>
@@ -233,5 +236,8 @@
   </data>
   <data name="UnregisteredApplicationMessage" xml:space="preserve">
     <value>Незарегистрированная версия приложения. Сообщите номер {0} вендору приложения.</value>
+  </data>
+  <data name="UserAccountsPageTitle" xml:space="preserve">
+    <value>Пользователи</value>
   </data>
 </root>
