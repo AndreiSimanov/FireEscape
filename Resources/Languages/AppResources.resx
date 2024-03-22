@@ -195,6 +195,9 @@
   <data name="GetProtocolsError" xml:space="preserve">
     <value>Невозможно получить список протоколов</value>
   </data>
+  <data name="GetUserAccountsError" xml:space="preserve">
+    <value>Невозможно получить список пользователей</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Место:</value>
   </data>

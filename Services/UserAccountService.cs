@@ -97,5 +97,29 @@ namespace FireEscape.Services
                 && userAccount.ExpirationDate > DateTime.Now
                 && string.Equals(userAccount.Id, AppSettingsExtension.DeviceIdentifier);
         }
+
+        public async IAsyncEnumerable<UserAccount> GetUserAccountsAsync()
+        {
+            var listFolderResult = await dropboxRepository.ListFolderAsync(applicationSettings.UserAccountsFolderName);
+            if (listFolderResult != null && listFolderResult.Entries.Any())
+            {
+                var keyEnumeration = listFolderResult.Entries.Select(file => Path.GetFileNameWithoutExtension(file.Name));
+                await foreach (var item in dropboxRepository.DownloadJsonAsync(keyEnumeration, applicationSettings.UserAccountsFolderName))
+                {
+                    UserAccount? userAccount = null;
+                    try
+                    {
+                        userAccount = JsonSerializer.Deserialize<UserAccount>(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"GetUserAccountsAsync: {ex.Message}");
+                    }
+
+                    if (userAccount != null)
+                        yield return userAccount;
+                }
+            }
+        }
     }
 }

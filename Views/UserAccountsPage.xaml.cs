@@ -16,20 +16,8 @@ public partial class UserAccountsPage : ContentPage
         }
     }
 
-
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
-        if (UserAccountsViewModel != null)
-        {
-            /*
-            MainViewModel.GetProtocolsCommand.Execute(null);
-            if (MainViewModel.SelectedProtocol != null)
-            {
-                var index = MainViewModel.Protocols.IndexOf(MainViewModel.SelectedProtocol);
-                protocols.ScrollTo(index);
-                MainViewModel.SelectedProtocol = null;
-            }
-            */
-        }
+        UserAccountsViewModel?.GetUserAccountsCommand.Execute(null);
     }
 }

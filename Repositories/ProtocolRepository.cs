@@ -43,9 +43,8 @@ namespace FireEscape.Repositories
             });
         }
 
-        public async Task<List<Protocol>> GetProtocolsAsync()
+        public async IAsyncEnumerable<Protocol> GetProtocolsAsync()
         {
-            var protocolList = new List<Protocol>();
             var files = Directory.GetFiles(AppSettingsExtension.ContentFolder, "*.json");
             foreach (var file in files)
             {
@@ -67,10 +66,9 @@ namespace FireEscape.Repositories
                 if (protocol != null)
                 {
                     protocol.SourceFile = file;
-                    protocolList.Add(protocol);
+                    yield return protocol;
                 }
             }
-            return protocolList;
         }
 
         public async Task AddProtocolPhotoAsync(Protocol protocol, FileResult photo)

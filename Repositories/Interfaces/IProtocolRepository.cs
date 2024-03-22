@@ -5,7 +5,7 @@
         Task AddProtocolPhotoAsync(Protocol protocol, FileResult photo);
         Task<Protocol> CreateProtocolAsync();
         Task DeleteProtocol(Protocol protocol);
-        Task<List<Protocol>> GetProtocolsAsync();
+        IAsyncEnumerable<Protocol> GetProtocolsAsync();
         Task SaveProtocolAsync(Protocol protocol);
     }
 }

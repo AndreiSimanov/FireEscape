@@ -36,7 +36,10 @@
         {
             if (!protocolList.Any())
             {
-                protocolList = await protocolRepository.GetProtocolsAsync();
+                await foreach(var item in protocolRepository.GetProtocolsAsync())
+                {
+                    protocolList.Add(item);
+                }
                 protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
             }    
             return protocolList;

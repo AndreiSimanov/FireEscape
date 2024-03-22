@@ -33,6 +33,17 @@ namespace FireEscape.Repositories
             return Encoding.Default.GetString(s);
         }
 
+        public async IAsyncEnumerable<string> DownloadJsonAsync(IEnumerable<string> keys, string folder = "")
+        {
+            using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
+            foreach (var key in keys)
+            {
+                using var response = await dbx.Files.DownloadAsync(GetJsonPath(key, folder));
+                var s = await response.GetContentAsByteArrayAsync();
+                yield return Encoding.Default.GetString(s);
+            }
+        }
+
         public async Task<string> UploadAsync(string sourceFilePath, string destinationFilePath)
         {
             using var dbx = new DropboxClient(await GetTokenAsync());
@@ -71,6 +82,12 @@ namespace FireEscape.Repositories
             }
 
             return null;
+        }
+
+        public async Task<ListFolderResult> ListFolderAsync(string folder)
+        {
+            using var dbx = new DropboxClient(await GetTokenAsync());
+            return await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
         }
 
         /*

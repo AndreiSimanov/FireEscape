@@ -295,6 +295,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно получить список пользователей.
+        /// </summary>
+        internal static string GetUserAccountsError {
+            get {
+                return ResourceManager.GetString("GetUserAccountsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Место:.
         /// </summary>
         internal static string Location {

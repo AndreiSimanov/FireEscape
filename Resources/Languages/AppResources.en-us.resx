@@ -195,6 +195,9 @@
   <data name="GetProtocolsError" xml:space="preserve">
     <value>Unable to get protocols</value>
   </data>
+  <data name="GetUserAccountsError" xml:space="preserve">
+    <value>Unable to get user accounts</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Location:</value>
   </data>
