@@ -466,7 +466,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Незарегистрированная версия приложения. Сообщите номер {0} вендору приложения..
+        ///   Looks up a localized string similar to Незарегистрированная версия приложения либо действие учетной записи истекло. Сообщите номер {0} вендору приложения..
         /// </summary>
         internal static string UnregisteredApplicationMessage {
             get {

@@ -46,6 +46,16 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:UserAccount">
                         <SwipeView  Style="{StaticResource TransparentSelection}">
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                               IconImageSource="edit.png"
+                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel } }, Path=IsNotBusy}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel}}, Path=GoToDetailsCommand}"
+                                               CommandParameter="{Binding .}">
+                                    </SwipeItem>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
                             <SwipeView.RightItems>
                                 <SwipeItems>
                                     <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
@@ -58,11 +68,6 @@
                             </SwipeView.RightItems>
                             <Grid Padding="10" HorizontalOptions="Fill">
                                 <Frame HeightRequest="150" Style="{StaticResource CardView}">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel}}, Path=GoToDetailsCommand}"
-                                                CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
                                     <VerticalStackLayout
                                                 VerticalOptions="Center"
                                                 Grid.Column="1"

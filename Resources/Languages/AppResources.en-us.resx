@@ -253,7 +253,7 @@
     <value>Unable to save the protocol</value>
   </data>
   <data name="UnregisteredApplicationMessage" xml:space="preserve">
-    <value>Unregistered application version. Please report number {0} to the application vendor.</value>
+    <value>Unregistered application version or user account has been expired. Please report number {0} to the application vendor.</value>
   </data>
   <data name="UserAccountId" xml:space="preserve">
     <value>Account identifier: </value>
