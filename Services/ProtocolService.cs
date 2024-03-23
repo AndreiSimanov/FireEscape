@@ -2,7 +2,6 @@
 {
     public class ProtocolService
     {
-        List<Protocol> protocolList = new();
         readonly IProtocolRepository protocolRepository;
         readonly IReportRepository reportRepository;
 
@@ -15,34 +14,22 @@
         public async Task<Protocol> CreateProtocolAsync() 
         {
             var protocol = await protocolRepository.CreateProtocolAsync();
-            protocolList.Insert(0, protocol);
             return protocol;
         } 
  
         public async Task SaveProtocolAsync(Protocol protocol)
         {
             await protocolRepository.SaveProtocolAsync(protocol);
-            if (!protocolList.Contains(protocol))
-                protocolList.Insert(0, protocol);
         }
 
         public async Task DeleteProtocol(Protocol protocol)
         {
             await protocolRepository.DeleteProtocol(protocol);
-            protocolList.Remove(protocol);
         }
 
-        public async Task<List<Protocol>> GetProtocolsAsync()
+        public IAsyncEnumerable<Protocol> GetProtocolsAsync()
         {
-            if (!protocolList.Any())
-            {
-                await foreach(var item in protocolRepository.GetProtocolsAsync())
-                {
-                    protocolList.Add(item);
-                }
-                protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
-            }    
-            return protocolList;
+            return  protocolRepository.GetProtocolsAsync();
         }
 
         public async Task AddProtocolPhotoAsync(Protocol protocol)

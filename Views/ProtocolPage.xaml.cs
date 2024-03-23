@@ -11,9 +11,6 @@ public partial class ProtocolPage : ContentPage
     private void ContentPage_Disappearing(object sender, EventArgs e)
     {
         var viewModel = BindingContext as ProtocolViewModel;
-        if (viewModel != null)
-        {
-            viewModel.SaveProtocolCommand.Execute(null);
-        }
+        viewModel?.SaveProtocolCommand.Execute(null);
     }
 }

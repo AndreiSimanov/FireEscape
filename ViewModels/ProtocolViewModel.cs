@@ -21,13 +21,10 @@ namespace FireEscape.ViewModels
             await DoCommand(async () =>
             {
                 await protocolService.AddProtocolPhotoAsync(Protocol!);
-                OnPropertyChanged(nameof(Protocol));
-
             },
             Protocol!,
             AppResources.AddPhotoError);
         }
-
 
         [RelayCommand]
         async Task SaveProtocolAsync()
@@ -39,7 +36,6 @@ namespace FireEscape.ViewModels
             Protocol!,
             AppResources.SaveProtocolError);
         }
-
 
         [RelayCommand]
         async Task GoToDetailsAsync()

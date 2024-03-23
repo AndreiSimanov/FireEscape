@@ -10,26 +10,11 @@ public partial class MainPage : ContentPage
         BindingContext = viewModel;
     }
 
-    private MainViewModel? MainViewModel
-    {
-        get
-        {
-            return BindingContext as MainViewModel;
-        }
-    }
-
+    private MainViewModel? MainViewModel => BindingContext as MainViewModel;
+    
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
-        if (MainViewModel != null)
-        {
-            MainViewModel.GetProtocolsCommand.Execute(null);
-            if (MainViewModel.SelectedProtocol != null)
-            {
-                var index = MainViewModel.Protocols.IndexOf(MainViewModel.SelectedProtocol);
-                protocols.ScrollTo(index);
-                MainViewModel.SelectedProtocol = null;
-            }
-        }
+        MainViewModel?.GetProtocolsCommand.Execute(null);
     }
 
     private void OnSwipeChanging(object sender, SwipeChangingEventArgs args)

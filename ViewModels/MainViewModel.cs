@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
-using FireEscape.Resources.Languages;
+﻿using FireEscape.Resources.Languages;
 using System.Collections.ObjectModel;
 using Protocol = FireEscape.Models.Protocol;
 
@@ -19,8 +18,6 @@ namespace FireEscape.ViewModels
             this.userAccountService = userAccountService;
         }
 
-        public Protocol? SelectedProtocol { get; set; }
-
         [ObservableProperty]
         bool isRefreshing;
 
@@ -31,8 +28,14 @@ namespace FireEscape.ViewModels
             {
                 try
                 {
-                    var protocols = await protocolService.GetProtocolsAsync();
-                    Protocols = protocols.ToObservableCollection();
+                    if (Protocols.Any())
+                        return;
+                    await foreach (var item in protocolService.GetProtocolsAsync())
+                    {
+                        Protocols.Add(item);
+                    }
+
+                    //!!protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
                 }
                 finally
                 {
@@ -45,16 +48,16 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task AddProtocolAsync()
         {
+            Protocol? newProtocol = null;
             await DoCommand(async () =>
             {
-                var protocol = await protocolService.CreateProtocolAsync();
-                Protocols.Insert(0, protocol);
-                SelectedProtocol = protocol;
+                newProtocol = await protocolService.CreateProtocolAsync();
+                Protocols.Insert(0, newProtocol);
             },
             AppResources.AddProtocolError);
 
-            if (SelectedProtocol != null)
-                await GoToDetailsAsync(SelectedProtocol);
+            if (newProtocol != null)
+                await GoToDetailsAsync(newProtocol);
         }
 
         [RelayCommand]
@@ -103,7 +106,6 @@ namespace FireEscape.ViewModels
         {
             await DoCommand(async () =>
             {
-                SelectedProtocol = protocol;
                 await Shell.Current.GoToAsync(nameof(ProtocolPage), true, new Dictionary<string, object> { { nameof(Protocol), protocol } });
                 // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
             },

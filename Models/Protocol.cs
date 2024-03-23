@@ -3,36 +3,47 @@ using System.Text.Json.Serialization;
 
 namespace FireEscape.Models
 {
-    public class Protocol
-    { 
+    public partial class Protocol : ObservableObject
+    {
         [JsonIgnore]
-        public string? SourceFile { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Updated { get; set; }
-        public required string Image { get; set; }
-        public uint ProtocolNum { get; set; }
-        public string Location { get; set; } = string.Empty;
-        public DateTime ProtocolDate { get; set; }
-        public string Address { get; set; } = string.Empty;
-        public uint FireEscapeNum { get; set; }
-        public string Details { get; set; } = string.Empty;
-        public string FireEscapeObject { get; set; } = string.Empty;
-        public string Customer { get; set; } = string.Empty;
-
-        public FireEscape FireEscape { get; set; } = new();
-
+        [ObservableProperty]
+        string? sourceFile;
+        [ObservableProperty]
+        DateTime created;
+        [ObservableProperty]
+        DateTime updated;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FullAddress))]
+        string image = AppResources.NoPhoto;
+        [ObservableProperty]
+        uint protocolNum;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FullAddress))]
+        string location = string.Empty;
+        [ObservableProperty]
+        DateTime protocolDate;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FullAddress))]
+        string address = string.Empty;
+        [ObservableProperty]
+        uint fireEscapeNum;
+        [ObservableProperty]
+        string details = string.Empty;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FireEscapeObjectName))]
+        string fireEscapeObject = string.Empty;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FireEscapeObjectName))]
+        string customer = string.Empty;
+        [ObservableProperty]
+        FireEscape fireEscape = new();
         [JsonIgnore]
         public string FireEscapeObjectName => string.IsNullOrWhiteSpace(FireEscapeObject)
             ? string.IsNullOrWhiteSpace(Customer) ? AppResources.FireEscape : Customer
             : FireEscapeObject;
-
         [JsonIgnore]
         public string FullAddress => Location + ", " + Address;
         [JsonIgnore]
         public bool HasImage => !string.IsNullOrWhiteSpace(Image) && !string.Equals(Image, AppResources.NoPhoto) && File.Exists(Image);
-
-
-
-
     }
 }

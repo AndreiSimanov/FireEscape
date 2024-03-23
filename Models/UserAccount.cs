@@ -15,6 +15,7 @@ namespace FireEscape.Models
         DateTime? expirationDate;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsAdmin))]
         List<string> roles = new();
 
         [JsonIgnore]

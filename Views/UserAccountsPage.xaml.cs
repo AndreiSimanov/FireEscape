@@ -10,13 +10,7 @@ public partial class UserAccountsPage : ContentPage
         BindingContext = viewModel;
     }
 
-    private UserAccountsViewModel? UserAccountsViewModel
-    {
-        get
-        {
-            return BindingContext as UserAccountsViewModel;
-        }
-    }
+    private UserAccountsViewModel? UserAccountsViewModel => BindingContext as UserAccountsViewModel;
 
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
