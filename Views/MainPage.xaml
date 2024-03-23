@@ -34,7 +34,7 @@
             Text="+">
             <Button.GestureRecognizers>
                 <TapGestureRecognizer  NumberOfTapsRequired = "2" Command="{Binding OpenUserAccountsPageCommand}"/>
-                <TapGestureRecognizer  Command="{Binding AddProtocolCommand}"/>
+                <TapGestureRecognizer  NumberOfTapsRequired = "1" Tapped="CreateProtocol"/>
             </Button.GestureRecognizers>
         </Button>
         <RefreshView

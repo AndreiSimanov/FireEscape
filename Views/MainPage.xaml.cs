@@ -29,4 +29,10 @@ public partial class MainPage : ContentPage
             MainViewModel.GoToDetailsCommand.Execute(protocols.SelectedItem);
         }
     }
+
+    private void CreateProtocol(object sender, TappedEventArgs e)
+    {
+        MainViewModel?.AddProtocolCommand.Execute(null);
+        protocols.ScrollTo(0);
+    }
 }
