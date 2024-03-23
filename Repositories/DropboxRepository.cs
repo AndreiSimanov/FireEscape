@@ -7,14 +7,14 @@ using System.Text;
 
 namespace FireEscape.Repositories
 {
-    public class DropboxRepository
+    public class DropboxRepository : IFileHostingRepository
     {
-        readonly DropboxSettings dropboxSettings;
+        readonly FileHostingSettings fileHostingSettings;
         readonly HttpClient httpClient = new HttpClient(new AndroidMessageHandler());
 
-        public DropboxRepository(IOptions<DropboxSettings> dropboxSettings)
+        public DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings)
         {
-            this.dropboxSettings = dropboxSettings.Value;
+            this.fileHostingSettings = fileHostingSettings.Value;
         }
 
         public async Task<string> UploadJsonAsync(string key, string value, string folder = "")
@@ -25,7 +25,7 @@ namespace FireEscape.Repositories
             return updated.Id;
         }
 
-        public async Task<string> DownloadJsonAsync(string key, string folder = "" )
+        public async Task<string> DownloadJsonAsync(string key, string folder = "")
         {
             using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
             using var response = await dbx.Files.DownloadAsync(GetJsonPath(key, folder));
@@ -66,7 +66,7 @@ namespace FireEscape.Repositories
             await File.WriteAllBytesAsync(destinationFilePath, content);
         }
 
-        private string GetAppPath() => "/" + dropboxSettings.ApplicationFolderName + "/";
+        private string GetAppPath() => "/" + fileHostingSettings.ApplicationFolderName + "/";
 
         private string GetJsonPath(string key, string folder) => GetAppPath()
             + (string.IsNullOrWhiteSpace(folder) ? string.Empty : folder + "/")
@@ -75,10 +75,10 @@ namespace FireEscape.Repositories
 
         private async Task<string?> GetTokenAsync() // https://stackoverflow.com/questions/71524238/how-to-create-not-expires-token-in-dropbox-api-v2
         {
-            using var request = new HttpRequestMessage(new HttpMethod("POST"), dropboxSettings.TokenUri);
-            var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(dropboxSettings.AppKey + ":" + dropboxSettings.AppSecret));
+            using var request = new HttpRequestMessage(new HttpMethod("POST"), fileHostingSettings.TokenUri);
+            var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(fileHostingSettings.AppKey + ":" + fileHostingSettings.AppSecret));
             request.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64authorization}");
-            request.Content = new StringContent("refresh_token="+ dropboxSettings.RefreshToken + "&grant_type=refresh_token");
+            request.Content = new StringContent("refresh_token=" + fileHostingSettings.RefreshToken + "&grant_type=refresh_token");
             request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             var response = await httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
@@ -90,10 +90,14 @@ namespace FireEscape.Repositories
             return null;
         }
 
-        public async Task<ListFolderResult> ListFolderAsync(string folder)
+        public async IAsyncEnumerable<string> ListFolderAsync(string folder)
         {
             using var dbx = new DropboxClient(await GetTokenAsync());
-            return await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
+            var result = await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
+            foreach (var file in result.Entries)
+            {
+                yield return file.Name;
+            }
         }
 
         /*

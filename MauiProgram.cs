@@ -12,7 +12,6 @@ namespace FireEscape
             using var stream = GetStreamFromFile("appsettings.json");
             var configuration = new ConfigurationBuilder().AddJsonStream(stream!).Build();
             builder.Configuration.AddConfiguration(configuration);
-            
 
             builder
                 .UseMauiApp<App>()
@@ -29,8 +28,8 @@ namespace FireEscape
 #endif
             builder.Services.AddSingleton<IProtocolRepository, ProtocolRepository>();
             builder.Services.AddSingleton<IReportRepository, PdfWriterRepository>();
+            builder.Services.AddSingleton<IFileHostingRepository, DropboxRepository>();
 
-            builder.Services.AddSingleton<DropboxRepository>();
             builder.Services.AddSingleton<UserAccountService>();
             builder.Services.AddSingleton<ProtocolService>();
 

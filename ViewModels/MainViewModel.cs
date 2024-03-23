@@ -1,4 +1,5 @@
-﻿using FireEscape.Resources.Languages;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using FireEscape.Resources.Languages;
 using System.Collections.ObjectModel;
 using Protocol = FireEscape.Models.Protocol;
 
@@ -30,12 +31,12 @@ namespace FireEscape.ViewModels
                 {
                     if (Protocols.Any())
                         return;
+                    var list = new List<Protocol>();
                     await foreach (var item in protocolService.GetProtocolsAsync())
                     {
-                        Protocols.Add(item);
+                        list.Add(item);
                     }
-
-                    //!!protocolList = protocolList.OrderByDescending(item => item.Created).ToList();
+                    Protocols = list.OrderByDescending(item => item.Created).ToObservableCollection(); //!!
                 }
                 finally
                 {

@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.AppSettings
 {
-    public class DropboxSettings
+    public class FileHostingSettings
     {
         public required string TokenUri { get; set; }
         public required string AppKey { get; set; }

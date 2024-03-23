@@ -9,11 +9,11 @@ namespace FireEscape.Services
     {
         const string USER_ACCOUNT = "UserAccount";
         readonly ApplicationSettings applicationSettings;
-        readonly DropboxRepository dropboxRepository;
+        readonly IFileHostingRepository fileHostingRepository;
 
-        public UserAccountService(DropboxRepository dropboxRepository, IOptions<ApplicationSettings> applicationSettings)
+        public UserAccountService(IFileHostingRepository fileHostingRepository, IOptions<ApplicationSettings> applicationSettings)
         {
-            this.dropboxRepository = dropboxRepository;
+            this.fileHostingRepository = fileHostingRepository;
             this.applicationSettings = applicationSettings.Value;
         }
 
@@ -37,36 +37,32 @@ namespace FireEscape.Services
 
         public async IAsyncEnumerable<UserAccount> GetUserAccountsAsync()
         {
-            var listFolderResult = await dropboxRepository.ListFolderAsync(applicationSettings.UserAccountsFolderName);
-            if (listFolderResult != null && listFolderResult.Entries.Any())
+            await foreach (var file in fileHostingRepository.ListFolderAsync(applicationSettings.UserAccountsFolderName))
             {
-                var keyEnumeration = listFolderResult.Entries.Select(file => Path.GetFileNameWithoutExtension(file.Name));
-                await foreach (var item in dropboxRepository.DownloadJsonAsync(keyEnumeration, applicationSettings.UserAccountsFolderName))
+                var keyEnumeration = Path.GetFileNameWithoutExtension(file);
+                var userAccountJson = await fileHostingRepository.DownloadJsonAsync(keyEnumeration, applicationSettings.UserAccountsFolderName);
+                UserAccount? userAccount = null;
+                try
                 {
-                    UserAccount? userAccount = null;
-                    try
-                    {
-                        userAccount = JsonSerializer.Deserialize<UserAccount>(item);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"GetUserAccountsAsync: {ex.Message}");
-                    }
-
-                    if (userAccount != null)
-                        yield return userAccount;
+                    userAccount = JsonSerializer.Deserialize<UserAccount>(userAccountJson);
                 }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"GetUserAccountsAsync: {ex.Message}");
+                }
+                if (userAccount != null)
+                    yield return userAccount;
             }
         }
 
         public async Task SaveUserAccountAsync(UserAccount userAccount)
         {
-            await dropboxRepository.UploadJsonAsync(userAccount.Id!, JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
+            await fileHostingRepository.UploadJsonAsync(userAccount.Id!, JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
         }
 
         public async Task DeleteUserAccount(UserAccount userAccount)
         {
-            await dropboxRepository.DeleteJsonAsync(userAccount.Id!, applicationSettings.UserAccountsFolderName);
+            await fileHostingRepository.DeleteJsonAsync(userAccount.Id!, applicationSettings.UserAccountsFolderName);
         }
 
         public async Task<UserAccount?> DownloadUserAccountAsync()
@@ -85,7 +81,7 @@ namespace FireEscape.Services
 
             try
             {
-                json = await dropboxRepository.DownloadJsonAsync(AppSettingsExtension.DeviceIdentifier, applicationSettings.UserAccountsFolderName);
+                json = await fileHostingRepository.DownloadJsonAsync(AppSettingsExtension.DeviceIdentifier, applicationSettings.UserAccountsFolderName);
             }
             catch (Exception ex)
             {
@@ -106,7 +102,7 @@ namespace FireEscape.Services
                 try
                 {
 
-                    await dropboxRepository.UploadJsonAsync(AppSettingsExtension.DeviceIdentifier, json, applicationSettings.UserAccountsFolderName);
+                    await fileHostingRepository.UploadJsonAsync(AppSettingsExtension.DeviceIdentifier, json, applicationSettings.UserAccountsFolderName);
                 }
                 catch (Exception ex)
                 {
