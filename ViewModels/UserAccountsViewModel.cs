@@ -6,7 +6,7 @@ namespace FireEscape.ViewModels
     public partial class UserAccountsViewModel : BaseViewModel
     {
         [ObservableProperty]
-        public ObservableCollection<UserAccount> userAccounts = new();
+        ObservableCollection<UserAccount> userAccounts = new();
 
         readonly UserAccountService userAccountService;
 
@@ -37,6 +37,17 @@ namespace FireEscape.ViewModels
                 }
             },
             AppResources.GetUserAccountsError);
+        }
+
+        [RelayCommand]
+        async Task GoToDetailsAsync(UserAccount userAccount)
+        {
+            await DoCommand(async () =>
+            {
+                await Shell.Current.GoToAsync(nameof(UserAccountPage), true, new Dictionary<string, object> { { nameof(UserAccount), userAccount } });
+            },
+            userAccount,
+            AppResources.EditUserAccountError);
         }
 
         [RelayCommand]

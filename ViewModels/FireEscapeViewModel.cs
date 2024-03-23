@@ -1,6 +1,4 @@
-﻿using FireEscape.Resources.Languages;
-using Microsoft.Extensions.Options;
-
+﻿using Microsoft.Extensions.Options;
 
 namespace FireEscape.ViewModels
 {
@@ -16,6 +14,5 @@ namespace FireEscape.ViewModels
         {
             FireEscapePropertiesSettings = fireEscapePropertiesSettings.Value;
         }
-
     }
 }

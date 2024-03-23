@@ -177,11 +177,14 @@
   <data name="EditProtocolError" xml:space="preserve">
     <value>Невозможно отредактировать протокол</value>
   </data>
+  <data name="EditUserAccountError" xml:space="preserve">
+    <value>Невозможно отредактировать учетную запись пользователя</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
   <data name="ExpirationDate" xml:space="preserve">
-    <value>Срок окончания учетной записи: </value>
+    <value>Дата окончания учетной записи: </value>
   </data>
   <data name="FireEscape" xml:space="preserve">
     <value>Пожарная лестница</value>
@@ -257,6 +260,9 @@
   </data>
   <data name="UserAccountName" xml:space="preserve">
     <value>Имя пользователя: </value>
+  </data>
+  <data name="UserAccountPageTitle" xml:space="preserve">
+    <value>Учетная запись пользователя</value>
   </data>
   <data name="UserAccountsPageTitle" xml:space="preserve">
     <value>Пользователи</value>

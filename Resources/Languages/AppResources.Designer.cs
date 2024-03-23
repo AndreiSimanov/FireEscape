@@ -241,6 +241,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно отредактировать учетную запись пользователя.
+        /// </summary>
+        internal static string EditUserAccountError {
+            get {
+                return ResourceManager.GetString("EditUserAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ошибка.
         /// </summary>
         internal static string Error {
@@ -250,7 +259,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Срок окончания учетной записи: .
+        ///   Looks up a localized string similar to Дата окончания учетной записи: .
         /// </summary>
         internal static string ExpirationDate {
             get {
@@ -480,6 +489,15 @@ namespace FireEscape.Resources.Languages {
         internal static string UserAccountName {
             get {
                 return ResourceManager.GetString("UserAccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Учетная запись пользователя.
+        /// </summary>
+        internal static string UserAccountPageTitle {
+            get {
+                return ResourceManager.GetString("UserAccountPageTitle", resourceCulture);
             }
         }
         

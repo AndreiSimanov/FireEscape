@@ -26,7 +26,6 @@ namespace FireEscape.ViewModels
                 await DoCommand(func, exceptionCaption);
         }
 
-
         protected async Task DoCommand(Func<Task> func, string exceptionCaption)
         {
             if (IsBusy)

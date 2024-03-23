@@ -8,7 +8,7 @@ namespace FireEscape.ViewModels
     public partial class MainViewModel : BaseViewModel
     {
         [ObservableProperty]
-        public ObservableCollection<Protocol> protocols = new();
+        ObservableCollection<Protocol> protocols = new();
 
         readonly ProtocolService protocolService;
         readonly UserAccountService userAccountService;
@@ -62,9 +62,10 @@ namespace FireEscape.ViewModels
         {
             await DoCommand(async () =>
             {
-                var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol,
-                    AppResources.Cancel,
-                    AppResources.Delete);
+                var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol
+                    , AppResources.Cancel
+                    , AppResources.Delete);
+
                 if (string.Equals(action, AppResources.Cancel))
                     return;
 
@@ -88,8 +89,8 @@ namespace FireEscape.ViewModels
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("",
-                        string.Format(AppResources.UnregisteredApplicationMessage
+                    await Shell.Current.DisplayAlert(""
+                        , string.Format(AppResources.UnregisteredApplicationMessage
                         , AppSettingsExtension.DeviceIdentifier), AppResources.OK);
                 }
             },

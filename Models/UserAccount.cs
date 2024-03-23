@@ -2,16 +2,36 @@
 
 namespace FireEscape.Models
 {
-    public class UserAccount
+    public partial class UserAccount : ObservableObject
     {
         public const string AdminRole = "Admin";
         public const string UserRole = "User";
 
-        public string? Id { get; set; }
-        public string? Name { get; set; }
-        public DateTime? ExpirationDate { get; set; }
-        public List<string> Roles { get; set; } = new();
+        [ObservableProperty]
+        string? id;
+        [ObservableProperty]
+        string? name;
+        [ObservableProperty]
+        DateTime? expirationDate;
+
+        [ObservableProperty]
+        List<string> roles = new();
+
         [JsonIgnore]
-        public bool IsAdmin => Roles.Contains(AdminRole);
+        public bool IsAdmin
+        {
+            get => Roles.Contains(AdminRole);
+            set
+            {
+                if (IsAdmin != value)
+                {
+                    if (value)
+                        Roles.Add(AdminRole);
+                    else
+                        Roles.Remove(AdminRole);
+                    OnPropertyChanged(nameof(IsAdmin));
+                }
+            }
+        }
     }
 }

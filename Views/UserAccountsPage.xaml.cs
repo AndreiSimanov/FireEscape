@@ -1,10 +1,12 @@
+using CommunityToolkit.Maui.Core.Extensions;
+
 namespace FireEscape.Views;
 
 public partial class UserAccountsPage : ContentPage
 {
-	public UserAccountsPage(UserAccountsViewModel viewModel)
-	{
-		InitializeComponent();
+    public UserAccountsPage(UserAccountsViewModel viewModel)
+    {
+        InitializeComponent();
         BindingContext = viewModel;
     }
 
@@ -18,6 +20,7 @@ public partial class UserAccountsPage : ContentPage
 
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
-        UserAccountsViewModel?.GetUserAccountsCommand.Execute(null);
+        if (UserAccountsViewModel != null && !UserAccountsViewModel.UserAccounts.Any())
+            UserAccountsViewModel.GetUserAccountsCommand.Execute(null);
     }
 }

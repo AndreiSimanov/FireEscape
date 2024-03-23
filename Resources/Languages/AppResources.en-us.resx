@@ -177,6 +177,9 @@
   <data name="EditProtocolError" xml:space="preserve">
     <value>Unable to edit the protocol</value>
   </data>
+  <data name="EditUserAccountError" xml:space="preserve">
+    <value>Unable to edit user account</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="UserAccountName" xml:space="preserve">
     <value>User name: </value>
+  </data>
+  <data name="UserAccountPageTitle" xml:space="preserve">
+    <value>User account</value>
   </data>
   <data name="UserAccountsPageTitle" xml:space="preserve">
     <value>Users</value>

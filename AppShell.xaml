@@ -12,4 +12,5 @@
     <ShellContent Title="{x:Static lang:AppResources.ProtocolPageTitle}" ContentTemplate="{DataTemplate local:ProtocolPage}" Route="ProtocolPage" />
     <ShellContent Title="{x:Static lang:AppResources.FireEscapePageTitle}" ContentTemplate="{DataTemplate local:FireEscapePage}" Route="FireEscapePage" />
     <ShellContent Title="{x:Static lang:AppResources.UserAccountsPageTitle}" ContentTemplate="{DataTemplate local:UserAccountsPage}" Route="UserAccountsPage" />
+    <ShellContent Title="{x:Static lang:AppResources.UserAccountPageTitle}" ContentTemplate="{DataTemplate local:UserAccountPage}" Route="UserAccountPage" />
 </Shell>
