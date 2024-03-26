@@ -9,11 +9,6 @@ namespace FireEscape
     {
         public static MauiApp CreateMauiApp()
         {
-            ThemeManager.UseAndroidSystemColor = true;
-            //ThemeManager.UseAndroidSystemColor = false;
-            //ThemeManager.ApplyThemeToSystemBars = true;
-            //ThemeManager.Theme = new Theme(ThemeSeedColor.DeepSeaBlue);
-            //ThemeManager.Theme = new Theme(ThemeSeedColor.DeepSeaBlue);
 
             var builder = MauiApp.CreateBuilder();
             using var stream = GetStreamFromFile("appsettings.json");
@@ -63,7 +58,7 @@ namespace FireEscape
             return builder.Build();
         }
 
-        public static Stream? GetStreamFromFile(string filename)
+        static Stream? GetStreamFromFile(string filename)
         {
             var assembly = typeof(App).GetTypeInfo().Assembly;
             var assemblyName = assembly.GetName().Name;
