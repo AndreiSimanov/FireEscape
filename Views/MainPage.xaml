@@ -136,14 +136,14 @@
             </dxcv:DXCollectionView.ItemTemplate>
         </dxcv:DXCollectionView>
       
-        <dx:DXButton VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
-                    WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
-                    FontSize="28" CornerRadius="14" FontAttributes="None"
-                    Clicked="CreateProtocol">
-            <dx:DXButton.GestureRecognizers>
-                <TapGestureRecognizer  NumberOfTapsRequired = "2" Command="{Binding OpenUserAccountsPageCommand}"/>
-                <TapGestureRecognizer  NumberOfTapsRequired = "1" Tapped="CreateProtocol"/>
-            </dx:DXButton.GestureRecognizers>
+        <dx:DXButton
+            x:Name="addButton"
+            TapPressed="tapPressed"
+            TapReleased="tapReleased"
+            VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
+            WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
+            FontSize="28" CornerRadius="14" FontAttributes="None"
+            Clicked="CreateProtocol">
             <dx:DXButton.Shadow>
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>

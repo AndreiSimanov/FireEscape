@@ -1,10 +1,12 @@
 ﻿using DevExpress.Maui.Editors;
+using System.Diagnostics;
 
 namespace FireEscape.Views;
 
 public partial class MainPage : ContentPage
 {
     double swipeOffSet = 0;
+    Stopwatch tapStopwatch = new();
 
     public MainPage(MainViewModel viewModel)
     {
@@ -52,5 +54,18 @@ public partial class MainPage : ContentPage
     {
         if (MainViewModel != null)
             MainViewModel.IsEmptyList = protocols.VisibleItemCount == 0;
+    }
+
+    private void tapPressed(object sender, DevExpress.Maui.Core.DXTapEventArgs e)
+    {
+        tapStopwatch.Reset();
+        tapStopwatch.Start();
+    }
+
+    private void tapReleased(object sender, DevExpress.Maui.Core.DXTapEventArgs e)
+    {
+        tapStopwatch.Stop();
+        if (tapStopwatch.ElapsedMilliseconds > 4000)
+            MainViewModel?.OpenUserAccountsPageCommand.Execute(null);
     }
 }
