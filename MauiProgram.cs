@@ -9,8 +9,11 @@ namespace FireEscape
     {
         public static MauiApp CreateMauiApp()
         {
-            ThemeManager.UseAndroidSystemColor = false;
-            ThemeManager.ApplyThemeToSystemBars = true;
+            ThemeManager.UseAndroidSystemColor = true;
+            //ThemeManager.UseAndroidSystemColor = false;
+            //ThemeManager.ApplyThemeToSystemBars = true;
+            //ThemeManager.Theme = new Theme(ThemeSeedColor.DeepSeaBlue);
+            //ThemeManager.Theme = new Theme(ThemeSeedColor.DeepSeaBlue);
 
             var builder = MauiApp.CreateBuilder();
             using var stream = GetStreamFromFile("appsettings.json");

@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              ios:Page.UseSafeArea="True"
              x:Class="FireEscape.Views.UserAccountsPage"
@@ -17,7 +19,7 @@
         ColumnSpacing="5"
         RowDefinitions="Auto,*"
         RowSpacing="0"
-        BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
+        BackgroundColor="{dx:ThemeColor Surface}">
         <RefreshView
             Grid.Row="1"
             Grid.ColumnSpan="2"
@@ -48,7 +50,7 @@
                         <SwipeView  Style="{StaticResource TransparentSelection}">
                             <SwipeView.LeftItems>
                                 <SwipeItems>
-                                    <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                    <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
                                                IconImageSource="edit.png"
                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel } }, Path=IsNotBusy}"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel}}, Path=GoToDetailsCommand}"
@@ -58,7 +60,7 @@
                             </SwipeView.LeftItems>
                             <SwipeView.RightItems>
                                 <SwipeItems>
-                                    <SwipeItem BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                    <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
                                                IconImageSource="delete.png"
                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel } }, Path=IsNotBusy}"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel}}, Path=DeleteUserAccountCommand}"

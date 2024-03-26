@@ -12,7 +12,7 @@
              x:DataType="viewmodel:ProtocolViewModel"
              Disappearing="ContentPage_Disappearing">
 
-    <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
+    <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
         <Grid RowDefinitions="Auto,Auto,*">
             <VerticalStackLayout>
                 <Grid HorizontalOptions="Center" RowDefinitions="Auto,Auto,Auto">

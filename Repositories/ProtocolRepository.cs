@@ -71,7 +71,7 @@ namespace FireEscape.Repositories
             }
         }
 
-        public async Task AddProtocolPhotoAsync(Protocol protocol, FileResult photo)
+        public async Task AddProtocolPhotoAsync(Protocol protocol, FileResult? photo)
         {
             if (photo != null)
             {
