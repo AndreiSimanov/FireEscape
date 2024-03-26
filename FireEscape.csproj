@@ -1,9 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+    <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+    <!-- 
 		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
 
 		<!-- Note for MacCatalyst:
@@ -73,6 +75,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="DevExpress.Maui.Editors" Version="23.2.5" />
 		<PackageReference Include="Dropbox.Api" Version="6.37.0" />
 		<PackageReference Include="itext7" Version="8.0.3" />
 		<PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />

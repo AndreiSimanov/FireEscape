@@ -5,6 +5,10 @@
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+              xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
+             
              Title="{x:Static lang:AppResources.FireEscapePageTitle}"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewmodel:FireEscapeViewModel">
@@ -20,42 +24,43 @@
             <Picker Title = "{x:Static lang:AppResources.FireEscapeMountTypesHint}" 
                         ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeMountTypes}"
                         SelectedItem="{Binding FireEscape.FireEscapeMountType}"/>
-            <Label Text="Высота лестницы (м):" />
-            <Entry Text="{Binding FireEscape.StairHeight}">
-                <Entry.Behaviors>
-                    <toolkit:NumericValidationBehavior 
-                         InvalidStyle="{StaticResource InvalidEntryStyle}"
-                         ValidStyle="{StaticResource ValidEntryStyle}"
-                         Flags="ValidateOnValueChanged"
-                         MinimumValue="0"
-                         MaximumValue="100"
-                         MaximumDecimalPlaces="2" />
-                </Entry.Behaviors>
-            </Entry>
-            <Label Text="Ширина лестницы (мм):" />
-            <Entry Keyboard="Numeric" Text="{Binding FireEscape.StairWidth}">
-                <Entry.Behaviors>
-                    <toolkit:NumericValidationBehavior 
-                         InvalidStyle="{StaticResource InvalidEntryStyle}"
-                         ValidStyle="{StaticResource ValidEntryStyle}"
-                         Flags="ValidateOnValueChanged"
-                         MinimumValue="0"
-                         MaximumValue="10000"
-                         MaximumDecimalPlaces="0" />
-                </Entry.Behaviors>
-            </Entry>
-            <Label Text="Количество ступеней:" />
-            <Entry Keyboard="Numeric" Text="{Binding FireEscape.StepsCount}">
-                <Entry.Behaviors>
-                    <toolkit:NumericValidationBehavior 
-                         InvalidStyle="{StaticResource InvalidEntryStyle}"
-                         ValidStyle="{StaticResource ValidEntryStyle}"
-                         Flags="ValidateOnValueChanged"
-                         MinimumValue="0"
-                         MaximumValue="10000"
-                         MaximumDecimalPlaces="0" />
-                </Entry.Behaviors>
-            </Entry>
+            
+            <dxe:NumericEdit
+                Value="{Binding FireEscape.StairHeight}"
+                SelectValueOnFocus="True"
+                MinValue="0"
+                MaxValue="100"
+                ReturnType="Next"
+                MaxDecimalDigitCount="2"
+                TextHorizontalAlignment="Start"
+                PlaceholderText="Введите высоту лестницы в метрах"
+                LabelText="Высота лестницы (м):" 
+                Margin="10,10,10,10"/>
+
+            <dxe:NumericEdit
+                Value="{Binding FireEscape.StairWidth}"
+                SelectValueOnFocus="True"
+                MinValue="0"
+                MaxValue="10000"
+                ReturnType="Next"
+                MaxDecimalDigitCount="0"
+                TextHorizontalAlignment="Start"
+                PlaceholderText="Введите ширину лестницы в мм"
+                LabelText="Ширина лестницы (мм):" 
+                Margin="10,10,10,10"/>
+
+            <dxe:NumericEdit
+                Value="{Binding FireEscape.StepsCount}"
+                SelectValueOnFocus="True"
+                MinValue="0"
+                MaxValue="10000"
+                ReturnType="Next"
+                MaxDecimalDigitCount="0"
+                TextHorizontalAlignment="Start"
+                PlaceholderText="Введите количество ступеней лестницы"
+                LabelText="Количество ступеней:" 
+                Margin="10,10,10,10"/>
+
             <StackLayout Orientation="Horizontal" >
                 <Label  VerticalTextAlignment="Center" Text="Качество сварных швов соответствует ГОСТ" />
                 <CheckBox Color="White" IsChecked ="{Binding FireEscape.WeldSeamQuality}" />

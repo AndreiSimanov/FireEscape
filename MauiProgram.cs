@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DevExpress.Maui;
+using Microsoft.Extensions.Logging;
 using System.Reflection;
 
 namespace FireEscape
@@ -17,14 +18,17 @@ namespace FireEscape
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .UseAppSettings(configuration)
+                .UseDevExpress(true)
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            DevExpress.Maui.Editors.Initializer.Init();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton<IProtocolRepository, ProtocolRepository>();
             builder.Services.AddSingleton<IReportRepository, PdfWriterRepository>();

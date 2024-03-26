@@ -1,21 +1,22 @@
-﻿namespace FireEscape
+﻿using System.Globalization;
+
+namespace FireEscape
 {
     public partial class App : Application
     {
         public App()
         {
+            CultureInfo.CurrentCulture = SetNumberDecimalSeparator(CultureInfo.CurrentCulture);
+            CultureInfo.CurrentUICulture = SetNumberDecimalSeparator(CultureInfo.CurrentUICulture);
             InitializeComponent();
-            /*
-            var id = Preferences.Get("my_id", string.Empty);
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                id = System.Guid.NewGuid().ToString();
-                Preferences.Set("my_id", id);
-            }
-            */
-            var c = Simusr2.Maui.DeviceIdentifier.Identifier.Get();
-            Console.WriteLine(c);
             MainPage = new AppShell();
+        }
+
+        private static CultureInfo SetNumberDecimalSeparator(CultureInfo cultureInfo)
+        {
+            CultureInfo result = (CultureInfo)cultureInfo.Clone();
+            result.NumberFormat.NumberDecimalSeparator = ".";
+            return result;
         }
     }
 }

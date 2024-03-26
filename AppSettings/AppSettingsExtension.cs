@@ -1,11 +1,4 @@
-﻿using Microsoft.Maui.Controls.PlatformConfiguration;
-
-#if ANDROID
-using Android.Provider;
-#elif IOS || MACCATALYST
-using UIKit;
-#endif
-
+﻿using Simusr2.Maui.DeviceIdentifier;
 
 namespace FireEscape.AppSettings
 {
@@ -15,6 +8,7 @@ namespace FireEscape.AppSettings
         private const string FILE_HOSTING_SETTINGS = "FileHostingSettings";
         private const string NEW_PROTOCOL_SETTINGS = "NewProtocolSettings";
         private const string FIREESCAPE_PROPERTIES_SETTINGS = "FireEscapePropertiesSettings";
+        private const string USER_ACCOUNT_ID = "UserAccountId";
 
         public static MauiAppBuilder UseAppSettings(this MauiAppBuilder builder, IConfiguration configuration)
         {
@@ -38,22 +32,22 @@ namespace FireEscape.AppSettings
             }
         }
 
-        public static string? DeviceIdentifier
+        public static string UserAccountId
         {
             get
             {
-#if WINDOWS
-                //return WindowsIdentifier.GetProcessorId();
-                return null;
-                
-#elif ANDROID
-                return Android.Provider.Settings.Secure.GetString(Android.App.Application.Context.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
 
-#elif IOS || MACCATALYST
-                return UIDevice.CurrentDevice.IdentifierForVendor?.ToString();
-#else
-                return null;
-#endif
+                var userAccountId = Identifier.Get();
+                if (string.IsNullOrWhiteSpace(userAccountId))
+                {
+                    userAccountId = Preferences.Get(USER_ACCOUNT_ID, string.Empty);
+                    if (string.IsNullOrWhiteSpace(userAccountId))
+                    {
+                        userAccountId = Guid.NewGuid().ToString();
+                        Preferences.Set(USER_ACCOUNT_ID, userAccountId);
+                    }
+                }
+                return userAccountId;
             }
         }
     }

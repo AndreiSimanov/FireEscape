@@ -67,7 +67,7 @@ namespace FireEscape.Services
 
         public async Task<UserAccount?> DownloadUserAccountAsync()
         {
-            if (string.IsNullOrWhiteSpace(AppSettingsExtension.DeviceIdentifier))
+            if (string.IsNullOrWhiteSpace(AppSettingsExtension.UserAccountId))
                 return null;
 
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
@@ -81,7 +81,7 @@ namespace FireEscape.Services
 
             try
             {
-                json = await fileHostingRepository.DownloadJsonAsync(AppSettingsExtension.DeviceIdentifier, applicationSettings.UserAccountsFolderName);
+                json = await fileHostingRepository.DownloadJsonAsync(AppSettingsExtension.UserAccountId, applicationSettings.UserAccountsFolderName);
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace FireEscape.Services
             {
                 userAccount = new UserAccount()
                 {
-                    Id = AppSettingsExtension.DeviceIdentifier,
+                    Id = AppSettingsExtension.UserAccountId,
                     Roles = new List<string> { UserAccount.UserRole },
                     ExpirationDate = DateTime.Now
                 };
@@ -102,7 +102,7 @@ namespace FireEscape.Services
                 try
                 {
 
-                    await fileHostingRepository.UploadJsonAsync(AppSettingsExtension.DeviceIdentifier, json, applicationSettings.UserAccountsFolderName);
+                    await fileHostingRepository.UploadJsonAsync(AppSettingsExtension.UserAccountId, json, applicationSettings.UserAccountsFolderName);
                 }
                 catch (Exception ex)
                 {
@@ -124,7 +124,7 @@ namespace FireEscape.Services
                 && !string.IsNullOrWhiteSpace(userAccount.Name)
                 && userAccount.ExpirationDate != null
                 && userAccount.ExpirationDate > DateTime.Now
-                && string.Equals(userAccount.Id, AppSettingsExtension.DeviceIdentifier);
+                && string.Equals(userAccount.Id, AppSettingsExtension.UserAccountId);
         }
     }
 }
