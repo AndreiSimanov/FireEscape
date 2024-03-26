@@ -1,4 +1,5 @@
 ﻿using DevExpress.Maui;
+using DevExpress.Maui.Core;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
@@ -8,8 +9,10 @@ namespace FireEscape
     {
         public static MauiApp CreateMauiApp()
         {
-            var builder = MauiApp.CreateBuilder();
+            ThemeManager.UseAndroidSystemColor = false;
+            ThemeManager.ApplyThemeToSystemBars = true;
 
+            var builder = MauiApp.CreateBuilder();
             using var stream = GetStreamFromFile("appsettings.json");
             var configuration = new ConfigurationBuilder().AddJsonStream(stream!).Build();
             builder.Configuration.AddConfiguration(configuration);

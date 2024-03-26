@@ -14,61 +14,65 @@
              x:DataType="viewmodel:FireEscapeViewModel">
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}">
         <VerticalStackLayout Padding="5" Spacing="5" Margin="10" >
-            <Picker Title = "{x:Static lang:AppResources.FireEscapeTypesHint}" 
-                        ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeTypes}"
-                        SelectedItem="{Binding FireEscape.FireEscapeType}"/>
-            <StackLayout Orientation="Horizontal">
-                <Label VerticalTextAlignment="Center" Text="Эвакуационная лестница" />
-                <CheckBox Color="White" IsChecked ="{Binding FireEscape.IsEvacuation}" />
-            </StackLayout>
-            <Picker Title = "{x:Static lang:AppResources.FireEscapeMountTypesHint}" 
-                        ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeMountTypes}"
-                        SelectedItem="{Binding FireEscape.FireEscapeMountType}"/>
-            
+            <dxe:ComboBoxEdit
+                 LabelText="{x:Static lang:AppResources.FireEscapeTypesHint}"
+                 SelectedItem="{Binding FireEscape.FireEscapeType}"
+                 ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeTypes}"
+                 Margin="10,10,10,0"/>
+            <dxe:CheckEdit
+                IsChecked="{Binding FireEscape.IsEvacuation}"
+                Label="Эвакуационная лестница"
+                LabelFontSize="13"
+                Margin="10,10,10,0"/>
+            <dxe:ComboBoxEdit
+                 dx:DXDockLayout.Dock="Top"
+                 LabelText="{x:Static lang:AppResources.FireEscapeMountTypesHint}"
+                 SelectedItem="{Binding FireEscape.FireEscapeMountType}"
+                 ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeMountTypes}"
+                 Margin="10,10,10,0"/>
             <dxe:NumericEdit
                 Value="{Binding FireEscape.StairHeight}"
                 SelectValueOnFocus="True"
                 MinValue="0"
                 MaxValue="100"
-                ReturnType="Next"
                 MaxDecimalDigitCount="2"
                 TextHorizontalAlignment="Start"
                 PlaceholderText="Введите высоту лестницы в метрах"
                 LabelText="Высота лестницы (м):" 
-                Margin="10,10,10,10"/>
-
+                ReturnType="Next"
+                Margin="10,10,10,0"/>
             <dxe:NumericEdit
                 Value="{Binding FireEscape.StairWidth}"
                 SelectValueOnFocus="True"
                 MinValue="0"
                 MaxValue="10000"
-                ReturnType="Next"
                 MaxDecimalDigitCount="0"
                 TextHorizontalAlignment="Start"
                 PlaceholderText="Введите ширину лестницы в мм"
                 LabelText="Ширина лестницы (мм):" 
-                Margin="10,10,10,10"/>
-
+                ReturnType="Next"
+                Margin="10,10,10,0"/>
             <dxe:NumericEdit
                 Value="{Binding FireEscape.StepsCount}"
                 SelectValueOnFocus="True"
                 MinValue="0"
                 MaxValue="10000"
-                ReturnType="Next"
                 MaxDecimalDigitCount="0"
                 TextHorizontalAlignment="Start"
                 PlaceholderText="Введите количество ступеней лестницы"
                 LabelText="Количество ступеней:" 
-                Margin="10,10,10,10"/>
-
-            <StackLayout Orientation="Horizontal" >
-                <Label  VerticalTextAlignment="Center" Text="Качество сварных швов соответствует ГОСТ" />
-                <CheckBox Color="White" IsChecked ="{Binding FireEscape.WeldSeamQuality}" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label VerticalTextAlignment="Center" Text="Качество защитных покрытий ГОСТ" />
-                <CheckBox Color="White" IsChecked ="{Binding FireEscape.ProtectiveQuality}" />
-            </StackLayout>
+                ReturnType="Next"
+                Margin="10,10,10,0"/>
+            <dxe:CheckEdit
+                IsChecked="{Binding FireEscape.WeldSeamQuality}"
+                Label="Качество сварных швов соответствует ГОСТ"
+                LabelFontSize="13"
+                Margin="10,10,10,0"/>
+            <dxe:CheckEdit
+                IsChecked="{Binding FireEscape.ProtectiveQuality}"
+                Label="Качество защитных покрытий соответствует ГОСТ"
+                LabelFontSize="13"
+                Margin="10,10,10,0"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

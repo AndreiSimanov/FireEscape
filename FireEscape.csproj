@@ -64,6 +64,7 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\Images\ic_photo.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
