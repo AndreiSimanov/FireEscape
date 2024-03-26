@@ -231,9 +231,6 @@
   <data name="NoConnectivity" xml:space="preserve">
     <value>No connectivity</value>
   </data>
-  <data name="NoPhoto" xml:space="preserve">
-    <value>nophoto.png</value>
-  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>

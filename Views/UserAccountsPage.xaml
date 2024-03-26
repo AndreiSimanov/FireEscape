@@ -42,7 +42,7 @@
                             VerticalOptions="Center"
                             HeightRequest="160"
                             WidthRequest="160"
-                            Source="nodata.png"/>
+                            Source="nodata.svg"/>
                     </Border>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>

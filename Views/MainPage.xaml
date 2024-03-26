@@ -23,7 +23,6 @@
             StatusBarStyle="{ AppThemeBinding Light=DarkContent, Dark=LightContent }" />
     </ContentPage.Behaviors>
 
-
     <Grid RowDefinitions="Auto,*">
         <dxe:TextEdit 
             EndIcon="search" PlaceholderText="Поиск протоколов" TextFontSize="14"
@@ -44,14 +43,14 @@
             WidthRequest="172"
             Margin="0,8,0,0"
             HorizontalOptions="Center">
-            <Image BackgroundColor="Transparent"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            HeightRequest="100"
-                            WidthRequest="100"
-                            Source="nodata.png"/>
+            <Image 
+                BackgroundColor="Transparent"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                HeightRequest="80"
+                WidthRequest="80"
+                Source="nodata.svg"/>
         </Border>
-
         <dxcv:DXCollectionView 
             x:Name="protocols"
             ItemsSource="{Binding Protocols}"
@@ -63,79 +62,85 @@
             ItemSeparatorThickness="0"
             UseRippleEffect="true"
             PropertyChanged="CollectionViewChanged">
-            
             <dxcv:DXCollectionView.SortDescriptions>
                 <dxcv:SortDescription FieldName="Created" SortOrder="Descending" />
             </dxcv:DXCollectionView.SortDescriptions>
-            
             <dxcv:DXCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Protocol">
-                    <SwipeView  Style="{StaticResource TransparentSelection}" SwipeChanging="OnSwipeChanging"  SwipeEnded="OnSwipeEnded">
-                        <SwipeView.LeftItems>
-                            <SwipeItems>
-                                <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
-                                               IconImageSource="pdf.png"
-                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CreateReportCommand}"
-                                               CommandParameter="{Binding .}">
-                                </SwipeItem>
-                            </SwipeItems>
-                        </SwipeView.LeftItems>
-                        <SwipeView.RightItems>
-                            <SwipeItems>
-                                <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
-                                               IconImageSource="delete.png"
-                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteProtocolCommand}"
-                                               CommandParameter="{Binding .}">
-                                </SwipeItem>
-                            </SwipeItems>
-                        </SwipeView.RightItems>
-                        <Grid Padding="10" HorizontalOptions="Fill">
-                            <Frame HeightRequest="150" Style="{StaticResource CardView}">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer 
+                    <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer.StartSwipeItems>
+                            <dxcv:SwipeItem
+                                BackgroundColor="{dx:ThemeColor Primary}"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CreateReportCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="PDF"
+                                Image="pdf"/>
+                        </dxcv:SwipeContainer.StartSwipeItems>
+                        <dxcv:SwipeContainer.EndSwipeItems>
+                            <dxcv:SwipeItem 
+                                BackgroundColor="#D74F67"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteProtocolCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="Delete"
+                                Image="delete"/>
+                        </dxcv:SwipeContainer.EndSwipeItems>
+                        <dxcv:SwipeContainer.ItemView>
+                            <Grid Padding="10" HorizontalOptions="Fill">
+                                <Frame HeightRequest="150" Style="{StaticResource CardView}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}"
                                                 CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers>
-                                <Grid ColumnDefinitions="125,*">
-                                    <Image  HorizontalOptions="End"
-                                                Aspect="AspectFill"
-                                                HeightRequest="110"
-                                                WidthRequest="110" 
-                                                Source="{Binding Image}"/>
-                                    <VerticalStackLayout
-                                                VerticalOptions="Center"
-                                                Grid.Column="1"
-                                                Spacing="5"
-                                                Padding="10">
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObjectName}" />
-                                        <Label Text="{Binding FireEscape.FireEscapeType}" />
-                                        <Label>
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
-                                                    <Span Text="{Binding FullAddress}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Style="{StaticResource SmallLabel}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
-                                                    <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </Grid>
-                    </SwipeView>
+                                    </Frame.GestureRecognizers>
+                                    <Grid ColumnDefinitions="125,*">
+                                        <Image
+                                            IsVisible="{Binding HasImage, Converter={viewmodel:InverseBoolConverter}}"
+                                            HorizontalOptions="Center"
+                                            Aspect="AspectFill"
+                                            HeightRequest="80"
+                                            WidthRequest="80" 
+                                            Source="nophoto.svg"/>
+                                        <Image
+                                            IsVisible="{Binding HasImage}"
+                                            HorizontalOptions="End"
+                                            Aspect="AspectFill"
+                                            HeightRequest="110"
+                                            WidthRequest="110" 
+                                            Source="{Binding Image}"/>
+                                        <VerticalStackLayout
+                                            VerticalOptions="Center"
+                                            Grid.Column="1"
+                                            Spacing="5"
+                                            Padding="10">
+                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObjectName}" />
+                                            <Label Text="{Binding FireEscape.FireEscapeType}" />
+                                            <Label>
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                        <Span Text="{Binding FullAddress}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Style="{StaticResource SmallLabel}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
+                                                        <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </dxcv:SwipeContainer.ItemView>
+                    </dxcv:SwipeContainer>
                 </DataTemplate>
             </dxcv:DXCollectionView.ItemTemplate>
         </dxcv:DXCollectionView>
-      
         <dx:DXButton
             x:Name="addButton"
             TapPressed="tapPressed"

@@ -91,7 +91,7 @@ namespace FireEscape.Repositories
         {
             return new Protocol()
             {
-                Image = AppResources.NoPhoto!,
+                Image = Protocol.NO_PHOTO,
                 ProtocolNum = newProtocolSettings.ProtocolNum,
                 Location = newProtocolSettings.Location,
                 ProtocolDate = DateTime.Today,

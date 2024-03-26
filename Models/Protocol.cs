@@ -5,6 +5,8 @@ namespace FireEscape.Models
 {
     public partial class Protocol : ObservableObject
     {
+        public const string NO_PHOTO = "nophoto.svg";
+
         [JsonIgnore]
         [ObservableProperty]
         string? sourceFile;
@@ -14,7 +16,7 @@ namespace FireEscape.Models
         DateTime updated;
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasImage))]
-        string image = AppResources.NoPhoto;
+        string? image;
         [ObservableProperty]
         uint protocolNum;
         [ObservableProperty]
@@ -44,6 +46,6 @@ namespace FireEscape.Models
         [JsonIgnore]
         public string FullAddress => Location + ", " + Address;
         [JsonIgnore]
-        public bool HasImage => !string.IsNullOrWhiteSpace(Image) && !string.Equals(Image, AppResources.NoPhoto) && File.Exists(Image);
+        public bool HasImage => !string.IsNullOrWhiteSpace(Image) && !string.Equals(Image, NO_PHOTO) && File.Exists(Image);
     }
 }

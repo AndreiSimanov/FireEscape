@@ -403,15 +403,6 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nophoto.png.
-        /// </summary>
-        internal static string NoPhoto {
-            get {
-                return ResourceManager.GetString("NoPhoto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string OK {
