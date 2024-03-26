@@ -64,7 +64,7 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
-	  <None Remove="Resources\Images\ic_photo.svg" />
+	  <None Remove="Resources\Images\photo.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -76,6 +76,9 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="DevExpress.Maui.CollectionView" Version="23.2.5" />
+		<PackageReference Include="DevExpress.Maui.Controls" Version="23.2.5" />
+		<PackageReference Include="DevExpress.Maui.Core" Version="23.2.5" />
 		<PackageReference Include="DevExpress.Maui.Editors" Version="23.2.5" />
 		<PackageReference Include="Dropbox.Api" Version="6.37.0" />
 		<PackageReference Include="itext7" Version="8.0.3" />

@@ -38,7 +38,7 @@
                         Content="{x:Static lang:AppResources.MakePhotoHint}"
                         Command="{Binding AddProtocolPhotoCommand}" 
                         Grid.Row="2" 
-                        Icon="ic_photo"
+                        Icon="photo"
                         Margin="0,10,0,0"  
                         IconHeight="22" 
                         IconWidth="22">

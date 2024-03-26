@@ -1,4 +1,6 @@
-﻿namespace FireEscape.Views;
+﻿using DevExpress.Maui.Editors;
+
+namespace FireEscape.Views;
 
 public partial class MainPage : ContentPage
 {
@@ -22,7 +24,8 @@ public partial class MainPage : ContentPage
         swipeOffSet = args.Offset;
     }
 
-    private void OnSwipeEnded(object sender, SwipeEndedEventArgs args) // Reduce Swipeview Sensitivity .Net Maui https://stackoverflow.com/questions/72635530/reduce-swipeview-sensitivity-net-maui
+    // Reduce Swipeview Sensitivity .Net Maui https://stackoverflow.com/questions/72635530/reduce-swipeview-sensitivity-net-maui
+    private void OnSwipeEnded(object sender, SwipeEndedEventArgs args) 
     {
         if (!args.IsOpen && swipeOffSet < 5 && swipeOffSet > -5 && MainViewModel != null)
         {
@@ -30,9 +33,24 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void CreateProtocol(object sender, TappedEventArgs e)
+    private void CreateProtocol(object sender, EventArgs e)
     {
         MainViewModel?.AddProtocolCommand.Execute(null);
         protocols.ScrollTo(0);
+    }
+
+    void SearchTextChanged(object sender, EventArgs e)
+    { 
+        var searchText = ((TextEdit)sender).Text;
+        protocols.FilterString =$"Contains([FullAddress], '{searchText}') " +
+            $"or Contains([FireEscapeObject], '{searchText}') " +
+            $"or Contains([Customer], '{searchText}') " +
+            $"or Contains([Details], '{searchText}')";
+    }
+
+    private void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (MainViewModel != null)
+            MainViewModel.IsEmptyList = protocols.VisibleItemCount == 0;
     }
 }

@@ -4,6 +4,8 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              ios:Page.UseSafeArea="True"
@@ -20,126 +22,131 @@
             StatusBarColor="{ AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black} }"
             StatusBarStyle="{ AppThemeBinding Light=DarkContent, Dark=LightContent }" />
     </ContentPage.Behaviors>
-    
-    <Grid
-        ColumnDefinitions="*,*"
-        ColumnSpacing="5"
-        RowDefinitions="Auto,*"
-        RowSpacing="0"
-        BackgroundColor="{dx:ThemeColor Surface}">
-        <Button
-            Grid.ColumnSpan="2"
-            Margin="10"
-            FontSize="30"
-            IsEnabled="{Binding IsNotBusy}"
-            Style="{StaticResource ButtonView }"
-            Text="+">
-            <Button.GestureRecognizers>
-                <TapGestureRecognizer  NumberOfTapsRequired = "2" Command="{Binding OpenUserAccountsPageCommand}"/>
-                <TapGestureRecognizer  NumberOfTapsRequired = "1" Tapped="CreateProtocol"/>
-            </Button.GestureRecognizers>
-        </Button>
-        <RefreshView
+
+
+    <Grid RowDefinitions="Auto,*">
+        <dxe:TextEdit 
+            EndIcon="search" PlaceholderText="Поиск протоколов" TextFontSize="14"
+            ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
+            BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
+            BorderThickness="0" BoxPadding="20,8,10,8"
+            PlaceholderColor="{dx:ThemeColor OnSurfaceVariant}"
+            EndIconColor="{dx:ThemeColor OnSurfaceVariant}"
+            FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38" Margin="15,10,15,10"
+            TextChanged="SearchTextChanged" />
+        <Border
+            IsVisible="{Binding IsEmptyList}"
+            StrokeShape="RoundRectangle 80"
             Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Command="{Binding GetProtocolsCommand}"
-            IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView
-                x:Name="protocols"
-                ItemsSource="{Binding Protocols}"
-                SelectionMode="Single">
-            <CollectionView.EmptyView>
-                <Border StrokeShape="RoundRectangle 80"
-                    Stroke="White"
-                    StrokeThickness="6"
-                    HeightRequest="172"
-                    WidthRequest="172"
-                    Margin="0,8,0,0"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Start">
-                     <Image BackgroundColor="White"
+            Stroke="Transparent"
+            StrokeThickness="6"
+            HeightRequest="172"
+            WidthRequest="172"
+            Margin="0,8,0,0"
+            HorizontalOptions="Center">
+            <Image BackgroundColor="Transparent"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
-                            HeightRequest="160"
-                            WidthRequest="160"
+                            HeightRequest="100"
+                            WidthRequest="100"
                             Source="nodata.png"/>
-                </Border>
-                </CollectionView.EmptyView>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Protocol">
-                        <SwipeView  Style="{StaticResource TransparentSelection}" SwipeChanging="OnSwipeChanging"  SwipeEnded="OnSwipeEnded">
-                            <SwipeView.LeftItems>
-                                <SwipeItems>
-                                    <SwipeItem BackgroundColor="{dx:ThemeColor Surface}}"
+        </Border>
+
+        <dxcv:DXCollectionView 
+            x:Name="protocols"
+            ItemsSource="{Binding Protocols}"
+            IsPullToRefreshEnabled="True"
+            PullToRefreshCommand="{Binding GetProtocolsCommand}"
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}" 
+            AllowLiveDataShaping="True"
+            SelectionMode="Single" Grid.Row="1"
+            ItemSeparatorThickness="0"
+            UseRippleEffect="true"
+            PropertyChanged="CollectionViewChanged">
+            
+            <dxcv:DXCollectionView.SortDescriptions>
+                <dxcv:SortDescription FieldName="Created" SortOrder="Descending" />
+            </dxcv:DXCollectionView.SortDescriptions>
+            
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Protocol">
+                    <SwipeView  Style="{StaticResource TransparentSelection}" SwipeChanging="OnSwipeChanging"  SwipeEnded="OnSwipeEnded">
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
                                                IconImageSource="pdf.png"
                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CreateReportCommand}"
                                                CommandParameter="{Binding .}">
-                                    </SwipeItem>
-                                </SwipeItems>
-                            </SwipeView.LeftItems>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
+                                </SwipeItem>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
                                                IconImageSource="delete.png"
                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteProtocolCommand}"
                                                CommandParameter="{Binding .}">
-                                    </SwipeItem>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="150" Style="{StaticResource CardView}">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer 
+                                </SwipeItem>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid Padding="10" HorizontalOptions="Fill">
+                            <Frame HeightRequest="150" Style="{StaticResource CardView}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}"
                                                 CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
-                                    <Grid ColumnDefinitions="125,*">
-                                        <Image  HorizontalOptions="End"
+                                </Frame.GestureRecognizers>
+                                <Grid ColumnDefinitions="125,*">
+                                    <Image  HorizontalOptions="End"
                                                 Aspect="AspectFill"
                                                 HeightRequest="110"
                                                 WidthRequest="110" 
                                                 Source="{Binding Image}"/>
-                                        <VerticalStackLayout
+                                    <VerticalStackLayout
                                                 VerticalOptions="Center"
                                                 Grid.Column="1"
                                                 Spacing="5"
                                                 Padding="10">
-                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObjectName}" />
-                                            <Label Text="{Binding FireEscape.FireEscapeType}" />
-                                            <Label>
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
-                                                        <Span Text="{Binding FullAddress}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Style="{StaticResource SmallLabel}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
-                                                        <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                        </VerticalStackLayout>
-                                    </Grid>
-                                </Frame>
-                            </Grid>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
-        <ActivityIndicator
-        Grid.RowSpan="2"
-        Grid.ColumnSpan="2"
-        HorizontalOptions="Fill"
-        IsRunning="{Binding IsBusy}"
-        IsVisible="{Binding IsBusy}"
-        Color="White"  
-        VerticalOptions="Center" />
+                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObjectName}" />
+                                        <Label Text="{Binding FireEscape.FireEscapeType}" />
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                    <Span Text="{Binding FullAddress}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Style="{StaticResource SmallLabel}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
+                                                    <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+      
+        <dx:DXButton VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
+                    WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
+                    FontSize="28" CornerRadius="14" FontAttributes="None"
+                    Clicked="CreateProtocol">
+            <dx:DXButton.GestureRecognizers>
+                <TapGestureRecognizer  NumberOfTapsRequired = "2" Command="{Binding OpenUserAccountsPageCommand}"/>
+                <TapGestureRecognizer  NumberOfTapsRequired = "1" Tapped="CreateProtocol"/>
+            </dx:DXButton.GestureRecognizers>
+            <dx:DXButton.Shadow>
+                <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
+            </dx:DXButton.Shadow>
+        </dx:DXButton>
     </Grid>
 </ContentPage>

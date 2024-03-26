@@ -13,7 +13,7 @@ namespace FireEscape.Models
         [ObservableProperty]
         DateTime updated;
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FullAddress))]
+        [NotifyPropertyChangedFor(nameof(HasImage))]
         string image = AppResources.NoPhoto;
         [ObservableProperty]
         uint protocolNum;

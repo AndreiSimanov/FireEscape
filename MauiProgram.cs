@@ -31,6 +31,8 @@ namespace FireEscape
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            DevExpress.Maui.CollectionView.Initializer.Init();
+            DevExpress.Maui.Controls.Initializer.Init();
             DevExpress.Maui.Editors.Initializer.Init();
 
 #if DEBUG

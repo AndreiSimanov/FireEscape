@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
-using FireEscape.Resources.Languages;
+﻿using FireEscape.Resources.Languages;
 using System.Collections.ObjectModel;
 using Protocol = FireEscape.Models.Protocol;
 
@@ -22,6 +21,9 @@ namespace FireEscape.ViewModels
         [ObservableProperty]
         bool isRefreshing;
 
+        [ObservableProperty]
+        bool isEmptyList = true;
+
         [RelayCommand]
         async Task GetProtocolsAsync()
         {
@@ -31,12 +33,11 @@ namespace FireEscape.ViewModels
                 {
                     if (Protocols.Any())
                         return;
-                    var list = new List<Protocol>();
                     await foreach (var item in protocolService.GetProtocolsAsync())
                     {
-                        list.Add(item);
+                        Protocols.Add(item);
                     }
-                    Protocols = list.OrderByDescending(item => item.Created).ToObservableCollection(); //!!
+                    IsEmptyList = !Protocols.Any();
                 }
                 finally
                 {
