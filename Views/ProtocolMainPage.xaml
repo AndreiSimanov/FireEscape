@@ -32,6 +32,7 @@
             PlaceholderColor="{dx:ThemeColor OnSurfaceVariant}"
             EndIconColor="{dx:ThemeColor OnSurfaceVariant}"
             FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38" Margin="15,10,15,10"
+            ReturnType="Search"
             TextChanged="SearchTextChanged" />
         <Border
             IsVisible="{Binding IsEmptyList}"
@@ -113,34 +114,28 @@
                                                 <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
                                             </Image.Clip>
                                         </Image>
-                                        <VerticalStackLayout 
-                                            VerticalOptions="Center"
-                                            Grid.Column="1"
-                                            Spacing="2"
-                                            Padding="10">
-
+                                        <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
                                             <Label Style="{StaticResource Titleline}" Text="{Binding FireEscapeObjectName}"/>
-                                            <Label  Style="{StaticResource SubTitleline}" Text="{Binding FireEscape.FireEscapeType}"/>
+                                            <Label Style="{StaticResource SubTitleline}" Text="{Binding FireEscape.FireEscapeType}"/>
                                             <Label Style="{StaticResource SubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                         <Span Text="{Binding Location}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-
                                             <Label Style="{StaticResource SubTitleline}" Text="{Binding Address}"/>
-
                                             <Label Style="{StaticResource SmallSubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                         <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Frame>

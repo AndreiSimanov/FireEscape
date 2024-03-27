@@ -5,7 +5,6 @@
                     xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
                     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors">
 
-
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{dx:ThemeColor Primary}" />
     </Style>
@@ -361,7 +360,7 @@
         <Setter Property="SeparatorColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="RefreshControlColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
     </Style>
-    
+
     <Style TargetType="Picker">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="TitleColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
@@ -465,8 +464,6 @@
         <Setter Property="BackgroundColor" Value="{dx:ThemeColor Surface}" />
     </Style>
 
-
-
     <Style TargetType="TimePicker">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
@@ -501,6 +498,48 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+    </Style>
+
+
+    <Thickness  x:Key="EditFieldMargin" Left="10" Right="10" Top="10" Bottom="0" />
+
+    <Style TargetType="dxe:NumericEdit"  x:Key="DefaultNumericEdit">
+        <Setter Property="SelectValueOnFocus" Value="True" />
+        <Setter Property="MinValue" Value="0" />
+        <Setter Property="MaxValue" Value="10000" />
+        <Setter Property="MaxDecimalDigitCount" Value="0" />
+        <Setter Property="TextHorizontalAlignment" Value="Start" />
+        <Setter Property="ReturnType" Value="Next" />
+        <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+    <Style TargetType="dxe:CheckEdit"  x:Key="DefaultCheckEdit">
+        <Setter Property="LabelFontSize" Value="13" />
+        <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+    <Style TargetType="dxe:ComboBoxEdit"  x:Key="DefaultComboBoxEdit">
+        <Setter Property="dx:DXDockLayout.Dock" Value="Top" />
+        <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+    <Style TargetType="dxe:DateEdit">
+        <Setter Property="DisplayFormat" Value="d" />
+        <Setter Property="IsEndIconVisible" Value="True" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="ReturnType" Value="Next" />
+        <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+    <Style TargetType="dxe:TextEdit">
+        <Setter Property="ReturnType" Value="Next" />
+        <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+    <Style TargetType="VerticalStackLayout">
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Spacing" Value="5" />
+        <Setter Property="Margin" Value="10" />
     </Style>
 
 </ResourceDictionary>

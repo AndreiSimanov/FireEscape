@@ -16,13 +16,12 @@
              x:DataType="viewmodel:UserAccountMainViewModel"
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
-
     <ContentPage.Resources>
         <viewmodel:BoolToColorConverter x:Key="userAccountIsYouConverter" TrueSource="Green" FalseSource="{dx:ThemeColor OnSurface, Alpha=0.22}"/>
      </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
-        <dxe:TextEdit 
+        <dxe:TextEdit
             EndIcon="search" PlaceholderText="Поиск пользователей" TextFontSize="14"
             ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
             BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
@@ -30,6 +29,7 @@
             PlaceholderColor="{dx:ThemeColor OnSurfaceVariant}"
             EndIconColor="{dx:ThemeColor OnSurfaceVariant}"
             FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38" Margin="15,10,15,10"
+            ReturnType="Search"
             TextChanged="SearchTextChanged" />
         <Border
             IsVisible="{Binding IsEmptyList}"
@@ -83,11 +83,12 @@
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    <VerticalStackLayout Padding="5" Spacing="2" Margin="10" >
+                                    <VerticalStackLayout Spacing="2" >
                                         <Label Style="{StaticResource Titleline}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.UserAccountId}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                     <Span Text="{Binding Id}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -96,6 +97,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.UserAccountName}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                     <Span Text="{Binding Name}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -104,6 +106,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.Signature}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                     <Span Text="{Binding Signature}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -112,6 +115,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.Company}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                     <Span Text="{Binding Company}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -120,6 +124,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.ExpirationDate}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                     <Span Text="{Binding ExpirationDate, StringFormat='{0:dd.MM.yyyy}'}" />
                                                 </FormattedString>
                                             </Label.FormattedText>

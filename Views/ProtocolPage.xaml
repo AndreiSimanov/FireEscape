@@ -63,61 +63,36 @@
                     </dx:DXButton>
                 </Grid>
             </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="2" Padding="5" Spacing="5" Margin="10" >
+            <VerticalStackLayout Grid.Row="2" >
                 <dxe:NumericEdit
+                    Style="{StaticResource DefaultNumericEdit}"
                     Value="{Binding Protocol.ProtocolNum}"
-                    SelectValueOnFocus="True"
-                    MinValue="1"
-                    MaxValue="10000"
-                    MaxDecimalDigitCount="0"
-                    TextHorizontalAlignment="Start"
                     PlaceholderText="{x:Static lang:AppResources.ProtocolNum}"
-                    LabelText="{x:Static lang:AppResources.ProtocolNum}" 
-                    ReturnType="Next"
-                    Margin="10,10,10,0"/>
+                    LabelText="{x:Static lang:AppResources.ProtocolNum}"/>
                 <dxe:DateEdit
                     Date="{Binding Protocol.ProtocolDate}"                    
-                    LabelText="{x:Static lang:AppResources.ProtocolDate}"
-                    DisplayFormat="d"
-                    IsEndIconVisible="True"
-                    VerticalOptions="Center"
-                    ReturnType="Next"
-                    Margin="10,10,10,0"/>
+                    LabelText="{x:Static lang:AppResources.ProtocolDate}"/>
                 <dxe:TextEdit
                     Text="{Binding Protocol.Location}"
                     LabelText="{x:Static lang:AppResources.Location}"
-                    PlaceholderText="{x:Static lang:AppResources.LocationHint}"
-                    ReturnType="Next"
-                    Margin="10,10,10,0"/>
+                    PlaceholderText="{x:Static lang:AppResources.LocationHint}"/>
                 <dxe:TextEdit
                     Text="{Binding Protocol.Address}"
                     LabelText="{x:Static lang:AppResources.Address}"
-                    PlaceholderText="{x:Static lang:AppResources.AddressHint}"
-                    ReturnType="Next"
-                    Margin="10,10,10,0"/>
+                    PlaceholderText="{x:Static lang:AppResources.AddressHint}"/>
                 <dxe:NumericEdit
+                    Style="{StaticResource DefaultNumericEdit}"
                     Value="{Binding Protocol.FireEscapeNum}"
-                    SelectValueOnFocus="True"
-                    MinValue="1"
-                    MaxValue="10000"
-                    ReturnType="Next"
-                    MaxDecimalDigitCount="0"
-                    TextHorizontalAlignment="Start"
                     PlaceholderText="{x:Static lang:AppResources.FireEscapeNum}"
-                    LabelText="{x:Static lang:AppResources.FireEscapeNum}" 
-                    Margin="10,10,10,0"/>
+                    LabelText="{x:Static lang:AppResources.FireEscapeNum}"/>
                 <dxe:TextEdit
                     Text="{Binding Protocol.FireEscapeObject}"
                     LabelText="{x:Static lang:AppResources.FireEscapeObject}"
-                    PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"
-                    ReturnType="Next"
-                    Margin="10,10,10,0"/>
+                    PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"/>
                 <dxe:TextEdit
                     Text="{Binding Protocol.Customer}"
                     LabelText="{x:Static lang:AppResources.Customer}"
-                    PlaceholderText="{x:Static lang:AppResources.CustomerHint}"
-                    ReturnType="Next"
-                    Margin="10,10,10,0"/>
+                    PlaceholderText="{x:Static lang:AppResources.CustomerHint}"/>
                 <dxco:SimpleButton
                     Text="{x:Static lang:AppResources.FireEscapePageTitle}" 
                     Command="{Binding GoToDetailsCommand}" 

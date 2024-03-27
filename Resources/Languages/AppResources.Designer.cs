@@ -79,7 +79,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Адрес объекта:.
+        ///   Looks up a localized string similar to Адрес объекта.
         /// </summary>
         internal static string Address {
             get {
@@ -97,7 +97,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Адрес: .
+        ///   Looks up a localized string similar to Адрес.
         /// </summary>
         internal static string AddressStringFormat {
             get {
@@ -142,6 +142,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to : .
+        /// </summary>
+        internal static string CaptionDivider {
+            get {
+                return ResourceManager.GetString("CaptionDivider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Проверьте подключение к интернет и повторите операцию..
         /// </summary>
         internal static string CheckInternetMessage {
@@ -151,7 +160,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Компания: .
+        ///   Looks up a localized string similar to Компания.
         /// </summary>
         internal static string Company {
             get {
@@ -268,7 +277,16 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата окончания учетной записи: .
+        ///   Looks up a localized string similar to Эвакуационная лестница.
+        /// </summary>
+        internal static string EscapeStairs {
+            get {
+                return ResourceManager.GetString("EscapeStairs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата окончания учетной записи.
         /// </summary>
         internal static string ExpirationDate {
             get {
@@ -295,7 +313,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Номер испытуемого объекта:.
+        ///   Looks up a localized string similar to Номер испытуемого объекта.
         /// </summary>
         internal static string FireEscapeNum {
             get {
@@ -304,7 +322,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Название объекта:.
+        ///   Looks up a localized string similar to Название объекта.
         /// </summary>
         internal static string FireEscapeObject {
             get {
@@ -358,7 +376,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Место:.
+        ///   Looks up a localized string similar to Место.
         /// </summary>
         internal static string Location {
             get {
@@ -421,7 +439,16 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Дата протокола: .
+        ///   Looks up a localized string similar to Качество защитных покрытий соответствует ГОСТ.
+        /// </summary>
+        internal static string ProtectiveQuality {
+            get {
+                return ResourceManager.GetString("ProtectiveQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата протокола.
         /// </summary>
         internal static string ProtocolDate {
             get {
@@ -439,7 +466,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Номер протокола:.
+        ///   Looks up a localized string similar to Номер протокола.
         /// </summary>
         internal static string ProtocolNum {
             get {
@@ -466,11 +493,65 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Подпись: .
+        ///   Looks up a localized string similar to Подпись.
         /// </summary>
         internal static string Signature {
             get {
                 return ResourceManager.GetString("Signature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Высота лестницы (м).
+        /// </summary>
+        internal static string StairHeight {
+            get {
+                return ResourceManager.GetString("StairHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите высоту лестницы в метрах.
+        /// </summary>
+        internal static string StairHeightHint {
+            get {
+                return ResourceManager.GetString("StairHeightHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ширина лестницы (мм).
+        /// </summary>
+        internal static string StairWidth {
+            get {
+                return ResourceManager.GetString("StairWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите ширину лестницы в миллиметрах.
+        /// </summary>
+        internal static string StairWidthHint {
+            get {
+                return ResourceManager.GetString("StairWidthHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Количество ступеней.
+        /// </summary>
+        internal static string StepsCount {
+            get {
+                return ResourceManager.GetString("StepsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите количество ступеней лестницы.
+        /// </summary>
+        internal static string StepsCountHint {
+            get {
+                return ResourceManager.GetString("StepsCountHint", resourceCulture);
             }
         }
         
@@ -493,7 +574,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Идентификатор учетной записи: .
+        ///   Looks up a localized string similar to Идентификатор учетной записи.
         /// </summary>
         internal static string UserAccountId {
             get {
@@ -520,7 +601,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя пользователя: .
+        ///   Looks up a localized string similar to Имя пользователя.
         /// </summary>
         internal static string UserAccountName {
             get {
@@ -552,6 +633,15 @@ namespace FireEscape.Resources.Languages {
         internal static string UserAccountSignatureHint {
             get {
                 return ResourceManager.GetString("UserAccountSignatureHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Качество сварных швов соответствует ГОСТ.
+        /// </summary>
+        internal static string WeldSeamQuality {
+            get {
+                return ResourceManager.GetString("WeldSeamQuality", resourceCulture);
             }
         }
     }

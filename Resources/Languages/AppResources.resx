@@ -124,13 +124,13 @@
     <value>Невозможно добавить протокол</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Адрес объекта:</value>
+    <value>Адрес объекта</value>
   </data>
   <data name="AddressHint" xml:space="preserve">
     <value>Укажите адрес объекта</value>
   </data>
   <data name="AddressStringFormat" xml:space="preserve">
-    <value>Адрес: </value>
+    <value>Адрес</value>
   </data>
   <data name="Administrator" xml:space="preserve">
     <value>Администратор</value>
@@ -184,7 +184,7 @@
     <value>Ошибка</value>
   </data>
   <data name="ExpirationDate" xml:space="preserve">
-    <value>Дата окончания учетной записи: </value>
+    <value>Дата окончания учетной записи</value>
   </data>
   <data name="FireEscape" xml:space="preserve">
     <value>Пожарная лестница</value>
@@ -193,10 +193,10 @@
     <value>Укажите тип установки лестницы</value>
   </data>
   <data name="FireEscapeNum" xml:space="preserve">
-    <value>Номер испытуемого объекта:</value>
+    <value>Номер испытуемого объекта</value>
   </data>
   <data name="FireEscapeObject" xml:space="preserve">
-    <value>Название объекта:</value>
+    <value>Название объекта</value>
   </data>
   <data name="FireEscapeObjectHint" xml:space="preserve">
     <value>Укажите название объекта</value>
@@ -214,7 +214,7 @@
     <value>Невозможно получить список пользователей</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Место:</value>
+    <value>Место</value>
   </data>
   <data name="LocationHint" xml:space="preserve">
     <value>Укажите город / область</value>
@@ -235,10 +235,10 @@
     <value>Невозможно отредкатировать учетные записи пользователей</value>
   </data>
   <data name="ProtocolDate" xml:space="preserve">
-    <value>Дата протокола: </value>
+    <value>Дата протокола</value>
   </data>
   <data name="ProtocolNum" xml:space="preserve">
-    <value>Номер протокола:</value>
+    <value>Номер протокола</value>
   </data>
   <data name="ProtocolPageTitle" xml:space="preserve">
     <value>Протокол</value>
@@ -253,10 +253,10 @@
     <value>Незарегистрированная версия приложения либо действие учетной записи истекло. Сообщите номер {0} вендору приложения.</value>
   </data>
   <data name="UserAccountId" xml:space="preserve">
-    <value>Идентификатор учетной записи: </value>
+    <value>Идентификатор учетной записи</value>
   </data>
   <data name="UserAccountName" xml:space="preserve">
-    <value>Имя пользователя: </value>
+    <value>Имя пользователя</value>
   </data>
   <data name="UserAccountPageTitle" xml:space="preserve">
     <value>Учетная запись пользователя</value>
@@ -265,10 +265,10 @@
     <value>Пользователи</value>
   </data>
   <data name="Company" xml:space="preserve">
-    <value>Компания: </value>
+    <value>Компания</value>
   </data>
   <data name="Signature" xml:space="preserve">
-    <value>Подпись: </value>
+    <value>Подпись</value>
   </data>
   <data name="UserAccountCompanyHint" xml:space="preserve">
     <value>Укажите компанию учетной записи</value>
@@ -281,5 +281,35 @@
   </data>
   <data name="UserAccountSignatureHint" xml:space="preserve">
     <value>Укажите подпись пользователя</value>
+  </data>
+  <data name="CaptionDivider" xml:space="preserve">
+    <value>: </value>
+  </data>
+  <data name="EscapeStairs" xml:space="preserve">
+    <value>Эвакуационная лестница</value>
+  </data>
+  <data name="ProtectiveQuality" xml:space="preserve">
+    <value>Качество защитных покрытий соответствует ГОСТ</value>
+  </data>
+  <data name="StairHeight" xml:space="preserve">
+    <value>Высота лестницы (м)</value>
+  </data>
+  <data name="StairHeightHint" xml:space="preserve">
+    <value>Укажите высоту лестницы в метрах</value>
+  </data>
+  <data name="StairWidth" xml:space="preserve">
+    <value>Ширина лестницы (мм)</value>
+  </data>
+  <data name="StairWidthHint" xml:space="preserve">
+    <value>Укажите ширину лестницы в миллиметрах</value>
+  </data>
+  <data name="StepsCount" xml:space="preserve">
+    <value>Количество ступеней</value>
+  </data>
+  <data name="StepsCountHint" xml:space="preserve">
+    <value>Укажите количество ступеней лестницы</value>
+  </data>
+  <data name="WeldSeamQuality" xml:space="preserve">
+    <value>Качество сварных швов соответствует ГОСТ</value>
   </data>
 </root>

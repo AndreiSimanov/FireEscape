@@ -13,66 +13,51 @@
              x:DataType="viewmodel:FireEscapeViewModel">
 
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
-        <VerticalStackLayout Padding="5" Spacing="5" Margin="10" >
+        <VerticalStackLayout>
             <dxe:ComboBoxEdit
-                 LabelText="{x:Static lang:AppResources.FireEscapeTypesHint}"
-                 SelectedItem="{Binding FireEscape.FireEscapeType}"
-                 ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeTypes}"
-                 Margin="10,10,10,0"/>
+                Style="{StaticResource DefaultComboBoxEdit}"
+                LabelText="{x:Static lang:AppResources.FireEscapeTypesHint}"
+                SelectedItem="{Binding FireEscape.FireEscapeType}"
+                ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeTypes}"/>
+            
             <dxe:CheckEdit
+                Style="{StaticResource DefaultCheckEdit}"
                 IsChecked="{Binding FireEscape.IsEvacuation}"
-                Label="Эвакуационная лестница"
-                LabelFontSize="13"
-                Margin="10,10,10,0"/>
+                Label="{x:Static lang:AppResources.EscapeStairs}"/>
+            
             <dxe:ComboBoxEdit
-                 dx:DXDockLayout.Dock="Top"
-                 LabelText="{x:Static lang:AppResources.FireEscapeMountTypesHint}"
-                 SelectedItem="{Binding FireEscape.FireEscapeMountType}"
-                 ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeMountTypes}"
-                 Margin="10,10,10,0"/>
+                Style="{StaticResource DefaultComboBoxEdit}"
+                LabelText="{x:Static lang:AppResources.FireEscapeMountTypesHint}"
+                SelectedItem="{Binding FireEscape.FireEscapeMountType}"
+                ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeMountTypes}"/>
+
             <dxe:NumericEdit
+                Style="{StaticResource DefaultNumericEdit}" MaxValue="100" MaxDecimalDigitCount="2"
                 Value="{Binding FireEscape.StairHeight}"
-                SelectValueOnFocus="True"
-                MinValue="0"
-                MaxValue="100"
-                MaxDecimalDigitCount="2"
-                TextHorizontalAlignment="Start"
-                PlaceholderText="Введите высоту лестницы в метрах"
-                LabelText="Высота лестницы (м):" 
-                ReturnType="Next"
-                Margin="10,10,10,0"/>
+                PlaceholderText="{x:Static lang:AppResources.StairHeightHint}"
+                LabelText="{x:Static lang:AppResources.StairHeight}"/>
+            
             <dxe:NumericEdit
+                Style="{StaticResource DefaultNumericEdit}"
                 Value="{Binding FireEscape.StairWidth}"
-                SelectValueOnFocus="True"
-                MinValue="0"
-                MaxValue="10000"
-                MaxDecimalDigitCount="0"
-                TextHorizontalAlignment="Start"
-                PlaceholderText="Введите ширину лестницы в мм"
-                LabelText="Ширина лестницы (мм):" 
-                ReturnType="Next"
-                Margin="10,10,10,0"/>
+                PlaceholderText="{x:Static lang:AppResources.StairWidth}"
+                LabelText="{x:Static lang:AppResources.StairWidth}"/>
+            
             <dxe:NumericEdit
+                Style="{StaticResource DefaultNumericEdit}"
                 Value="{Binding FireEscape.StepsCount}"
-                SelectValueOnFocus="True"
-                MinValue="0"
-                MaxValue="10000"
-                MaxDecimalDigitCount="0"
-                TextHorizontalAlignment="Start"
-                PlaceholderText="Введите количество ступеней лестницы"
-                LabelText="Количество ступеней:" 
-                ReturnType="Next"
-                Margin="10,10,10,0"/>
+                PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"
+                LabelText="{x:Static lang:AppResources.StepsCount}"/>
+            
             <dxe:CheckEdit
+                Style="{StaticResource DefaultCheckEdit}"
                 IsChecked="{Binding FireEscape.WeldSeamQuality}"
-                Label="Качество сварных швов соответствует ГОСТ"
-                LabelFontSize="13"
-                Margin="10,10,10,0"/>
+                Label="{x:Static lang:AppResources.WeldSeamQuality}"/>
+            
             <dxe:CheckEdit
+                Style="{StaticResource DefaultCheckEdit}"
                 IsChecked="{Binding FireEscape.ProtectiveQuality}"
-                Label="Качество защитных покрытий соответствует ГОСТ"
-                LabelFontSize="13"
-                Margin="10,10,10,0"/>
+                Label="{x:Static lang:AppResources.ProtectiveQuality}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
