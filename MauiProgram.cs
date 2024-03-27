@@ -40,11 +40,11 @@ namespace FireEscape
             builder.Services.AddSingleton<UserAccountService>();
             builder.Services.AddSingleton<ProtocolService>();
 
-            builder.Services.AddSingleton<ProtocolsMainViewModel>();
-            builder.Services.AddSingleton<ProtocolsMainPage>();
+            builder.Services.AddSingleton<ProtocolMainViewModel>();
+            builder.Services.AddSingleton<ProtocolMainPage>();
 
-            builder.Services.AddSingleton<UserAccountsViewModel>();
-            builder.Services.AddSingleton<UserAccountsPage>();
+            builder.Services.AddSingleton<UserAccountMainViewModel>();
+            builder.Services.AddSingleton<UserAccountMainPage>();
 
             builder.Services.AddTransient<UserAccountViewModel>();
             builder.Services.AddTransient<UserAccountPage>();

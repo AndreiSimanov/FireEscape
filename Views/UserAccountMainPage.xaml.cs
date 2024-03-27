@@ -1,16 +1,14 @@
-using CommunityToolkit.Maui.Core.Extensions;
-
 namespace FireEscape.Views;
 
-public partial class UserAccountsPage : ContentPage
+public partial class UserAccountMainPage : ContentPage
 {
-    public UserAccountsPage(UserAccountsViewModel viewModel)
+    public UserAccountMainPage(UserAccountMainViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
     }
 
-    private UserAccountsViewModel? UserAccountsViewModel => BindingContext as UserAccountsViewModel;
+    private UserAccountMainViewModel? UserAccountsViewModel => BindingContext as UserAccountMainViewModel;
 
     private void ContentPage_Appearing(object sender, EventArgs e)
     {

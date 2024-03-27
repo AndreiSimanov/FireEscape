@@ -7,11 +7,11 @@
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              ios:Page.UseSafeArea="True"
-             x:Class="FireEscape.Views.UserAccountsPage"
+             x:Class="FireEscape.Views.UserAccountMainPage"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
-             Title="{x:Static lang:AppResources.UserAccountsPageTitle}"
-             x:DataType="viewmodel:UserAccountsViewModel"
+             Title="{x:Static lang:AppResources.UserAccountMainPageTitle}"
+             x:DataType="viewmodel:UserAccountMainViewModel"
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
     <Grid
@@ -52,8 +52,8 @@
                                 <SwipeItems>
                                     <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
                                                IconImageSource="edit.png"
-                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel } }, Path=IsNotBusy}"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel}}, Path=GoToDetailsCommand}"
+                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
                                                CommandParameter="{Binding .}">
                                     </SwipeItem>
                                 </SwipeItems>
@@ -62,8 +62,8 @@
                                 <SwipeItems>
                                     <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
                                                IconImageSource="delete.png"
-                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel } }, Path=IsNotBusy}"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountsViewModel}}, Path=DeleteUserAccountCommand}"
+                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=DeleteUserAccountCommand}"
                                                CommandParameter="{Binding .}">
                                     </SwipeItem>
                                 </SwipeItems>

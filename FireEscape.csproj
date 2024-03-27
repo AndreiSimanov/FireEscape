@@ -93,11 +93,14 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.resx</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\ProtocolsMainPage.xaml.cs">
-	    <DependentUpon>ProtocolsMainPage.xaml</DependentUpon>
+	  <Compile Update="Views\ProtocolMainPage.xaml.cs">
+	    <DependentUpon>ProtocolMainPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\ProtocolPage.xaml.cs">
 	    <DependentUpon>ProtocolPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\UserAccountMainPage.xaml.cs">
+	    <DependentUpon>UserAccountMainPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -118,7 +121,7 @@
 	  <MauiXaml Update="Views\UserAccountPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\UserAccountsPage.xaml">
+	  <MauiXaml Update="Views\UserAccountMainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

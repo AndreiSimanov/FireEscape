@@ -4,7 +4,7 @@ using Protocol = FireEscape.Models.Protocol;
 
 namespace FireEscape.ViewModels
 {
-    public partial class ProtocolsMainViewModel : BaseViewModel
+    public partial class ProtocolMainViewModel : BaseViewModel
     {
         [ObservableProperty]
         ObservableCollection<Protocol> protocols = new();
@@ -12,7 +12,7 @@ namespace FireEscape.ViewModels
         readonly ProtocolService protocolService;
         readonly UserAccountService userAccountService;
 
-        public ProtocolsMainViewModel(ProtocolService protocolService, UserAccountService userAccountService)
+        public ProtocolMainViewModel(ProtocolService protocolService, UserAccountService userAccountService)
         {
             this.protocolService = protocolService;
             this.userAccountService = userAccountService;
@@ -116,17 +116,17 @@ namespace FireEscape.ViewModels
         }
 
         [RelayCommand]
-        async Task OpenUserAccountsPageAsync()
+        async Task OpenUserAccountMainPageAsync()
         {
             await DoCommand(async () =>
             {
                 var userAccount = await userAccountService.DownloadUserAccountAsync();
                 if (userAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
                 {
-                    await Shell.Current.GoToAsync(nameof(UserAccountsPage), true);
+                    await Shell.Current.GoToAsync(nameof(UserAccountMainPage), true);
                 }
             },
-            AppResources.OpenUserAccountsPageError);
+            AppResources.OpenUserAccountMainPageError);
         }
     }
 }

@@ -405,9 +405,9 @@ namespace FireEscape.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Невозможно отредкатировать учетные записи пользователей.
         /// </summary>
-        internal static string OpenUserAccountsPageError {
+        internal static string OpenUserAccountMainPageError {
             get {
-                return ResourceManager.GetString("OpenUserAccountsPageError", resourceCulture);
+                return ResourceManager.GetString("OpenUserAccountMainPageError", resourceCulture);
             }
         }
         
@@ -441,9 +441,9 @@ namespace FireEscape.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Список протоколов.
         /// </summary>
-        internal static string ProtocolsMainPageTitle {
+        internal static string ProtocolMainPageTitle {
             get {
-                return ResourceManager.GetString("ProtocolsMainPageTitle", resourceCulture);
+                return ResourceManager.GetString("ProtocolMainPageTitle", resourceCulture);
             }
         }
         
@@ -495,9 +495,9 @@ namespace FireEscape.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Пользователи.
         /// </summary>
-        internal static string UserAccountsPageTitle {
+        internal static string UserAccountMainPageTitle {
             get {
-                return ResourceManager.GetString("UserAccountsPageTitle", resourceCulture);
+                return ResourceManager.GetString("UserAccountMainPageTitle", resourceCulture);
             }
         }
     }

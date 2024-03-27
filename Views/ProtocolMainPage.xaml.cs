@@ -3,18 +3,18 @@ using System.Diagnostics;
 
 namespace FireEscape.Views;
 
-public partial class ProtocolsMainPage : ContentPage
+public partial class ProtocolMainPage : ContentPage
 {
     double swipeOffSet = 0;
     Stopwatch tapStopwatch = new();
 
-    public ProtocolsMainPage(ProtocolsMainViewModel viewModel)
+    public ProtocolMainPage(ProtocolMainViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
     }
 
-    private ProtocolsMainViewModel? MainViewModel => BindingContext as ProtocolsMainViewModel;
+    private ProtocolMainViewModel? MainViewModel => BindingContext as ProtocolMainViewModel;
     
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
@@ -66,6 +66,6 @@ public partial class ProtocolsMainPage : ContentPage
     {
         tapStopwatch.Stop();
         if (tapStopwatch.ElapsedMilliseconds > 4000)
-            MainViewModel?.OpenUserAccountsPageCommand.Execute(null);
+            MainViewModel?.OpenUserAccountMainPageCommand.Execute(null);
     }
 }

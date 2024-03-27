@@ -231,7 +231,7 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="OpenUserAccountsPageError" xml:space="preserve">
+  <data name="OpenUserAccountMainPageError" xml:space="preserve">
     <value>Невозможно отредкатировать учетные записи пользователей</value>
   </data>
   <data name="ProtocolDate" xml:space="preserve">
@@ -243,7 +243,7 @@
   <data name="ProtocolPageTitle" xml:space="preserve">
     <value>Протокол</value>
   </data>
-  <data name="ProtocolsMainPageTitle" xml:space="preserve">
+  <data name="ProtocolMainPageTitle" xml:space="preserve">
     <value>Список протоколов</value>
   </data>
   <data name="SaveProtocolError" xml:space="preserve">
@@ -261,7 +261,7 @@
   <data name="UserAccountPageTitle" xml:space="preserve">
     <value>Учетная запись пользователя</value>
   </data>
-  <data name="UserAccountsPageTitle" xml:space="preserve">
+  <data name="UserAccountMainPageTitle" xml:space="preserve">
     <value>Пользователи</value>
   </data>
 </root>

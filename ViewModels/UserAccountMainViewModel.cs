@@ -3,14 +3,14 @@ using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels
 {
-    public partial class UserAccountsViewModel : BaseViewModel
+    public partial class UserAccountMainViewModel : BaseViewModel
     {
         [ObservableProperty]
         ObservableCollection<UserAccount> userAccounts = new();
 
         readonly UserAccountService userAccountService;
 
-        public UserAccountsViewModel(UserAccountService userAccountService)
+        public UserAccountMainViewModel(UserAccountService userAccountService)
         {
             this.userAccountService = userAccountService;
         }
