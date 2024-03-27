@@ -12,7 +12,7 @@
              x:DataType="viewmodel:UserAccountViewModel"
              Disappearing="ContentPage_Disappearing">
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
-        <VerticalStackLayout Padding="5" Spacing="5" Margin="10" >
+        <VerticalStackLayout Padding="10" Spacing="5" Margin="10" >
             <dxe:TextEdit
                 IsReadOnly="True"
                 Text="{Binding UserAccount.Id}"

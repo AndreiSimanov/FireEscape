@@ -18,7 +18,7 @@
              Appearing="ContentPage_Appearing">
 
     <ContentPage.Resources>
-        <viewmodel:BoolToColorConverter x:Key="userAccountIsYouConverter" TrueSource="Green" FalseSource="#DDDDDD"/>
+        <viewmodel:BoolToColorConverter x:Key="userAccountIsYouConverter" TrueSource="Green" FalseSource="{dx:ThemeColor OnSurface, Alpha=0.22}"/>
      </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
@@ -72,7 +72,7 @@
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=DeleteUserAccountCommand}"
                                 CommandParameter="{Binding .}"
-                                Caption="Delete"
+                                Caption="{x:Static lang:AppResources.Delete}"
                                 Image="delete"/>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
@@ -83,8 +83,8 @@
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    <dx:DXStackLayout Orientation="Vertical"  Padding="10" VerticalOptions="Center">
-                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="14" LineBreakMode="TailTruncation">
+                                    <VerticalStackLayout Padding="5" Spacing="2" Margin="10" >
+                                        <Label Style="{StaticResource Titleline}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.UserAccountId}" />
@@ -92,7 +92,7 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="14" LineBreakMode="TailTruncation">
+                                        <Label Style="{StaticResource Titleline}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.UserAccountName}" />
@@ -100,7 +100,7 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="12" LineBreakMode="TailTruncation">
+                                        <Label Style="{StaticResource SubTitleline}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.Signature}" />
@@ -108,7 +108,7 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="12" LineBreakMode="TailTruncation">
+                                        <Label Style="{StaticResource SubTitleline}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.Company}" />
@@ -116,7 +116,7 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="12" LineBreakMode="TailTruncation">
+                                        <Label Style="{StaticResource SubTitleline}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.ExpirationDate}" />
@@ -130,7 +130,7 @@
                                             Label="{x:Static lang:AppResources.Administrator}"
                                             LabelColor="{dx:ThemeColor OnSurface}"
                                             LabelFontSize="12"/>
-                                    </dx:DXStackLayout>
+                                    </VerticalStackLayout>
                                 </Frame>
                             </Grid>
                         </dxcv:SwipeContainer.ItemView>

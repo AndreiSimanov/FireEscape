@@ -83,12 +83,12 @@
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel } }, Path=IsNotBusy}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=DeleteProtocolCommand}"
                                 CommandParameter="{Binding .}"
-                                Caption="Delete"
+                                Caption="{x:Static lang:AppResources.Delete}"
                                 Image="delete"/>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
                             <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="150" Style="{StaticResource CardView}">
+                                <Frame HeightRequest="140" Style="{StaticResource CardView}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=GoToDetailsCommand}"
@@ -108,23 +108,31 @@
                                             Aspect="AspectFill"
                                             HeightRequest="110"
                                             WidthRequest="110" 
-                                            Source="{Binding Image}"/>
-                                        <VerticalStackLayout
+                                            Source="{Binding Image}">
+                                            <Image.Clip>
+                                                <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
+                                            </Image.Clip>
+                                        </Image>
+                                        <VerticalStackLayout 
                                             VerticalOptions="Center"
                                             Grid.Column="1"
-                                            Spacing="5"
+                                            Spacing="2"
                                             Padding="10">
-                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding FireEscapeObjectName}" />
-                                            <Label Text="{Binding FireEscape.FireEscapeType}" />
-                                            <Label>
+
+                                            <Label Style="{StaticResource Titleline}" Text="{Binding FireEscapeObjectName}"/>
+                                            <Label  Style="{StaticResource SubTitleline}" Text="{Binding FireEscape.FireEscapeType}"/>
+                                            <Label Style="{StaticResource SubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
-                                                        <Span Text="{Binding FullAddress}" />
+                                                        <Span Text="{Binding Location}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                            <Label Style="{StaticResource SmallLabel}">
+
+                                            <Label Style="{StaticResource SubTitleline}" Text="{Binding Address}"/>
+
+                                            <Label Style="{StaticResource SmallSubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
@@ -132,6 +140,7 @@
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
+
                                         </VerticalStackLayout>
                                     </Grid>
                                 </Frame>

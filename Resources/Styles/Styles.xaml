@@ -180,24 +180,6 @@
         <Setter Property="SelectedTabColor" Value="{dx:ThemeColor Primary}" />
     </Style>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <Style TargetType="Border">
         <Setter Property="Stroke" Value="{dx:ThemeColor Primary}" />
         <Setter Property="StrokeShape" Value="Rectangle"/>
@@ -307,7 +289,7 @@
     </Style>
 
     <Style x:Key="CardView" TargetType="Frame">
-        <Setter Property="BorderColor" Value="#DDDDDD" />
+        <Setter Property="BorderColor" Value="{dx:ThemeColor OnSurface, Alpha=0.22}"/>
         <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Background" Value="{dx:ThemeColor Surface}" />
@@ -364,46 +346,22 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Span">
+    <Style TargetType="Label" x:Key="Titleline">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="LineBreakMode" Value="TailTruncation" />
     </Style>
-
-    <Style TargetType="Label" x:Key="Headline">
-        <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
-        <Setter Property="FontSize" Value="32" />
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    <Style TargetType="Label" x:Key="SubTitleline" BasedOn="{StaticResource Titleline}">
+        <Setter Property="FontSize" Value="12" />
     </Style>
-
-    <Style TargetType="Label" x:Key="SubHeadline">
-        <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
-        <Setter Property="FontSize" Value="24" />
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    <Style TargetType="Label" x:Key="SmallSubTitleline" BasedOn="{StaticResource Titleline}">
+        <Setter Property="FontSize" Value="10" />
     </Style>
-
-    <Style x:Key="MicroLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
-        <Setter Property="FontSize" Value="10"/>
-    </Style>
-
-    <Style x:Key="SmallLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
-        <Setter Property="FontSize" Value="10"/>
-    </Style>
-
-    <Style x:Key="MediumLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
-        <Setter Property="FontSize" Value="16"/>
-    </Style>
-
-    <Style x:Key="LargeLabel" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
-        <Setter Property="FontSize" Value="20"/>
-    </Style>
-
-
     <Style TargetType="ListView">
         <Setter Property="SeparatorColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="RefreshControlColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
     </Style>
-
+    
     <Style TargetType="Picker">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="TitleColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
