@@ -9,7 +9,6 @@ namespace FireEscape
         public App(IOptions<ApplicationSettings> applicationSettings)
         {
             SetPrimaryThemeColor(applicationSettings.Value);
-
             CultureInfo.CurrentCulture = SetNumberDecimalSeparator(CultureInfo.CurrentCulture);
             CultureInfo.CurrentUICulture = SetNumberDecimalSeparator(CultureInfo.CurrentUICulture);
             Localizer.StringLoader = new ResourceStringLoader(FireEscape.Resources.Languages.AppResources.ResourceManager);
@@ -17,7 +16,6 @@ namespace FireEscape
             InitializeComponent();
             MainPage = new AppShell();
         }
-
         static CultureInfo SetNumberDecimalSeparator(CultureInfo cultureInfo)
         {
             CultureInfo result = (CultureInfo)cultureInfo.Clone();

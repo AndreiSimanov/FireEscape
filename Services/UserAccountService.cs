@@ -94,7 +94,7 @@ namespace FireEscape.Services
                 {
                     Id = AppSettingsExtension.UserAccountId,
                     Roles = new List<string> { UserAccount.UserRole },
-                    ExpirationDate = DateTime.Now
+                    ExpirationDate = DateTime.Now.AddDays(applicationSettings.NewUserAccountExpirationDays)
                 };
 
                 json = JsonSerializer.Serialize(userAccount);
@@ -123,8 +123,7 @@ namespace FireEscape.Services
                 && !string.IsNullOrWhiteSpace(userAccount.Id)
                 && !string.IsNullOrWhiteSpace(userAccount.Name)
                 && userAccount.ExpirationDate != null
-                && userAccount.ExpirationDate > DateTime.Now
-                && string.Equals(userAccount.Id, AppSettingsExtension.UserAccountId);
+                && userAccount.ExpirationDate > DateTime.Now;
         }
     }
 }

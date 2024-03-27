@@ -12,6 +12,10 @@ namespace FireEscape.Models
         [ObservableProperty]
         string? name;
         [ObservableProperty]
+        string? signature;
+        [ObservableProperty]
+        string? company;
+        [ObservableProperty]
         DateTime? expirationDate;
 
         [ObservableProperty]
