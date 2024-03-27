@@ -219,9 +219,6 @@
   <data name="LocationHint" xml:space="preserve">
     <value>Укажите город / область</value>
   </data>
-  <data name="MainPageTitle" xml:space="preserve">
-    <value>Список протоколов</value>
-  </data>
   <data name="MakePhotoHint" xml:space="preserve">
     <value>Сделать фотографию</value>
   </data>
@@ -245,6 +242,9 @@
   </data>
   <data name="ProtocolPageTitle" xml:space="preserve">
     <value>Протокол</value>
+  </data>
+  <data name="ProtocolsMainPageTitle" xml:space="preserve">
+    <value>Список протоколов</value>
   </data>
   <data name="SaveProtocolError" xml:space="preserve">
     <value>Невозможно сохранить протокол</value>

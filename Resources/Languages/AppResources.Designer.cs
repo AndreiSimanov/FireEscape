@@ -367,15 +367,6 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Список протоколов.
-        /// </summary>
-        internal static string MainPageTitle {
-            get {
-                return ResourceManager.GetString("MainPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Сделать фотографию.
         /// </summary>
         internal static string MakePhotoHint {
@@ -444,6 +435,15 @@ namespace FireEscape.Resources.Languages {
         internal static string ProtocolPageTitle {
             get {
                 return ResourceManager.GetString("ProtocolPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Список протоколов.
+        /// </summary>
+        internal static string ProtocolsMainPageTitle {
+            get {
+                return ResourceManager.GetString("ProtocolsMainPageTitle", resourceCulture);
             }
         }
         

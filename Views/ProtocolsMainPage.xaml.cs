@@ -3,18 +3,18 @@ using System.Diagnostics;
 
 namespace FireEscape.Views;
 
-public partial class MainPage : ContentPage
+public partial class ProtocolsMainPage : ContentPage
 {
     double swipeOffSet = 0;
     Stopwatch tapStopwatch = new();
 
-    public MainPage(MainViewModel viewModel)
+    public ProtocolsMainPage(ProtocolsMainViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
     }
 
-    private MainViewModel? MainViewModel => BindingContext as MainViewModel;
+    private ProtocolsMainViewModel? MainViewModel => BindingContext as ProtocolsMainViewModel;
     
     private void ContentPage_Appearing(object sender, EventArgs e)
     {

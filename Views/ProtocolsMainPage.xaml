@@ -9,11 +9,11 @@
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              ios:Page.UseSafeArea="True"
-             x:Class="FireEscape.Views.MainPage"
+             x:Class="FireEscape.Views.ProtocolsMainPage"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
-             Title="{x:Static lang:AppResources.MainPageTitle}"
-             x:DataType="viewmodel:MainViewModel"
+             Title="{x:Static lang:AppResources.ProtocolsMainPageTitle}"
+             x:DataType="viewmodel:ProtocolsMainViewModel"
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
 
@@ -71,8 +71,8 @@
                         <dxcv:SwipeContainer.StartSwipeItems>
                             <dxcv:SwipeItem
                                 BackgroundColor="{dx:ThemeColor Primary}"
-                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=CreateReportCommand}"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolsMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolsMainViewModel}}, Path=CreateReportCommand}"
                                 CommandParameter="{Binding .}"
                                 Caption="PDF"
                                 Image="pdf"/>
@@ -80,8 +80,8 @@
                         <dxcv:SwipeContainer.EndSwipeItems>
                             <dxcv:SwipeItem 
                                 BackgroundColor="#D74F67"
-                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel } }, Path=IsNotBusy}"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteProtocolCommand}"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolsMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolsMainViewModel}}, Path=DeleteProtocolCommand}"
                                 CommandParameter="{Binding .}"
                                 Caption="Delete"
                                 Image="delete"/>
@@ -91,7 +91,7 @@
                                 <Frame HeightRequest="150" Style="{StaticResource CardView}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolsMainViewModel}}, Path=GoToDetailsCommand}"
                                                 CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
                                     <Grid ColumnDefinitions="125,*">

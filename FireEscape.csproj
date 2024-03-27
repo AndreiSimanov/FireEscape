@@ -93,6 +93,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\ProtocolsMainPage.xaml.cs">
+	    <DependentUpon>ProtocolsMainPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ProtocolPage.xaml.cs">
 	    <DependentUpon>ProtocolPage.xaml</DependentUpon>
 	  </Compile>

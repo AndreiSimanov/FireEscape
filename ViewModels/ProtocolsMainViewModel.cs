@@ -4,7 +4,7 @@ using Protocol = FireEscape.Models.Protocol;
 
 namespace FireEscape.ViewModels
 {
-    public partial class MainViewModel : BaseViewModel
+    public partial class ProtocolsMainViewModel : BaseViewModel
     {
         [ObservableProperty]
         ObservableCollection<Protocol> protocols = new();
@@ -12,7 +12,7 @@ namespace FireEscape.ViewModels
         readonly ProtocolService protocolService;
         readonly UserAccountService userAccountService;
 
-        public MainViewModel(ProtocolService protocolService, UserAccountService userAccountService)
+        public ProtocolsMainViewModel(ProtocolService protocolService, UserAccountService userAccountService)
         {
             this.protocolService = protocolService;
             this.userAccountService = userAccountService;

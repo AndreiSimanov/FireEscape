@@ -219,9 +219,6 @@
   <data name="LocationHint" xml:space="preserve">
     <value>Specify city/region</value>
   </data>
-  <data name="MainPageTitle" xml:space="preserve">
-    <value>Protocol list</value>
-  </data>
   <data name="MakePhotoHint" xml:space="preserve">
     <value>Click image to make a photo</value>
   </data>
@@ -245,6 +242,9 @@
   </data>
   <data name="ProtocolPageTitle" xml:space="preserve">
     <value>Protocol</value>
+  </data>
+  <data name="ProtocolsMainPageTitle" xml:space="preserve">
+    <value>Protocol list</value>
   </data>
   <data name="SaveProtocolError" xml:space="preserve">
     <value>Unable to save the protocol</value>

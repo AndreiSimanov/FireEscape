@@ -8,7 +8,7 @@
     Shell.FlyoutBehavior="Disabled"
     Title= "{x:Static lang:AppResources.AppTitle}">
 
-    <ShellContent  Title="{x:Static lang:AppResources.AppTitle}" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+    <ShellContent  Title="{x:Static lang:AppResources.AppTitle}" ContentTemplate="{DataTemplate local:ProtocolsMainPage}" Route="ProtocolsMainPage" />
     <ShellContent Title="{x:Static lang:AppResources.ProtocolPageTitle}" ContentTemplate="{DataTemplate local:ProtocolPage}" Route="ProtocolPage" />
     <ShellContent Title="{x:Static lang:AppResources.FireEscapePageTitle}" ContentTemplate="{DataTemplate local:FireEscapePage}" Route="FireEscapePage" />
     <ShellContent Title="{x:Static lang:AppResources.UserAccountsPageTitle}" ContentTemplate="{DataTemplate local:UserAccountsPage}" Route="UserAccountsPage" />
