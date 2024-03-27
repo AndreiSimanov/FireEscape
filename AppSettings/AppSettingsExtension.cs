@@ -10,6 +10,7 @@ namespace FireEscape.AppSettings
         private const string FIREESCAPE_PROPERTIES_SETTINGS = "FireEscapePropertiesSettings";
         private const string USER_ACCOUNT_ID = "UserAccountId";
 
+        private static string userAccountId = string.Empty;
         public static MauiAppBuilder UseAppSettings(this MauiAppBuilder builder, IConfiguration configuration)
         {
             builder.Services.Configure<ApplicationSettings>(options => configuration.GetSection(APPLICATION_SETTINGS).Bind(options));
@@ -36,8 +37,10 @@ namespace FireEscape.AppSettings
         {
             get
             {
+                if (!string.IsNullOrWhiteSpace(userAccountId))
+                    return userAccountId;
 
-                var userAccountId = Identifier.Get();
+                userAccountId = Identifier.Get();
                 if (string.IsNullOrWhiteSpace(userAccountId))
                 {
                     userAccountId = Preferences.Get(USER_ACCOUNT_ID, string.Empty);

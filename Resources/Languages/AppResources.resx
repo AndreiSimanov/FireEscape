@@ -264,4 +264,22 @@
   <data name="UserAccountMainPageTitle" xml:space="preserve">
     <value>Пользователи</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Компания: </value>
+  </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Подпись: </value>
+  </data>
+  <data name="UserAccountCompanyHint" xml:space="preserve">
+    <value>Укажите компанию учетной записи</value>
+  </data>
+  <data name="UserAccountIdHint" xml:space="preserve">
+    <value>Укажите идентификатор учетной записи</value>
+  </data>
+  <data name="UserAccountNameHint" xml:space="preserve">
+    <value>Укажите имя пользователя</value>
+  </data>
+  <data name="UserAccountSignatureHint" xml:space="preserve">
+    <value>Укажите подпись пользователя</value>
+  </data>
 </root>

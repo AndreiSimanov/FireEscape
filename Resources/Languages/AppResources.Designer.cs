@@ -151,6 +151,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Компания: .
+        /// </summary>
+        internal static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно создать файл отчета.
         /// </summary>
         internal static string CreateReportError {
@@ -421,6 +430,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Список протоколов.
+        /// </summary>
+        internal static string ProtocolMainPageTitle {
+            get {
+                return ResourceManager.GetString("ProtocolMainPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер протокола:.
         /// </summary>
         internal static string ProtocolNum {
@@ -439,20 +457,20 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Список протоколов.
-        /// </summary>
-        internal static string ProtocolMainPageTitle {
-            get {
-                return ResourceManager.GetString("ProtocolMainPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Невозможно сохранить протокол.
         /// </summary>
         internal static string SaveProtocolError {
             get {
                 return ResourceManager.GetString("SaveProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подпись: .
+        /// </summary>
+        internal static string Signature {
+            get {
+                return ResourceManager.GetString("Signature", resourceCulture);
             }
         }
         
@@ -466,11 +484,38 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Укажите компанию учетной записи.
+        /// </summary>
+        internal static string UserAccountCompanyHint {
+            get {
+                return ResourceManager.GetString("UserAccountCompanyHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Идентификатор учетной записи: .
         /// </summary>
         internal static string UserAccountId {
             get {
                 return ResourceManager.GetString("UserAccountId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите идентификатор учетной записи.
+        /// </summary>
+        internal static string UserAccountIdHint {
+            get {
+                return ResourceManager.GetString("UserAccountIdHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователи.
+        /// </summary>
+        internal static string UserAccountMainPageTitle {
+            get {
+                return ResourceManager.GetString("UserAccountMainPageTitle", resourceCulture);
             }
         }
         
@@ -484,6 +529,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Укажите имя пользователя.
+        /// </summary>
+        internal static string UserAccountNameHint {
+            get {
+                return ResourceManager.GetString("UserAccountNameHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Учетная запись пользователя.
         /// </summary>
         internal static string UserAccountPageTitle {
@@ -493,11 +547,11 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пользователи.
+        ///   Looks up a localized string similar to Укажите подпись пользователя.
         /// </summary>
-        internal static string UserAccountMainPageTitle {
+        internal static string UserAccountSignatureHint {
             get {
-                return ResourceManager.GetString("UserAccountMainPageTitle", resourceCulture);
+                return ResourceManager.GetString("UserAccountSignatureHint", resourceCulture);
             }
         }
     }

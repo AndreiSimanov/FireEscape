@@ -11,20 +11,51 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewmodel:UserAccountViewModel"
              Disappearing="ContentPage_Disappearing">
-
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
         <VerticalStackLayout Padding="5" Spacing="5" Margin="10" >
-            <Label Style="{StaticResource MediumLabel}" Text="{x:Static lang:AppResources.UserAccountId}" />
-            <Label Style="{StaticResource MediumLabel}" Text="{Binding UserAccount.Id}" />
-            <Label/>
-            <Label Text="{x:Static lang:AppResources.UserAccountName}" />
-            <Entry Placeholder="{x:Static lang:AppResources.UserAccountName}" Text="{Binding UserAccount.Name}"/>
-            <Label Text="{x:Static lang:AppResources.ExpirationDate}" />
-            <DatePicker  Date="{Binding UserAccount.ExpirationDate}" />
-            <StackLayout Orientation="Horizontal">
-                <Label VerticalTextAlignment="Center" Text="{x:Static lang:AppResources.Administrator}" />
-                <CheckBox Color="White" IsChecked ="{Binding UserAccount.IsAdmin}" />
-            </StackLayout>
+            <dxe:TextEdit
+                IsReadOnly="True"
+                Text="{Binding UserAccount.Id}"
+                LabelText="{x:Static lang:AppResources.UserAccountId}"
+                PlaceholderText="{x:Static lang:AppResources.UserAccountIdHint}"
+                ReturnType="Next"
+                Margin="10,10,10,0"/>
+
+            <dxe:TextEdit
+                Text="{Binding UserAccount.Name}"
+                LabelText="{x:Static lang:AppResources.UserAccountName}"
+                PlaceholderText="{x:Static lang:AppResources.UserAccountNameHint}"
+                ReturnType="Next"
+                Margin="10,10,10,0"/>
+
+            <dxe:TextEdit
+                Text="{Binding UserAccount.Signature}"
+                LabelText="{x:Static lang:AppResources.Signature}"
+                PlaceholderText="{x:Static lang:AppResources.UserAccountSignatureHint}"
+                ReturnType="Next"
+                Margin="10,10,10,0"/>
+
+            <dxe:TextEdit
+                Text="{Binding UserAccount.Company}"
+                LabelText="{x:Static lang:AppResources.Company}"
+                PlaceholderText="{x:Static lang:AppResources.UserAccountCompanyHint}"
+                ReturnType="Next"
+                Margin="10,10,10,0"/>
+
+            <dxe:DateEdit
+                    Date="{Binding UserAccount.ExpirationDate}"                    
+                    LabelText="{x:Static lang:AppResources.ExpirationDate}"
+                    DisplayFormat="d"
+                    IsEndIconVisible="True"
+                    VerticalOptions="Center"
+                    ReturnType="Next"
+                    Margin="10,10,10,0"/>
+
+            <dxe:CheckEdit
+                IsChecked="{Binding UserAccount.IsAdmin}"
+                Label="{x:Static lang:AppResources.Administrator}"
+                LabelFontSize="13"
+                Margin="10,10,10,0"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>    

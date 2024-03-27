@@ -18,6 +18,9 @@ namespace FireEscape.ViewModels
         [ObservableProperty]
         bool isRefreshing;
 
+        [ObservableProperty]
+        bool isEmptyList = true;
+
         [RelayCommand]
         async Task GetUserAccountsAsync()
         {
@@ -30,6 +33,7 @@ namespace FireEscape.ViewModels
                     {
                         UserAccounts.Add(item);
                     }
+                    IsEmptyList = !UserAccounts.Any();
                 }
                 finally
                 {

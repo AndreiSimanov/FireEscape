@@ -4,6 +4,8 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              ios:Page.UseSafeArea="True"
@@ -14,68 +16,75 @@
              x:DataType="viewmodel:UserAccountMainViewModel"
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
-    <Grid
-        ColumnDefinitions="*,*"
-        ColumnSpacing="5"
-        RowDefinitions="Auto,*"
-        RowSpacing="0"
-        BackgroundColor="{dx:ThemeColor Surface}">
-        <RefreshView
+
+    <ContentPage.Resources>
+        <viewmodel:BoolToColorConverter x:Key="userAccountIsYouConverter" TrueSource="Green" FalseSource="#DDDDDD"/>
+     </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+        <dxe:TextEdit 
+            EndIcon="search" PlaceholderText="Поиск пользователей" TextFontSize="14"
+            ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
+            BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
+            BorderThickness="0" BoxPadding="20,8,10,8"
+            PlaceholderColor="{dx:ThemeColor OnSurfaceVariant}"
+            EndIconColor="{dx:ThemeColor OnSurfaceVariant}"
+            FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38" Margin="15,10,15,10"
+            TextChanged="SearchTextChanged" />
+        <Border
+            IsVisible="{Binding IsEmptyList}"
+            StrokeShape="RoundRectangle 80"
             Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Command="{Binding GetUserAccountsCommand}"
-            IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView
-                ItemsSource="{Binding UserAccounts}"
-                SelectionMode="Single">
-                <CollectionView.EmptyView>
-                    <Border StrokeShape="RoundRectangle 80"
-                    Stroke="White"
-                    StrokeThickness="6"
-                    HeightRequest="172"
-                    WidthRequest="172"
-                    Margin="0,8,0,0"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Start">
-                        <Image BackgroundColor="White"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            HeightRequest="160"
-                            WidthRequest="160"
-                            Source="nodata.svg"/>
-                    </Border>
-                </CollectionView.EmptyView>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:UserAccount">
-                        <SwipeView  Style="{StaticResource TransparentSelection}">
-                            <SwipeView.LeftItems>
-                                <SwipeItems>
-                                    <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
-                                               IconImageSource="edit.png"
-                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
-                                               CommandParameter="{Binding .}">
-                                    </SwipeItem>
-                                </SwipeItems>
-                            </SwipeView.LeftItems>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem BackgroundColor="{dx:ThemeColor Surface}"
-                                               IconImageSource="delete.png"
-                                               IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=DeleteUserAccountCommand}"
-                                               CommandParameter="{Binding .}">
-                                    </SwipeItem>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
+            Stroke="Transparent"
+            StrokeThickness="6"
+            HeightRequest="172"
+            WidthRequest="172"
+            Margin="0,8,0,0"
+            HorizontalOptions="Center">
+            <Image 
+                BackgroundColor="Transparent"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                HeightRequest="80"
+                WidthRequest="80"
+                Source="nodata.svg"/>
+        </Border>
+        <dxcv:DXCollectionView 
+            x:Name="userAccounts"
+            ItemsSource="{Binding UserAccounts}"
+            IsPullToRefreshEnabled="True"
+            PullToRefreshCommand="{Binding GetUserAccountsCommand}"
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}" 
+            AllowLiveDataShaping="True"
+            SelectionMode="Single" Grid.Row="1"
+            ItemSeparatorThickness="0"
+            UseRippleEffect="true"
+            PropertyChanged="CollectionViewChanged">
+            <dxcv:DXCollectionView.SortDescriptions>
+                <dxcv:SortDescription FieldName="Name" />
+            </dxcv:DXCollectionView.SortDescriptions>
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:UserAccount">
+                    <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer.EndSwipeItems>
+                            <dxcv:SwipeItem 
+                                BackgroundColor="#D74F67"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=DeleteUserAccountCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="Delete"
+                                Image="delete"/>
+                        </dxcv:SwipeContainer.EndSwipeItems>
+                        <dxcv:SwipeContainer.ItemView>
                             <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="150" Style="{StaticResource CardView}">
-                                    <VerticalStackLayout
-                                                VerticalOptions="Center"
-                                                Grid.Column="1"
-                                                Spacing="5"
-                                                Padding="10">
-                                        <Label>
+                                <Frame HeightRequest="150" Style="{StaticResource CardView}" BorderColor="{Binding IsYou, Converter={StaticResource userAccountIsYouConverter}}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <dx:DXStackLayout Orientation="Vertical"  Padding="10" VerticalOptions="Center">
+                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="14" LineBreakMode="TailTruncation">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.UserAccountId}" />
@@ -83,7 +92,7 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label>
+                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="14" LineBreakMode="TailTruncation">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.UserAccountName}" />
@@ -91,7 +100,23 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label>
+                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="12" LineBreakMode="TailTruncation">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.Signature}" />
+                                                    <Span Text="{Binding Signature}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="12" LineBreakMode="TailTruncation">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.Company}" />
+                                                    <Span Text="{Binding Company}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label TextColor="{dx:ThemeColor OnSurface}" FontSize="12" LineBreakMode="TailTruncation">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.ExpirationDate}" />
@@ -99,25 +124,30 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label VerticalTextAlignment="Center" Text="{x:Static lang:AppResources.Administrator}" />
-                                            <CheckBox IsEnabled ="False"  IsChecked ="{Binding IsAdmin}" />
-                                        </StackLayout>
-                                    </VerticalStackLayout>
+                                        <dxe:CheckEdit
+                                            IsEnabled="False"
+                                            IsChecked="{Binding IsAdmin}"
+                                            Label="{x:Static lang:AppResources.Administrator}"
+                                            LabelColor="{dx:ThemeColor OnSurface}"
+                                            LabelFontSize="12"/>
+                                    </dx:DXStackLayout>
                                 </Frame>
                             </Grid>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
-        <ActivityIndicator
-        Grid.RowSpan="2"
-        Grid.ColumnSpan="2"
-        HorizontalOptions="Fill"
-        IsRunning="{Binding IsBusy}"
-        IsVisible="{Binding IsBusy}"
-        Color="White"  
-        VerticalOptions="Center" />
+                        </dxcv:SwipeContainer.ItemView>
+                    </dxcv:SwipeContainer>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+        <dx:DXButton
+            IsVisible="False"
+            IsEnabled="{Binding IsNotBusy}"
+            VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
+            WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
+            FontSize="28" CornerRadius="14" FontAttributes="None"
+            Clicked="CreateUserAccount">
+            <dx:DXButton.Shadow>
+                <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
+            </dx:DXButton.Shadow>
+        </dx:DXButton>
     </Grid>
 </ContentPage>

@@ -264,4 +264,22 @@
   <data name="UserAccountMainPageTitle" xml:space="preserve">
     <value>Users</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company: </value>
+  </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Signature: </value>
+  </data>
+  <data name="UserAccountCompanyHint" xml:space="preserve">
+    <value>Specify user account company</value>
+  </data>
+  <data name="UserAccountIdHint" xml:space="preserve">
+    <value>Specify user account Id</value>
+  </data>
+  <data name="UserAccountNameHint" xml:space="preserve">
+    <value>Specify user account name</value>
+  </data>
+  <data name="UserAccountSignatureHint" xml:space="preserve">
+    <value>Specify user account signature</value>
+  </data>
 </root>

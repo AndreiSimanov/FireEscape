@@ -8,6 +8,7 @@ namespace FireEscape.Models
         public const string UserRole = "User";
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsYou))]
         string? id;
         [ObservableProperty]
         string? name;
@@ -17,11 +18,9 @@ namespace FireEscape.Models
         string? company;
         [ObservableProperty]
         DateTime? expirationDate;
-
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsAdmin))]
         List<string> roles = new();
-
         [JsonIgnore]
         public bool IsAdmin
         {
@@ -38,5 +37,6 @@ namespace FireEscape.Models
                 }
             }
         }
+        public bool IsYou => AppSettingsExtension.UserAccountId == Id;
     }
 }
