@@ -33,7 +33,7 @@ namespace FireEscape
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<IProtocolRepository, ProtocolRepository>();
+            builder.Services.AddSingleton<IProtocolRepository, LocalFileRepository>();
             builder.Services.AddSingleton<IReportRepository, PdfWriterRepository>();
             builder.Services.AddSingleton<IFileHostingRepository, DropboxRepository>();
 

@@ -7,9 +7,8 @@ namespace FireEscape.Models
     {
         public const string NO_PHOTO = "nophoto.svg";
 
-        [JsonIgnore]
         [ObservableProperty]
-        string? sourceFile;
+        string? id;
         [ObservableProperty]
         DateTime created;
         [ObservableProperty]

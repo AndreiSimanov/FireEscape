@@ -394,7 +394,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сделать фотографию.
+        ///   Looks up a localized string similar to Добавить фотографию.
         /// </summary>
         internal static string MakePhotoHint {
             get {
@@ -480,6 +480,15 @@ namespace FireEscape.Resources.Languages {
         internal static string ProtocolPageTitle {
             get {
                 return ResourceManager.GetString("ProtocolPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поиск протоколов.
+        /// </summary>
+        internal static string ProtocolsSearch {
+            get {
+                return ResourceManager.GetString("ProtocolsSearch", resourceCulture);
             }
         }
         
@@ -633,6 +642,15 @@ namespace FireEscape.Resources.Languages {
         internal static string UserAccountSignatureHint {
             get {
                 return ResourceManager.GetString("UserAccountSignatureHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поиск учетных записей.
+        /// </summary>
+        internal static string UserAccountsSearch {
+            get {
+                return ResourceManager.GetString("UserAccountsSearch", resourceCulture);
             }
         }
         

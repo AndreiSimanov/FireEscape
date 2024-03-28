@@ -15,7 +15,7 @@ public partial class UserAccountMainPage : ContentPage
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
         if (UserAccountMainViewModel != null && !UserAccountMainViewModel.UserAccounts.Any())
-            UserAccountMainViewModel.GetUserAccountsCommand.Execute(null);
+            userAccounts.PullToRefreshCommand.Execute(null);    
     }
 
     private void CreateUserAccount(object sender, EventArgs e)

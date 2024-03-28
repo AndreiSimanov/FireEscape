@@ -24,10 +24,11 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task GetUserAccountsAsync()
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 try
                 {
+                    IsRefreshing = false;
                     UserAccounts.Clear();
                     await foreach (var item in userAccountService.GetUserAccountsAsync())
                     {
@@ -46,7 +47,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task GoToDetailsAsync(UserAccount userAccount)
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 await Shell.Current.GoToAsync(nameof(UserAccountPage), true, new Dictionary<string, object> { { nameof(UserAccount), userAccount } });
             },
@@ -57,7 +58,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task DeleteUserAccountAsync(UserAccount userAccount)
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteUserAccount,
                     AppResources.Cancel,

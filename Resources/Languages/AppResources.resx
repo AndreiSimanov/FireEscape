@@ -220,7 +220,7 @@
     <value>Укажите город / область</value>
   </data>
   <data name="MakePhotoHint" xml:space="preserve">
-    <value>Сделать фотографию</value>
+    <value>Добавить фотографию</value>
   </data>
   <data name="NewProtocol" xml:space="preserve">
     <value>Новый протокол</value>
@@ -311,5 +311,11 @@
   </data>
   <data name="WeldSeamQuality" xml:space="preserve">
     <value>Качество сварных швов соответствует ГОСТ</value>
+  </data>
+  <data name="ProtocolsSearch" xml:space="preserve">
+    <value>Поиск протоколов</value>
+  </data>
+  <data name="UserAccountsSearch" xml:space="preserve">
+    <value>Поиск учетных записей</value>
   </data>
 </root>

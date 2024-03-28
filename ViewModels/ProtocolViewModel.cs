@@ -18,7 +18,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task AddProtocolPhotoAsync()
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 await protocolService.AddProtocolPhotoAsync(Protocol!);
             },
@@ -29,7 +29,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task SaveProtocolAsync()
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 await protocolService.SaveProtocolAsync(Protocol!);
             },
@@ -40,7 +40,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task GoToDetailsAsync()
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 await Shell.Current.GoToAsync(nameof(FireEscapePage), true, new Dictionary<string, object> { { nameof(FireEscape), Protocol!.FireEscape } });
             },

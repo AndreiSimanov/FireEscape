@@ -32,6 +32,11 @@
             return  protocolRepository.GetProtocolsAsync();
         }
 
+        public Protocol[] GetProtocols()
+        {
+            return protocolRepository.GetProtocols();
+        }
+
         public async Task AddProtocolPhotoAsync(Protocol protocol)
         {
             if (MediaPicker.Default.IsCaptureSupported)

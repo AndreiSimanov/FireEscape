@@ -18,7 +18,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task SaveUserAccountAsync()
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 await userAccountService.SaveUserAccountAsync(UserAccount!);
             },

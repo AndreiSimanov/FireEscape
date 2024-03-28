@@ -22,7 +22,7 @@
 
     <Grid RowDefinitions="Auto,*">
         <dxe:TextEdit
-            EndIcon="search" PlaceholderText="Поиск пользователей" TextFontSize="14"
+            EndIcon="search" PlaceholderText="{x:Static lang:AppResources.UserAccountsSearch}" TextFontSize="14"
             ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
             BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
             BorderThickness="0" BoxPadding="20,8,10,8"

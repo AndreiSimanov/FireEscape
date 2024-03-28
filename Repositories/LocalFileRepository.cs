@@ -5,12 +5,12 @@ using System.Text.Json;
 
 namespace FireEscape.Repositories
 {
-    public class ProtocolRepository : IProtocolRepository
+    public class LocalFileRepository : IProtocolRepository
     {
         readonly NewProtocolSettings newProtocolSettings;
         readonly FireEscapePropertiesSettings FireEscapePropertiesSettings;
 
-        public ProtocolRepository(IOptions<NewProtocolSettings> newProtocolSettings, IOptions<FireEscapePropertiesSettings> FireEscapePropertiesSettings)
+        public LocalFileRepository(IOptions<NewProtocolSettings> newProtocolSettings, IOptions<FireEscapePropertiesSettings> FireEscapePropertiesSettings)
         {
             this.newProtocolSettings = newProtocolSettings.Value;
             this.FireEscapePropertiesSettings = FireEscapePropertiesSettings.Value;
@@ -25,11 +25,11 @@ namespace FireEscape.Repositories
 
         public async Task SaveProtocolAsync(Protocol protocol)
         {
-            var filePath = protocol.SourceFile ?? Path.Combine(AppSettingsExtension.ContentFolder, Guid.NewGuid().ToString() + ".json");
+            if (string.IsNullOrEmpty( protocol.Id))
+                protocol.Id = Path.Combine(AppSettingsExtension.ContentFolder, Guid.NewGuid().ToString() + ".json");
             protocol.Updated = DateTime.Now;
-            using var fs = File.Create(filePath);
+            using var fs = File.Create(protocol.Id);
             await JsonSerializer.SerializeAsync(fs, protocol);
-            protocol.SourceFile = filePath;
         }
 
         public async Task DeleteProtocol(Protocol protocol)
@@ -37,37 +37,64 @@ namespace FireEscape.Repositories
             await Task.Run(() =>
             {
                 if (protocol.HasImage)
-                    File.Delete(protocol.Image);
-                if (File.Exists(protocol.SourceFile))
-                    File.Delete(protocol.SourceFile);
+                    File.Delete(protocol.Image!);
+                if (File.Exists(protocol.Id))
+                    File.Delete(protocol.Id);
             });
         }
 
-        public async IAsyncEnumerable<Protocol> GetProtocolsAsync()
+        public Protocol[] GetProtocols()
         {
-            var files = Directory.GetFiles(AppSettingsExtension.ContentFolder, "*.json");
+            var directoryInfo = new DirectoryInfo(AppSettingsExtension.ContentFolder);
+            var files = directoryInfo.GetFiles("*.json", SearchOption.TopDirectoryOnly);
+            var result = new Protocol[files.Length];
+            var index = 0;
+
             foreach (var file in files)
             {
-                using var fs = File.OpenRead(file);
+                using var fs = File.OpenRead(file.FullName);
                 Protocol? protocol = null;
                 try
                 {
-                    protocol = await JsonSerializer.DeserializeAsync<Protocol>(fs);
+                    protocol = JsonSerializer.Deserialize<Protocol>(fs);
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"Error: {ex.Message}");
-
-                    protocol = CreateDefaultProtocol();
-                    protocol.FireEscapeObject = AppResources.BrokenData;
-                    protocol.SourceFile = file;
                 }
+                if (protocol == null)
+                    protocol = new Protocol() { Id = file.FullName, Image = Protocol.NO_PHOTO, FireEscapeObject = AppResources.BrokenData };
 
-                if (protocol != null)
+                result[index] = protocol;
+                index++;
+            }
+            return result;
+        }
+
+        public async IAsyncEnumerable<Protocol> GetProtocolsAsync()
+        {
+            var directoryInfo = new DirectoryInfo(AppSettingsExtension.ContentFolder);
+            var files = directoryInfo.GetFiles("*.json", SearchOption.TopDirectoryOnly);
+            await Task.Yield(); // for async compatibility
+            foreach (var file in files)
+            {
+                using var fs = File.OpenRead(file.FullName);
+                Protocol? protocol = null;
+                try
                 {
-                    protocol.SourceFile = file;
-                    yield return protocol;
+                    // Async method works really long time cause content has small size (tested 10000 items)
+                    // protocol = await JsonSerializer.DeserializeAsync<Protocol>(fs);
+                    protocol = JsonSerializer.Deserialize<Protocol>(fs);
                 }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error: {ex.Message}");
+                }
+
+                if (protocol == null)
+                    protocol = new Protocol() { Id = file.FullName, Image = Protocol.NO_PHOTO, FireEscapeObject = AppResources.BrokenData };
+
+                yield return protocol;
             }
         }
 
@@ -81,8 +108,7 @@ namespace FireEscape.Repositories
                 await photoStream.CopyToAsync(outputFile);
 
                 if (protocol.HasImage)
-                    File.Delete(protocol.Image);
-
+                    File.Delete(protocol.Image!);
                 protocol.Image = photoFilePath;
             }
         }

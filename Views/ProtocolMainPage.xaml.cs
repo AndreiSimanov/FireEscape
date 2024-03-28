@@ -5,7 +5,6 @@ namespace FireEscape.Views;
 
 public partial class ProtocolMainPage : ContentPage
 {
-    double swipeOffSet = 0;
     Stopwatch tapStopwatch = new();
 
     public ProtocolMainPage(ProtocolMainViewModel viewModel)
@@ -15,12 +14,11 @@ public partial class ProtocolMainPage : ContentPage
     }
 
     private ProtocolMainViewModel? ProtocolMainViewModel => BindingContext as ProtocolMainViewModel;
-    
+
     private void ContentPage_Appearing(object sender, EventArgs e)
     {
-        ProtocolMainViewModel?.GetProtocolsCommand.Execute(null);
+        protocols.PullToRefreshCommand.Execute(null);
     }
-
 
     private void CreateProtocol(object sender, EventArgs e)
     {
@@ -40,7 +38,7 @@ public partial class ProtocolMainPage : ContentPage
     private void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (ProtocolMainViewModel != null)
-            ProtocolMainViewModel.IsEmptyList = protocols.VisibleItemCount == 0;
+            ProtocolMainViewModel.IsEmptyList = protocols.VisibleItemCount == 0 && !ProtocolMainViewModel.IsRefreshing;
     }
 
     private void tapPressed(object sender, DevExpress.Maui.Core.DXTapEventArgs e)

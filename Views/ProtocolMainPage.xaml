@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
              xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
@@ -17,15 +16,9 @@
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
 
-    <ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior 
-            StatusBarColor="{ AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black} }"
-            StatusBarStyle="{ AppThemeBinding Light=DarkContent, Dark=LightContent }" />
-    </ContentPage.Behaviors>
-
     <Grid RowDefinitions="Auto,*">
         <dxe:TextEdit 
-            EndIcon="search" PlaceholderText="Поиск протоколов" TextFontSize="14"
+            EndIcon="search" PlaceholderText="{x:Static lang:AppResources.ProtocolsSearch}" TextFontSize="14"
             ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
             BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
             BorderThickness="0" BoxPadding="20,8,10,8"
@@ -56,8 +49,8 @@
             x:Name="protocols"
             ItemsSource="{Binding Protocols}"
             IsPullToRefreshEnabled="True"
-            PullToRefreshCommand="{Binding GetProtocolsCommand}"
-            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}" 
+            IsRefreshing="{Binding IsRefreshing}"
+            PullToRefreshCommand="{Binding GetProtocolsSyncCommand}"
             AllowLiveDataShaping="True"
             SelectionMode="Single" Grid.Row="1"
             ItemSeparatorThickness="0"
@@ -145,6 +138,7 @@
                 </DataTemplate>
             </dxcv:DXCollectionView.ItemTemplate>
         </dxcv:DXCollectionView>
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsRefreshing}" HeightRequest="100" WidthRequest="100" />
         <dx:DXButton
             x:Name="addButton"
             TapPressed="tapPressed"
@@ -158,5 +152,18 @@
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>
         </dx:DXButton>
+<!--    //For tests only
+        <dx:DXButton
+            x:Name="addBatchButton"
+            IsEnabled="{Binding IsNotBusy}"
+            VerticalOptions="End" HorizontalOptions="End" Margin="74" Content="++"
+            WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
+            FontSize="28" CornerRadius="14" FontAttributes="None"
+            Command="{Binding AddProtocolsCommand}">
+            <dx:DXButton.Shadow>
+                <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
+            </dx:DXButton.Shadow>
+        </dx:DXButton>
+-->        
     </Grid>
 </ContentPage>

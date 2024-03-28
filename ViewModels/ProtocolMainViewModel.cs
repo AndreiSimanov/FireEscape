@@ -1,4 +1,5 @@
-﻿using FireEscape.Resources.Languages;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using FireEscape.Resources.Languages;
 using System.Collections.ObjectModel;
 using Protocol = FireEscape.Models.Protocol;
 
@@ -25,19 +26,42 @@ namespace FireEscape.ViewModels
         bool isEmptyList = true;
 
         [RelayCommand]
-        async Task GetProtocolsAsync()
+        void GetProtocolsSync() //Sync version works faster for local drive
         {
-            await DoCommand(async () =>
+            DoCommand(() =>
             {
                 try
                 {
                     if (Protocols.Any())
                         return;
+                    IsRefreshing = true;
+                    var protocols = protocolService.GetProtocols();
+                    Protocols = protocols.ToObservableCollection();
+                }
+                finally
+                {
+                    IsRefreshing = false;
+                }
+            },
+           AppResources.GetProtocolsError);
+        }
+
+        [RelayCommand]
+        async Task GetProtocolsAsync()
+        {
+            await DoCommandAsync(async () =>
+            {
+                try
+                {
+                    if (Protocols.Any())
+                        return;
+                    IsRefreshing = true;
+                    var protocols = new List<Protocol>();
                     await foreach (var item in protocolService.GetProtocolsAsync())
                     {
-                        Protocols.Add(item);
+                        protocols.Add(item);
                     }
-                    IsEmptyList = !Protocols.Any();
+                    Protocols = protocols.ToObservableCollection();
                 }
                 finally
                 {
@@ -51,7 +75,7 @@ namespace FireEscape.ViewModels
         async Task AddProtocolAsync()
         {
             Protocol? newProtocol = null;
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 newProtocol = await protocolService.CreateProtocolAsync();
                 Protocols.Insert(0, newProtocol);
@@ -65,7 +89,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task DeleteProtocolAsync(Protocol protocol)
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol
                     , AppResources.Cancel
@@ -84,7 +108,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task CreateReportAsync(Protocol protocol)
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 var noExpiration = await userAccountService.CheckApplicationExpiration();
                 if (noExpiration)
@@ -106,7 +130,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task GoToDetailsAsync(Protocol protocol)
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 await Shell.Current.GoToAsync(nameof(ProtocolPage), true, new Dictionary<string, object> { { nameof(Protocol), protocol } });
                 // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
@@ -118,7 +142,7 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task OpenUserAccountMainPageAsync()
         {
-            await DoCommand(async () =>
+            await DoCommandAsync(async () =>
             {
                 var userAccount = await userAccountService.DownloadUserAccountAsync();
                 if (userAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
@@ -127,6 +151,19 @@ namespace FireEscape.ViewModels
                 }
             },
             AppResources.OpenUserAccountMainPageError);
+        }
+
+        [RelayCommand] //For test only 
+        async Task AddProtocolsAsync()
+        {
+            await DoCommandAsync(async () =>
+            {
+                for (var i = 0; i < 1000; i++)
+                {
+                    await protocolService.CreateProtocolAsync();
+                }
+            },
+            AppResources.AddProtocolError);
         }
     }
 }

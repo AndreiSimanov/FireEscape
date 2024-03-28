@@ -312,4 +312,10 @@
   <data name="WeldSeamQuality" xml:space="preserve">
     <value>Weld seam quality corresponds to GOST</value>
   </data>
+  <data name="ProtocolsSearch" xml:space="preserve">
+    <value>Search protocols</value>
+  </data>
+  <data name="UserAccountSearch" xml:space="preserve">
+    <value>Search user accounts</value>
+  </data>
 </root>

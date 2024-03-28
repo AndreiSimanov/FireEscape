@@ -20,13 +20,13 @@ namespace FireEscape.ViewModels
             await Shell.Current.DisplayAlert(AppResources.Error, ex.Message, AppResources.OK);
         }
 
-        protected async Task DoCommand(Func<Task> func, object item, string exceptionCaption)
+        protected async Task DoCommandAsync(Func<Task> func, object item, string exceptionCaption)
         {
             if (item != null)
-                await DoCommand(func, exceptionCaption);
+                await DoCommandAsync(func, exceptionCaption);
         }
 
-        protected async Task DoCommand(Func<Task> func, string exceptionCaption)
+        protected async Task DoCommandAsync(Func<Task> func, string exceptionCaption)
         {
             if (IsBusy)
                 return;
@@ -38,6 +38,25 @@ namespace FireEscape.ViewModels
             catch (Exception ex)
             {
                 await ProcessExeptionAsync(exceptionCaption, ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        protected void DoCommand(Action action, string exceptionCaption)
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+                action();
+            }
+            catch (Exception ex)
+            {
+                _ = ProcessExeptionAsync(exceptionCaption, ex);
             }
             finally
             {
