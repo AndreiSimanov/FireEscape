@@ -37,13 +37,19 @@
             return protocolRepository.GetProtocols();
         }
 
-        public async Task AddProtocolPhotoAsync(Protocol protocol)
+        public async Task AddPhotoAsync(Protocol protocol)
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
                 var photo = await MediaPicker.Default.CapturePhotoAsync();
-                await protocolRepository.AddProtocolPhotoAsync(protocol, photo);
+                await protocolRepository.AddPhotoAsync(protocol, photo);
             }
+        }
+
+        public async Task SelectPhotoAsync(Protocol protocol)
+        {
+            var photo = await MediaPicker.PickPhotoAsync();
+            await protocolRepository.AddPhotoAsync(protocol, photo);
         }
 
         public async Task CreateReportAsync(Protocol protocol, UserAccount? userAccount)

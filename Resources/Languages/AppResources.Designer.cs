@@ -394,7 +394,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добавить фотографию.
+        ///   Looks up a localized string similar to Фотография.
         /// </summary>
         internal static string MakePhotoHint {
             get {
@@ -498,6 +498,15 @@ namespace FireEscape.Resources.Languages {
         internal static string SaveProtocolError {
             get {
                 return ResourceManager.GetString("SaveProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Галерея.
+        /// </summary>
+        internal static string SelectPhotoHint {
+            get {
+                return ResourceManager.GetString("SelectPhotoHint", resourceCulture);
             }
         }
         

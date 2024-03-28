@@ -318,4 +318,7 @@
   <data name="UserAccountSearch" xml:space="preserve">
     <value>Search user accounts</value>
   </data>
+  <data name="SelectPhotoHint" xml:space="preserve">
+    <value>Gallery</value>
+  </data>
 </root>

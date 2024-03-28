@@ -220,7 +220,7 @@
     <value>Укажите город / область</value>
   </data>
   <data name="MakePhotoHint" xml:space="preserve">
-    <value>Добавить фотографию</value>
+    <value>Фотография</value>
   </data>
   <data name="NewProtocol" xml:space="preserve">
     <value>Новый протокол</value>
@@ -317,5 +317,8 @@
   </data>
   <data name="UserAccountsSearch" xml:space="preserve">
     <value>Поиск учетных записей</value>
+  </data>
+  <data name="SelectPhotoHint" xml:space="preserve">
+    <value>Галерея</value>
   </data>
 </root>

@@ -16,11 +16,22 @@ namespace FireEscape.ViewModels
         }
 
         [RelayCommand]
-        async Task AddProtocolPhotoAsync()
+        async Task AddPhotoAsync()
         {
             await DoCommandAsync(async () =>
             {
-                await protocolService.AddProtocolPhotoAsync(Protocol!);
+                await protocolService.AddPhotoAsync(Protocol!);
+            },
+            Protocol!,
+            AppResources.AddPhotoError);
+        }
+
+        [RelayCommand]
+        async Task SelectPhotoAsync()
+        {
+            await DoCommandAsync(async () =>
+            {
+                await protocolService.SelectPhotoAsync(Protocol!);
             },
             Protocol!,
             AppResources.AddPhotoError);
