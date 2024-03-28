@@ -22,7 +22,6 @@
             ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
             BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
             BorderThickness="0" BoxPadding="20,8,10,8"
-            PlaceholderColor="{dx:ThemeColor OnSurfaceVariant}"
             EndIconColor="{dx:ThemeColor OnSurfaceVariant}"
             FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38" Margin="15,10,15,10"
             ReturnType="Search"

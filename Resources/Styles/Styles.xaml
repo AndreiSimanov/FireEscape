@@ -242,7 +242,7 @@
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -264,7 +264,7 @@
         <Setter Property="BackgroundColor" Value="{dx:ThemeColor Surface}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -409,7 +409,7 @@
 
     <Style TargetType="SearchBar">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
-        <Setter Property="PlaceholderColor" Value="{StaticResource Gray500}" />
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="CancelButtonColor" Value="{StaticResource Gray500}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -423,7 +423,7 @@
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
-                            <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
+                            <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -433,7 +433,7 @@
 
     <Style TargetType="SearchHandler">
         <Setter Property="TextColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
-        <Setter Property="PlaceholderColor" Value="{StaticResource Gray500}" />
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
@@ -444,7 +444,7 @@
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
-                            <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
+                            <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -458,7 +458,6 @@
         <Setter Property="Brush" Value="{dx:ThemeColor OnSurfaceVariant}" />
         <Setter Property="Offset" Value="10,10" />
     </Style>
-
 
     <Style TargetType="SwipeItem">
         <Setter Property="BackgroundColor" Value="{dx:ThemeColor Surface}" />
@@ -500,7 +499,6 @@
         </Setter>
     </Style>
 
-
     <Thickness  x:Key="EditFieldMargin" Left="10" Right="10" Top="10" Bottom="0" />
 
     <Style TargetType="dxe:NumericEdit"  x:Key="DefaultNumericEdit">
@@ -510,6 +508,7 @@
         <Setter Property="MaxDecimalDigitCount" Value="0" />
         <Setter Property="TextHorizontalAlignment" Value="Start" />
         <Setter Property="ReturnType" Value="Next" />
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
     </Style>
 
@@ -519,6 +518,7 @@
     </Style>
 
     <Style TargetType="dxe:ComboBoxEdit"  x:Key="DefaultComboBoxEdit">
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="dx:DXDockLayout.Dock" Value="Top" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
     </Style>
@@ -533,6 +533,7 @@
 
     <Style TargetType="dxe:TextEdit">
         <Setter Property="ReturnType" Value="Next" />
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
     </Style>
 
