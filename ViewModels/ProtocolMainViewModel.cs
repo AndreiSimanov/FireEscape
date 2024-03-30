@@ -114,7 +114,8 @@ namespace FireEscape.ViewModels
                 if (noExpiration)
                 {
                     var userAccount = await userAccountService.GetUserAccount();
-                    await protocolService.CreateReportAsync(protocol, userAccount);
+                    if (userAccount != null)
+                        await protocolService.CreateReportAsync(protocol, userAccount);
                 }
                 else
                 {

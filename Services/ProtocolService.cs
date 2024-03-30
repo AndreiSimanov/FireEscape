@@ -1,4 +1,7 @@
-﻿namespace FireEscape.Services
+﻿using FireEscape.Reports.ReportDataProviders;
+using FireEscape.Reports.ReportMakers;
+
+namespace FireEscape.Services
 {
     public class ProtocolService
     {
@@ -52,12 +55,13 @@
             await protocolRepository.AddPhotoAsync(protocol, photo);
         }
 
-        public async Task CreateReportAsync(Protocol protocol, UserAccount? userAccount)
+        public async Task CreateReportAsync(Protocol protocol, UserAccount userAccount)
         {
             var fileName = "protocol"; //todo: change file name to some protocol attribute 
             var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
 
-            filePath = await reportRepository.CreateReportAsync(protocol, userAccount, filePath);
+            //filePath = await reportRepository.CreateReportAsync(protocol, userAccount, filePath);
+            filePath = await ProtocolPdfReportMaker.MakeReport(new ProtocolReportDataProvider(protocol, userAccount), filePath);
 
             await Launcher.OpenAsync(new OpenFileRequest
             {

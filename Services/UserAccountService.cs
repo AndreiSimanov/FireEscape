@@ -8,6 +8,7 @@ namespace FireEscape.Services
     public class UserAccountService
     {
         const string USER_ACCOUNT = "UserAccount";
+        const string NEW_USER_NAME = "New User";
         readonly ApplicationSettings applicationSettings;
         readonly IFileHostingRepository fileHostingRepository;
 
@@ -93,6 +94,7 @@ namespace FireEscape.Services
                 userAccount = new UserAccount()
                 {
                     Id = AppSettingsExtension.UserAccountId,
+                    Name = NEW_USER_NAME,
                     Roles = new List<string> { UserAccount.UserRole },
                     ExpirationDate = DateTime.Now.AddDays(applicationSettings.NewUserAccountExpirationDays)
                 };
@@ -101,7 +103,6 @@ namespace FireEscape.Services
 
                 try
                 {
-
                     await fileHostingRepository.UploadJsonAsync(AppSettingsExtension.UserAccountId, json, applicationSettings.UserAccountsFolderName);
                 }
                 catch (Exception ex)

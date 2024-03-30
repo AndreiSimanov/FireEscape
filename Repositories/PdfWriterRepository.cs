@@ -29,6 +29,7 @@ namespace FireEscape.Repositories
                 filePath = filePath + ".pdf";
                 using var writer = new PdfWriter(filePath);
                 var pdf = new PdfDocument(writer);
+
                 var document = new Document(pdf);
                 var font = PdfFontFactory.CreateFont(fontFilePath, "Identity-H");
                 document.SetFont(font);
@@ -168,14 +169,14 @@ namespace FireEscape.Repositories
                 .SetHorizontalAlignment(HorizontalAlignment.CENTER)
                 .SetMaxWidth(pageSize.GetWidth() / 1.5f)
                 .SetMaxHeight(pageSize.GetHeight() / 1.5f)
-                .SetRotationAngle(GetRotation(protocol.Image));
+                .SetRotationAngle(GetRotation(protocol.Image!));
             document.Add(pdfImage);
             document.Add(new Paragraph(" "));
         }
 
         private static void MakePdfFooter(Document document, Protocol protocol, UserAccount? userAccount)
         {
-            document.Add(new Paragraph(userAccount == null ? string.Empty : userAccount.Name));
+            document.Add(new Paragraph(userAccount == null ? string.Empty : userAccount.Signature));
 
             if (string.IsNullOrWhiteSpace(protocol.Customer))
                 return;
