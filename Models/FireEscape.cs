@@ -25,6 +25,6 @@ namespace FireEscape.Models
         List<BaseFireEscape> fireEscapes = new();
 
         [JsonIgnore]
-        public BaseFireEscape? CurrentFireEscape => FireEscapes?.FirstOrDefault(item => item.BaseFireEscapeTypeEnum == FireEscapeType.BaseFireEscapeTypeEnum);
+        public BaseFireEscape? CurrentFireEscape => FireEscapes?.FirstOrDefault(item => item.BaseStairsType == FireEscapeType.BaseStairsType);
     }
 }

@@ -2,7 +2,7 @@
 {
     public class BaseFireEscape
     {
-        public required BaseFireEscapeTypeEnum BaseFireEscapeTypeEnum { get; set; }
+        public required BaseStairsTypeEnum BaseStairsType { get; set; }
 
     }
 }

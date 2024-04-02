@@ -4,23 +4,16 @@ using iText.Layout;
 
 namespace FireEscape.Reports.ReportWriters
 {
-    internal class PdfReportWriter :IDisposable
+    internal static class PdfReportWriter
     {
         const string DEFAULT_FONT_NAME = "times.ttf";
         const float DEFAULT_FONT_SIZE = 12f;
 
-        string filePath;
-        Document? document;
-
-        public PdfReportWriter(string filePath) 
+        public static async Task<Document> GetPdfDocument(string filePath, string fontName = DEFAULT_FONT_NAME, float forntSize = DEFAULT_FONT_SIZE)
         {
             if (string.IsNullOrWhiteSpace(filePath))
                 throw new ArgumentNullException(nameof(filePath));
-            this.filePath = filePath;
-        }
 
-        public async Task<Document> GetPdfDocument(string fontName = DEFAULT_FONT_NAME, float forntSize = DEFAULT_FONT_SIZE)
-        {
             var fontFilePath = await AddFontIfNotExisit(fontName);
             var pdf = new PdfDocument(new PdfWriter(filePath));
             var document = new Document(pdf);
@@ -28,13 +21,6 @@ namespace FireEscape.Reports.ReportWriters
             document.SetFont(font);
             document.SetFontSize(forntSize);
             return document;
-        }
-
-        public void Dispose()
-        {
-            if (document != null) { 
-            document.Close();
-            }
         }
 
         static async Task<string> AddFontIfNotExisit(string fontName)

@@ -59,10 +59,7 @@ namespace FireEscape.Services
         {
             var fileName = "protocol"; //todo: change file name to some protocol attribute 
             var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
-
-            //filePath = await reportRepository.CreateReportAsync(protocol, userAccount, filePath);
-            filePath = await ProtocolPdfReportMaker.MakeReport(new ProtocolReportDataProvider(protocol, userAccount), filePath);
-
+            filePath = await reportRepository.CreateReportAsync(protocol, userAccount, filePath);
             await Launcher.OpenAsync(new OpenFileRequest
             {
                 File = new ReadOnlyFile(filePath)
