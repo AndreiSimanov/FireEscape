@@ -14,13 +14,18 @@ namespace FireEscape.Models
         [ObservableProperty]
         float? stairHeight;
         [ObservableProperty]
+        Serviceability stairHeightServiceability;
+        [ObservableProperty]
+        string stairHeightRejectExplanation = string.Empty;
+
+        [ObservableProperty]
         uint? stairWidth;
         [ObservableProperty]
         uint? stepsCount;
         [ObservableProperty]
-        bool weldSeamQuality;
+        bool weldSeamServiceability;
         [ObservableProperty]
-        bool protectiveQuality;
+        bool protectiveServiceability;
         [ObservableProperty]
         List<BaseFireEscape> fireEscapes = new();
 

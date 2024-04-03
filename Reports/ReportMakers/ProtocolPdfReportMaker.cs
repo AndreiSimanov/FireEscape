@@ -125,9 +125,9 @@ namespace FireEscape.Reports.ReportMakers
                 .AddAll(new[] {
                     new Text("Визуальный осмотр ").SetBold(),
                     new Text("сварных швов лестниц и ограждений "),
-                    new Text( protocolRdp.WeldSeamQuality).SetBold(),
+                    new Text( protocolRdp.WeldSeamServiceability).SetBold(),
                     new Text(" ГОСТ 5264 - 80. Качество защитных покрытий от коррозии  "),
-                    new Text( protocolRdp.ProtectiveQuality).SetBold(),
+                    new Text( protocolRdp.ProtectiveServiceability).SetBold(),
                     new Text("  ГОСТ 9.302 - 88.")}));
 
             document.Add(new Paragraph(" "));

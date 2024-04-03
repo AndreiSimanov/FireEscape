@@ -5,7 +5,7 @@ namespace FireEscape.Common
     public static class AppUtils
     {
 
-        public static string ContentFolder
+        public static string DefaultContentFolder
         {
             get
             {

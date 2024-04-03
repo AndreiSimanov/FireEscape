@@ -13,9 +13,6 @@
         <Setter Property="TextVerticalAlignment" Value="Center" />
     </Style>
 
-    <Style TargetType="dxe:MultilineEdit" ApplyToDerivedTypes="True">
-        <Setter Property="TextVerticalAlignment" Value="Start" />
-    </Style>
 
 
     <Style TargetType="IndicatorView">
@@ -533,6 +530,12 @@
 
     <Style TargetType="dxe:TextEdit">
         <Setter Property="ReturnType" Value="Next" />
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
+        <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+    <Style TargetType="dxe:MultilineEdit" ApplyToDerivedTypes="True">
+        <Setter Property="TextVerticalAlignment" Value="Start" />
         <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
     </Style>

@@ -14,7 +14,8 @@ namespace FireEscape.Reports.ReportWriters
             if (string.IsNullOrWhiteSpace(filePath))
                 throw new ArgumentNullException(nameof(filePath));
 
-            var fontFilePath = await AddFontIfNotExisit(fontName);
+
+            var fontFilePath = await AddFontIfNotExisit(Path.GetDirectoryName(filePath)!, fontName);
             var pdf = new PdfDocument(new PdfWriter(filePath));
             var document = new Document(pdf);
             var font = PdfFontFactory.CreateFont(fontFilePath, "Identity-H");
@@ -23,9 +24,9 @@ namespace FireEscape.Reports.ReportWriters
             return document;
         }
 
-        static async Task<string> AddFontIfNotExisit(string fontName)
+        static async Task<string> AddFontIfNotExisit(string filePath, string fontName)
         {
-            var fontFilePath = Path.Combine(AppUtils.ContentFolder, fontName);
+            var fontFilePath = Path.Combine(filePath, fontName);
             if (!File.Exists(fontFilePath))
             {
                 using var stream = await FileSystem.OpenAppPackageFileAsync(fontName);

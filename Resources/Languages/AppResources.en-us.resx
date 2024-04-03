@@ -288,7 +288,7 @@
   <data name="EscapeStairs" xml:space="preserve">
     <value>Escape stairs</value>
   </data>
-  <data name="ProtectiveQuality" xml:space="preserve">
+  <data name="ProtectiveServiceability" xml:space="preserve">
     <value>Protective coating quality corresponds to GOST</value>
   </data>
   <data name="StairHeight" xml:space="preserve">
@@ -309,7 +309,7 @@
   <data name="StepsCountHint" xml:space="preserve">
     <value>Specify steps count</value>
   </data>
-  <data name="WeldSeamQuality" xml:space="preserve">
+  <data name="WeldSeamServiceability" xml:space="preserve">
     <value>Weld seam quality corresponds to GOST</value>
   </data>
   <data name="ProtocolsSearch" xml:space="preserve">

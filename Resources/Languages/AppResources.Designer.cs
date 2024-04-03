@@ -450,9 +450,9 @@ namespace FireEscape.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Качество защитных покрытий соответствует ГОСТ.
         /// </summary>
-        internal static string ProtectiveQuality {
+        internal static string ProtectiveServiceability {
             get {
-                return ResourceManager.GetString("ProtectiveQuality", resourceCulture);
+                return ResourceManager.GetString("ProtectiveServiceability", resourceCulture);
             }
         }
         
@@ -675,9 +675,9 @@ namespace FireEscape.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Качество сварных швов соответствует ГОСТ.
         /// </summary>
-        internal static string WeldSeamQuality {
+        internal static string WeldSeamServiceability {
             get {
-                return ResourceManager.GetString("WeldSeamQuality", resourceCulture);
+                return ResourceManager.GetString("WeldSeamServiceability", resourceCulture);
             }
         }
     }

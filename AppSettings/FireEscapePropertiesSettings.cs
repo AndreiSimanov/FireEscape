@@ -4,5 +4,7 @@
     {
         public string[]? FireEscapeMountTypes { get; set; }
         public FireEscapeType[]? FireEscapeTypes { get; set; }
+
+        public Serviceability[]? ServiceabilityTypes { get; set; }
     }
 }

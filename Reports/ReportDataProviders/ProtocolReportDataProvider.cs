@@ -41,8 +41,8 @@
             ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
             : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.";
 
-        public string WeldSeamQuality => protocol.FireEscape.WeldSeamQuality ? "соответствует" : "не соответствует";
-        public string ProtectiveQuality => protocol.FireEscape.ProtectiveQuality ? "соответствует" : "не соответствует";
+        public string WeldSeamServiceability => protocol.FireEscape.WeldSeamServiceability ? "соответствует" : "не соответствует";
+        public string ProtectiveServiceability => protocol.FireEscape.ProtectiveServiceability ? "соответствует" : "не соответствует";
 
         public string Image => protocol.HasImage ? protocol.Image! : string.Empty;
 
