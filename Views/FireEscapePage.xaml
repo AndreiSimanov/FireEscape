@@ -38,10 +38,10 @@
                 MaxDecimalDigitCount="2"
                 PlaceholderText ="{x:Static lang:AppResources.StairHeightHint}"
                 LabelText ="{x:Static lang:AppResources.StairHeight}"
-                Value="{Binding FireEscape.StairHeight}"
-                Serviceability ="{Binding FireEscape.StairHeightServiceability}"
+                Value="{Binding FireEscape.StairHeight.Value}"
+                Serviceability ="{Binding FireEscape.StairHeight.Serviceability}"
                 ServiceabilityTypes ="{Binding FireEscapePropertiesSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding FireEscape.StairHeightRejectExplanation}"/>
+                RejectExplanationText ="{Binding FireEscape.StairHeight.RejectExplanation}"/>
 
 
             <dxe:NumericEdit

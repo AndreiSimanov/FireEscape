@@ -511,7 +511,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите выявленные несоответствия ГОСТ.
+        ///   Looks up a localized string similar to Укажите выявленные несоответствия.
         /// </summary>
         internal static string RejectExplanationHint {
             get {

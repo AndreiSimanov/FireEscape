@@ -32,7 +32,7 @@
         public string FullAddress => protocol.FullAddress;
         public uint FireEscapeNum => protocol.FireEscapeNum;
 
-        public float? StairHeight => protocol.FireEscape.StairHeight;
+        public float? StairHeight => protocol.FireEscape.StairHeight.Value;
         public uint? StairWidth => protocol.FireEscape.StairWidth;
 
         public uint? StepsCount => protocol.FireEscape.StepsCount;

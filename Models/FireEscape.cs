@@ -12,12 +12,7 @@ namespace FireEscape.Models
         [ObservableProperty]
         string fireEscapeMountType = string.Empty;
         [ObservableProperty]
-        float? stairHeight;
-        [ObservableProperty]
-        Serviceability stairHeightServiceability;
-        [ObservableProperty]
-        string stairHeightRejectExplanation = string.Empty;
-
+        ServiceabilityProperty<float?> stairHeight = new();
         [ObservableProperty]
         uint? stairWidth;
         [ObservableProperty]

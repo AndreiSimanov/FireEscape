@@ -33,7 +33,7 @@
             IsVisible="{Binding Serviceability.ServiceabilityType, Converter={StaticResource ServiceabilityConverter}, ConverterParameter={x:Static model:ServiceabilityTypeEnum.Reject}}"
             Grid.Row="1" Grid.ColumnSpan="2"
             Text="{Binding RejectExplanationText}"
-            PlaceholderText="{x:Static lang:AppResources.RejectExplanation}"
-            LabelText="{x:Static lang:AppResources.RejectExplanationHint}"/>
+            PlaceholderText="{x:Static lang:AppResources.RejectExplanationHint}"
+            LabelText="{x:Static lang:AppResources.RejectExplanation}"/>
     </Grid>
 </ContentView>

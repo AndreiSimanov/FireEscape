@@ -328,7 +328,7 @@
     <value>Несоответствие ГОСТ</value>
   </data>
   <data name="RejectExplanationHint" xml:space="preserve">
-    <value>Укажите выявленные несоответствия ГОСТ</value>
+    <value>Укажите выявленные несоответствия</value>
   </data>
   <data name="Serviceability" xml:space="preserve">
     <value>Соотв. ГОСТ</value>

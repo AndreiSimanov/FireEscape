@@ -129,7 +129,7 @@ namespace FireEscape.Repositories
                 FireEscapeNum = newProtocolSettings.FireEscapeNum,
                 FireEscape = new Models.FireEscape()
                 {
-                    StairHeightServiceability = FireEscapePropertiesSettings.ServiceabilityTypes![0],
+                    StairHeight = new ServiceabilityProperty<float?>() { Serviceability = FireEscapePropertiesSettings.ServiceabilityTypes![0] },
                     FireEscapeType = FireEscapePropertiesSettings.FireEscapeTypes![0],
                     FireEscapeMountType = FireEscapePropertiesSettings.FireEscapeMountTypes![0]
                 },
