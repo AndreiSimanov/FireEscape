@@ -43,12 +43,13 @@
                 ServiceabilityTypes ="{Binding FireEscapePropertiesSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding FireEscape.StairHeight.RejectExplanation}"/>
 
-
-            <dxe:NumericEdit
-                Style="{StaticResource DefaultNumericEdit}"
-                Value="{Binding FireEscape.StairWidth}"
-                PlaceholderText="{x:Static lang:AppResources.StairWidth}"
-                LabelText="{x:Static lang:AppResources.StairWidth}"/>
+            <ctrl:ServiceabilityControl
+                PlaceholderText ="{x:Static lang:AppResources.StairWidthHint}"
+                LabelText ="{x:Static lang:AppResources.StairWidth}"
+                Value="{Binding FireEscape.StairWidth.Value}"
+                Serviceability ="{Binding FireEscape.StairWidth.Serviceability}"
+                ServiceabilityTypes ="{Binding FireEscapePropertiesSettings.ServiceabilityTypes}"
+                RejectExplanationText ="{Binding FireEscape.StairWidth.RejectExplanation}"/>
 
             <dxe:NumericEdit
                 Style="{StaticResource DefaultNumericEdit}"

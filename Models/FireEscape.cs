@@ -14,9 +14,9 @@ namespace FireEscape.Models
         [ObservableProperty]
         ServiceabilityProperty<float?> stairHeight = new();
         [ObservableProperty]
-        uint? stairWidth;
+        ServiceabilityProperty<int?> stairWidth = new();
         [ObservableProperty]
-        uint? stepsCount;
+        int? stepsCount;
         [ObservableProperty]
         bool weldSeamServiceability;
         [ObservableProperty]

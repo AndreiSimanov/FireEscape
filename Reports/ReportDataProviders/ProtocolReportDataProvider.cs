@@ -33,9 +33,9 @@
         public uint FireEscapeNum => protocol.FireEscapeNum;
 
         public float? StairHeight => protocol.FireEscape.StairHeight.Value;
-        public uint? StairWidth => protocol.FireEscape.StairWidth;
+        public int? StairWidth => protocol.FireEscape.StairWidth.Value;
 
-        public uint? StepsCount => protocol.FireEscape.StepsCount;
+        public int? StepsCount => protocol.FireEscape.StepsCount;
 
         public string TestEquipment => protocol.FireEscape.FireEscapeType.BaseStairsType == BaseStairsTypeEnum.P2
             ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
