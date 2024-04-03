@@ -110,18 +110,19 @@ namespace FireEscape.ViewModels
         {
             await DoCommandAsync(async () =>
             {
-                var noExpiration = await userAccountService.CheckApplicationExpiration();
-                if (noExpiration)
+                var userAccount = await userAccountService.GetCurrentUserAccount();
+                if (userAccount == null)
+                    return;
+                if (userAccountService.IsValidUserAccount(userAccount))
                 {
-                    var userAccount = await userAccountService.GetUserAccount();
-                    if (userAccount != null)
-                        await protocolService.CreateReportAsync(protocol, userAccount);
+                    userAccountService.UpdateExpirationCount(userAccount!);
+                    await protocolService.CreateReportAsync(protocol, userAccount!);
                 }
                 else
                 {
                     await Shell.Current.DisplayAlert(""
                         , string.Format(AppResources.UnregisteredApplicationMessage
-                        , AppSettingsExtension.UserAccountId), AppResources.OK);
+                        , userAccountService.CurrentUserAccountId), AppResources.OK);
                 }
             },
             protocol,
@@ -145,7 +146,7 @@ namespace FireEscape.ViewModels
         {
             await DoCommandAsync(async () =>
             {
-                var userAccount = await userAccountService.DownloadUserAccountAsync();
+                var userAccount = await userAccountService.GetCurrentUserAccount(true);
                 if (userAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
                 {
                     await Shell.Current.GoToAsync(nameof(UserAccountMainPage), true);

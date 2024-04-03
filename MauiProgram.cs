@@ -1,5 +1,4 @@
 ﻿using DevExpress.Maui;
-using DevExpress.Maui.Core;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 

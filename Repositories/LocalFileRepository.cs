@@ -26,7 +26,7 @@ namespace FireEscape.Repositories
         public async Task SaveProtocolAsync(Protocol protocol)
         {
             if (string.IsNullOrEmpty( protocol.Id))
-                protocol.Id = Path.Combine(AppSettingsExtension.ContentFolder, Guid.NewGuid().ToString() + ".json");
+                protocol.Id = Path.Combine(AppUtils.ContentFolder, Guid.NewGuid().ToString() + ".json");
             protocol.Updated = DateTime.Now;
             using var fs = File.Create(protocol.Id);
             await JsonSerializer.SerializeAsync(fs, protocol);
@@ -45,7 +45,7 @@ namespace FireEscape.Repositories
 
         public Protocol[] GetProtocols()
         {
-            var directoryInfo = new DirectoryInfo(AppSettingsExtension.ContentFolder);
+            var directoryInfo = new DirectoryInfo(AppUtils.ContentFolder);
             var files = directoryInfo.GetFiles("*.json", SearchOption.TopDirectoryOnly);
             var result = new Protocol[files.Length];
             var index = 0;
@@ -73,7 +73,7 @@ namespace FireEscape.Repositories
 
         public async IAsyncEnumerable<Protocol> GetProtocolsAsync()
         {
-            var directoryInfo = new DirectoryInfo(AppSettingsExtension.ContentFolder);
+            var directoryInfo = new DirectoryInfo(AppUtils.ContentFolder);
             var files = directoryInfo.GetFiles("*.json", SearchOption.TopDirectoryOnly);
             await Task.Yield(); // for async compatibility
             foreach (var file in files)
@@ -102,7 +102,7 @@ namespace FireEscape.Repositories
         {
             if (photo != null)
             {
-                var photoFilePath = Path.Combine(AppSettingsExtension.ContentFolder, photo.FileName);
+                var photoFilePath = Path.Combine(AppUtils.ContentFolder, photo.FileName);
                 using var photoStream = await photo.OpenReadAsync();
                 using var outputFile = File.Create(photoFilePath);
                 await photoStream.CopyToAsync(outputFile);

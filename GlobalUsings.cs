@@ -1,4 +1,5 @@
-﻿global using FireEscape.AppSettings;
+﻿global using FireEscape.Common;
+global using FireEscape.AppSettings;
 global using FireEscape.Views;
 global using FireEscape.ViewModels;
 global using FireEscape.Models;

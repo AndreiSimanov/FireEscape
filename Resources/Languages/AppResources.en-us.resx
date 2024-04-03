@@ -321,4 +321,7 @@
   <data name="SelectPhotoHint" xml:space="preserve">
     <value>Gallery</value>
   </data>
+  <data name="ExpirationCount" xml:space="preserve">
+    <value>Expiration сount</value>
+  </data>
 </root>

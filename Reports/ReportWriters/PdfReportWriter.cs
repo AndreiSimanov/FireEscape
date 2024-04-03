@@ -25,7 +25,7 @@ namespace FireEscape.Reports.ReportWriters
 
         static async Task<string> AddFontIfNotExisit(string fontName)
         {
-            var fontFilePath = Path.Combine(AppSettingsExtension.ContentFolder, fontName);
+            var fontFilePath = Path.Combine(AppUtils.ContentFolder, fontName);
             if (!File.Exists(fontFilePath))
             {
                 using var stream = await FileSystem.OpenAppPackageFileAsync(fontName);
@@ -35,6 +35,5 @@ namespace FireEscape.Reports.ReportWriters
             }
             return fontFilePath;
         }
-
     }
 }

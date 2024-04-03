@@ -321,4 +321,7 @@
   <data name="SelectPhotoHint" xml:space="preserve">
     <value>Галерея</value>
   </data>
+  <data name="ExpirationCount" xml:space="preserve">
+    <value>Счетчик окончания учетной записи</value>
+  </data>
 </root>

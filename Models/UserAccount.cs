@@ -8,8 +8,8 @@ namespace FireEscape.Models
         public const string UserRole = "User";
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsYou))]
-        string? id;
+        [NotifyPropertyChangedFor(nameof(IsValidUserAccount))]
+        string id = string.Empty;
         [ObservableProperty]
         string? name;
         [ObservableProperty]
@@ -17,7 +17,11 @@ namespace FireEscape.Models
         [ObservableProperty]
         string? company;
         [ObservableProperty]
-        DateTime? expirationDate;
+        [NotifyPropertyChangedFor(nameof(IsValidUserAccount))]
+        DateTime expirationDate;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsValidUserAccount))]
+        int expirationCount;
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsAdmin))]
         List<string> roles = new();
@@ -37,6 +41,8 @@ namespace FireEscape.Models
                 }
             }
         }
-        public bool IsYou => AppSettingsExtension.UserAccountId == Id;
+
+        [JsonIgnore]
+        public bool IsValidUserAccount => !string.IsNullOrWhiteSpace(Id) && ExpirationDate > DateTime.Now && ExpirationCount != 0;
     }
 }

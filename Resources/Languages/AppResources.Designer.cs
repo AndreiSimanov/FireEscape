@@ -286,6 +286,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Счетчик окончания учетной записи.
+        /// </summary>
+        internal static string ExpirationCount {
+            get {
+                return ResourceManager.GetString("ExpirationCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата окончания учетной записи.
         /// </summary>
         internal static string ExpirationDate {

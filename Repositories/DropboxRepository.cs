@@ -28,9 +28,19 @@ namespace FireEscape.Repositories
         public async Task<string> DownloadJsonAsync(string key, string folder = "")
         {
             using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
-            using var response = await dbx.Files.DownloadAsync(GetJsonPath(key, folder));
-            var s = await response.GetContentAsByteArrayAsync();
-            return Encoding.Default.GetString(s);
+            try
+            {
+                using var response = await dbx.Files.DownloadAsync(GetJsonPath(key, folder));
+                var s = await response.GetContentAsByteArrayAsync();
+                return Encoding.Default.GetString(s);
+            }
+            catch (ApiException<DownloadError> ex) 
+            {
+                var errorResponse = ex.ErrorResponse as DownloadError.Path;
+                if (errorResponse != null && errorResponse.Value.IsNotFound) 
+                    return string.Empty;
+                throw;
+            }
         }
 
         public async IAsyncEnumerable<string> DownloadJsonAsync(IEnumerable<string> keys, string folder = "")

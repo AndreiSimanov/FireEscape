@@ -1,6 +1,5 @@
-﻿using FireEscape.Resources.Languages;
-using Microsoft.Extensions.Options;
-using System.Diagnostics;
+﻿using Microsoft.Extensions.Options;
+using Simusr2.Maui.DeviceIdentifier;
 using System.Text.Json;
 
 namespace FireEscape.Services
@@ -9,6 +8,9 @@ namespace FireEscape.Services
     {
         const string USER_ACCOUNT = "UserAccount";
         const string NEW_USER_NAME = "New User";
+        private const string USER_ACCOUNT_ID = "UserAccountId";
+        private static string currentUserAccountId = string.Empty;
+
         readonly ApplicationSettings applicationSettings;
         readonly IFileHostingRepository fileHostingRepository;
 
@@ -18,113 +20,152 @@ namespace FireEscape.Services
             this.applicationSettings = applicationSettings.Value;
         }
 
-        public async Task<bool> CheckApplicationExpiration()
+        public async Task<UserAccount?> GetCurrentUserAccount(bool download = false)
         {
-            return IsValidUserAccount(await GetUserAccount());
-        }
+            UserAccount? userAccount = null;
+            if (!download) 
+            {
+                userAccount = GetLocalUserAccount();
+                if (IsValidUserAccount(userAccount))
+                    return userAccount;
+            }
 
-        public async Task<UserAccount?> GetUserAccount()
-        {
-            var json = Preferences.Default.Get(USER_ACCOUNT, string.Empty);
-            var userAccount = string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<UserAccount>(json);
-
-            if (IsValidUserAccount(userAccount))
+            if (!await AppUtils.IsNetworkAccess())
                 return userAccount;
 
-            userAccount = await DownloadUserAccountAsync();
+            userAccount = await DownloadUserAccountAsync(CurrentUserAccountId);
 
+            if (userAccount == null)
+                userAccount = await CreateNewUser(CurrentUserAccountId);
+            else
+            {
+                if (userAccount.ExpirationCount > 0) // clear remote ExpirationCount
+                {
+                    var expirationCount = userAccount.ExpirationCount;
+                    userAccount.ExpirationCount = 0;
+                    await UploadUserAccountAsync(userAccount);
+                    userAccount.ExpirationCount = expirationCount;
+                }
+                SetLocalUserAccount(userAccount);
+            }    
             return userAccount;
+        }
+
+        public async Task SaveUserAccountAsync(UserAccount userAccount)
+        {
+            if (string.IsNullOrWhiteSpace(userAccount.Id) || !await AppUtils.IsNetworkAccess())
+                return;
+            SetLocalUserAccount(userAccount);
+            await UploadUserAccountAsync(userAccount);
+        }
+
+        public async Task DeleteUserAccount(UserAccount userAccount)
+        {
+            if (string.IsNullOrWhiteSpace(userAccount.Id) || !await AppUtils.IsNetworkAccess())
+                return;
+
+            await fileHostingRepository.DeleteJsonAsync(userAccount.Id!, applicationSettings.UserAccountsFolderName);
         }
 
         public async IAsyncEnumerable<UserAccount> GetUserAccountsAsync()
         {
+            if (!await AppUtils.IsNetworkAccess())
+                yield break;
             await foreach (var file in fileHostingRepository.ListFolderAsync(applicationSettings.UserAccountsFolderName))
             {
                 var keyEnumeration = Path.GetFileNameWithoutExtension(file);
-                var userAccountJson = await fileHostingRepository.DownloadJsonAsync(keyEnumeration, applicationSettings.UserAccountsFolderName);
-                UserAccount? userAccount = null;
-                try
-                {
-                    userAccount = JsonSerializer.Deserialize<UserAccount>(userAccountJson);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"GetUserAccountsAsync: {ex.Message}");
-                }
+                var userAccount = await DownloadUserAccountAsync(keyEnumeration);
                 if (userAccount != null)
                     yield return userAccount;
             }
         }
 
-        public async Task SaveUserAccountAsync(UserAccount userAccount)
+        public void UpdateExpirationCount(UserAccount userAccount)
         {
-            await fileHostingRepository.UploadJsonAsync(userAccount.Id!, JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
+            if (IsCurrentUserAccount(userAccount) && userAccount.ExpirationCount > 0)
+            {
+                userAccount.ExpirationCount--;
+                SetLocalUserAccount(userAccount);
+            }
         }
 
-        public async Task DeleteUserAccount(UserAccount userAccount)
+        public string CurrentUserAccountId
         {
-            await fileHostingRepository.DeleteJsonAsync(userAccount.Id!, applicationSettings.UserAccountsFolderName);
-        }
-
-        public async Task<UserAccount?> DownloadUserAccountAsync()
-        {
-            if (string.IsNullOrWhiteSpace(AppSettingsExtension.UserAccountId))
-                return null;
-
-            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            get
             {
-                await Shell.Current.DisplayAlert(AppResources.NoConnectivity, AppResources.CheckInternetMessage, AppResources.OK);
-                return null;
-            }
+                if (!string.IsNullOrWhiteSpace(currentUserAccountId))
+                    return currentUserAccountId;
 
-            UserAccount? userAccount;
-            string? json = string.Empty;
-
-            try
-            {
-                json = await fileHostingRepository.DownloadJsonAsync(AppSettingsExtension.UserAccountId, applicationSettings.UserAccountsFolderName);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"DownloadJsonAsync: {ex.Message}");
-            }
-
-            if (string.IsNullOrWhiteSpace(json))
-            {
-                userAccount = new UserAccount()
+                var userAccountId = Identifier.Get();
+                if (string.IsNullOrWhiteSpace(userAccountId))
                 {
-                    Id = AppSettingsExtension.UserAccountId,
-                    Name = NEW_USER_NAME,
-                    Roles = new List<string> { UserAccount.UserRole },
-                    ExpirationDate = DateTime.Now.AddDays(applicationSettings.NewUserAccountExpirationDays)
-                };
-
-                json = JsonSerializer.Serialize(userAccount);
-
-                try
-                {
-                    await fileHostingRepository.UploadJsonAsync(AppSettingsExtension.UserAccountId, json, applicationSettings.UserAccountsFolderName);
+                    userAccountId = Preferences.Get(USER_ACCOUNT_ID, string.Empty);
+                    if (string.IsNullOrWhiteSpace(userAccountId))
+                    {
+                        userAccountId = Guid.NewGuid().ToString();
+                        Preferences.Set(USER_ACCOUNT_ID, userAccountId);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"UploadJsonAsync: {ex.Message}");
-                }
+                return userAccountId;
             }
-            else
-                userAccount = JsonSerializer.Deserialize<UserAccount>(json);
-
-            Preferences.Default.Set(USER_ACCOUNT, json);
-            return userAccount;
         }
 
         public bool IsValidUserAccount(UserAccount? userAccount)
         {
-            return
-                userAccount != null
-                && !string.IsNullOrWhiteSpace(userAccount.Id)
-                && !string.IsNullOrWhiteSpace(userAccount.Name)
-                && userAccount.ExpirationDate != null
-                && userAccount.ExpirationDate > DateTime.Now;
+            return userAccount != null && userAccount.IsValidUserAccount;
+        }
+
+        public bool IsCurrentUserAccount(UserAccount? userAccount)
+        {
+            return userAccount != null && userAccount.Id == CurrentUserAccountId;
+        }
+
+        private async Task<UserAccount> CreateNewUser(string userAccountId)
+        {
+            var userAccount = new UserAccount()
+            {
+                Id = userAccountId,
+                Name = NEW_USER_NAME,
+                Roles = new List<string> { UserAccount.UserRole },
+                ExpirationDate = DateTime.Now.AddDays(applicationSettings.NewUserAccountExpirationDays),
+                ExpirationCount = 0
+            };
+
+            await UploadUserAccountAsync(userAccount);
+
+            if (IsCurrentUserAccount(userAccount))
+            {
+                userAccount.ExpirationCount = applicationSettings.NewUserAccountExpirationCount;
+                SetLocalUserAccount(userAccount);
+            }
+
+            return userAccount;
+        }
+
+        private async Task UploadUserAccountAsync(UserAccount userAccount)
+        {
+            await fileHostingRepository.UploadJsonAsync(userAccount.Id, JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
+        }
+
+        private async Task<UserAccount?> DownloadUserAccountAsync(string userAccountId)
+        {
+            UserAccount? userAccount = null;
+            var json = await fileHostingRepository.DownloadJsonAsync(userAccountId, applicationSettings.UserAccountsFolderName);
+            if (!string.IsNullOrWhiteSpace(json))
+                userAccount = JsonSerializer.Deserialize<UserAccount>(json);
+            return userAccount;
+        }
+
+        private void SetLocalUserAccount(UserAccount userAccount)
+        {
+            if (IsCurrentUserAccount(userAccount))
+                Preferences.Default.Set(USER_ACCOUNT, JsonSerializer.Serialize(userAccount));
+        }
+
+        private UserAccount? GetLocalUserAccount()
+        {
+            var json = Preferences.Default.Get(USER_ACCOUNT, string.Empty);
+            return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<UserAccount>(json);
         }
     }
 }

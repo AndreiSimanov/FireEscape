@@ -17,7 +17,7 @@
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
     <ContentPage.Resources>
-        <viewmodel:BoolToColorConverter x:Key="userAccountIsYouConverter" TrueSource="Green" FalseSource="{dx:ThemeColor OnSurface, Alpha=0.22}"/>
+        <viewmodel:BoolToColorConverter x:Key="userAccountIsYouConverter" TrueSource="Green" FalseSource="Red"/>
      </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
@@ -76,7 +76,7 @@
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
                             <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="150" Style="{StaticResource CardView}" BorderColor="{Binding IsYou, Converter={StaticResource userAccountIsYouConverter}}">
+                                <Frame HeightRequest="160" Style="{StaticResource CardView}" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource userAccountIsYouConverter}}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
@@ -128,6 +128,17 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
+
+                                        <Label Style="{StaticResource SubTitleline}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.ExpirationCount}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding ExpirationCount}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
                                         <dxe:CheckEdit
                                             IsEnabled="False"
                                             IsChecked="{Binding IsAdmin}"

@@ -1,7 +1,4 @@
-﻿using FireEscape.Reports.ReportDataProviders;
-using FireEscape.Reports.ReportMakers;
-
-namespace FireEscape.Services
+﻿namespace FireEscape.Services
 {
     public class ProtocolService
     {
@@ -58,7 +55,7 @@ namespace FireEscape.Services
         public async Task CreateReportAsync(Protocol protocol, UserAccount userAccount)
         {
             var fileName = "protocol"; //todo: change file name to some protocol attribute 
-            var filePath = Path.Combine(AppSettingsExtension.ContentFolder, fileName);
+            var filePath = Path.Combine(AppUtils.ContentFolder, fileName);
             filePath = await reportRepository.CreateReportAsync(protocol, userAccount, filePath);
             await Launcher.OpenAsync(new OpenFileRequest
             {

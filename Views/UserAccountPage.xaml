@@ -38,6 +38,14 @@
                     Date="{Binding UserAccount.ExpirationDate}"                    
                     LabelText="{x:Static lang:AppResources.ExpirationDate}"/>
 
+            <dxe:NumericEdit
+                Style="{StaticResource DefaultNumericEdit}"
+                MaxValue="2147483647"
+                MinValue="-1"
+                Value="{Binding UserAccount.ExpirationCount}"
+                PlaceholderText="{x:Static lang:AppResources.ExpirationCount}"
+                LabelText="{x:Static lang:AppResources.ExpirationCount}"/>
+
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
                 IsChecked="{Binding UserAccount.IsAdmin}"
