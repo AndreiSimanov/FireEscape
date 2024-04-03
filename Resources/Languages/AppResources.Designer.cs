@@ -502,6 +502,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Несоответствие ГОСТ.
+        /// </summary>
+        internal static string RejectExplanation {
+            get {
+                return ResourceManager.GetString("RejectExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите выявленные несоответствия ГОСТ.
+        /// </summary>
+        internal static string RejectExplanationHint {
+            get {
+                return ResourceManager.GetString("RejectExplanationHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно сохранить протокол.
         /// </summary>
         internal static string SaveProtocolError {
@@ -516,6 +534,15 @@ namespace FireEscape.Resources.Languages {
         internal static string SelectPhotoHint {
             get {
                 return ResourceManager.GetString("SelectPhotoHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Соотв. ГОСТ.
+        /// </summary>
+        internal static string Serviceability {
+            get {
+                return ResourceManager.GetString("Serviceability", resourceCulture);
             }
         }
         

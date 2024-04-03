@@ -4,6 +4,7 @@
              x:Class="FireEscape.Views.FireEscapePage"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              xmlns:model="clr-namespace:FireEscape.Models"
+             xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
              xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
@@ -11,13 +12,6 @@
              Title="{x:Static lang:AppResources.FireEscapePageTitle}"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewmodel:FireEscapeViewModel">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:EnumToBoolConverter x:Key="ServiceabilityConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
 
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
 
@@ -39,27 +33,16 @@
                 SelectedItem="{Binding FireEscape.FireEscapeMountType}"
                 ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeMountTypes}"/>
 
-            <Grid RowDefinitions="auto, *" ColumnDefinitions="200, *" >
-                <dxe:NumericEdit 
-                    Grid.Column="0"
-                    Style="{StaticResource DefaultNumericEdit}" MaxValue="100" MaxDecimalDigitCount="2"
-                    Value="{Binding FireEscape.StairHeight}"
-                    PlaceholderText="{x:Static lang:AppResources.StairHeightHint}"
-                    LabelText="{x:Static lang:AppResources.StairHeight}"/>
+            <ctrl:ServiceabilityControl
+                MaxValue="100"
+                MaxDecimalDigitCount="2"
+                PlaceholderText ="{x:Static lang:AppResources.StairHeightHint}"
+                LabelText ="{x:Static lang:AppResources.StairHeight}"
+                Value="{Binding FireEscape.StairHeight}"
+                Serviceability ="{Binding FireEscape.StairHeightServiceability}"
+                ServiceabilityTypes ="{Binding FireEscapePropertiesSettings.ServiceabilityTypes}"
+                RejectExplanationText ="{Binding FireEscape.StairHeightRejectExplanation}"/>
 
-                <dxe:ComboBoxEdit
-                    Grid.Column="2"
-                    Style="{StaticResource DefaultComboBoxEdit}"
-                    LabelText="Соотв. ГОСТ"
-                    SelectedItem="{Binding FireEscape.StairHeightServiceability}"
-                    ItemsSource="{Binding FireEscapePropertiesSettings.ServiceabilityTypes}"/>
-                
-                <dxe:MultilineEdit
-                    IsVisible="{Binding FireEscape.StairHeightServiceability.ServiceabilityType, Converter={StaticResource ServiceabilityConverter}, ConverterParameter={x:Static model:ServiceabilityTypeEnum.Reject}}"
-                    Grid.Row="1" Grid.ColumnSpan="2"
-                    Text="{Binding FireEscape.StairHeightRejectExplanation}"
-                    LabelText="Причина несоответствия"/>
-            </Grid>
 
             <dxe:NumericEdit
                 Style="{StaticResource DefaultNumericEdit}"

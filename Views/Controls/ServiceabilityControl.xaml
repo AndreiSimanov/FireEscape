@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+      x:Name="this"
+      xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+      xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+      xmlns:model="clr-namespace:FireEscape.Models"
+      xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+      x:Class="FireEscape.Views.Controls.ServiceabilityControl">
+
+    <Grid BindingContext="{x:Reference this}" RowDefinitions="auto, *" ColumnDefinitions="200, *"  >
+        <Grid.Resources>
+            <ResourceDictionary>
+                <toolkit:EnumToBoolConverter x:Key="ServiceabilityConverter" />
+            </ResourceDictionary>
+        </Grid.Resources>
+
+        <dxe:NumericEdit
+            x:Name="numEdit"
+            Grid.Column="0"
+            Value="{Binding Value}"
+            Style="{StaticResource DefaultNumericEdit}" />
+
+        <dxe:ComboBoxEdit
+            Grid.Column="2"
+            Style="{StaticResource DefaultComboBoxEdit}"
+            LabelText="{x:Static lang:AppResources.Serviceability}"
+            SelectedItem="{Binding Serviceability}"
+            ItemsSource="{Binding ServiceabilityTypes}"/>
+
+        <dxe:MultilineEdit
+            IsVisible="{Binding Serviceability.ServiceabilityType, Converter={StaticResource ServiceabilityConverter}, ConverterParameter={x:Static model:ServiceabilityTypeEnum.Reject}}"
+            Grid.Row="1" Grid.ColumnSpan="2"
+            Text="{Binding RejectExplanationText}"
+            PlaceholderText="{x:Static lang:AppResources.RejectExplanation}"
+            LabelText="{x:Static lang:AppResources.RejectExplanationHint}"/>
+    </Grid>
+</ContentView>

@@ -93,6 +93,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Controls\ServiceabilityControl.xaml.cs">
+	    <DependentUpon>ServiceabilityControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ProtocolMainPage.xaml.cs">
 	    <DependentUpon>ProtocolMainPage.xaml</DependentUpon>
 	  </Compile>
@@ -112,6 +115,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\Controls\ServiceabilityControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\FireEscapePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

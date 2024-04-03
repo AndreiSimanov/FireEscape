@@ -324,4 +324,13 @@
   <data name="ExpirationCount" xml:space="preserve">
     <value>Счетчик окончания учетной записи</value>
   </data>
+  <data name="RejectExplanation" xml:space="preserve">
+    <value>Несоответствие ГОСТ</value>
+  </data>
+  <data name="RejectExplanationHint" xml:space="preserve">
+    <value>Укажите выявленные несоответствия ГОСТ</value>
+  </data>
+  <data name="Serviceability" xml:space="preserve">
+    <value>Соотв. ГОСТ</value>
+  </data>
 </root>

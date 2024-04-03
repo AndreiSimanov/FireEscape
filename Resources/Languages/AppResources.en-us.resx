@@ -324,4 +324,13 @@
   <data name="ExpirationCount" xml:space="preserve">
     <value>Expiration сount</value>
   </data>
+  <data name="RejectExplanation" xml:space="preserve">
+    <value>Reject explanation</value>
+  </data>
+  <data name="RejectExplanationHint" xml:space="preserve">
+    <value>Specify the detected inconsistencies of GOST</value>
+  </data>
+  <data name="Serviceability" xml:space="preserve">
+    <value>Serviceability</value>
+  </data>
 </root>
