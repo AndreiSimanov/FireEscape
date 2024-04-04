@@ -52,7 +52,16 @@
         
         public string UserAccountSignature => string.IsNullOrWhiteSpace(userAccount.Signature) ? "___________" : userAccount.Signature;
 
+        public List<string> GetSummary()
+        { 
+            var summary = new List<string>();
 
+            if (!protocol.FireEscape.WeldSeamServiceability)
+                summary.Add("- сварные швы не соответствуют (гост 5264)");
+            if (!protocol.FireEscape.ProtectiveServiceability)
+                summary.Add("- конструкция не окрашена (гост 9.032)");
 
+            return summary;
+        }
     }
 }

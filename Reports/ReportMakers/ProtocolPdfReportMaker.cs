@@ -152,6 +152,23 @@ namespace FireEscape.Reports.ReportMakers
 
         private static void MakePdfFooter(Document document, ProtocolReportDataProvider protocolRdp)
         {
+            document.SetFontSize(10);
+
+            var summary = protocolRdp.GetSummary();
+
+            document.Add(new Paragraph()
+                .SetFixedLeading(12)
+                .AddAll(new[] {
+                    new Text("Выводы по результатам испытаний: ").SetBold(),
+                    new Text("В соответствии с "),
+                    new Text("ГОСТ Р. 53254 - 2009 ").SetBold(),
+                    new Text("«Техника пожарная. Лестницы пожарные наружные стационарные. Ограждения кровли. Общие технические требования. Методы испытаний» пожарная стационарная лестница, к эксплуатации "),
+                    new Text(summary.Any()? "не пригодна." : "не пригодна.").SetBold()
+                }));
+            foreach ( var item in summary )
+                document.Add(new Paragraph(item).SetFixedLeading(8));
+            document.Add(new Paragraph(" "));
+
             document.Add(new Paragraph()
                 .SetFixedLeading(8)
                 .AddAll(new[] {
@@ -188,7 +205,5 @@ namespace FireEscape.Reports.ReportMakers
             }
             return -angle * Math.PI / 180;
         }
-
-
     }
 }
