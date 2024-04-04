@@ -8,11 +8,11 @@ namespace FireEscape.ViewModels
         [ObservableProperty]
         Models.FireEscape? fireEscape;
         
-        public FireEscapePropertiesSettings FireEscapePropertiesSettings { get; private set; }
+        public FireEscapeSettings FireEscapeSettings { get; private set; }
 
-        public FireEscapeViewModel(IOptions<FireEscapePropertiesSettings> fireEscapePropertiesSettings)
+        public FireEscapeViewModel(IOptions<FireEscapeSettings> fireEscapeSettings)
         {
-            FireEscapePropertiesSettings = fireEscapePropertiesSettings.Value;
+            FireEscapeSettings = fireEscapeSettings.Value;
         }
     }
 }

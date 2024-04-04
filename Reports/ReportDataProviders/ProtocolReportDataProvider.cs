@@ -1,13 +1,15 @@
 ﻿namespace FireEscape.Reports.ReportDataProviders
 {
-    internal class ProtocolReportDataProvider
+    public class ProtocolReportDataProvider
     {
         Protocol protocol;
+        ServiceabilityLimits? serviceabilityLimits;
         UserAccount userAccount;
 
-        public ProtocolReportDataProvider(Protocol protocol, UserAccount userAccount)
+        public ProtocolReportDataProvider(Protocol protocol, ServiceabilityLimits? serviceabilityLimits, UserAccount userAccount)
         {
             this.protocol = protocol;
+            this.serviceabilityLimits = serviceabilityLimits;
             this.userAccount = userAccount;
         }
 
@@ -53,15 +55,54 @@
         public string UserAccountSignature => string.IsNullOrWhiteSpace(userAccount.Signature) ? "___________" : userAccount.Signature;
 
         public List<string> GetSummary()
-        { 
+        {
             var summary = new List<string>();
+            var fireEscape = protocol.FireEscape;
 
-            if (!protocol.FireEscape.WeldSeamServiceability)
-                summary.Add("- сварные швы не соответствуют (гост 5264)");
-            if (!protocol.FireEscape.ProtectiveServiceability)
-                summary.Add("- конструкция не окрашена (гост 9.032)");
+            if (!fireEscape.WeldSeamServiceability)
+                summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
+            if (!fireEscape.ProtectiveServiceability)
+                summary.Add("конструкция не окрашена (ГОСТ 9.032)");
+
+            if (serviceabilityLimits == null)
+                return summary;
+
+            CheckServiceability(summary, fireEscape.StairHeight,
+                item => item > serviceabilityLimits.MaxStairHeight && serviceabilityLimits.MaxStairHeight > 0,
+                $"высота лестницы не более {serviceabilityLimits.MaxStairHeight}м" + " ({0}м)",
+                "высота лестницы не соответствует ГОСТ");
+
+            CheckServiceability(summary, fireEscape.StairWidth,
+                item => item < serviceabilityLimits.MinStairWidth,
+                $"ширина лестницы не менее {serviceabilityLimits.MinStairWidth}мм" + " ({0}мм)",
+                "ширина лестницы не соответствует ГОСТ");
+
 
             return summary;
+        }
+
+        private static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
+            Predicate<T?> predicate, string rejectExplanation, string defaultExplanation)
+        {
+            var serviceabilityType = serviceabilityProperty.Serviceability.ServiceabilityType;
+
+            if (serviceabilityType == ServiceabilityTypeEnum.Approve)
+                return;
+
+            if (serviceabilityType == ServiceabilityTypeEnum.Reject && !string.IsNullOrWhiteSpace(serviceabilityProperty.RejectExplanation))
+            {
+                summary.Add(serviceabilityProperty.RejectExplanation.Replace(Environment.NewLine, " "));
+                return;
+            }
+
+            if (predicate != null && predicate(serviceabilityProperty.Value))
+            {
+                summary.Add(string.Format(rejectExplanation, serviceabilityProperty.Value));
+                return;
+            }
+
+            if (serviceabilityType == ServiceabilityTypeEnum.Reject)
+                summary.Add(defaultExplanation);
         }
     }
 }

@@ -1,18 +1,14 @@
-﻿using Microsoft.Extensions.Options;
+﻿using FireEscape.Reports.ReportDataProviders;
 
 namespace FireEscape.Services
 {
     public class ProtocolService
     {
-        readonly ApplicationSettings ApplicationSettings;
         readonly IProtocolRepository protocolRepository;
         readonly IReportRepository reportRepository;
-        
 
-        public ProtocolService(IOptions<ApplicationSettings> applicationSettings
-            , IProtocolRepository protocolRepository, IReportRepository reportRepository) 
+        public ProtocolService(IProtocolRepository protocolRepository, IReportRepository reportRepository) 
         {
-            this.ApplicationSettings = applicationSettings.Value;
             this.protocolRepository = protocolRepository;
             this.reportRepository = reportRepository;
         }
@@ -61,8 +57,7 @@ namespace FireEscape.Services
         public async Task CreateReportAsync(Protocol protocol, UserAccount userAccount)
         {
             var fileName = "protocol"; //todo: change file name to some protocol attribute 
-            var filePath = Path.Combine(ApplicationSettings.ContentFolder, fileName);
-            filePath = await reportRepository.CreateReportAsync(protocol, userAccount, filePath);
+            var filePath = await reportRepository.CreateReportAsync(protocol,  userAccount, fileName);
             await Launcher.OpenAsync(new OpenFileRequest
             {
                 File = new ReadOnlyFile(filePath)

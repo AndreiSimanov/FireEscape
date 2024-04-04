@@ -18,9 +18,6 @@ namespace FireEscape.Reports.ReportMakers
     {
         public static async Task<string> MakeReport(ProtocolReportDataProvider protocolRdp, string filePath)
         {
-            if (string.IsNullOrWhiteSpace(filePath))
-                throw new ArgumentNullException(nameof(filePath));
-            filePath = filePath + ".pdf";
             var document = await PdfReportWriter.GetPdfDocument(filePath);
             MakePdfHeader(document, protocolRdp);
             MakePdfFireEscapeOverview(document, protocolRdp);
@@ -163,10 +160,10 @@ namespace FireEscape.Reports.ReportMakers
                     new Text("В соответствии с "),
                     new Text("ГОСТ Р. 53254 - 2009 ").SetBold(),
                     new Text("«Техника пожарная. Лестницы пожарные наружные стационарные. Ограждения кровли. Общие технические требования. Методы испытаний» пожарная стационарная лестница, к эксплуатации "),
-                    new Text(summary.Any()? "не пригодна." : "не пригодна.").SetBold()
+                    new Text(summary.Any()? "не пригодна." : "пригодна.").SetBold()
                 }));
             foreach ( var item in summary )
-                document.Add(new Paragraph(item).SetFixedLeading(8));
+                document.Add(new Paragraph("- "+ item).SetFixedLeading(8));
             document.Add(new Paragraph(" "));
 
             document.Add(new Paragraph()

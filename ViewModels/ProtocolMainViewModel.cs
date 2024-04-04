@@ -91,9 +91,7 @@ namespace FireEscape.ViewModels
         {
             await DoCommandAsync(async () =>
             {
-                var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol
-                    , AppResources.Cancel
-                    , AppResources.Delete);
+                var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, AppResources.Cancel, AppResources.Delete);
 
                 if (string.Equals(action, AppResources.Cancel))
                     return;
@@ -120,9 +118,9 @@ namespace FireEscape.ViewModels
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert(""
-                        , string.Format(AppResources.UnregisteredApplicationMessage
-                        , userAccountService.CurrentUserAccountId), AppResources.OK);
+                    await Shell.Current.DisplayAlert("", 
+                        string.Format(AppResources.UnregisteredApplicationMessage, 
+                        userAccountService.CurrentUserAccountId), AppResources.OK);
                 }
             },
             protocol,

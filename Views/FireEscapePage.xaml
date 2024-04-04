@@ -20,7 +20,7 @@
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.FireEscapeTypesHint}"
                 SelectedItem="{Binding FireEscape.FireEscapeType}"
-                ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeTypes}"/>
+                ItemsSource="{Binding FireEscapeSettings.FireEscapeTypes}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
@@ -31,7 +31,7 @@
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.FireEscapeMountTypesHint}"
                 SelectedItem="{Binding FireEscape.FireEscapeMountType}"
-                ItemsSource="{Binding FireEscapePropertiesSettings.FireEscapeMountTypes}"/>
+                ItemsSource="{Binding FireEscapeSettings.FireEscapeMountTypes}"/>
 
             <ctrl:ServiceabilityControl
                 MaxValue="100"
@@ -40,7 +40,7 @@
                 LabelText ="{x:Static lang:AppResources.StairHeight}"
                 Value="{Binding FireEscape.StairHeight.Value}"
                 Serviceability ="{Binding FireEscape.StairHeight.Serviceability}"
-                ServiceabilityTypes ="{Binding FireEscapePropertiesSettings.ServiceabilityTypes}"
+                ServiceabilityTypes ="{Binding FireEscapeSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding FireEscape.StairHeight.RejectExplanation}"/>
 
             <ctrl:ServiceabilityControl
@@ -48,7 +48,7 @@
                 LabelText ="{x:Static lang:AppResources.StairWidth}"
                 Value="{Binding FireEscape.StairWidth.Value}"
                 Serviceability ="{Binding FireEscape.StairWidth.Serviceability}"
-                ServiceabilityTypes ="{Binding FireEscapePropertiesSettings.ServiceabilityTypes}"
+                ServiceabilityTypes ="{Binding FireEscapeSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding FireEscape.StairWidth.RejectExplanation}"/>
 
             <dxe:NumericEdit
