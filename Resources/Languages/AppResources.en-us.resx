@@ -333,4 +333,10 @@
   <data name="Serviceability" xml:space="preserve">
     <value>Serviceability</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CopyProtocolError" xml:space="preserve">
+    <value>Unable to copy protocol</value>
+  </data>
 </root>

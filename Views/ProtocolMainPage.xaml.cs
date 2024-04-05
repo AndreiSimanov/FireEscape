@@ -26,6 +26,15 @@ public partial class ProtocolMainPage : ContentPage
         protocols.ScrollTo(0);
     }
 
+    private void CopyProtocol(object sender, DevExpress.Maui.CollectionView.SwipeItemTapEventArgs e)
+    {
+        var protocol = e.Item as Protocol;
+        if (protocol == null)
+            return;
+        ProtocolMainViewModel?.CopyProtocolCommand.Execute(protocol);
+        protocols.ScrollTo(0);
+    }
+
     void SearchTextChanged(object sender, EventArgs e)
     { 
         var searchText = ((TextEdit)sender).Text;
@@ -53,4 +62,6 @@ public partial class ProtocolMainPage : ContentPage
         if (tapStopwatch.ElapsedMilliseconds > 4000)
             ProtocolMainViewModel?.OpenUserAccountMainPageCommand.Execute(null);
     }
+
+
 }

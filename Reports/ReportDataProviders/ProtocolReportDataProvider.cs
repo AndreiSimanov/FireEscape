@@ -13,7 +13,7 @@
             this.userAccount = userAccount;
         }
 
-        public uint ProtocolNum => protocol.ProtocolNum;
+        public int ProtocolNum => protocol.ProtocolNum;
         public string FireEscapeTypeDescription => protocol.FireEscape.IsEvacuation
             ? "испытания пожарной эвакуационной лестницы"
             : protocol.FireEscape.FireEscapeType.StairsType == StairsTypeEnum.P2
@@ -32,7 +32,7 @@
 
         public string FireEscapeObject => protocol.FireEscapeObject;
         public string FullAddress => protocol.FullAddress;
-        public uint FireEscapeNum => protocol.FireEscapeNum;
+        public int FireEscapeNum => protocol.FireEscapeNum;
 
         public float? StairHeight => protocol.FireEscape.StairHeight.Value;
         public int? StairWidth => protocol.FireEscape.StairWidth.Value;

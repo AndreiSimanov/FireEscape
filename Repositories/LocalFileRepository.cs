@@ -27,9 +27,21 @@ namespace FireEscape.Repositories
             return protocol;
         }
 
+        public async Task<Protocol> CopyProtocolAsync(Protocol protocol)
+        {
+            var newProtocol = (Protocol)protocol.Clone();
+            newProtocol.Id = null;
+            newProtocol.Image = Protocol.NO_PHOTO;
+            newProtocol.FireEscapeNum = newProtocol.FireEscapeNum + 1;
+            newProtocol.FireEscape = CreateDefaultFireEscape();
+            newProtocol.Created = DateTime.Now;
+            await SaveProtocolAsync(newProtocol);
+            return newProtocol;
+        }
+
         public async Task SaveProtocolAsync(Protocol protocol)
         {
-            if (string.IsNullOrEmpty( protocol.Id))
+            if (string.IsNullOrWhiteSpace( protocol.Id))
                 protocol.Id = Path.Combine(applicationSettings.ContentFolder, Guid.NewGuid().ToString() + ".json");
             protocol.Updated = DateTime.Now;
             using var fs = File.Create(protocol.Id);
@@ -127,14 +139,19 @@ namespace FireEscape.Repositories
                 Location = newProtocolSettings.Location,
                 ProtocolDate = DateTime.Today,
                 FireEscapeNum = newProtocolSettings.FireEscapeNum,
-                FireEscape = new Models.FireEscape()
-                {
-                    StairHeight = new ServiceabilityProperty<float?>() { Serviceability = fireEscapeSettings.ServiceabilityTypes![0] },
-                    StairWidth = new ServiceabilityProperty<int?>() { Serviceability = fireEscapeSettings.ServiceabilityTypes![0] },
-                    FireEscapeType = fireEscapeSettings.FireEscapeTypes![0],
-                    FireEscapeMountType = fireEscapeSettings.FireEscapeMountTypes![0]
-                },
+                FireEscape = CreateDefaultFireEscape(),
                 Created = DateTime.Now
+            };
+        }
+
+        private Models.FireEscape CreateDefaultFireEscape()
+        {
+            return new Models.FireEscape()
+            {
+                StairHeight = new ServiceabilityProperty<float?>() { Serviceability = fireEscapeSettings.ServiceabilityTypes![0] },
+                StairWidth = new ServiceabilityProperty<int?>() { Serviceability = fireEscapeSettings.ServiceabilityTypes![0] },
+                FireEscapeType = fireEscapeSettings.FireEscapeTypes![0],
+                FireEscapeMountType = fireEscapeSettings.FireEscapeMountTypes![0]
             };
         }
     }

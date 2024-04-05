@@ -66,11 +66,11 @@
                 </Grid>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" >
-                <dxco:SimpleButton
-                    Text="{x:Static lang:AppResources.FireEscapePageTitle}" 
-                    Command="{Binding GoToDetailsCommand}" 
-                    IsEnabled="{Binding IsNotBusy}" 
-                    Margin="10,0,10,0"/>
+                <dx:DXButton 
+                    Content="{x:Static lang:AppResources.FireEscapePageTitle}" 
+                    Command="{Binding GoToDetailsCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Icon="edit" Margin="10,0,10,0" IconHeight="22" IconWidth="22"/>
                 <dxe:NumericEdit
                     Style="{StaticResource DefaultNumericEdit}"
                     Value="{Binding Protocol.ProtocolNum}"

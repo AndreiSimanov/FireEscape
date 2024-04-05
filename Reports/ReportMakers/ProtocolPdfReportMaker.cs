@@ -19,11 +19,17 @@ namespace FireEscape.Reports.ReportMakers
         public static async Task<string> MakeReport(ProtocolReportDataProvider protocolRdp, string filePath)
         {
             var document = await PdfReportWriter.GetPdfDocument(filePath);
-            MakePdfHeader(document, protocolRdp);
-            MakePdfFireEscapeOverview(document, protocolRdp);
-            MakePdfImage(document, protocolRdp);
-            MakePdfFooter(document, protocolRdp);
-            document.Close();
+            try
+            {
+                MakePdfHeader(document, protocolRdp);
+                MakePdfFireEscapeOverview(document, protocolRdp);
+                MakePdfImage(document, protocolRdp);
+                MakePdfFooter(document, protocolRdp);
+            }
+            finally
+            {
+                document.Close();
+            }
             return filePath;
         }
 

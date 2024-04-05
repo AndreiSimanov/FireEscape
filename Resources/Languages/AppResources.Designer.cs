@@ -169,6 +169,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Копия.
+        /// </summary>
+        internal static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно скопировать протокол.
+        /// </summary>
+        internal static string CopyProtocolError {
+            get {
+                return ResourceManager.GetString("CopyProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно создать файл отчета.
         /// </summary>
         internal static string CreateReportError {

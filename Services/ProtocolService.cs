@@ -17,8 +17,13 @@ namespace FireEscape.Services
         {
             var protocol = await protocolRepository.CreateProtocolAsync();
             return protocol;
-        } 
- 
+        }
+
+        public async Task<Protocol> CopyProtocolAsync(Protocol protocol)
+        {
+            return await protocolRepository.CopyProtocolAsync(protocol);
+        }
+
         public async Task SaveProtocolAsync(Protocol protocol)
         {
             await protocolRepository.SaveProtocolAsync(protocol);

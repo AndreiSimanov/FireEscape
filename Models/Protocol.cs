@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace FireEscape.Models
 {
-    public partial class Protocol : ObservableObject
+    public partial class Protocol : ObservableObject, ICloneable
     {
         public const string NO_PHOTO = "nophoto.svg";
 
@@ -17,7 +17,7 @@ namespace FireEscape.Models
         [NotifyPropertyChangedFor(nameof(HasImage))]
         string? image;
         [ObservableProperty]
-        uint protocolNum;
+        int protocolNum;
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FullAddress))]
         string location = string.Empty;
@@ -27,7 +27,7 @@ namespace FireEscape.Models
         [NotifyPropertyChangedFor(nameof(FullAddress))]
         string address = string.Empty;
         [ObservableProperty]
-        uint fireEscapeNum;
+        int fireEscapeNum;
         [ObservableProperty]
         string details = string.Empty;
         [ObservableProperty]
@@ -46,5 +46,10 @@ namespace FireEscape.Models
         public string FullAddress => Location + ", " + Address;
         [JsonIgnore]
         public bool HasImage => !string.IsNullOrWhiteSpace(Image) && !string.Equals(Image, NO_PHOTO) && File.Exists(Image);
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

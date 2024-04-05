@@ -14,7 +14,6 @@ namespace FireEscape.Reports.ReportWriters
             if (string.IsNullOrWhiteSpace(filePath))
                 throw new ArgumentNullException(nameof(filePath));
 
-
             var fontFilePath = await AddFontIfNotExisit(Path.GetDirectoryName(filePath)!, fontName);
             var pdf = new PdfDocument(new PdfWriter(filePath));
             var document = new Document(pdf);

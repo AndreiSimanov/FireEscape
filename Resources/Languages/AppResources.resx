@@ -333,4 +333,10 @@
   <data name="Serviceability" xml:space="preserve">
     <value>Соотв. ГОСТ</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Копия</value>
+  </data>
+  <data name="CopyProtocolError" xml:space="preserve">
+    <value>Невозможно скопировать протокол</value>
+  </data>
 </root>

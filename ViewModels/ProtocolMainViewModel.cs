@@ -87,6 +87,21 @@ namespace FireEscape.ViewModels
         }
 
         [RelayCommand]
+        async Task CopyProtocolAsync(Protocol protocol)
+        {
+            Protocol? newProtocol = null;
+            await DoCommandAsync(async () =>
+            {
+                newProtocol = await protocolService.CopyProtocolAsync(protocol);
+                Protocols.Insert(0, newProtocol);
+            },
+            AppResources.CopyProtocolError);
+
+            if (newProtocol != null)
+                await GoToDetailsAsync(newProtocol);
+        }
+
+        [RelayCommand]
         async Task DeleteProtocolAsync(Protocol protocol)
         {
             await DoCommandAsync(async () =>
