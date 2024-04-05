@@ -3,20 +3,22 @@
     public class ProtocolReportDataProvider
     {
         Protocol protocol;
+        Models.FireEscape fireEscape;
         ServiceabilityLimits? serviceabilityLimits;
         UserAccount userAccount;
 
         public ProtocolReportDataProvider(Protocol protocol, ServiceabilityLimits? serviceabilityLimits, UserAccount userAccount)
         {
             this.protocol = protocol;
+            fireEscape = protocol.FireEscape;
             this.serviceabilityLimits = serviceabilityLimits;
             this.userAccount = userAccount;
         }
 
         public int ProtocolNum => protocol.ProtocolNum;
-        public string FireEscapeTypeDescription => protocol.FireEscape.IsEvacuation
+        public string FireEscapeTypeDescription => fireEscape.IsEvacuation
             ? "испытания пожарной эвакуационной лестницы"
-            : protocol.FireEscape.FireEscapeType.StairsType == StairsTypeEnum.P2
+            : fireEscape.FireEscapeType.StairsType == StairsTypeEnum.P2
                 ? "испытания пожарной маршевой лестницы"
                 : "испытания пожарной лестницы";
 
@@ -24,27 +26,27 @@
 
         public string ProtocolDate => string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate);
 
-        public string FireEscapeType => protocol.FireEscape.FireEscapeType.BaseStairsType == BaseStairsTypeEnum.P2
+        public string FireEscapeType => fireEscape.FireEscapeType.StairsType == StairsTypeEnum.P2
             ? "маршевая лестница тип П2"
-            : protocol.FireEscape.FireEscapeType.Name;
+            : fireEscape.FireEscapeType.Name;
 
-        public string FireEscapeMountType => protocol.FireEscape.FireEscapeMountType;
+        public string FireEscapeMountType => fireEscape.FireEscapeMountType;
 
         public string FireEscapeObject => protocol.FireEscapeObject;
         public string FullAddress => protocol.FullAddress;
         public int FireEscapeNum => protocol.FireEscapeNum;
 
-        public float? StairHeight => protocol.FireEscape.StairHeight.Value;
-        public int? StairWidth => protocol.FireEscape.StairWidth.Value;
+        public float? StairHeight => fireEscape.StairHeight.Value;
+        public int? StairWidth => fireEscape.StairWidth.Value;
 
-        public int? StepsCount => protocol.FireEscape.StepsCount;
+        public int? StepsCount => fireEscape.StepsCount;
 
-        public string TestEquipment => protocol.FireEscape.FireEscapeType.BaseStairsType == BaseStairsTypeEnum.P2
+        public string TestEquipment => fireEscape.FireEscapeType.StairsType == StairsTypeEnum.P2
             ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
             : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.";
 
-        public string WeldSeamServiceability => protocol.FireEscape.WeldSeamServiceability ? "соответствует" : "не соответствует";
-        public string ProtectiveServiceability => protocol.FireEscape.ProtectiveServiceability ? "соответствует" : "не соответствует";
+        public string WeldSeamServiceability => fireEscape.WeldSeamServiceability ? "соответствует" : "не соответствует";
+        public string ProtectiveServiceability => fireEscape.ProtectiveServiceability ? "соответствует" : "не соответствует";
 
         public string Image => protocol.HasImage ? protocol.Image! : string.Empty;
 
@@ -57,8 +59,6 @@
         public List<string> GetSummary()
         {
             var summary = new List<string>();
-            var fireEscape = protocol.FireEscape;
-
             if (!fireEscape.WeldSeamServiceability)
                 summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
             if (!fireEscape.ProtectiveServiceability)
@@ -76,8 +76,6 @@
                 item => item < serviceabilityLimits.MinStairWidth,
                 $"ширина лестницы не менее {serviceabilityLimits.MinStairWidth}мм" + " ({0}мм)",
                 "ширина лестницы не соответствует ГОСТ");
-
-
             return summary;
         }
 

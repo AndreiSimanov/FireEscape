@@ -1,11 +1,8 @@
-﻿using System.Text.Json.Serialization;
-
-namespace FireEscape.Models
+﻿namespace FireEscape.Models
 {
     public partial class FireEscape : ObservableObject
     {
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(CurrentFireEscape))]
         FireEscapeType fireEscapeType;
         [ObservableProperty]
         bool isEvacuation;
@@ -28,10 +25,5 @@ namespace FireEscape.Models
         bool weldSeamServiceability;
         [ObservableProperty]
         bool protectiveServiceability;
-        [ObservableProperty]
-        List<BaseFireEscape> fireEscapes = new();
-
-        [JsonIgnore]
-        public BaseFireEscape? CurrentFireEscape => FireEscapes?.FirstOrDefault(item => item.BaseStairsType == FireEscapeType.BaseStairsType);
     }
 }
