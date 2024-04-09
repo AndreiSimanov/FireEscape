@@ -37,7 +37,7 @@ namespace FireEscape.Models
         [NotifyPropertyChangedFor(nameof(FireEscapeObjectName))]
         string customer = string.Empty;
         [ObservableProperty]
-        FireEscape fireEscape = new();
+        Stairs stairs = new();
         [JsonIgnore]
         public string FireEscapeObjectName => string.IsNullOrWhiteSpace(FireEscapeObject)
             ? string.IsNullOrWhiteSpace(Customer) ? AppResources.FireEscape : Customer

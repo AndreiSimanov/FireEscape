@@ -7,11 +7,11 @@ namespace FireEscape.Repositories
     public class PdfWriterRepository : IReportRepository
     {
         readonly ApplicationSettings applicationSettings;
-        readonly FireEscapeSettings fireEscapeSettings;
-        public PdfWriterRepository(IOptions<ApplicationSettings> applicationSettings, IOptions<FireEscapeSettings> fireEscapeSettings) 
+        readonly StairsSettings stairsSettings;
+        public PdfWriterRepository(IOptions<ApplicationSettings> applicationSettings, IOptions<StairsSettings> stairsSettings) 
         {
             this.applicationSettings = applicationSettings.Value;
-            this.fireEscapeSettings = fireEscapeSettings.Value;
+            this.stairsSettings = stairsSettings.Value;
         }
 
         public async Task<string> CreateReportAsync(Protocol protocol, UserAccount userAccount, string fileName)
@@ -20,9 +20,9 @@ namespace FireEscape.Repositories
                 throw new ArgumentNullException(nameof(fileName));
             fileName = fileName + ".pdf";
 
-            var serviceabilityLimits = fireEscapeSettings.ServiceabilityLimits!.FirstOrDefault(item =>
-                item.StairsType == protocol.FireEscape.FireEscapeType.StairsType &&
-                item.IsEvacuation == protocol.FireEscape.IsEvacuation);
+            var serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
+                item.StairsType == protocol.Stairs.StairsType.Type &&
+                item.IsEvacuation == protocol.Stairs.IsEvacuation);
 
             var protocolRdp = new ProtocolReportDataProvider(protocol, serviceabilityLimits, userAccount);
 

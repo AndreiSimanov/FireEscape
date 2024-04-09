@@ -21,10 +21,10 @@ namespace FireEscape.Reports.ReportMakers
             var document = await PdfReportWriter.GetPdfDocument(filePath);
             try
             {
-                MakePdfHeader(document, protocolRdp);
-                MakePdfFireEscapeOverview(document, protocolRdp);
-                MakePdfImage(document, protocolRdp);
-                MakePdfFooter(document, protocolRdp);
+                MakeHeader(document, protocolRdp);
+                MakeOverview(document, protocolRdp);
+                MakeImage(document, protocolRdp);
+                MakeFooter(document, protocolRdp);
             }
             finally
             {
@@ -33,7 +33,7 @@ namespace FireEscape.Reports.ReportMakers
             return filePath;
         }
 
-        private static void MakePdfHeader(Document document, ProtocolReportDataProvider protocolRdp)
+        private static void MakeHeader(Document document, ProtocolReportDataProvider protocolRdp)
         {
             document.Add(new Paragraph("ПРОТОКОЛ № " + protocolRdp.ProtocolNum)
                 .SetFixedLeading(5)
@@ -41,7 +41,7 @@ namespace FireEscape.Reports.ReportMakers
                 .SetBold()
                 .SetFirstLineIndent(0));
 
-            document.Add(new Paragraph(protocolRdp.FireEscapeTypeDescription)
+            document.Add(new Paragraph(protocolRdp.StairsTypeDescription)
                 .SetFixedLeading(5)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetBold());
@@ -69,14 +69,14 @@ namespace FireEscape.Reports.ReportMakers
 
             document.Add(new Paragraph(" "));
         }
-        private static void MakePdfFireEscapeOverview(Document document, ProtocolReportDataProvider protocolRdp)
+        private static void MakeOverview(Document document, ProtocolReportDataProvider protocolRdp)
         {
             document.Add(new Paragraph()
                 .SetFixedLeading(12)
                 .AddAll(new[]{
                     new Text("Характеристика объекта: ").SetBold(),
-                    new Text(protocolRdp.FireEscapeType + ", "),
-                    new Text(protocolRdp.FireEscapeMountType + " "),
+                    new Text(protocolRdp.StairsType + ", "),
+                    new Text(protocolRdp.StairsMountType + " "),
                     new Text(protocolRdp.FireEscapeObject).SetBold()})
             );
 
@@ -94,14 +94,14 @@ namespace FireEscape.Reports.ReportMakers
                 .SetFixedLeading(8)
                 .AddAll(new[] {
                     new Text("Высота лестницы: ").SetBold(),
-                    new Text(protocolRdp.StairHeight.ToString()).SetBold().SetUnderline(),
+                    new Text(protocolRdp.StairsHeight.ToString()).SetBold().SetUnderline(),
                     new Text(" м.")}));
 
             document.Add(new Paragraph()
                 .SetFixedLeading(8)
                 .AddAll(new[] {
                     new Text("Ширина лестницы: ").SetBold(),
-                    new Text(protocolRdp.StairWidth.ToString()).SetBold().SetUnderline(),
+                    new Text(protocolRdp.StairsWidth.ToString()).SetBold().SetUnderline(),
                     new Text(" мм.")}));
 
             document.Add(new Paragraph()
@@ -137,7 +137,7 @@ namespace FireEscape.Reports.ReportMakers
 
         }
 
-        private static void MakePdfImage(Document document, ProtocolReportDataProvider protocolRdp)
+        private static void MakeImage(Document document, ProtocolReportDataProvider protocolRdp)
         {
             if (string.IsNullOrWhiteSpace(protocolRdp.Image))
                 return;
@@ -153,7 +153,7 @@ namespace FireEscape.Reports.ReportMakers
             document.Add(new Paragraph(" "));
         }
 
-        private static void MakePdfFooter(Document document, ProtocolReportDataProvider protocolRdp)
+        private static void MakeFooter(Document document, ProtocolReportDataProvider protocolRdp)
         {
             document.SetFontSize(10);
 

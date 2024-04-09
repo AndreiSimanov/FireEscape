@@ -9,15 +9,15 @@ namespace FireEscape.Repositories
     {
         readonly ApplicationSettings applicationSettings;
         readonly NewProtocolSettings newProtocolSettings;
-        readonly FireEscapeSettings fireEscapeSettings;
+        readonly StairsSettings stairsSettings;
 
         public LocalFileRepository(IOptions<ApplicationSettings> applicationSettings, 
             IOptions<NewProtocolSettings> newProtocolSettings,
-            IOptions<FireEscapeSettings> fireEscapeSettings)
+            IOptions<StairsSettings> stairsSettings)
         {
             this.applicationSettings = applicationSettings.Value;
             this.newProtocolSettings = newProtocolSettings.Value;
-            this.fireEscapeSettings = fireEscapeSettings.Value;
+            this.stairsSettings = stairsSettings.Value;
         }
 
         public async Task<Protocol> CreateProtocolAsync()
@@ -33,7 +33,7 @@ namespace FireEscape.Repositories
             newProtocol.Id = null;
             newProtocol.Image = Protocol.NO_PHOTO;
             newProtocol.FireEscapeNum = newProtocol.FireEscapeNum + 1;
-            newProtocol.FireEscape = CreateDefaultFireEscape();
+            newProtocol.Stairs = CreateDefaultStairs();
             newProtocol.Created = DateTime.Now;
             await SaveProtocolAsync(newProtocol);
             return newProtocol;
@@ -139,19 +139,19 @@ namespace FireEscape.Repositories
                 Location = newProtocolSettings.Location,
                 ProtocolDate = DateTime.Today,
                 FireEscapeNum = newProtocolSettings.FireEscapeNum,
-                FireEscape = CreateDefaultFireEscape(),
+                Stairs = CreateDefaultStairs(),
                 Created = DateTime.Now
             };
         }
 
-        private Models.FireEscape CreateDefaultFireEscape()
+        private Stairs CreateDefaultStairs()
         {
-            return new Models.FireEscape()
+            return new Stairs()
             {
-                StairHeight = new ServiceabilityProperty<float?>() { Serviceability = fireEscapeSettings.ServiceabilityTypes![0] },
-                StairWidth = new ServiceabilityProperty<int?>() { Serviceability = fireEscapeSettings.ServiceabilityTypes![0] },
-                FireEscapeType = fireEscapeSettings.FireEscapeTypes![0],
-                FireEscapeMountType = fireEscapeSettings.FireEscapeMountTypes![0]
+                StairsHeight = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
+                StairsWidth = new ServiceabilityProperty<int?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
+                StairsType = stairsSettings.StairsTypes![0],
+                StairsMountType = stairsSettings.StairsMountTypes![0]
             };
         }
     }

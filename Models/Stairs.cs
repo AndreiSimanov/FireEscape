@@ -1,17 +1,17 @@
 ﻿namespace FireEscape.Models
 {
-    public partial class FireEscape : ObservableObject
+    public partial class Stairs : ObservableObject
     {
         [ObservableProperty]
-        FireEscapeType fireEscapeType;
+        StairsType stairsType;
         [ObservableProperty]
         bool isEvacuation;
         [ObservableProperty]
-        string fireEscapeMountType = string.Empty;
+        string stairsMountType = string.Empty;
         [ObservableProperty]
-        ServiceabilityProperty<float?> stairHeight = new();
+        ServiceabilityProperty<float?> stairsHeight = new();
         [ObservableProperty]
-        ServiceabilityProperty<int?> stairWidth = new();
+        ServiceabilityProperty<int?> stairsWidth = new();
         [ObservableProperty]
         int? stepsCount;
         /*
@@ -20,7 +20,6 @@
         [ObservableProperty]
         ServiceabilityProperty<int?> stepWidth = new();
         */
-
         [ObservableProperty]
         bool weldSeamServiceability;
         [ObservableProperty]

@@ -67,7 +67,7 @@
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" >
                 <dx:DXButton 
-                    Content="{x:Static lang:AppResources.FireEscapePageTitle}" 
+                    Content="{x:Static lang:AppResources.StairsPageTitle}" 
                     Command="{Binding GoToDetailsCommand}"
                     IsEnabled="{Binding IsNotBusy}"
                     Icon="edit" Margin="10,0,10,0" IconHeight="22" IconWidth="22"/>

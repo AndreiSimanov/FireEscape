@@ -5,7 +5,7 @@
         [ObservableProperty]
         T? value;
         [ObservableProperty]
-        Serviceability serviceability;
+        ServiceabilityType serviceability;
         [ObservableProperty]
         string rejectExplanation = string.Empty;
     }

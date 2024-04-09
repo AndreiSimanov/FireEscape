@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FireEscape.Views.FireEscapePage"
+             x:Class="FireEscape.Views.StairsPage"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
@@ -9,62 +9,62 @@
              xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
-             Title="{x:Static lang:AppResources.FireEscapePageTitle}"
+             Title="{x:Static lang:AppResources.StairsPageTitle}"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:DataType="viewmodel:FireEscapeViewModel">
+             x:DataType="viewmodel:StairsViewModel">
 
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
 
         <VerticalStackLayout>
             <dxe:ComboBoxEdit
                 Style="{StaticResource DefaultComboBoxEdit}"
-                LabelText="{x:Static lang:AppResources.FireEscapeTypesHint}"
-                SelectedItem="{Binding FireEscape.FireEscapeType}"
-                ItemsSource="{Binding FireEscapeSettings.FireEscapeTypes}"/>
+                LabelText="{x:Static lang:AppResources.StairsTypesHint}"
+                SelectedItem="{Binding Stairs.StairsType}"
+                ItemsSource="{Binding StairsSettings.StairsTypes}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding FireEscape.IsEvacuation}"
+                IsChecked="{Binding Stairs.IsEvacuation}"
                 Label="{x:Static lang:AppResources.EscapeStairs}"/>
 
             <dxe:ComboBoxEdit
                 Style="{StaticResource DefaultComboBoxEdit}"
-                LabelText="{x:Static lang:AppResources.FireEscapeMountTypesHint}"
-                SelectedItem="{Binding FireEscape.FireEscapeMountType}"
-                ItemsSource="{Binding FireEscapeSettings.FireEscapeMountTypes}"/>
+                LabelText="{x:Static lang:AppResources.StairsMountTypesHint}"
+                SelectedItem="{Binding Stairs.StairsMountType}"
+                ItemsSource="{Binding StairsSettings.StairsMountTypes}"/>
 
             <ctrl:ServiceabilityControl
                 MaxValue="100"
                 MaxDecimalDigitCount="2"
-                PlaceholderText ="{x:Static lang:AppResources.StairHeightHint}"
-                LabelText ="{x:Static lang:AppResources.StairHeight}"
-                Value="{Binding FireEscape.StairHeight.Value}"
-                Serviceability ="{Binding FireEscape.StairHeight.Serviceability}"
-                ServiceabilityTypes ="{Binding FireEscapeSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding FireEscape.StairHeight.RejectExplanation}"/>
+                PlaceholderText ="{x:Static lang:AppResources.StairsHeightHint}"
+                LabelText ="{x:Static lang:AppResources.StairsHeight}"
+                Value="{Binding Stairs.StairsHeight.Value}"
+                Serviceability ="{Binding Stairs.StairsHeight.Serviceability}"
+                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
+                RejectExplanationText ="{Binding Stairs.StairsHeight.RejectExplanation}"/>
 
             <ctrl:ServiceabilityControl
-                PlaceholderText ="{x:Static lang:AppResources.StairWidthHint}"
-                LabelText ="{x:Static lang:AppResources.StairWidth}"
-                Value="{Binding FireEscape.StairWidth.Value}"
-                Serviceability ="{Binding FireEscape.StairWidth.Serviceability}"
-                ServiceabilityTypes ="{Binding FireEscapeSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding FireEscape.StairWidth.RejectExplanation}"/>
+                PlaceholderText ="{x:Static lang:AppResources.StairsWidthHint}"
+                LabelText ="{x:Static lang:AppResources.StairsWidth}"
+                Value="{Binding Stairs.StairsWidth.Value}"
+                Serviceability ="{Binding Stairs.StairsWidth.Serviceability}"
+                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
+                RejectExplanationText ="{Binding Stairs.StairsWidth.RejectExplanation}"/>
 
             <dxe:NumericEdit
                 Style="{StaticResource DefaultNumericEdit}"
-                Value="{Binding FireEscape.StepsCount}"
+                Value="{Binding Stairs.StepsCount}"
                 PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"
                 LabelText="{x:Static lang:AppResources.StepsCount}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding FireEscape.WeldSeamServiceability}"
+                IsChecked="{Binding Stairs.WeldSeamServiceability}"
                 Label="{x:Static lang:AppResources.WeldSeamServiceability}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding FireEscape.ProtectiveServiceability}"
+                IsChecked="{Binding Stairs.ProtectiveServiceability}"
                 Label="{x:Static lang:AppResources.ProtectiveServiceability}"/>
         </VerticalStackLayout>
 

@@ -171,7 +171,7 @@
   <data name="DeleteUserAccountError" xml:space="preserve">
     <value>Unable to delete user account</value>
   </data>
-  <data name="EditFireEscapeError" xml:space="preserve">
+  <data name="EditStairsError" xml:space="preserve">
     <value>Unable to edit the fire escape properties</value>
   </data>
   <data name="EditProtocolError" xml:space="preserve">
@@ -189,7 +189,7 @@
   <data name="FireEscape" xml:space="preserve">
     <value>Fire escape</value>
   </data>
-  <data name="FireEscapeMountTypesHint" xml:space="preserve">
+  <data name="StairsMountTypesHint" xml:space="preserve">
     <value>Specify fire escape mount type</value>
   </data>
   <data name="FireEscapeNum" xml:space="preserve">
@@ -201,10 +201,10 @@
   <data name="FireEscapeObjectHint" xml:space="preserve">
     <value>Specify fire escape object name</value>
   </data>
-  <data name="FireEscapePageTitle" xml:space="preserve">
+  <data name="StairsPageTitle" xml:space="preserve">
     <value>Fire escape properties</value>
   </data>
-  <data name="FireEscapeTypesHint" xml:space="preserve">
+  <data name="StairsTypesHint" xml:space="preserve">
     <value>Specify fire escape type</value>
   </data>
   <data name="GetProtocolsError" xml:space="preserve">
@@ -291,16 +291,16 @@
   <data name="ProtectiveServiceability" xml:space="preserve">
     <value>Protective coating quality corresponds to GOST</value>
   </data>
-  <data name="StairHeight" xml:space="preserve">
+  <data name="StairsHeight" xml:space="preserve">
     <value>Stair height (m)</value>
   </data>
-  <data name="StairHeightHint" xml:space="preserve">
+  <data name="StairsHeightHint" xml:space="preserve">
     <value>Specify stair height (m)</value>
   </data>
-  <data name="StairWidth" xml:space="preserve">
+  <data name="StairsWidth" xml:space="preserve">
     <value>Stair width (mm)</value>
   </data>
-  <data name="StairWidthHint" xml:space="preserve">
+  <data name="StairsWidthHint" xml:space="preserve">
     <value>Specify stair width (mm)</value>
   </data>
   <data name="StepsCount" xml:space="preserve">

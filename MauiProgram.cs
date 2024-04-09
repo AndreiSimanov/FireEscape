@@ -51,8 +51,8 @@ namespace FireEscape
             builder.Services.AddTransient<ProtocolViewModel>();
             builder.Services.AddTransient<ProtocolPage>();
 
-            builder.Services.AddTransient<FireEscapeViewModel>();
-            builder.Services.AddTransient<FireEscapePage>();
+            builder.Services.AddTransient<StairsViewModel>();
+            builder.Services.AddTransient<StairsPage>();
 
             return builder.Build();
         }

@@ -10,7 +10,7 @@
 
     <ShellContent  Title="{x:Static lang:AppResources.ProtocolMainPageTitle}" ContentTemplate="{DataTemplate local:ProtocolMainPage}" Route="ProtocolMainPage" />
     <ShellContent Title="{x:Static lang:AppResources.ProtocolPageTitle}" ContentTemplate="{DataTemplate local:ProtocolPage}" Route="ProtocolPage" />
-    <ShellContent Title="{x:Static lang:AppResources.FireEscapePageTitle}" ContentTemplate="{DataTemplate local:FireEscapePage}" Route="FireEscapePage" />
+    <ShellContent Title="{x:Static lang:AppResources.StairsPageTitle}" ContentTemplate="{DataTemplate local:StairsPage}" Route="StairsPage" />
     <ShellContent Title="{x:Static lang:AppResources.UserAccountMainPageTitle}" ContentTemplate="{DataTemplate local:UserAccountMainPage}" Route="UserAccountMainPage" />
     <ShellContent Title="{x:Static lang:AppResources.UserAccountPageTitle}" ContentTemplate="{DataTemplate local:UserAccountPage}" Route="UserAccountPage" />
 </Shell>

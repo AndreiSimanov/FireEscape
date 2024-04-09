@@ -1,16 +1,16 @@
 ﻿namespace FireEscape.Models
 {
-    public enum StairsTypeEnum
+    public enum ServiceabilityTypeEnum
     {
-        P1_1,
-        P1_2,
-        P2
+        Auto,
+        Approve,
+        Reject
     }
 
-    public struct FireEscapeType()
+    public struct ServiceabilityType
     {
         public required string Name { get; set; }
-        public required StairsTypeEnum StairsType { get; set; }
+        public required ServiceabilityTypeEnum Type { get; set; }
         public override string ToString()
         {
             return Name;

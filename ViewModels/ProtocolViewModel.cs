@@ -53,10 +53,10 @@ namespace FireEscape.ViewModels
         {
             await DoCommandAsync(async () =>
             {
-                await Shell.Current.GoToAsync(nameof(FireEscapePage), true, new Dictionary<string, object> { { nameof(FireEscape), Protocol!.FireEscape } });
+                await Shell.Current.GoToAsync(nameof(StairsPage), true, new Dictionary<string, object> { { nameof(Stairs), Protocol!.Stairs } });
             },
             Protocol!,
-            AppResources.EditFireEscapeError);
+            AppResources.EditStairsError);
         }
     }
 }

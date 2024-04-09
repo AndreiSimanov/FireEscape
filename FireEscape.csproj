@@ -96,6 +96,9 @@
 	  <Compile Update="Views\Controls\ServiceabilityControl.xaml.cs">
 	    <DependentUpon>ServiceabilityControl.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\StairsPage.xaml.cs">
+	    <DependentUpon>StairsPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ProtocolMainPage.xaml.cs">
 	    <DependentUpon>ProtocolMainPage.xaml</DependentUpon>
 	  </Compile>
@@ -118,7 +121,7 @@
 	  <MauiXaml Update="Views\Controls\ServiceabilityControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\FireEscapePage.xaml">
+	  <MauiXaml Update="Views\StairsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ProtocolPage.xaml">

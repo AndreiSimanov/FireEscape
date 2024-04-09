@@ -32,7 +32,7 @@
             ItemsSource="{Binding ServiceabilityTypes}"/>
 
         <dxe:MultilineEdit
-            IsVisible="{Binding Serviceability.ServiceabilityType, Converter={StaticResource ServiceabilityConverter}, ConverterParameter={x:Static model:ServiceabilityTypeEnum.Reject}}"
+            IsVisible="{Binding Serviceability.Type, Converter={StaticResource ServiceabilityConverter}, ConverterParameter={x:Static model:ServiceabilityTypeEnum.Reject}}"
             Grid.Row="1" Grid.ColumnSpan="2"
             Text="{Binding RejectExplanationText}"
             PlaceholderText="{x:Static lang:AppResources.RejectExplanationHint}"

@@ -3,22 +3,22 @@
     public class ProtocolReportDataProvider
     {
         Protocol protocol;
-        Models.FireEscape fireEscape;
+        Stairs stairs;
         ServiceabilityLimits? serviceabilityLimits;
         UserAccount userAccount;
 
         public ProtocolReportDataProvider(Protocol protocol, ServiceabilityLimits? serviceabilityLimits, UserAccount userAccount)
         {
             this.protocol = protocol;
-            fireEscape = protocol.FireEscape;
+            stairs = protocol.Stairs;
             this.serviceabilityLimits = serviceabilityLimits;
             this.userAccount = userAccount;
         }
 
         public int ProtocolNum => protocol.ProtocolNum;
-        public string FireEscapeTypeDescription => fireEscape.IsEvacuation
+        public string StairsTypeDescription => stairs.IsEvacuation
             ? "испытания пожарной эвакуационной лестницы"
-            : fireEscape.FireEscapeType.StairsType == StairsTypeEnum.P2
+            : stairs.StairsType.Type == StairsTypeEnum.P2
                 ? "испытания пожарной маршевой лестницы"
                 : "испытания пожарной лестницы";
 
@@ -26,27 +26,27 @@
 
         public string ProtocolDate => string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate);
 
-        public string FireEscapeType => fireEscape.FireEscapeType.StairsType == StairsTypeEnum.P2
+        public string StairsType => stairs.StairsType.Type == StairsTypeEnum.P2
             ? "маршевая лестница тип П2"
-            : fireEscape.FireEscapeType.Name;
+            : stairs.StairsType.Name;
 
-        public string FireEscapeMountType => fireEscape.FireEscapeMountType;
+        public string StairsMountType => stairs.StairsMountType;
 
         public string FireEscapeObject => protocol.FireEscapeObject;
         public string FullAddress => protocol.FullAddress;
         public int FireEscapeNum => protocol.FireEscapeNum;
 
-        public float? StairHeight => fireEscape.StairHeight.Value;
-        public int? StairWidth => fireEscape.StairWidth.Value;
+        public float StairsHeight => stairs.StairsHeight.Value?? 0f;
+        public int StairsWidth => stairs.StairsWidth.Value?? 0;
 
-        public int? StepsCount => fireEscape.StepsCount;
+        public int StepsCount => stairs.StepsCount?? 0;
 
-        public string TestEquipment => fireEscape.FireEscapeType.StairsType == StairsTypeEnum.P2
+        public string TestEquipment => stairs.StairsType.Type == StairsTypeEnum.P2
             ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
             : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.";
 
-        public string WeldSeamServiceability => fireEscape.WeldSeamServiceability ? "соответствует" : "не соответствует";
-        public string ProtectiveServiceability => fireEscape.ProtectiveServiceability ? "соответствует" : "не соответствует";
+        public string WeldSeamServiceability => stairs.WeldSeamServiceability ? "соответствует" : "не соответствует";
+        public string ProtectiveServiceability => stairs.ProtectiveServiceability ? "соответствует" : "не соответствует";
 
         public string Image => protocol.HasImage ? protocol.Image! : string.Empty;
 
@@ -59,22 +59,22 @@
         public List<string> GetSummary()
         {
             var summary = new List<string>();
-            if (!fireEscape.WeldSeamServiceability)
+            if (!stairs.WeldSeamServiceability)
                 summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
-            if (!fireEscape.ProtectiveServiceability)
+            if (!stairs.ProtectiveServiceability)
                 summary.Add("конструкция не окрашена (ГОСТ 9.032)");
 
             if (serviceabilityLimits == null)
                 return summary;
 
-            CheckServiceability(summary, fireEscape.StairHeight,
-                item => item > serviceabilityLimits.MaxStairHeight && serviceabilityLimits.MaxStairHeight > 0,
-                $"высота лестницы не более {serviceabilityLimits.MaxStairHeight}м" + " ({0}м)",
+            CheckServiceability(summary, stairs.StairsHeight,
+                item => (item?? 0f) > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
+                $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м" + " ({0}м)",
                 "высота лестницы не соответствует ГОСТ");
 
-            CheckServiceability(summary, fireEscape.StairWidth,
-                item => item < serviceabilityLimits.MinStairWidth,
-                $"ширина лестницы не менее {serviceabilityLimits.MinStairWidth}мм" + " ({0}мм)",
+            CheckServiceability(summary, stairs.StairsWidth,
+                item => (item ?? 0) < serviceabilityLimits.MinStairsWidth,
+                $"ширина лестницы не менее {serviceabilityLimits.MinStairsWidth}мм" + " ({0}мм)",
                 "ширина лестницы не соответствует ГОСТ");
             return summary;
         }
@@ -82,7 +82,7 @@
         private static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
             Predicate<T?> predicate, string rejectExplanation, string defaultExplanation)
         {
-            var serviceabilityType = serviceabilityProperty.Serviceability.ServiceabilityType;
+            var serviceabilityType = serviceabilityProperty.Serviceability.Type;
 
             if (serviceabilityType == ServiceabilityTypeEnum.Approve)
                 return;
@@ -95,7 +95,7 @@
 
             if (predicate != null && predicate(serviceabilityProperty.Value))
             {
-                summary.Add(string.Format(rejectExplanation, serviceabilityProperty.Value));
+                summary.Add(string.Format(rejectExplanation, serviceabilityProperty.Value == null ? "0" : serviceabilityProperty.Value));
                 return;
             }
 
