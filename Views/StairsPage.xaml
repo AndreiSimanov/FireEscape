@@ -4,11 +4,13 @@
              x:Class="FireEscape.Views.StairsPage"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              xmlns:model="clr-namespace:FireEscape.Models"
+             xmlns:stairsmodel="clr-namespace:FireEscape.Models.StairsElements"
              xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
              xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
              Title="{x:Static lang:AppResources.StairsPageTitle}"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="viewmodel:StairsViewModel">
@@ -17,6 +19,7 @@
 
         <VerticalStackLayout>
             <dxe:ComboBoxEdit
+                SelectionChanged="StairsTypeChanged"
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.StairsTypesHint}"
                 SelectedItem="{Binding Stairs.StairsType}"
@@ -66,7 +69,64 @@
                 Style="{StaticResource DefaultCheckEdit}"
                 IsChecked="{Binding Stairs.ProtectiveServiceability}"
                 Label="{x:Static lang:AppResources.ProtectiveServiceability}"/>
-        </VerticalStackLayout>
 
+            <dxe:FormGroupItem Header="Элементы лестницы" HeightRequest="38" Margin="0,0,80,0" />
+            <dx:DXButton 
+                x:Name="addButton"
+                IsEnabled="{Binding IsNotBusy}"
+                VerticalOptions="End" HorizontalOptions="End" Margin="0,-40,5,0" Content="+"
+                WidthRequest="56" HeightRequest="56" Padding="0"
+                FontSize="28" CornerRadius="14" FontAttributes="None"
+                Clicked="AddStairsElement">
+                <dx:DXButton.Shadow>
+                    <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
+                </dx:DXButton.Shadow>
+            </dx:DXButton>
+
+            <dxcv:DXCollectionView 
+                x:Name="stairsElements"
+                ItemsSource="{Binding Stairs.StairsElements}"
+                AllowLiveDataShaping="True"
+                SelectionMode="Single"
+                ItemSeparatorThickness="0"
+                UseRippleEffect="true">
+                
+                <dxcv:DXCollectionView.SortDescriptions>
+                    <dxcv:SortDescription FieldName="Order" SortOrder="Ascending" />
+                    <dxcv:SortDescription FieldName="Name" SortOrder="Ascending" />
+                </dxcv:DXCollectionView.SortDescriptions>
+                
+                <dxcv:DXCollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="stairsmodel:BaseStairsElement">
+                        <dxcv:SwipeContainer>
+                            <dxcv:SwipeContainer.EndSwipeItems>
+                                <dxcv:SwipeItem 
+                                BackgroundColor="#D74F67"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=DeleteElementCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="{x:Static lang:AppResources.Delete}"
+                                Image="delete"/>
+                            </dxcv:SwipeContainer.EndSwipeItems>
+                            <dxcv:SwipeContainer.ItemView>
+                                <Grid Padding="10" HorizontalOptions="Fill">
+                                    <Frame HeightRequest="160" Style="{StaticResource CardView}">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=GoToDetailsCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+                                        <VerticalStackLayout Spacing="2" >
+                                            <Label Style="{StaticResource Titleline}" Text="{Binding Name}"/>
+
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </Grid>
+                            </dxcv:SwipeContainer.ItemView>
+                        </dxcv:SwipeContainer>
+                    </DataTemplate>
+                </dxcv:DXCollectionView.ItemTemplate>
+            </dxcv:DXCollectionView>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

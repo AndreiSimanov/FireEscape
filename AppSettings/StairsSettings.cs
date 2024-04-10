@@ -6,5 +6,6 @@
         public StairsType[]? StairsTypes { get; set; }
         public ServiceabilityType[]? ServiceabilityTypes { get; set; }
         public ServiceabilityLimits[]? ServiceabilityLimits { get; set; }
+        public StairsElementSettings[]? StairsElementSettings { get; set; }
     }
 }

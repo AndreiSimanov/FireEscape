@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Dropbox.Api.Users;
+using Microsoft.Extensions.Options;
 using Simusr2.Maui.DeviceIdentifier;
 using System.Text.Json;
 
@@ -22,6 +23,12 @@ namespace FireEscape.Services
 
         public async Task<UserAccount?> GetCurrentUserAccount(bool download = false)
         {
+#if DEBUG
+            return new UserAccount { IsAdmin = true, 
+                Name = "Debug User",  Company = "Debug Company",  
+                Signature = "Debug User", Id = "debugUser", ExpirationCount = -1, ExpirationDate = DateTime.MaxValue};
+#endif
+
             UserAccount? userAccount = null;
             if (!download) 
             {

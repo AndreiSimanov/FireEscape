@@ -17,7 +17,7 @@
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
     <ContentPage.Resources>
-        <viewmodel:BoolToColorConverter x:Key="userAccountIsYouConverter" TrueSource="Green" FalseSource="Red"/>
+        <viewmodel:BoolToColorConverter x:Key="userAccountIsValidConverter" TrueSource="Green" FalseSource="Red"/>
      </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
@@ -76,7 +76,7 @@
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
                             <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="160" Style="{StaticResource CardView}" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource userAccountIsYouConverter}}">
+                                <Frame HeightRequest="160" Style="{StaticResource CardView}" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource userAccountIsValidConverter}}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"

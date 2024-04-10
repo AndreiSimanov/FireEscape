@@ -1,4 +1,6 @@
-﻿namespace FireEscape.Models
+﻿using System.Collections.ObjectModel;
+
+namespace FireEscape.Models
 {
     public partial class Stairs : ObservableObject
     {
@@ -24,5 +26,7 @@
         bool weldSeamServiceability;
         [ObservableProperty]
         bool protectiveServiceability;
+        [ObservableProperty]
+        ObservableCollection<BaseStairsElement> stairsElements = new();
     }
 }

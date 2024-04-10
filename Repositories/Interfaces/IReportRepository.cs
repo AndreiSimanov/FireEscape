@@ -1,6 +1,4 @@
-﻿using FireEscape.Reports.ReportDataProviders;
-
-namespace FireEscape.Repositories.Interfaces
+﻿namespace FireEscape.Repositories.Interfaces
 {
     public interface IReportRepository
     {

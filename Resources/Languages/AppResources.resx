@@ -339,4 +339,10 @@
   <data name="CopyProtocolError" xml:space="preserve">
     <value>Невозможно скопировать протокол</value>
   </data>
+  <data name="DeleteStairsElement" xml:space="preserve">
+    <value>Удалить элемент лестницы?</value>
+  </data>
+  <data name="DeleteStairsElementError" xml:space="preserve">
+    <value>Невозможно удалить элемент лестницы</value>
+  </data>
 </root>

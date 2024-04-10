@@ -2,9 +2,9 @@
 {
     public enum StairsTypeEnum
     {
-        P1_1,
-        P1_2,
-        P2
+        P1_1 = 1,
+        P1_2 = 1,
+        P2 = 2
     }
 
     public struct StairsType()

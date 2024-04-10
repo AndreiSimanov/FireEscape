@@ -1,5 +1,6 @@
 ﻿using FireEscape.Resources.Languages;
 using Microsoft.Extensions.Options;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -151,7 +152,15 @@ namespace FireEscape.Repositories
                 StairsHeight = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
                 StairsWidth = new ServiceabilityProperty<int?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
                 StairsType = stairsSettings.StairsTypes![0],
-                StairsMountType = stairsSettings.StairsMountTypes![0]
+                StairsMountType = stairsSettings.StairsMountTypes![0],
+                StairsElements = new ObservableCollection<BaseStairsElement> {
+                    new StepsP1(){ Order = 10}, 
+                    new SupportВeamsP1(){ Order = 20},
+                    new StepsP2(){ Order = 10},
+                    new FenceP2(){ Order = 20},
+                    new StairwayP2(){ Order = 30},
+                    new PlatformP2(){ Order = 40}
+                }
             };
         }
     }

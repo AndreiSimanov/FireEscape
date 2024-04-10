@@ -241,6 +241,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Удалить элемент лестницы?.
+        /// </summary>
+        internal static string DeleteStairsElement {
+            get {
+                return ResourceManager.GetString("DeleteStairsElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно удалить элемент лестницы.
+        /// </summary>
+        internal static string DeleteStairsElementError {
+            get {
+                return ResourceManager.GetString("DeleteStairsElementError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Удалить учетную запись?.
         /// </summary>
         internal static string DeleteUserAccount {
@@ -259,20 +277,20 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Невозможно отркдактировать параметры лестницы.
-        /// </summary>
-        internal static string EditStairsError {
-            get {
-                return ResourceManager.GetString("EditStairsError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Невозможно отредактировать протокол.
         /// </summary>
         internal static string EditProtocolError {
             get {
                 return ResourceManager.GetString("EditProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно отркдактировать параметры лестницы.
+        /// </summary>
+        internal static string EditStairsError {
+            get {
+                return ResourceManager.GetString("EditStairsError", resourceCulture);
             }
         }
         
@@ -331,15 +349,6 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите тип установки лестницы.
-        /// </summary>
-        internal static string StairsMountTypesHint {
-            get {
-                return ResourceManager.GetString("StairsMountTypesHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Номер испытуемого объекта.
         /// </summary>
         internal static string FireEscapeNum {
@@ -363,24 +372,6 @@ namespace FireEscape.Resources.Languages {
         internal static string FireEscapeObjectHint {
             get {
                 return ResourceManager.GetString("FireEscapeObjectHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Параметры лестницы.
-        /// </summary>
-        internal static string StairsPageTitle {
-            get {
-                return ResourceManager.GetString("StairsPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Укажите тип лестницы.
-        /// </summary>
-        internal static string StairsTypesHint {
-            get {
-                return ResourceManager.GetString("StairsTypesHint", resourceCulture);
             }
         }
         
@@ -588,6 +579,33 @@ namespace FireEscape.Resources.Languages {
         internal static string StairsHeightHint {
             get {
                 return ResourceManager.GetString("StairsHeightHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите тип установки лестницы.
+        /// </summary>
+        internal static string StairsMountTypesHint {
+            get {
+                return ResourceManager.GetString("StairsMountTypesHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Параметры лестницы.
+        /// </summary>
+        internal static string StairsPageTitle {
+            get {
+                return ResourceManager.GetString("StairsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите тип лестницы.
+        /// </summary>
+        internal static string StairsTypesHint {
+            get {
+                return ResourceManager.GetString("StairsTypesHint", resourceCulture);
             }
         }
         
