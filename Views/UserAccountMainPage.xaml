@@ -8,18 +8,14 @@
              xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
-             ios:Page.UseSafeArea="True"
-             x:Class="FireEscape.Views.UserAccountMainPage"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+             ios:Page.UseSafeArea="True"
+             x:Class="FireEscape.Views.UserAccountMainPage"
              Title="{x:Static lang:AppResources.UserAccountMainPageTitle}"
              x:DataType="viewmodel:UserAccountMainViewModel"
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
-    <ContentPage.Resources>
-        <viewmodel:BoolToColorConverter x:Key="userAccountIsValidConverter" TrueSource="Green" FalseSource="Red"/>
-     </ContentPage.Resources>
-
     <Grid RowDefinitions="Auto,*">
         <dxe:TextEdit
             EndIcon="search" PlaceholderText="{x:Static lang:AppResources.UserAccountsSearch}" TextFontSize="14"
@@ -76,7 +72,12 @@
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
                             <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="160" Style="{StaticResource CardView}" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource userAccountIsValidConverter}}">
+                                <Grid.Resources>
+                                    <ResourceDictionary>
+                                        <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="Green" FalseObject="Red" />
+                                    </ResourceDictionary>
+                                </Grid.Resources>
+                                <Frame HeightRequest="160" Style="{StaticResource CardView}" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"

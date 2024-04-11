@@ -7,6 +7,7 @@
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="FireEscape.Views.ProtocolPage"
              Title="{x:Static lang:AppResources.ProtocolPageTitle}"
              x:DataType="viewmodel:ProtocolViewModel"
@@ -15,6 +16,11 @@
         <Grid RowDefinitions="Auto,Auto,*">
             <VerticalStackLayout  Margin="0,0,0,0">
                 <Grid HorizontalOptions="Center" RowDefinitions="Auto,Auto,Auto">
+                    <Grid.Resources>
+                        <ResourceDictionary>
+                            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                        </ResourceDictionary>
+                    </Grid.Resources>
                     <Border
                         StrokeShape="RoundRectangle 85"
                         StrokeThickness="8"
@@ -23,7 +29,7 @@
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <Image
-                            IsVisible="{Binding Protocol.HasImage, Converter={viewmodel:InverseBoolConverter}}"
+                            IsVisible="{Binding Protocol.HasImage, Converter={StaticResource InvertedBoolConverter}}"
                             Source="nophoto.svg"
                             Aspect="AspectFill"
                             WidthRequest="100"

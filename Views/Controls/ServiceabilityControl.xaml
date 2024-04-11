@@ -14,7 +14,7 @@
     <Grid BindingContext="{x:Reference this}" RowDefinitions="auto, *" ColumnDefinitions="200, *"  >
         <Grid.Resources>
             <ResourceDictionary>
-                <toolkit:EnumToBoolConverter x:Key="ServiceabilityConverter" />
+                <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
             </ResourceDictionary>
         </Grid.Resources>
 
@@ -32,7 +32,7 @@
             ItemsSource="{Binding ServiceabilityTypes}"/>
 
         <dxe:MultilineEdit
-            IsVisible="{Binding Serviceability.Type, Converter={StaticResource ServiceabilityConverter}, ConverterParameter={x:Static model:ServiceabilityTypeEnum.Reject}}"
+            IsVisible="{Binding Serviceability.Type, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:ServiceabilityTypeEnum.Reject}}"
             Grid.Row="1" Grid.ColumnSpan="2"
             Text="{Binding RejectExplanationText}"
             PlaceholderText="{x:Static lang:AppResources.RejectExplanationHint}"

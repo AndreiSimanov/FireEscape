@@ -7,10 +7,11 @@
              xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+             xmlns:model="clr-namespace:FireEscape.Models"
              ios:Page.UseSafeArea="True"
              x:Class="FireEscape.Views.ProtocolMainPage"
-             xmlns:model="clr-namespace:FireEscape.Models"
-             xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
              Title="{x:Static lang:AppResources.ProtocolMainPageTitle}"
              x:DataType="viewmodel:ProtocolMainViewModel"
              Shell.NavBarIsVisible="False"
@@ -94,8 +95,13 @@
                                             CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
                                     <Grid ColumnDefinitions="125,*">
+                                        <Grid.Resources>
+                                            <ResourceDictionary>
+                                                <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                                            </ResourceDictionary>
+                                        </Grid.Resources>
                                         <Image
-                                            IsVisible="{Binding HasImage, Converter={viewmodel:InverseBoolConverter}}"
+                                            IsVisible="{Binding HasImage, Converter={StaticResource InvertedBoolConverter}}"
                                             HorizontalOptions="Center"
                                             Aspect="AspectFill"
                                             HeightRequest="80"
