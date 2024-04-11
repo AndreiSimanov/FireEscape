@@ -1,4 +1,5 @@
 ﻿using DevExpress.Maui;
+using FireEscape.Factories;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
@@ -32,28 +33,8 @@ namespace FireEscape
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<IProtocolRepository, LocalFileRepository>();
-            builder.Services.AddSingleton<IReportRepository, PdfWriterRepository>();
-            builder.Services.AddSingleton<IFileHostingRepository, DropboxRepository>();
 
-            builder.Services.AddSingleton<UserAccountService>();
-            builder.Services.AddSingleton<ProtocolService>();
-
-            builder.Services.AddSingleton<ProtocolMainViewModel>();
-            builder.Services.AddSingleton<ProtocolMainPage>();
-
-            builder.Services.AddSingleton<UserAccountMainViewModel>();
-            builder.Services.AddSingleton<UserAccountMainPage>();
-
-            builder.Services.AddTransient<UserAccountViewModel>();
-            builder.Services.AddTransient<UserAccountPage>();
-
-            builder.Services.AddTransient<ProtocolViewModel>();
-            builder.Services.AddTransient<ProtocolPage>();
-
-            builder.Services.AddTransient<StairsViewModel>();
-            builder.Services.AddTransient<StairsPage>();
-
+            builder.Services.ConfigureServices();
             return builder.Build();
         }
 

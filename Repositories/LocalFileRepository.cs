@@ -1,6 +1,5 @@
-﻿using FireEscape.Resources.Languages;
+﻿using FireEscape.Factories;
 using Microsoft.Extensions.Options;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -9,33 +8,26 @@ namespace FireEscape.Repositories
     public class LocalFileRepository : IProtocolRepository
     {
         readonly ApplicationSettings applicationSettings;
-        readonly NewProtocolSettings newProtocolSettings;
-        readonly StairsSettings stairsSettings;
+        readonly ProtocolFactory protocolFactory;
 
-        public LocalFileRepository(IOptions<ApplicationSettings> applicationSettings, 
-            IOptions<NewProtocolSettings> newProtocolSettings,
-            IOptions<StairsSettings> stairsSettings)
+
+        public LocalFileRepository(IOptions<ApplicationSettings> applicationSettings, ProtocolFactory protocolFactory)
         {
             this.applicationSettings = applicationSettings.Value;
-            this.newProtocolSettings = newProtocolSettings.Value;
-            this.stairsSettings = stairsSettings.Value;
+            this.protocolFactory = protocolFactory;
+            
         }
 
         public async Task<Protocol> CreateProtocolAsync()
         {
-            var protocol = CreateDefaultProtocol();
+            var protocol = protocolFactory.CreateDefaultProtocol();
             await SaveProtocolAsync(protocol);
             return protocol;
         }
 
         public async Task<Protocol> CopyProtocolAsync(Protocol protocol)
         {
-            var newProtocol = (Protocol)protocol.Clone();
-            newProtocol.Id = null;
-            newProtocol.Image = Protocol.NO_PHOTO;
-            newProtocol.FireEscapeNum = newProtocol.FireEscapeNum + 1;
-            newProtocol.Stairs = CreateDefaultStairs();
-            newProtocol.Created = DateTime.Now;
+            var newProtocol = protocolFactory.CopyProtocol(protocol);
             await SaveProtocolAsync(newProtocol);
             return newProtocol;
         }
@@ -80,7 +72,7 @@ namespace FireEscape.Repositories
                     Debug.WriteLine($"Error: {ex.Message}");
                 }
                 if (protocol == null)
-                    protocol = new Protocol() { Id = file.FullName, Image = Protocol.NO_PHOTO, FireEscapeObject = AppResources.BrokenData };
+                    protocol = protocolFactory.CreateBrokenDataProtocol(file.FullName);
 
                 result[index] = protocol;
                 index++;
@@ -109,7 +101,7 @@ namespace FireEscape.Repositories
                 }
 
                 if (protocol == null)
-                    protocol = new Protocol() { Id = file.FullName, Image = Protocol.NO_PHOTO, FireEscapeObject = AppResources.BrokenData };
+                    protocol = protocolFactory.CreateBrokenDataProtocol(file.FullName);
 
                 yield return protocol;
             }
@@ -123,45 +115,11 @@ namespace FireEscape.Repositories
                 using var photoStream = await photo.OpenReadAsync();
                 using var outputFile = File.Create(photoFilePath);
                 await photoStream.CopyToAsync(outputFile);
-
                 if (protocol.HasImage)
                     File.Delete(protocol.Image!);
                 protocol.Image = photoFilePath;
                 await SaveProtocolAsync(protocol);
             }
-        }
-
-        private Protocol CreateDefaultProtocol()
-        {
-            return new Protocol()
-            {
-                Image = Protocol.NO_PHOTO,
-                ProtocolNum = newProtocolSettings.ProtocolNum,
-                Location = newProtocolSettings.Location,
-                ProtocolDate = DateTime.Today,
-                FireEscapeNum = newProtocolSettings.FireEscapeNum,
-                Stairs = CreateDefaultStairs(),
-                Created = DateTime.Now
-            };
-        }
-
-        private Stairs CreateDefaultStairs()
-        {
-            return new Stairs()
-            {
-                StairsHeight = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
-                StairsWidth = new ServiceabilityProperty<int?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
-                StairsType = stairsSettings.StairsTypes![0],
-                StairsMountType = stairsSettings.StairsMountTypes![0],
-                StairsElements = new ObservableCollection<BaseStairsElement> {
-                    new StepsP1(){ Order = 10}, 
-                    new SupportВeamsP1(){ Order = 20},
-                    new StepsP2(){ Order = 10},
-                    new FenceP2(){ Order = 20},
-                    new StairwayP2(){ Order = 30},
-                    new PlatformP2(){ Order = 40}
-                }
-            };
         }
     }
 }

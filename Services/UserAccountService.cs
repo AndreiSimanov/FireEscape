@@ -67,16 +67,17 @@ namespace FireEscape.Services
         {
             if (string.IsNullOrWhiteSpace(userAccount.Id) || !await AppUtils.IsNetworkAccess())
                 return;
-            SetLocalUserAccount(userAccount);
             await UploadUserAccountAsync(userAccount);
+            SetLocalUserAccount(userAccount);
         }
 
         public async Task DeleteUserAccount(UserAccount userAccount)
         {
             if (string.IsNullOrWhiteSpace(userAccount.Id) || !await AppUtils.IsNetworkAccess())
                 return;
-
             await fileHostingRepository.DeleteJsonAsync(userAccount.Id!, applicationSettings.UserAccountsFolderName);
+            if (IsCurrentUserAccount(userAccount))
+                Preferences.Default.Remove(USER_ACCOUNT);
         }
 
         public async IAsyncEnumerable<UserAccount> GetUserAccountsAsync()
@@ -85,8 +86,8 @@ namespace FireEscape.Services
                 yield break;
             await foreach (var file in fileHostingRepository.ListFolderAsync(applicationSettings.UserAccountsFolderName))
             {
-                var keyEnumeration = Path.GetFileNameWithoutExtension(file);
-                var userAccount = await DownloadUserAccountAsync(keyEnumeration);
+                var userAccountId = Path.GetFileNameWithoutExtension(file);
+                var userAccount = await DownloadUserAccountAsync(userAccountId);
                 if (userAccount != null)
                     yield return userAccount;
             }
@@ -184,7 +185,6 @@ namespace FireEscape.Services
 
         private async Task CheckRemoteUserAccount(UserAccount userAccount)
         {
-        
             if (userAccount.ExpirationCount > 0)
                 return;
 
