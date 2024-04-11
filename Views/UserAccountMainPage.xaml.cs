@@ -10,15 +10,15 @@ public partial class UserAccountMainPage : ContentPage
         BindingContext = viewModel;
     }
 
-    private UserAccountMainViewModel? UserAccountMainViewModel => BindingContext as UserAccountMainViewModel;
+    UserAccountMainViewModel? UserAccountMainViewModel => BindingContext as UserAccountMainViewModel;
 
-    private void ContentPage_Appearing(object sender, EventArgs e)
+    void ContentPage_Appearing(object sender, EventArgs e)
     {
         if (UserAccountMainViewModel != null && !UserAccountMainViewModel.UserAccounts.Any())
             userAccounts.PullToRefreshCommand.Execute(null);    
     }
 
-    private void CreateUserAccount(object sender, EventArgs e)
+    void CreateUserAccount(object sender, EventArgs e)
     {
         //todo: make UserAccount
 
@@ -32,7 +32,7 @@ public partial class UserAccountMainPage : ContentPage
             $"or Contains([Company], '{searchText}')";
     }
 
-    private void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (UserAccountMainViewModel != null)
             UserAccountMainViewModel.IsEmptyList = userAccounts.VisibleItemCount == 0;

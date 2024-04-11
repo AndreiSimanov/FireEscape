@@ -8,9 +8,9 @@ namespace FireEscape.Services
     {
         const string USER_ACCOUNT = "UserAccount";
         const string NEW_USER_NAME = "New User";
-        private const string USER_ACCOUNT_ID = "UserAccountId";
-        private const string CHECK_COUNTER = "CheckCounter";
-        private static string currentUserAccountId = string.Empty;
+        const string USER_ACCOUNT_ID = "UserAccountId";
+        const string CHECK_COUNTER = "CheckCounter";
+        static string currentUserAccountId = string.Empty;
 
         readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
@@ -28,7 +28,7 @@ namespace FireEscape.Services
             if (!download) 
             {
                 userAccount = GetLocalUserAccount();
-                if (UserAccountService.IsValidUserAccount(userAccount))
+                if (IsValidUserAccount(userAccount))
                 {
                     await CheckRemoteUserAccount(userAccount!);
                     return userAccount;
@@ -120,7 +120,7 @@ namespace FireEscape.Services
 
         public bool IsCurrentUserAccount(UserAccount? userAccount) => userAccount != null && userAccount.Id == CurrentUserAccountId;
 
-        private async Task<UserAccount> CreateNewUser(string userAccountId)
+        async Task<UserAccount> CreateNewUser(string userAccountId)
         {
             var userAccount = new UserAccount()
             {
@@ -141,11 +141,11 @@ namespace FireEscape.Services
             return userAccount;
         }
 
-        private async Task UploadUserAccountAsync(UserAccount userAccount) => 
+        async Task UploadUserAccountAsync(UserAccount userAccount) => 
             await fileHostingRepository.UploadJsonAsync(userAccount.Id, 
                 JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
 
-        private async Task<UserAccount?> DownloadUserAccountAsync(string userAccountId)
+        async Task<UserAccount?> DownloadUserAccountAsync(string userAccountId)
         {
             UserAccount? userAccount = null;
             var json = await fileHostingRepository.DownloadJsonAsync(userAccountId, applicationSettings.UserAccountsFolderName);
@@ -154,7 +154,7 @@ namespace FireEscape.Services
             return userAccount;
         }
 
-        private void SetLocalUserAccount(UserAccount userAccount)
+        void SetLocalUserAccount(UserAccount userAccount)
         {
             if (IsCurrentUserAccount(userAccount))
             {
@@ -163,13 +163,13 @@ namespace FireEscape.Services
             }
         }
 
-        private UserAccount? GetLocalUserAccount()
+        UserAccount? GetLocalUserAccount()
         {
             var json = Preferences.Default.Get(USER_ACCOUNT, string.Empty);
             return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<UserAccount>(json);
         }
 
-        private async Task CheckRemoteUserAccount(UserAccount userAccount)
+        async Task CheckRemoteUserAccount(UserAccount userAccount)
         {
             if (userAccount.ExpirationCount > 0)
                 return;

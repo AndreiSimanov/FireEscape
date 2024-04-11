@@ -16,7 +16,40 @@ namespace FireEscape.Factories
             StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
         };
 
-        private IEnumerable<BaseStairsElement> GetRequiredStairsElements()
+        public IEnumerable<BaseStairsElement> GetAvailableStairsElements(Stairs stairs)
+        {
+            if (stairsSettings.StairsElementSettings == null)
+                yield break;
+            foreach (var elementSettings in stairsSettings.StairsElementSettings.Where(item => (int)item.StairsType == (int)stairs.StairsType.Type))
+            {
+                var elementType = Type.GetType(elementSettings.Type);
+                if (elementType == null)
+                    continue;
+                var elementsCount = stairs.StairsElements.Where(item => item.GetType() == elementType).Count();
+                if (elementsCount >= elementSettings.MaxCount)
+                    continue;
+                var stairsElement = CreateElement(elementType, elementSettings);
+                if (stairsElement == null)
+                    continue;
+                yield return stairsElement;
+            }
+        }
+
+        static BaseStairsElement? CreateElement(Type type, StairsElementSettings elementSettings)
+        {
+            var stairsElement = Activator.CreateInstance(type) as BaseStairsElement;
+            if (stairsElement != null)
+            {
+                stairsElement.Order = elementSettings.Order;
+                stairsElement.TestPointCount = elementSettings.TestPointCount;
+                stairsElement.WithstandLoad = elementSettings.WithstandLoad;
+                if (elementSettings.MaxCount > 1)
+                    stairsElement.ElementNumber = "1";
+            }
+            return stairsElement;
+        }
+
+        IEnumerable<BaseStairsElement> GetRequiredStairsElements()
         {
             if (stairsSettings.StairsElementSettings == null)
                 yield break;
@@ -25,12 +58,9 @@ namespace FireEscape.Factories
                 var elementType = Type.GetType(elementSetting.Type);
                 if (elementType == null)
                     continue;
-                var stairsElement = Activator.CreateInstance(elementType) as BaseStairsElement;
+                var stairsElement = CreateElement(elementType, elementSetting);
                 if (stairsElement == null)
                     continue;
-                stairsElement.Order = elementSetting.Order;
-                stairsElement.TestPointCount = elementSetting.TestPointCount;
-                stairsElement.WithstandLoad = elementSetting.WithstandLoad;
                 yield return stairsElement;
             }
         }

@@ -71,7 +71,7 @@
             return summary;
         }
 
-        private static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
+        static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
             Predicate<T?> predicate, string rejectExplanation, string defaultExplanation)
         {
             var serviceabilityType = serviceabilityProperty.Serviceability.Type;

@@ -11,9 +11,11 @@ public partial class StairsPage : ContentPage
         stairsElements.HeightRequest = DeviceDisplay.Current.MainDisplayInfo.Height / DeviceDisplay.Current.MainDisplayInfo.Density - 180;
     }
 
+    StairsViewModel? StairsViewModel => BindingContext as StairsViewModel;
+
     void AddStairsElement(object sender, EventArgs e)
     {
-
+        StairsViewModel?.AddStairsElementCommand.Execute(null);
     }
 
     void StairsTypeChanged(object sender, EventArgs e)

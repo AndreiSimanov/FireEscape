@@ -8,7 +8,7 @@ public partial class UserAccountPage : ContentPage
         BindingContext = viewModel;
     }
 
-    private void ContentPage_Disappearing(object sender, EventArgs e)
+    void ContentPage_Disappearing(object sender, EventArgs e)
     {
         var viewModel = BindingContext as UserAccountViewModel;
         viewModel?.SaveUserAccountCommand.Execute(null);

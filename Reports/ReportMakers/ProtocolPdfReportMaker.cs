@@ -32,7 +32,7 @@ namespace FireEscape.Reports.ReportMakers
             return filePath;
         }
 
-        private static void MakeHeader(Document document, ProtocolReportDataProvider protocolRdp)
+        static void MakeHeader(Document document, ProtocolReportDataProvider protocolRdp)
         {
             document.Add(new Paragraph("ПРОТОКОЛ № " + protocolRdp.ProtocolNum)
                 .SetFixedLeading(5)
@@ -68,7 +68,7 @@ namespace FireEscape.Reports.ReportMakers
 
             document.Add(new Paragraph(" "));
         }
-        private static void MakeOverview(Document document, ProtocolReportDataProvider protocolRdp)
+        static void MakeOverview(Document document, ProtocolReportDataProvider protocolRdp)
         {
             document.Add(new Paragraph()
                 .SetFixedLeading(12)
@@ -136,7 +136,7 @@ namespace FireEscape.Reports.ReportMakers
 
         }
 
-        private static void MakeImage(Document document, ProtocolReportDataProvider protocolRdp)
+        static void MakeImage(Document document, ProtocolReportDataProvider protocolRdp)
         {
             if (string.IsNullOrWhiteSpace(protocolRdp.Image))
                 return;
@@ -152,7 +152,7 @@ namespace FireEscape.Reports.ReportMakers
             document.Add(new Paragraph(" "));
         }
 
-        private static void MakeFooter(Document document, ProtocolReportDataProvider protocolRdp)
+        static void MakeFooter(Document document, ProtocolReportDataProvider protocolRdp)
         {
             document.SetFontSize(10);
 
@@ -192,7 +192,7 @@ namespace FireEscape.Reports.ReportMakers
             }    
         }
 
-        private static double GetRotation(string filePath)
+        static double GetRotation(string filePath)
         {
             var angle = 0;
             var orientation = ImageMetadataReader.ReadMetadata(filePath)

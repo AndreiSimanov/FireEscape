@@ -70,15 +70,24 @@ namespace FireEscape.Repositories
             var content = await response.GetContentAsByteArrayAsync();
             await File.WriteAllBytesAsync(destinationFilePath, content);
         }
+        public async IAsyncEnumerable<string> ListFolderAsync(string folder)
+        {
+            using var dbx = new DropboxClient(await GetTokenAsync());
+            var result = await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
+            foreach (var file in result.Entries)
+            {
+                yield return file.Name;
+            }
+        }
 
-        private string GetAppPath() => "/" + fileHostingSettings.ApplicationFolderName + "/";
+        string GetAppPath() => "/" + fileHostingSettings.ApplicationFolderName + "/";
 
-        private string GetJsonPath(string key, string folder) => GetAppPath()
+        string GetJsonPath(string key, string folder) => GetAppPath()
             + (string.IsNullOrWhiteSpace(folder) ? string.Empty : folder + "/")
             + key
             + ".json";
 
-        private async Task<string?> GetTokenAsync() // https://stackoverflow.com/questions/71524238/how-to-create-not-expires-token-in-dropbox-api-v2
+        async Task<string?> GetTokenAsync() // https://stackoverflow.com/questions/71524238/how-to-create-not-expires-token-in-dropbox-api-v2
         {
             using var request = new HttpRequestMessage(new HttpMethod("POST"), fileHostingSettings.TokenUri);
             var base64authorization = Convert.ToBase64String(Encoding.ASCII.GetBytes(fileHostingSettings.AppKey + ":" + fileHostingSettings.AppSecret));
@@ -93,17 +102,6 @@ namespace FireEscape.Repositories
             }
             return null;
         }
-
-        public async IAsyncEnumerable<string> ListFolderAsync(string folder)
-        {
-            using var dbx = new DropboxClient(await GetTokenAsync());
-            var result = await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
-            foreach (var file in result.Entries)
-            {
-                yield return file.Name;
-            }
-        }
-
         /*
         public async Task<FullAccount> GetCurrentAccountAsync()
         {
