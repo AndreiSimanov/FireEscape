@@ -1,5 +1,4 @@
 ﻿using DevExpress.Maui;
-using FireEscape.Factories;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 

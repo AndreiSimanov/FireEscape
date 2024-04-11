@@ -15,7 +15,6 @@ namespace FireEscape.Repositories
         {
             this.applicationSettings = applicationSettings.Value;
             this.protocolFactory = protocolFactory;
-            
         }
 
         public async Task<Protocol> CreateProtocolAsync()
@@ -41,8 +40,7 @@ namespace FireEscape.Repositories
             await JsonSerializer.SerializeAsync(fs, protocol);
         }
 
-        public async Task DeleteProtocol(Protocol protocol)
-        {
+        public async Task DeleteProtocol(Protocol protocol) =>
             await Task.Run(() =>
             {
                 if (protocol.HasImage)
@@ -50,7 +48,6 @@ namespace FireEscape.Repositories
                 if (File.Exists(protocol.Id))
                     File.Delete(protocol.Id);
             });
-        }
 
         public Protocol[] GetProtocols()
         {

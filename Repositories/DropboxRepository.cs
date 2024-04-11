@@ -12,10 +12,7 @@ namespace FireEscape.Repositories
         readonly FileHostingSettings fileHostingSettings;
         readonly HttpClient httpClient = new HttpClient(new AndroidMessageHandler());
 
-        public DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings)
-        {
-            this.fileHostingSettings = fileHostingSettings.Value;
-        }
+        public DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings) => this.fileHostingSettings = fileHostingSettings.Value;
 
         public async Task<string> UploadJsonAsync(string key, string value, string folder = "")
         {
@@ -96,7 +93,6 @@ namespace FireEscape.Repositories
                 var accessToken = await response.Content.ReadFromJsonAsync<AccessToken>();
                 return accessToken.access_token;
             }
-
             return null;
         }
 

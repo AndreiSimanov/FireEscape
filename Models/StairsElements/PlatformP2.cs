@@ -2,14 +2,8 @@
 {
     public class PlatformP2 : BaseStairsElement
     {
-        protected override string GetName()
-        {
-            return "Площадка " + ElementNumber.Trim();
-        }
+        protected override string GetName() => "Площадка " + ElementNumber.Trim();
 
-        protected override StairsTypeEnum GetStairsType()
-        {
-            return StairsTypeEnum.P2;
-        }
+        protected override StairsTypeEnum GetStairsType() => StairsTypeEnum.P2;
     }
 }

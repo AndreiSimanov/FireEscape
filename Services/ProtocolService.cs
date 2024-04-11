@@ -11,36 +11,17 @@
             this.reportRepository = reportRepository;
         }
 
-        public async Task<Protocol> CreateProtocolAsync() 
-        {
-            var protocol = await protocolRepository.CreateProtocolAsync();
-            return protocol;
-        }
+        public async Task<Protocol> CreateProtocolAsync() => await protocolRepository.CreateProtocolAsync();
 
-        public async Task<Protocol> CopyProtocolAsync(Protocol protocol)
-        {
-            return await protocolRepository.CopyProtocolAsync(protocol);
-        }
+        public async Task<Protocol> CopyProtocolAsync(Protocol protocol) => await protocolRepository.CopyProtocolAsync(protocol);
 
-        public async Task SaveProtocolAsync(Protocol protocol)
-        {
-            await protocolRepository.SaveProtocolAsync(protocol);
-        }
+        public async Task SaveProtocolAsync(Protocol protocol) => await protocolRepository.SaveProtocolAsync(protocol);
 
-        public async Task DeleteProtocol(Protocol protocol)
-        {
-            await protocolRepository.DeleteProtocol(protocol);
-        }
+        public async Task DeleteProtocol(Protocol protocol) => await protocolRepository.DeleteProtocol(protocol);
 
-        public IAsyncEnumerable<Protocol> GetProtocolsAsync()
-        {
-            return  protocolRepository.GetProtocolsAsync();
-        }
+        public IAsyncEnumerable<Protocol> GetProtocolsAsync() => protocolRepository.GetProtocolsAsync();
 
-        public Protocol[] GetProtocols()
-        {
-            return protocolRepository.GetProtocols();
-        }
+        public Protocol[] GetProtocols() => protocolRepository.GetProtocols();
 
         public async Task AddPhotoAsync(Protocol protocol)
         {
@@ -51,11 +32,8 @@
             }
         }
 
-        public async Task SelectPhotoAsync(Protocol protocol)
-        {
-            var photo = await MediaPicker.PickPhotoAsync();
-            await protocolRepository.AddPhotoAsync(protocol, photo);
-        }
+        public async Task SelectPhotoAsync(Protocol protocol) => 
+            await protocolRepository.AddPhotoAsync(protocol, await MediaPicker.PickPhotoAsync());
 
         public async Task CreateReportAsync(Protocol protocol, UserAccount userAccount)
         {

@@ -11,14 +11,10 @@ namespace FireEscape.ViewModels
 
         public StairsSettings StairsSettings { get; private set; }
 
-        public StairsViewModel(IOptions<StairsSettings> stairsSettings)
-        {
-            StairsSettings = stairsSettings.Value;
-        }
+        public StairsViewModel(IOptions<StairsSettings> stairsSettings) => StairsSettings = stairsSettings.Value;
 
         [RelayCommand]
-        async Task DeleteElement(BaseStairsElement element)
-        {
+        async Task DeleteElement(BaseStairsElement element) =>
             await DoCommandAsync(async () =>
             {
                 var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteStairsElement,
@@ -31,6 +27,5 @@ namespace FireEscape.ViewModels
             },
             element,
             AppResources.DeleteStairsElementError);
-        }
     }
 }

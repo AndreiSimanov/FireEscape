@@ -10,53 +10,42 @@ namespace FireEscape.ViewModels
 
         readonly ProtocolService protocolService;
 
-        public ProtocolViewModel(ProtocolService protocolService)
-        {
-            this.protocolService = protocolService;
-        }
+        public ProtocolViewModel(ProtocolService protocolService) => this.protocolService = protocolService;
 
         [RelayCommand]
-        async Task AddPhotoAsync()
-        {
+        async Task AddPhotoAsync() =>
             await DoCommandAsync(async () =>
             {
                 await protocolService.AddPhotoAsync(Protocol!);
             },
             Protocol!,
             AppResources.AddPhotoError);
-        }
 
         [RelayCommand]
-        async Task SelectPhotoAsync()
-        {
+        async Task SelectPhotoAsync() =>
             await DoCommandAsync(async () =>
             {
                 await protocolService.SelectPhotoAsync(Protocol!);
             },
             Protocol!,
             AppResources.AddPhotoError);
-        }
 
         [RelayCommand]
-        async Task SaveProtocolAsync()
-        {
+        async Task SaveProtocolAsync() =>
             await DoCommandAsync(async () =>
             {
                 await protocolService.SaveProtocolAsync(Protocol!);
             },
             Protocol!,
             AppResources.SaveProtocolError);
-        }
 
         [RelayCommand]
-        async Task GoToDetailsAsync()
-        {
+        async Task GoToDetailsAsync() =>
             await DoCommandAsync(async () =>
             {
                 await Shell.Current.GoToAsync(nameof(StairsPage), true, new Dictionary<string, object> { { nameof(Stairs), Protocol!.Stairs } });
             },
             Protocol!,
             AppResources.EditStairsError);
-        }
     }
 }

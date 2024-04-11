@@ -26,8 +26,7 @@ namespace FireEscape.ViewModels
         bool isEmptyList = true;
 
         [RelayCommand]
-        void GetProtocolsSync() //Sync version works faster for local drive
-        {
+        void GetProtocolsSync() => //Sync version works faster for local drive
             DoCommand(() =>
             {
                 try
@@ -44,11 +43,9 @@ namespace FireEscape.ViewModels
                 }
             },
            AppResources.GetProtocolsError);
-        }
 
         [RelayCommand]
-        async Task GetProtocolsAsync()
-        {
+        async Task GetProtocolsAsync() =>
             await DoCommandAsync(async () =>
             {
                 try
@@ -69,7 +66,6 @@ namespace FireEscape.ViewModels
                 }
             },
             AppResources.GetProtocolsError);
-        }
 
         [RelayCommand]
         async Task AddProtocolAsync()
@@ -102,8 +98,7 @@ namespace FireEscape.ViewModels
         }
 
         [RelayCommand]
-        async Task DeleteProtocolAsync(Protocol protocol)
-        {
+        async Task DeleteProtocolAsync(Protocol protocol) =>
             await DoCommandAsync(async () =>
             {
                 var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, AppResources.Cancel, AppResources.Delete);
@@ -116,35 +111,31 @@ namespace FireEscape.ViewModels
             },
             protocol,
             AppResources.DeleteProtocolError);
-        }
 
         [RelayCommand]
-        async Task CreateReportAsync(Protocol protocol)
-        {
+        async Task CreateReportAsync(Protocol protocol) =>
             await DoCommandAsync(async () =>
             {
                 var userAccount = await userAccountService.GetCurrentUserAccount();
                 if (userAccount == null)
                     return;
-                if (userAccountService.IsValidUserAccount(userAccount))
+                if (UserAccountService.IsValidUserAccount(userAccount))
                 {
                     userAccountService.UpdateExpirationCount(userAccount!);
                     await protocolService.CreateReportAsync(protocol, userAccount!);
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("", 
-                        string.Format(AppResources.UnregisteredApplicationMessage, 
+                    await Shell.Current.DisplayAlert("",
+                        string.Format(AppResources.UnregisteredApplicationMessage,
                         userAccountService.CurrentUserAccountId), AppResources.OK);
                 }
             },
             protocol,
             AppResources.CreateReportError);
-        }
 
         [RelayCommand]
-        async Task GoToDetailsAsync(Protocol protocol)
-        {
+        async Task GoToDetailsAsync(Protocol protocol) =>
             await DoCommandAsync(async () =>
             {
                 await Shell.Current.GoToAsync(nameof(ProtocolPage), true, new Dictionary<string, object> { { nameof(Protocol), protocol } });
@@ -152,25 +143,21 @@ namespace FireEscape.ViewModels
             },
             protocol,
             AppResources.EditProtocolError);
-        }
 
         [RelayCommand]
-        async Task OpenUserAccountMainPageAsync()
-        {
+        async Task OpenUserAccountMainPageAsync() =>
             await DoCommandAsync(async () =>
             {
                 var userAccount = await userAccountService.GetCurrentUserAccount(true);
-                if (userAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
+                if (UserAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
                 {
                     await Shell.Current.GoToAsync(nameof(UserAccountMainPage), true);
                 }
             },
             AppResources.OpenUserAccountMainPageError);
-        }
 
         [RelayCommand] //For test only 
-        async Task AddProtocolsAsync()
-        {
+        async Task AddProtocolsAsync() => 
             await DoCommandAsync(async () =>
             {
                 for (var i = 0; i < 1000; i++)
@@ -179,6 +166,5 @@ namespace FireEscape.ViewModels
                 }
             },
             AppResources.AddProtocolError);
-        }
     }
 }

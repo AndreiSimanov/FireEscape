@@ -11,17 +11,16 @@ namespace FireEscape.Factories
             this.stairsSettings = stairsSettings.Value;
         }
 
-        public Stairs CreateDefaultStairs()
+        public Stairs CreateDefaultStairs() => new Stairs()
         {
-            return new Stairs()
-            {
-                StairsHeight = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
-                StairsWidth = new ServiceabilityProperty<int?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
-                StairsType = stairsSettings.StairsTypes![0],
-                StairsMountType = stairsSettings.StairsMountTypes![0],
-                StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
-            };
-        }
+            StairsHeight = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
+            StairsWidth = new ServiceabilityProperty<int?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
+            StairsType = stairsSettings.StairsTypes![0],
+            StairsMountType = stairsSettings.StairsMountTypes![0],
+            StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
+        };
+
+     
 
         private IEnumerable<BaseStairsElement> GetRequiredStairsElements()
         {

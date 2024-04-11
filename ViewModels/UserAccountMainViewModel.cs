@@ -10,10 +10,7 @@ namespace FireEscape.ViewModels
 
         readonly UserAccountService userAccountService;
 
-        public UserAccountMainViewModel(UserAccountService userAccountService)
-        {
-            this.userAccountService = userAccountService;
-        }
+        public UserAccountMainViewModel(UserAccountService userAccountService) => this.userAccountService = userAccountService;
 
         [ObservableProperty]
         bool isRefreshing;
@@ -22,8 +19,7 @@ namespace FireEscape.ViewModels
         bool isEmptyList = true;
 
         [RelayCommand]
-        async Task GetUserAccountsAsync()
-        {
+        async Task GetUserAccountsAsync() =>
             await DoCommandAsync(async () =>
             {
                 try
@@ -42,22 +38,18 @@ namespace FireEscape.ViewModels
                 }
             },
             AppResources.GetUserAccountsError);
-        }
 
         [RelayCommand]
-        async Task GoToDetailsAsync(UserAccount userAccount)
-        {
+        async Task GoToDetailsAsync(UserAccount userAccount) =>
             await DoCommandAsync(async () =>
             {
                 await Shell.Current.GoToAsync(nameof(UserAccountPage), true, new Dictionary<string, object> { { nameof(UserAccount), userAccount } });
             },
             userAccount,
             AppResources.EditUserAccountError);
-        }
 
         [RelayCommand]
-        async Task DeleteUserAccountAsync(UserAccount userAccount)
-        {
+        async Task DeleteUserAccountAsync(UserAccount userAccount) =>
             await DoCommandAsync(async () =>
             {
                 var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteUserAccount,
@@ -71,6 +63,5 @@ namespace FireEscape.ViewModels
             },
             userAccount,
             AppResources.DeleteUserAccountError);
-        }
     }
 }

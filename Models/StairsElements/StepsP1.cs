@@ -2,14 +2,8 @@
 {
     public class StepsP1 : BaseStairsElement
     {
-        protected override string GetName()
-        {
-            return "Ступени лестниц";
-        }
+        protected override string GetName() => "Ступени лестниц";
 
-        protected override StairsTypeEnum GetStairsType()
-        {
-            return StairsTypeEnum.P1_1;
-        }
+        protected override StairsTypeEnum GetStairsType() => StairsTypeEnum.P1_1;
     }
 }

@@ -35,7 +35,7 @@ namespace FireEscape.Services
             if (!download) 
             {
                 userAccount = GetLocalUserAccount();
-                if (IsValidUserAccount(userAccount))
+                if (UserAccountService.IsValidUserAccount(userAccount))
                 {
                     await CheckRemoteUserAccount(userAccount!);
                     return userAccount;
@@ -123,15 +123,9 @@ namespace FireEscape.Services
             }
         }
 
-        public bool IsValidUserAccount(UserAccount? userAccount)
-        {
-            return userAccount != null && userAccount.IsValidUserAccount;
-        }
+        public static bool IsValidUserAccount(UserAccount? userAccount) => userAccount != null && userAccount.IsValidUserAccount;
 
-        public bool IsCurrentUserAccount(UserAccount? userAccount)
-        {
-            return userAccount != null && userAccount.Id == CurrentUserAccountId;
-        }
+        public bool IsCurrentUserAccount(UserAccount? userAccount) => userAccount != null && userAccount.Id == CurrentUserAccountId;
 
         private async Task<UserAccount> CreateNewUser(string userAccountId)
         {
@@ -154,10 +148,9 @@ namespace FireEscape.Services
             return userAccount;
         }
 
-        private async Task UploadUserAccountAsync(UserAccount userAccount)
-        {
-            await fileHostingRepository.UploadJsonAsync(userAccount.Id, JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
-        }
+        private async Task UploadUserAccountAsync(UserAccount userAccount) => 
+            await fileHostingRepository.UploadJsonAsync(userAccount.Id, 
+                JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
 
         private async Task<UserAccount?> DownloadUserAccountAsync(string userAccountId)
         {

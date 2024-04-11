@@ -7,23 +7,18 @@ namespace FireEscape.ViewModels
     {
         readonly UserAccountService userAccountService;
 
-        public UserAccountViewModel(UserAccountService userAccountService)
-        {
-            this.userAccountService = userAccountService;
-        }
+        public UserAccountViewModel(UserAccountService userAccountService) => this.userAccountService = userAccountService;
 
         [ObservableProperty]
         UserAccount? userAccount;
 
         [RelayCommand]
-        async Task SaveUserAccountAsync()
-        {
+        async Task SaveUserAccountAsync() =>
             await DoCommandAsync(async () =>
             {
                 await userAccountService.SaveUserAccountAsync(UserAccount!);
             },
             UserAccount!,
             AppResources.SaveProtocolError);
-        }
     }
 }

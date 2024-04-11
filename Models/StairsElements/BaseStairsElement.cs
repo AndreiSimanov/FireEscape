@@ -31,8 +31,8 @@ namespace FireEscape.Models.StairsElements
         [ObservableProperty]
         string rejectExplanation = string.Empty;
 
-
         protected abstract string GetName();
         protected abstract StairsTypeEnum GetStairsType();
+        public override string ToString() => GetName();
     }
 }
