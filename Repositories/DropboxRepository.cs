@@ -7,12 +7,10 @@ using System.Text;
 
 namespace FireEscape.Repositories
 {
-    public class DropboxRepository : IFileHostingRepository
+    public class DropboxRepository (IOptions<FileHostingSettings> fileHostingSettings) : IFileHostingRepository
     {
-        readonly FileHostingSettings fileHostingSettings;
+        readonly FileHostingSettings fileHostingSettings = fileHostingSettings.Value;
         readonly HttpClient httpClient = new HttpClient(new AndroidMessageHandler());
-
-        public DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings) => this.fileHostingSettings = fileHostingSettings.Value;
 
         public async Task<string> UploadJsonAsync(string key, string value, string folder = "")
         {

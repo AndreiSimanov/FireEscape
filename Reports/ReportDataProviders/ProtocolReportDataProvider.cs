@@ -1,19 +1,11 @@
 ﻿namespace FireEscape.Reports.ReportDataProviders
 {
-    public class ProtocolReportDataProvider
+    public class ProtocolReportDataProvider(Protocol protocol, ServiceabilityLimits? serviceabilityLimits, UserAccount userAccount)
     {
-        Protocol protocol;
-        Stairs stairs;
-        ServiceabilityLimits? serviceabilityLimits;
-        UserAccount userAccount;
-
-        public ProtocolReportDataProvider(Protocol protocol, ServiceabilityLimits? serviceabilityLimits, UserAccount userAccount)
-        {
-            this.protocol = protocol;
-            stairs = protocol.Stairs;
-            this.serviceabilityLimits = serviceabilityLimits;
-            this.userAccount = userAccount;
-        }
+        Protocol protocol = protocol;
+        Stairs stairs = protocol.Stairs;
+        ServiceabilityLimits? serviceabilityLimits = serviceabilityLimits;
+        UserAccount userAccount = userAccount;
 
         public int ProtocolNum => protocol.ProtocolNum;
         public string StairsTypeDescription => stairs.IsEvacuation

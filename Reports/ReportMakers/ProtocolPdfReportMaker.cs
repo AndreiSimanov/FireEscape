@@ -11,10 +11,9 @@ using TextAlignment = iText.Layout.Properties.TextAlignment;
 using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 using Border = iText.Layout.Borders.Border;
 
-
 namespace FireEscape.Reports.ReportMakers
 {
-    internal static class ProtocolPdfReportMaker
+    public static class ProtocolPdfReportMaker
     {
         public static async Task<string> MakeReport(ProtocolReportDataProvider protocolRdp, string filePath)
         {

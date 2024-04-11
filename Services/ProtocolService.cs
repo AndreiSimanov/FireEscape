@@ -1,16 +1,7 @@
 ﻿namespace FireEscape.Services
 {
-    public class ProtocolService
+    public class ProtocolService(IProtocolRepository protocolRepository, IReportRepository reportRepository)
     {
-        readonly IProtocolRepository protocolRepository;
-        readonly IReportRepository reportRepository;
-
-        public ProtocolService(IProtocolRepository protocolRepository, IReportRepository reportRepository) 
-        {
-            this.protocolRepository = protocolRepository;
-            this.reportRepository = reportRepository;
-        }
-
         public async Task<Protocol> CreateProtocolAsync() => await protocolRepository.CreateProtocolAsync();
 
         public async Task<Protocol> CopyProtocolAsync(Protocol protocol) => await protocolRepository.CopyProtocolAsync(protocol);

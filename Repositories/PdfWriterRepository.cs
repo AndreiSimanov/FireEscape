@@ -4,15 +4,10 @@ using Microsoft.Extensions.Options;
 
 namespace FireEscape.Repositories
 {
-    public class PdfWriterRepository : IReportRepository
+    public class PdfWriterRepository(IOptions<ApplicationSettings> applicationSettings, IOptions<StairsSettings> stairsSettings) : IReportRepository
     {
-        readonly ApplicationSettings applicationSettings;
-        readonly StairsSettings stairsSettings;
-        public PdfWriterRepository(IOptions<ApplicationSettings> applicationSettings, IOptions<StairsSettings> stairsSettings) 
-        {
-            this.applicationSettings = applicationSettings.Value;
-            this.stairsSettings = stairsSettings.Value;
-        }
+        readonly ApplicationSettings applicationSettings = applicationSettings.Value;
+        readonly StairsSettings stairsSettings = stairsSettings.Value;
 
         public async Task<string> CreateReportAsync(Protocol protocol, UserAccount userAccount, string fileName)
         {

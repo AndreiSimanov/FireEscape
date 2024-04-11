@@ -3,12 +3,8 @@
 namespace FireEscape.ViewModels
 {
     [QueryProperty(nameof(UserAccount), nameof(UserAccount))]
-    public partial class UserAccountViewModel : BaseViewModel
+    public partial class UserAccountViewModel(UserAccountService userAccountService) : BaseViewModel
     {
-        readonly UserAccountService userAccountService;
-
-        public UserAccountViewModel(UserAccountService userAccountService) => this.userAccountService = userAccountService;
-
         [ObservableProperty]
         UserAccount? userAccount;
 

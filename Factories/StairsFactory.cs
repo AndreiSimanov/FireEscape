@@ -3,13 +3,9 @@ using System.Collections.ObjectModel;
 
 namespace FireEscape.Factories
 {
-    public class StairsFactory
+    public class StairsFactory(IOptions<StairsSettings> stairsSettings)
     {
-        readonly StairsSettings stairsSettings;
-        public StairsFactory(IOptions<StairsSettings> stairsSettings)
-        {
-            this.stairsSettings = stairsSettings.Value;
-        }
+        readonly StairsSettings stairsSettings = stairsSettings.Value;
 
         public Stairs CreateDefaultStairs() => new Stairs()
         {
@@ -19,8 +15,6 @@ namespace FireEscape.Factories
             StairsMountType = stairsSettings.StairsMountTypes![0],
             StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
         };
-
-     
 
         private IEnumerable<BaseStairsElement> GetRequiredStairsElements()
         {

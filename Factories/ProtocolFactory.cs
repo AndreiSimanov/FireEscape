@@ -3,16 +3,9 @@ using Microsoft.Extensions.Options;
 
 namespace FireEscape.Factories
 {
-    public class ProtocolFactory
+    public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings, StairsFactory stairsFactory)
     {
-        readonly NewProtocolSettings newProtocolSettings;
-        readonly StairsFactory stairsFactory;
-
-        public ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings, StairsFactory stairsFactory)
-        {
-            this.newProtocolSettings = newProtocolSettings.Value;
-            this.stairsFactory = stairsFactory;
-        }
+        readonly NewProtocolSettings newProtocolSettings = newProtocolSettings.Value;
 
         public Protocol CreateBrokenDataProtocol(string protocolId) => 
             new Protocol() { Id = protocolId, Image = Protocol.NO_PHOTO, FireEscapeObject = AppResources.BrokenData };

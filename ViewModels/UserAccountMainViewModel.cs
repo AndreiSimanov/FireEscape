@@ -3,15 +3,10 @@ using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels
 {
-    public partial class UserAccountMainViewModel : BaseViewModel
+    public partial class UserAccountMainViewModel(UserAccountService userAccountService) : BaseViewModel
     {
         [ObservableProperty]
         ObservableCollection<UserAccount> userAccounts = new();
-
-        readonly UserAccountService userAccountService;
-
-        public UserAccountMainViewModel(UserAccountService userAccountService) => this.userAccountService = userAccountService;
-
         [ObservableProperty]
         bool isRefreshing;
 

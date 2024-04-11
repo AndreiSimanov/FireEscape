@@ -5,17 +5,9 @@ using System.Text.Json;
 
 namespace FireEscape.Repositories
 {
-    public class LocalFileRepository : IProtocolRepository
+    public class LocalFileRepository(IOptions<ApplicationSettings> applicationSettings, ProtocolFactory protocolFactory) : IProtocolRepository
     {
-        readonly ApplicationSettings applicationSettings;
-        readonly ProtocolFactory protocolFactory;
-
-
-        public LocalFileRepository(IOptions<ApplicationSettings> applicationSettings, ProtocolFactory protocolFactory)
-        {
-            this.applicationSettings = applicationSettings.Value;
-            this.protocolFactory = protocolFactory;
-        }
+        readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
         public async Task<Protocol> CreateProtocolAsync()
         {

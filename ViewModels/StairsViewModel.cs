@@ -4,14 +4,12 @@ using Microsoft.Extensions.Options;
 namespace FireEscape.ViewModels
 {
     [QueryProperty(nameof(Stairs), nameof(Stairs))]
-    public partial class StairsViewModel : BaseViewModel
+    public partial class StairsViewModel(IOptions<StairsSettings> stairsSettings) : BaseViewModel
     {
         [ObservableProperty]
         Stairs? stairs;
 
-        public StairsSettings StairsSettings { get; private set; }
-
-        public StairsViewModel(IOptions<StairsSettings> stairsSettings) => StairsSettings = stairsSettings.Value;
+        public StairsSettings StairsSettings { get; private set; } = stairsSettings.Value;
 
         [RelayCommand]
         async Task DeleteElement(BaseStairsElement element) =>

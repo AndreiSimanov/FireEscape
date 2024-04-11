@@ -3,14 +3,10 @@
 namespace FireEscape.ViewModels
 {
     [QueryProperty(nameof(Protocol), nameof(Protocol))]
-    public partial class ProtocolViewModel : BaseViewModel
+    public partial class ProtocolViewModel(ProtocolService protocolService) : BaseViewModel
     {
         [ObservableProperty]
         Protocol? protocol;
-
-        readonly ProtocolService protocolService;
-
-        public ProtocolViewModel(ProtocolService protocolService) => this.protocolService = protocolService;
 
         [RelayCommand]
         async Task AddPhotoAsync() =>

@@ -7,10 +7,8 @@
         P2 = 2
     }
 
-    public struct StairsType()
+    public readonly record struct StairsType(string Name, StairsTypeEnum Type)
     {
-        public required string Name { get; set; }
-        public required StairsTypeEnum Type { get; set; }
         public override string ToString() => Name;
     }
 }

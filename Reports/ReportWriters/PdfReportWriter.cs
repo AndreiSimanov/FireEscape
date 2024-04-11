@@ -4,7 +4,7 @@ using iText.Layout;
 
 namespace FireEscape.Reports.ReportWriters
 {
-    internal static class PdfReportWriter
+    public static class PdfReportWriter
     {
         const string DEFAULT_FONT_NAME = "times.ttf";
         const float DEFAULT_FONT_SIZE = 12f;

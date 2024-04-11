@@ -7,10 +7,8 @@
         Reject
     }
 
-    public struct ServiceabilityType
+    public readonly record struct ServiceabilityType(string Name, ServiceabilityTypeEnum Type)
     {
-        public required string Name { get; set; }
-        public required ServiceabilityTypeEnum Type { get; set; }
         public override string ToString() => Name;
     }
 }

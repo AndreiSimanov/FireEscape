@@ -5,20 +5,10 @@ using Protocol = FireEscape.Models.Protocol;
 
 namespace FireEscape.ViewModels
 {
-    public partial class ProtocolMainViewModel : BaseViewModel
+    public partial class ProtocolMainViewModel(ProtocolService protocolService, UserAccountService userAccountService) : BaseViewModel
     {
         [ObservableProperty]
         ObservableCollection<Protocol> protocols = new();
-
-        readonly ProtocolService protocolService;
-        readonly UserAccountService userAccountService;
-
-        public ProtocolMainViewModel(ProtocolService protocolService, UserAccountService userAccountService)
-        {
-            this.protocolService = protocolService;
-            this.userAccountService = userAccountService;
-        }
-
         [ObservableProperty]
         bool isRefreshing;
 

@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace FireEscape.Services
 {
-    public class UserAccountService
+    public class UserAccountService(IFileHostingRepository fileHostingRepository, IOptions<ApplicationSettings> applicationSettings)
     {
         const string USER_ACCOUNT = "UserAccount";
         const string NEW_USER_NAME = "New User";
@@ -12,14 +12,7 @@ namespace FireEscape.Services
         private const string CHECK_COUNTER = "CheckCounter";
         private static string currentUserAccountId = string.Empty;
 
-        readonly ApplicationSettings applicationSettings;
-        readonly IFileHostingRepository fileHostingRepository;
-
-        public UserAccountService(IFileHostingRepository fileHostingRepository, IOptions<ApplicationSettings> applicationSettings)
-        {
-            this.fileHostingRepository = fileHostingRepository;
-            this.applicationSettings = applicationSettings.Value;
-        }
+        readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
         public async Task<UserAccount?> GetCurrentUserAccount(bool download = false)
         {
