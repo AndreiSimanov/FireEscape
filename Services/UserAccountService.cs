@@ -1,5 +1,4 @@
-﻿using Dropbox.Api.Users;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Simusr2.Maui.DeviceIdentifier;
 using System.Text.Json;
 
@@ -10,6 +9,7 @@ namespace FireEscape.Services
         const string USER_ACCOUNT = "UserAccount";
         const string NEW_USER_NAME = "New User";
         private const string USER_ACCOUNT_ID = "UserAccountId";
+        private const string CHECK_COUNTER = "CheckCounter";
         private static string currentUserAccountId = string.Empty;
 
         readonly ApplicationSettings applicationSettings;
@@ -23,18 +23,23 @@ namespace FireEscape.Services
 
         public async Task<UserAccount?> GetCurrentUserAccount(bool download = false)
         {
+/*
 #if DEBUG
             return new UserAccount { IsAdmin = true, 
                 Name = "Debug User",  Company = "Debug Company",  
                 Signature = "Debug User", Id = "debugUser", ExpirationCount = -1, ExpirationDate = DateTime.MaxValue};
 #endif
-
+*/
             UserAccount? userAccount = null;
+
             if (!download) 
             {
                 userAccount = GetLocalUserAccount();
                 if (IsValidUserAccount(userAccount))
+                {
+                    await CheckRemoteUserAccount(userAccount!);
                     return userAccount;
+                }
             }
 
             if (!await AppUtils.IsNetworkAccess())
@@ -145,7 +150,6 @@ namespace FireEscape.Services
                 userAccount.ExpirationCount = applicationSettings.NewUserAccountExpirationCount;
                 SetLocalUserAccount(userAccount);
             }
-
             return userAccount;
         }
 
@@ -166,13 +170,49 @@ namespace FireEscape.Services
         private void SetLocalUserAccount(UserAccount userAccount)
         {
             if (IsCurrentUserAccount(userAccount))
+            {
                 Preferences.Default.Set(USER_ACCOUNT, JsonSerializer.Serialize(userAccount));
+                Preferences.Default.Set(CHECK_COUNTER, applicationSettings.CheckUserAccountCounter);
+            }
         }
 
         private UserAccount? GetLocalUserAccount()
         {
             var json = Preferences.Default.Get(USER_ACCOUNT, string.Empty);
             return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<UserAccount>(json);
+        }
+
+        private async Task CheckRemoteUserAccount(UserAccount userAccount)
+        {
+        
+            if (userAccount.ExpirationCount > 0)
+                return;
+
+            var checkCounter = Preferences.Default.Get(CHECK_COUNTER, 0);
+
+            if (checkCounter == 0)
+            {
+                Preferences.Default.Remove(USER_ACCOUNT); // perform to download UserAccount
+                return;
+            }
+            
+            if (checkCounter < applicationSettings.CheckUserAccountCounter / 2  // try to upload & update UserAccount 
+                && Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+            {
+                try
+                {
+                    var remoteUserAccount = await DownloadUserAccountAsync(userAccount.Id);
+                    if (remoteUserAccount == null)
+                        Preferences.Default.Remove(USER_ACCOUNT);
+                    else
+                        SetLocalUserAccount(remoteUserAccount);
+                    return;
+                }
+                catch
+                {
+                }
+            }
+            Preferences.Default.Set(CHECK_COUNTER, --checkCounter);
         }
     }
 }
