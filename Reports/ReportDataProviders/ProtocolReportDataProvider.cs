@@ -42,7 +42,7 @@
 
         public string Image => protocol.HasImage ? protocol.Image! : string.Empty;
 
-        public string Customer => protocol.Customer;
+        public string Customer => string.Empty; //!!protocol.Customer;
 
         public string UserAccountCompany => string.IsNullOrWhiteSpace(userAccount.Company) ? string.Empty : userAccount.Company;
         

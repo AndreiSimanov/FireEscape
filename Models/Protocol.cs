@@ -19,10 +19,10 @@ namespace FireEscape.Models
         [ObservableProperty]
         int protocolNum;
         [ObservableProperty]
+        DateTime protocolDate;
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FullAddress))]
         string location = string.Empty;
-        [ObservableProperty]
-        DateTime protocolDate;
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FullAddress))]
         string address = string.Empty;
@@ -34,14 +34,14 @@ namespace FireEscape.Models
         [NotifyPropertyChangedFor(nameof(FireEscapeObjectName))]
         string fireEscapeObject = string.Empty;
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FireEscapeObjectName))]
-        string customer = string.Empty;
-        [ObservableProperty]
         Stairs stairs = new();
-        [JsonIgnore]
+        /*
+        [JsonIgnore]//!!
         public string FireEscapeObjectName => string.IsNullOrWhiteSpace(FireEscapeObject)
-            ? string.IsNullOrWhiteSpace(Customer) ? AppResources.FireEscape : Customer
-            : FireEscapeObject;
+            ? string.IsNullOrWhiteSpace(Customer) ? AppResources.FireEscape : Customer : FireEscapeObject;
+        */
+        [JsonIgnore]
+        public string FireEscapeObjectName => FireEscapeObject;
         [JsonIgnore]
         public string FullAddress => Location + ", " + Address;
         [JsonIgnore]

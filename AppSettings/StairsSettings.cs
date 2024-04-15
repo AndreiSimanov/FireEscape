@@ -7,5 +7,7 @@
         public ServiceabilityType[]? ServiceabilityTypes { get; set; }
         public ServiceabilityLimits[]? ServiceabilityLimits { get; set; }
         public StairsElementSettings[]? StairsElementSettings { get; set; }
+        public bool WeldSeamServiceability { get; set; }
+        public bool ProtectiveServiceability { get; set; }
     }
 }

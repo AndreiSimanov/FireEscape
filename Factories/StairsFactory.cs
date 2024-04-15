@@ -13,6 +13,8 @@ namespace FireEscape.Factories
             StairsWidth = new ServiceabilityProperty<int?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
             StairsType = stairsSettings.StairsTypes![0],
             StairsMountType = stairsSettings.StairsMountTypes![0],
+            WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
+            ProtectiveServiceability = stairsSettings.ProtectiveServiceability,
             StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
         };
 
