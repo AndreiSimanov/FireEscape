@@ -40,7 +40,8 @@
         public string WeldSeamServiceability => stairs.WeldSeamServiceability ? "соответствует" : "не соответствует";
         public string ProtectiveServiceability => stairs.ProtectiveServiceability ? "соответствует" : "не соответствует";
 
-        public string Image => protocol.HasImage ? protocol.Image! : string.Empty;
+        public bool HasImage => protocol.HasImage;
+        public byte[]? Image => protocol.Image;
 
         public string Customer => string.Empty; //!!protocol.Customer;
 

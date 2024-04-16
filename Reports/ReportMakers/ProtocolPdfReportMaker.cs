@@ -138,7 +138,7 @@ namespace FireEscape.Reports.ReportMakers
 
         static void MakeImage(Document document, ProtocolReportDataProvider protocolRdp)
         {
-            if (string.IsNullOrWhiteSpace(protocolRdp.Image))
+            if (!protocolRdp.HasImage)
                 return;
 
             var pageSize = document.GetPdfDocument().GetDefaultPageSize();
@@ -147,7 +147,7 @@ namespace FireEscape.Reports.ReportMakers
                 .SetHorizontalAlignment(HorizontalAlignment.CENTER)
                 .SetMaxWidth(pageSize.GetWidth() / 1.5f)
                 .SetMaxHeight(pageSize.GetHeight() / 1.5f)
-                .SetRotationAngle(GetRotation(protocolRdp.Image));
+                .SetRotationAngle(GetRotation(protocolRdp.Image!));
             document.Add(pdfImage);
             document.Add(new Paragraph(" "));
         }
@@ -192,10 +192,11 @@ namespace FireEscape.Reports.ReportMakers
             }    
         }
 
-        static double GetRotation(string filePath)
+        static double GetRotation(byte[] image)
         {
             var angle = 0;
-            var orientation = ImageMetadataReader.ReadMetadata(filePath)
+            using var imageStream = new MemoryStream(image);
+            var orientation = ImageMetadataReader.ReadMetadata(imageStream)
                 .OfType<ExifIfd0Directory>()
                 .FirstOrDefault()?
                 .GetDescription(ExifIfd0Directory.TagOrientation);

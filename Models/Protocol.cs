@@ -6,8 +6,6 @@ namespace FireEscape.Models
     [Table("Protocols")]
     public partial class Protocol : ObservableObject, ICloneable
     {
-        public const string NO_PHOTO = "nophoto.svg";
-
         [ObservableProperty]
         [property: PrimaryKey]
         [property: AutoIncrement]
@@ -43,7 +41,7 @@ namespace FireEscape.Models
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasImage))]
         [property: Column(nameof(Image))]
-        string? image;
+        byte[]? image;
 
         [ObservableProperty]
         [property: Column(nameof(ProtocolNum))]
@@ -70,8 +68,7 @@ namespace FireEscape.Models
         [JsonIgnore]
         public string FullAddress => Location + ", " + Address;
         [JsonIgnore]
-        public bool HasImage => !string.IsNullOrWhiteSpace(Image) && !string.Equals(Image, NO_PHOTO) && File.Exists(Image);
-
+        public bool HasImage => Image != null &&  Image.Length > 0;
         public object Clone() => MemberwiseClone();
     }
 }

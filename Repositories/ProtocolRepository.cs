@@ -38,8 +38,6 @@ namespace FireEscape.Repositories
 
         public async Task DeleteProtocol(Protocol protocol)
         {
-            if (protocol.HasImage)
-                File.Delete(protocol.Image!);
             if (protocol.Id != 0)
                 await (await connection).DeleteAsync(protocol);
         }
@@ -57,13 +55,10 @@ namespace FireEscape.Repositories
         {
             if (photo != null)
             {
-                var photoFilePath = Path.Combine(applicationSettings.ContentFolder, photo.FileName);
                 using var photoStream = await photo.OpenReadAsync();
-                using var outputFile = File.Create(photoFilePath);
-                await photoStream.CopyToAsync(outputFile);
-                if (protocol.HasImage)
-                    File.Delete(protocol.Image!);
-                protocol.Image = photoFilePath;
+                using var memoryStream = new MemoryStream();
+                await photoStream.CopyToAsync(memoryStream);
+                protocol.Image = memoryStream.ToArray();
                 await SaveProtocolAsync(protocol);
             }
         }
