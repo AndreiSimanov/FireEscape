@@ -29,8 +29,13 @@ namespace FireEscape.Repositories
 
         public async Task DeleteOrderAsync(Order order)
         {
-            if (order.Id != 0)
-                await (await connection).DeleteAsync(order);
+            if (order.Id == 0)
+                return;
+            await (await connection).RunInTransactionAsync(connection =>
+            {
+                connection.Table<Protocol>().Where(protocol => protocol.OrderId == order.Id).Delete();
+                connection.Delete(order);
+            });
         }
 
         public async Task<Order[]> GetOrdersAsync()

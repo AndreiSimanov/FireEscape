@@ -1,14 +1,12 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories;
-using Microsoft.Extensions.Options;
 using SQLite;
 
 namespace FireEscape.Repositories
 {
-    public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSettings> applicationSettings, ProtocolFactory protocolFactory) : IProtocolRepository
+    public class ProtocolRepository(SqliteContext context, ProtocolFactory protocolFactory) : IProtocolRepository
     {
         readonly AsyncLazy<SQLiteAsyncConnection> connection = context.Connection;
-        readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
         public async Task<Protocol> CreateProtocolAsync(Order order)
         {
