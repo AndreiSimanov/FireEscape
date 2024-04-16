@@ -117,7 +117,7 @@
                                             </Image.Clip>
                                         </Image>
                                         <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
-                                            <Label Style="{StaticResource Titleline}" Text="{Binding FireEscapeObjectName}"/>
+                                            <Label Style="{StaticResource Titleline}" Text="{Binding FireEscapeObject}"/>
                                             <Label Style="{StaticResource SubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
@@ -144,6 +144,11 @@
                                                         <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
                                                         <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                         <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                                        <Span Text="  (" />
+                                                        <Span Text="{x:Static lang:AppResources.Id}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{Binding Id}" />
+                                                        <Span Text=")" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>

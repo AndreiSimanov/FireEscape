@@ -29,11 +29,15 @@ namespace FireEscape.Models
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FullAddress))]
         [property: Column(nameof(Location))]
+        [property: Indexed]
+        [property: MaxLength(128)]
         string location = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FullAddress))]
         [property: Column(nameof(Address))]
+        [property: Indexed]
+        [property: MaxLength(256)]
         string address = string.Empty;
 
         [ObservableProperty]
@@ -54,21 +58,15 @@ namespace FireEscape.Models
         int fireEscapeNum;
         
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FireEscapeObjectName))]
         [property: Column(nameof(FireEscapeObject))]
+        [property: Indexed]
+        [property: MaxLength(128)]
         string fireEscapeObject = string.Empty;
 
         [ObservableProperty]
         [property: Ignore]
         Stairs stairs = new();
 
-        /*
-        [JsonIgnore]//!!
-        public string FireEscapeObjectName => string.IsNullOrWhiteSpace(FireEscapeObject)
-            ? string.IsNullOrWhiteSpace(Customer) ? AppResources.FireEscape : Customer : FireEscapeObject;
-        */
-        [JsonIgnore]
-        public string FireEscapeObjectName => FireEscapeObject;
         [JsonIgnore]
         public string FullAddress => Location + ", " + Address;
         [JsonIgnore]

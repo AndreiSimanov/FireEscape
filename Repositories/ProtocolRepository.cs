@@ -10,9 +10,9 @@ namespace FireEscape.Repositories
         readonly AsyncLazy<SQLiteAsyncConnection> connection = context.Connection;
         readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
-        public async Task<Protocol> CreateProtocolAsync(int orderId)
+        public async Task<Protocol> CreateProtocolAsync(Order order)
         {
-            var protocol = protocolFactory.CreateDefaultProtocol(orderId);
+            var protocol = protocolFactory.CreateDefaultProtocol(order);
             await SaveProtocolAsync(protocol);
             return protocol;
         }

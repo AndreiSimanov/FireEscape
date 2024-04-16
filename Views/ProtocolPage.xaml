@@ -102,12 +102,6 @@
                     Text="{Binding Protocol.FireEscapeObject}"
                     LabelText="{x:Static lang:AppResources.FireEscapeObject}"
                     PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"/>
-                <!-- //!!
-                <dxe:TextEdit
-                    Text="{Binding Protocol.Customer}"
-                    LabelText="{x:Static lang:AppResources.Customer}"
-                    PlaceholderText="{x:Static lang:AppResources.CustomerHint}"/>
-                -->
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

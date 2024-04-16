@@ -45,7 +45,7 @@ namespace FireEscape.ViewModels
             {
                 if (Order == null)
                     return;
-                newProtocol = await protocolService.CreateProtocolAsync(Order.Id);
+                newProtocol = await protocolService.CreateProtocolAsync(Order);
                 Protocols.Insert(0, newProtocol);
             },
             AppResources.AddProtocolError);

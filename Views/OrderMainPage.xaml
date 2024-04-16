@@ -16,7 +16,6 @@
              x:DataType="viewmodel:OrderMainViewModel"
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
-
     <Grid RowDefinitions="Auto,*">
         <dxe:TextEdit 
             EndIcon="search" PlaceholderText="{x:Static lang:AppResources.OrdersSearch}" TextFontSize="14"
@@ -158,13 +157,14 @@
         <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsRefreshing}" HeightRequest="100" WidthRequest="100" />
         <dx:DXButton
             x:Name="addButton"
-            TapPressed="tapPressed"
-            TapReleased="tapReleased"
             IsEnabled="{Binding IsNotBusy}"
             VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
             WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
             FontSize="28" CornerRadius="14" FontAttributes="None"
             Clicked="CreateOrder">
+            <dx:DXButton.Behaviors>
+                <toolkit:TouchBehavior LongPressCommand="{Binding OpenUserAccountMainPageCommand}" LongPressDuration="6000"/>
+            </dx:DXButton.Behaviors>
             <dx:DXButton.Shadow>
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>

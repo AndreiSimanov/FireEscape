@@ -2,7 +2,7 @@
 {
     public class ProtocolService(IProtocolRepository protocolRepository, IReportRepository reportRepository)
     {
-        public async Task<Protocol> CreateProtocolAsync(int orderId) => await protocolRepository.CreateProtocolAsync(orderId);
+        public async Task<Protocol> CreateProtocolAsync(Order order) => await protocolRepository.CreateProtocolAsync(order);
 
         public async Task<Protocol> CopyProtocolAsync(Protocol protocol) => await protocolRepository.CopyProtocolAsync(protocol);
 

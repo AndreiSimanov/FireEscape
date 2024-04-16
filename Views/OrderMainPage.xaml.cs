@@ -1,12 +1,9 @@
 using DevExpress.Maui.Editors;
-using System.Diagnostics;
 
 namespace FireEscape.Views;
 
 public partial class OrderMainPage : ContentPage
 {
-    Stopwatch tapStopwatch = new();
-
     public OrderMainPage(OrderMainViewModel viewModel)
 	{
 		InitializeComponent();
@@ -37,18 +34,5 @@ public partial class OrderMainPage : ContentPage
     {
         if (OrderMainViewModel != null)
             OrderMainViewModel.IsEmptyList = orders.VisibleItemCount == 0 && !OrderMainViewModel.IsRefreshing;
-    }
-
-    void tapPressed(object sender, DevExpress.Maui.Core.DXTapEventArgs e)
-    {
-        tapStopwatch.Reset();
-        tapStopwatch.Start();
-    }
-
-    void tapReleased(object sender, DevExpress.Maui.Core.DXTapEventArgs e)
-    {
-        tapStopwatch.Stop();
-        if (tapStopwatch.ElapsedMilliseconds > 4000)
-            OrderMainViewModel?.OpenUserAccountMainPageCommand.Execute(null);
     }
 }

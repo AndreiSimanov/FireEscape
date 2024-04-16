@@ -10,12 +10,12 @@ namespace FireEscape.Factories
         public Protocol CreateBrokenDataProtocol(int id) => 
             new Protocol() { Id = id, Image = Protocol.NO_PHOTO, FireEscapeObject = AppResources.BrokenData };
 
-        public Protocol CreateDefaultProtocol(int orderId) => new Protocol()
+        public Protocol CreateDefaultProtocol(Order order) => new Protocol()
         {
-            OrderId = orderId,
+            OrderId = order.Id,
             Image = Protocol.NO_PHOTO,
             ProtocolNum = newProtocolSettings.ProtocolNum,
-            Location = newProtocolSettings.Location,
+            Location = string.IsNullOrWhiteSpace(order.Location) ? newProtocolSettings.Location : string.Empty,
             ProtocolDate = DateTime.Today,
             FireEscapeNum = newProtocolSettings.FireEscapeNum,
             Stairs = stairsFactory.CreateDefaultStairs(),
