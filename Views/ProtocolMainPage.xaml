@@ -14,9 +14,7 @@
              x:Class="FireEscape.Views.ProtocolMainPage"
              Title="{x:Static lang:AppResources.ProtocolMainPageTitle}"
              x:DataType="viewmodel:ProtocolMainViewModel"
-             Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
-
     <Grid RowDefinitions="Auto,*">
         <dxe:TextEdit 
             EndIcon="search" PlaceholderText="{x:Static lang:AppResources.ProtocolsSearch}" TextFontSize="14"
@@ -50,7 +48,7 @@
             ItemsSource="{Binding Protocols}"
             IsPullToRefreshEnabled="True"
             IsRefreshing="{Binding IsRefreshing}"
-            PullToRefreshCommand="{Binding GetProtocolsSyncCommand}"
+            PullToRefreshCommand="{Binding GetProtocolsCommand}"
             AllowLiveDataShaping="True"
             SelectionMode="Single" Grid.Row="1"
             ItemSeparatorThickness="0"
@@ -160,9 +158,6 @@
         </dxcv:DXCollectionView>
         <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsRefreshing}" HeightRequest="100" WidthRequest="100" />
         <dx:DXButton
-            x:Name="addButton"
-            TapPressed="tapPressed"
-            TapReleased="tapReleased"
             IsEnabled="{Binding IsNotBusy}"
             VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
             WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
@@ -172,18 +167,5 @@
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>
         </dx:DXButton>
-<!--    //For tests only
-        <dx:DXButton
-            x:Name="addBatchButton"
-            IsEnabled="{Binding IsNotBusy}"
-            VerticalOptions="End" HorizontalOptions="End" Margin="74" Content="++"
-            WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
-            FontSize="28" CornerRadius="14" FontAttributes="None"
-            Command="{Binding AddProtocolsCommand}">
-            <dx:DXButton.Shadow>
-                <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
-            </dx:DXButton.Shadow>
-        </dx:DXButton>
--->        
     </Grid>
 </ContentPage>

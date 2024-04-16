@@ -7,11 +7,12 @@ namespace FireEscape.Factories
     {
         readonly NewProtocolSettings newProtocolSettings = newProtocolSettings.Value;
 
-        public Protocol CreateBrokenDataProtocol(string protocolId) => 
-            new Protocol() { Id = protocolId, Image = Protocol.NO_PHOTO, FireEscapeObject = AppResources.BrokenData };
+        public Protocol CreateBrokenDataProtocol(int id) => 
+            new Protocol() { Id = id, Image = Protocol.NO_PHOTO, FireEscapeObject = AppResources.BrokenData };
 
-        public Protocol CreateDefaultProtocol() => new Protocol()
+        public Protocol CreateDefaultProtocol(int orderId) => new Protocol()
         {
+            OrderId = orderId,
             Image = Protocol.NO_PHOTO,
             ProtocolNum = newProtocolSettings.ProtocolNum,
             Location = newProtocolSettings.Location,
@@ -24,7 +25,7 @@ namespace FireEscape.Factories
         public Protocol CopyProtocol(Protocol protocol)
         {
             var newProtocol = (Protocol)protocol.Clone();
-            newProtocol.Id = null;
+            newProtocol.Id = 0;
             newProtocol.Image = Protocol.NO_PHOTO;
             newProtocol.FireEscapeNum = newProtocol.FireEscapeNum + 1;
             newProtocol.Stairs = stairsFactory.CreateDefaultStairs();

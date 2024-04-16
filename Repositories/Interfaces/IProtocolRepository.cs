@@ -3,11 +3,10 @@
     public interface IProtocolRepository
     {
         Task AddPhotoAsync(Protocol protocol, FileResult? photo);
-        Task<Protocol> CreateProtocolAsync();
         Task<Protocol> CopyProtocolAsync(Protocol protocol);
+        Task<Protocol> CreateProtocolAsync(int orderId);
         Task DeleteProtocol(Protocol protocol);
-        Task SaveProtocolAsync(Protocol protocol);
-        IAsyncEnumerable<Protocol> GetProtocolsAsync();
-        Protocol[] GetProtocols();
+        Task<Protocol[]> GetProtocolsAsync(int orderId);
+        Task<Protocol> SaveProtocolAsync(Protocol protocol);
     }
 }

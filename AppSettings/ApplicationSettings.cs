@@ -7,7 +7,7 @@
         public int NewUserAccountExpirationCount { get; set; }
         public int CheckUserAccountCounter { get; set; }
         public required string PrimaryThemeColor { get; set; }
-
+        public required string DbName { get; set; }
         string contentFolder = string.Empty;
         public required string ContentFolder
         {

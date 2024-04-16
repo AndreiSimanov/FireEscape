@@ -345,4 +345,49 @@
   <data name="DeleteStairsElementError" xml:space="preserve">
     <value>Unable to delete stairs element</value>
   </data>
+  <data name="GetOrdersError" xml:space="preserve">
+    <value>Unable to get orders</value>
+  </data>
+  <data name="OrderMainPageTitle" xml:space="preserve">
+    <value>Order list</value>
+  </data>
+  <data name="AddOrderError" xml:space="preserve">
+    <value>Unable to add order</value>
+  </data>
+  <data name="DeleteOrder" xml:space="preserve">
+    <value>Delete the order?</value>
+  </data>
+  <data name="DeleteOrderError" xml:space="preserve">
+    <value>Unable to delete order</value>
+  </data>
+  <data name="EditOrderError" xml:space="preserve">
+    <value>Unable to edit the order</value>
+  </data>
+  <data name="ExecutiveCompany" xml:space="preserve">
+    <value>Executive сompany</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Order date</value>
+  </data>
+  <data name="OrderName" xml:space="preserve">
+    <value>Order name</value>
+  </data>
+  <data name="OrdersSearch" xml:space="preserve">
+    <value>Search orders</value>
+  </data>
+  <data name="OrderPageTitle" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="SaveOrderError" xml:space="preserve">
+    <value>Unable to save the order</value>
+  </data>
+  <data name="ExecutiveCompanyHint" xml:space="preserve">
+    <value>Specify executive company</value>
+  </data>
+  <data name="OrderNameHint" xml:space="preserve">
+    <value>Specify order nane</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
 </root>

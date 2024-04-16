@@ -10,6 +10,8 @@
             Routing.RegisterRoute(nameof(UserAccountMainPage), typeof(UserAccountMainPage));
             Routing.RegisterRoute(nameof(UserAccountPage), typeof(UserAccountPage));
             Routing.RegisterRoute(nameof(ProtocolMainPage), typeof(ProtocolMainPage));
+            Routing.RegisterRoute(nameof(OrderPage), typeof(OrderPage));
+            Routing.RegisterRoute(nameof(OrderMainPage), typeof(OrderMainPage));
         }
     }
 }

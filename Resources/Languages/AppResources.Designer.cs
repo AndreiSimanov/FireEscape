@@ -61,6 +61,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно добавить заказ.
+        /// </summary>
+        internal static string AddOrderError {
+            get {
+                return ResourceManager.GetString("AddOrderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно добавить фотографию в  протокол.
         /// </summary>
         internal static string AddPhotoError {
@@ -223,6 +232,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Удалить заказ?.
+        /// </summary>
+        internal static string DeleteOrder {
+            get {
+                return ResourceManager.GetString("DeleteOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно удалить заказ.
+        /// </summary>
+        internal static string DeleteOrderError {
+            get {
+                return ResourceManager.GetString("DeleteOrderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Удалить протокол?.
         /// </summary>
         internal static string DeleteProtocol {
@@ -277,6 +304,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно отредактировать заказ.
+        /// </summary>
+        internal static string EditOrderError {
+            get {
+                return ResourceManager.GetString("EditOrderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно отредактировать протокол.
         /// </summary>
         internal static string EditProtocolError {
@@ -318,6 +354,24 @@ namespace FireEscape.Resources.Languages {
         internal static string EscapeStairs {
             get {
                 return ResourceManager.GetString("EscapeStairs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Исполнитель заказа.
+        /// </summary>
+        internal static string ExecutiveCompany {
+            get {
+                return ResourceManager.GetString("ExecutiveCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите  исполнителя заказа.
+        /// </summary>
+        internal static string ExecutiveCompanyHint {
+            get {
+                return ResourceManager.GetString("ExecutiveCompanyHint", resourceCulture);
             }
         }
         
@@ -376,6 +430,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно получить список заказов.
+        /// </summary>
+        internal static string GetOrdersError {
+            get {
+                return ResourceManager.GetString("GetOrdersError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно получить список протоколов.
         /// </summary>
         internal static string GetProtocolsError {
@@ -390,6 +453,15 @@ namespace FireEscape.Resources.Languages {
         internal static string GetUserAccountsError {
             get {
                 return ResourceManager.GetString("GetUserAccountsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        internal static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
             }
         }
         
@@ -453,6 +525,60 @@ namespace FireEscape.Resources.Languages {
         internal static string OpenUserAccountMainPageError {
             get {
                 return ResourceManager.GetString("OpenUserAccountMainPageError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата заказа.
+        /// </summary>
+        internal static string OrderDate {
+            get {
+                return ResourceManager.GetString("OrderDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Список заказов.
+        /// </summary>
+        internal static string OrderMainPageTitle {
+            get {
+                return ResourceManager.GetString("OrderMainPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Заказ.
+        /// </summary>
+        internal static string OrderName {
+            get {
+                return ResourceManager.GetString("OrderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите название заказа.
+        /// </summary>
+        internal static string OrderNameHint {
+            get {
+                return ResourceManager.GetString("OrderNameHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Заказ.
+        /// </summary>
+        internal static string OrderPageTitle {
+            get {
+                return ResourceManager.GetString("OrderPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поиск заказов.
+        /// </summary>
+        internal static string OrdersSearch {
+            get {
+                return ResourceManager.GetString("OrdersSearch", resourceCulture);
             }
         }
         
@@ -525,6 +651,15 @@ namespace FireEscape.Resources.Languages {
         internal static string RejectExplanationHint {
             get {
                 return ResourceManager.GetString("RejectExplanationHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно сохранить заказ.
+        /// </summary>
+        internal static string SaveOrderError {
+            get {
+                return ResourceManager.GetString("SaveOrderError", resourceCulture);
             }
         }
         

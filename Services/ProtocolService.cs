@@ -2,7 +2,7 @@
 {
     public class ProtocolService(IProtocolRepository protocolRepository, IReportRepository reportRepository)
     {
-        public async Task<Protocol> CreateProtocolAsync() => await protocolRepository.CreateProtocolAsync();
+        public async Task<Protocol> CreateProtocolAsync(int orderId) => await protocolRepository.CreateProtocolAsync(orderId);
 
         public async Task<Protocol> CopyProtocolAsync(Protocol protocol) => await protocolRepository.CopyProtocolAsync(protocol);
 
@@ -10,9 +10,7 @@
 
         public async Task DeleteProtocol(Protocol protocol) => await protocolRepository.DeleteProtocol(protocol);
 
-        public IAsyncEnumerable<Protocol> GetProtocolsAsync() => protocolRepository.GetProtocolsAsync();
-
-        public Protocol[] GetProtocols() => protocolRepository.GetProtocols();
+        public async Task<Protocol[]> GetProtocolsAsync(int orderId) => await protocolRepository.GetProtocolsAsync(orderId);
 
         public async Task AddPhotoAsync(Protocol protocol)
         {

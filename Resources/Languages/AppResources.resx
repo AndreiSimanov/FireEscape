@@ -345,4 +345,49 @@
   <data name="DeleteStairsElementError" xml:space="preserve">
     <value>Невозможно удалить элемент лестницы</value>
   </data>
+  <data name="GetOrdersError" xml:space="preserve">
+    <value>Невозможно получить список заказов</value>
+  </data>
+  <data name="OrderMainPageTitle" xml:space="preserve">
+    <value>Список заказов</value>
+  </data>
+  <data name="AddOrderError" xml:space="preserve">
+    <value>Невозможно добавить заказ</value>
+  </data>
+  <data name="DeleteOrder" xml:space="preserve">
+    <value>Удалить заказ?</value>
+  </data>
+  <data name="DeleteOrderError" xml:space="preserve">
+    <value>Невозможно удалить заказ</value>
+  </data>
+  <data name="EditOrderError" xml:space="preserve">
+    <value>Невозможно отредактировать заказ</value>
+  </data>
+  <data name="ExecutiveCompany" xml:space="preserve">
+    <value>Исполнитель заказа</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Дата заказа</value>
+  </data>
+  <data name="OrderName" xml:space="preserve">
+    <value>Заказ</value>
+  </data>
+  <data name="OrdersSearch" xml:space="preserve">
+    <value>Поиск заказов</value>
+  </data>
+  <data name="OrderPageTitle" xml:space="preserve">
+    <value>Заказ</value>
+  </data>
+  <data name="SaveOrderError" xml:space="preserve">
+    <value>Невозможно сохранить заказ</value>
+  </data>
+  <data name="ExecutiveCompanyHint" xml:space="preserve">
+    <value>Укажите  исполнителя заказа</value>
+  </data>
+  <data name="OrderNameHint" xml:space="preserve">
+    <value>Укажите название заказа</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
 </root>

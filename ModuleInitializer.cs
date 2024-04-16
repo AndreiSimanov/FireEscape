@@ -1,4 +1,5 @@
-﻿using FireEscape.Factories;
+﻿using FireEscape.DBContext;
+using FireEscape.Factories;
 
 namespace FireEscape
 {
@@ -6,30 +7,41 @@ namespace FireEscape
     {
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
+            services.AddSingleton<SqliteContext>();
+
+            services.AddSingleton<OrderFactory>();
             services.AddSingleton<ProtocolFactory>();
             services.AddSingleton<StairsFactory>();
 
-            services.AddSingleton<IProtocolRepository, LocalFileRepository>();
+            services.AddSingleton<IOrderRepository, OrderRepository>();
+            services.AddSingleton<IProtocolRepository, ProtocolRepository>();
             services.AddSingleton<IReportRepository, PdfWriterRepository>();
             services.AddSingleton<IFileHostingRepository, DropboxRepository>();
 
-            services.AddSingleton<UserAccountService>();
+            services.AddSingleton<OrderService>();
             services.AddSingleton<ProtocolService>();
+            services.AddSingleton<UserAccountService>();
 
-            services.AddSingleton<ProtocolMainViewModel>();
-            services.AddSingleton<ProtocolMainPage>();
+            services.AddSingleton<OrderMainViewModel>();
+            services.AddSingleton<OrderMainPage>();
 
-            services.AddSingleton<UserAccountMainViewModel>();
-            services.AddSingleton<UserAccountMainPage>();
+            services.AddTransient<OrderViewModel>();
+            services.AddTransient<OrderPage>();
 
-            services.AddTransient<UserAccountViewModel>();
-            services.AddTransient<UserAccountPage>();
+            services.AddTransient<ProtocolMainViewModel>();
+            services.AddTransient<ProtocolMainPage>();
 
             services.AddTransient<ProtocolViewModel>();
             services.AddTransient<ProtocolPage>();
 
             services.AddTransient<StairsViewModel>();
             services.AddTransient<StairsPage>();
+
+            services.AddSingleton<UserAccountMainViewModel>();
+            services.AddSingleton<UserAccountMainPage>();
+
+            services.AddTransient<UserAccountViewModel>();
+            services.AddTransient<UserAccountPage>();
 
             return services;
         }

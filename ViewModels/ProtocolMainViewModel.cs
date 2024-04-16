@@ -5,8 +5,11 @@ using Protocol = FireEscape.Models.Protocol;
 
 namespace FireEscape.ViewModels
 {
+    [QueryProperty(nameof(Order), nameof(Order))]
     public partial class ProtocolMainViewModel(ProtocolService protocolService, UserAccountService userAccountService) : BaseViewModel
     {
+        [ObservableProperty]
+        Order? order;
         [ObservableProperty]
         ObservableCollection<Protocol> protocols = new();
         [ObservableProperty]
@@ -16,38 +19,15 @@ namespace FireEscape.ViewModels
         bool isEmptyList = true;
 
         [RelayCommand]
-        void GetProtocolsSync() => //Sync version works faster for local drive
-            DoCommand(() =>
-            {
-                try
-                {
-                    if (Protocols.Any())
-                        return;
-                    IsRefreshing = true;
-                    var protocols = protocolService.GetProtocols();
-                    Protocols = protocols.ToObservableCollection();
-                }
-                finally
-                {
-                    IsRefreshing = false;
-                }
-            },
-           AppResources.GetProtocolsError);
-
-        [RelayCommand]
         async Task GetProtocolsAsync() =>
             await DoCommandAsync(async () =>
             {
                 try
                 {
-                    if (Protocols.Any())
+                    if (Order == null || Protocols.Any())
                         return;
                     IsRefreshing = true;
-                    var protocols = new List<Protocol>();
-                    await foreach (var item in protocolService.GetProtocolsAsync())
-                    {
-                        protocols.Add(item);
-                    }
+                    var protocols = await protocolService.GetProtocolsAsync(Order.Id);
                     Protocols = protocols.ToObservableCollection();
                 }
                 finally
@@ -63,7 +43,9 @@ namespace FireEscape.ViewModels
             Protocol? newProtocol = null;
             await DoCommandAsync(async () =>
             {
-                newProtocol = await protocolService.CreateProtocolAsync();
+                if (Order == null)
+                    return;
+                newProtocol = await protocolService.CreateProtocolAsync(Order.Id);
                 Protocols.Insert(0, newProtocol);
             },
             AppResources.AddProtocolError);
@@ -133,28 +115,5 @@ namespace FireEscape.ViewModels
             },
             protocol,
             AppResources.EditProtocolError);
-
-        [RelayCommand]
-        async Task OpenUserAccountMainPageAsync() =>
-            await DoCommandAsync(async () =>
-            {
-                var userAccount = await userAccountService.GetCurrentUserAccount(true);
-                if (UserAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
-                {
-                    await Shell.Current.GoToAsync(nameof(UserAccountMainPage), true);
-                }
-            },
-            AppResources.OpenUserAccountMainPageError);
-
-        [RelayCommand] //For test only 
-        async Task AddProtocolsAsync() => 
-            await DoCommandAsync(async () =>
-            {
-                for (var i = 0; i < 1000; i++)
-                {
-                    await protocolService.CreateProtocolAsync();
-                }
-            },
-            AppResources.AddProtocolError);
     }
 }
