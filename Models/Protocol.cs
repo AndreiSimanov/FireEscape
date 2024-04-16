@@ -41,7 +41,7 @@ namespace FireEscape.Models
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasImage))]
         [property: Column(nameof(Image))]
-        byte[]? image;
+        string? image;
 
         [ObservableProperty]
         [property: Column(nameof(ProtocolNum))]
@@ -68,7 +68,8 @@ namespace FireEscape.Models
         [JsonIgnore]
         public string FullAddress => Location + ", " + Address;
         [JsonIgnore]
-        public bool HasImage => Image != null &&  Image.Length > 0;
+        public bool HasImage => !string.IsNullOrWhiteSpace(Image) && File.Exists(Image);
+
         public object Clone() => MemberwiseClone();
     }
 }

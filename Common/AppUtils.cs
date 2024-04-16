@@ -4,6 +4,7 @@ namespace FireEscape.Common
 {
     public static class AppUtils
     {
+        public const string IMAGE_FILE_EXTENSION = "jpg";
 
         public static string DefaultContentFolder
         {

@@ -6,6 +6,7 @@
         public int NewUserAccountExpirationDays { get; set; }
         public int NewUserAccountExpirationCount { get; set; }
         public int CheckUserAccountCounter { get; set; }
+        public int MaxImageSize { get; set; }
         public required string PrimaryThemeColor { get; set; }
         public required string DbName { get; set; }
         string contentFolder = string.Empty;

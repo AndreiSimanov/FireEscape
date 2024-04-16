@@ -16,13 +16,13 @@
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
-                var photo = await MediaPicker.Default.CapturePhotoAsync();
-                await protocolRepository.AddPhotoAsync(protocol, photo);
+                var imageFile = await MediaPicker.Default.CapturePhotoAsync();
+                await protocolRepository.AddImageAsync(protocol, imageFile);
             }
         }
 
         public async Task SelectPhotoAsync(Protocol protocol) => 
-            await protocolRepository.AddPhotoAsync(protocol, await MediaPicker.PickPhotoAsync());
+            await protocolRepository.AddImageAsync(protocol, await MediaPicker.PickPhotoAsync());
 
         public async Task CreateReportAsync(Protocol protocol, UserAccount userAccount)
         {

@@ -147,7 +147,7 @@ namespace FireEscape.Reports.ReportMakers
                 .SetHorizontalAlignment(HorizontalAlignment.CENTER)
                 .SetMaxWidth(pageSize.GetWidth() / 1.5f)
                 .SetMaxHeight(pageSize.GetHeight() / 1.5f)
-                .SetRotationAngle(GetRotation(protocolRdp.Image!));
+                .SetRotationAngle(GetRotation(protocolRdp.Image));
             document.Add(pdfImage);
             document.Add(new Paragraph(" "));
         }
@@ -192,11 +192,10 @@ namespace FireEscape.Reports.ReportMakers
             }    
         }
 
-        static double GetRotation(byte[] image)
+        static double GetRotation(string filePath)
         {
             var angle = 0;
-            using var imageStream = new MemoryStream(image);
-            var orientation = ImageMetadataReader.ReadMetadata(imageStream)
+            var orientation = ImageMetadataReader.ReadMetadata(filePath)
                 .OfType<ExifIfd0Directory>()
                 .FirstOrDefault()?
                 .GetDescription(ExifIfd0Directory.TagOrientation);

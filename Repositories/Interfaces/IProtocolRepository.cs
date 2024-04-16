@@ -2,7 +2,7 @@
 {
     public interface IProtocolRepository
     {
-        Task AddPhotoAsync(Protocol protocol, FileResult? photo);
+        Task AddImageAsync(Protocol protocol, FileResult? imageFile);
         Task<Protocol> CopyProtocolAsync(Protocol protocol);
         Task<Protocol> CreateProtocolAsync(Order order);
         Task DeleteProtocol(Protocol protocol);

@@ -96,7 +96,6 @@
                                         <Grid.Resources>
                                             <ResourceDictionary>
                                                 <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
-                                                <toolkit:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
                                             </ResourceDictionary>
                                         </Grid.Resources>
                                         <Image
@@ -112,7 +111,7 @@
                                             Aspect="AspectFill"
                                             HeightRequest="110"
                                             WidthRequest="110" 
-                                            Source="{Binding Image, Mode=OneWay, Converter={StaticResource ByteArrayToImageSourceConverter}}">
+                                            Source="{Binding Image}">
                                             <Image.Clip>
                                                 <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
                                             </Image.Clip>

@@ -41,7 +41,7 @@
         public string ProtectiveServiceability => stairs.ProtectiveServiceability ? "соответствует" : "не соответствует";
 
         public bool HasImage => protocol.HasImage;
-        public byte[]? Image => protocol.Image;
+        public string Image => protocol.HasImage ? protocol.Image! : string.Empty;
 
         public string Customer => string.Empty; //!!protocol.Customer;
 

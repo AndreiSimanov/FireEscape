@@ -1,12 +1,15 @@
-﻿using FireEscape.DBContext;
+﻿using DevExpress.Maui.Core.Internal;
+using FireEscape.DBContext;
 using FireEscape.Factories;
+using Microsoft.Extensions.Options;
 using SQLite;
 
 namespace FireEscape.Repositories
 {
-    public class OrderRepository(SqliteContext context, OrderFactory orderFactory) : IOrderRepository
+    public class OrderRepository(SqliteContext context, IOptions<ApplicationSettings> applicationSettings, OrderFactory orderFactory) : IOrderRepository
     {
         readonly AsyncLazy<SQLiteAsyncConnection> connection = context.Connection;
+        readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
         public async Task<Order> CreateOrderAsync()
         {
@@ -36,6 +39,10 @@ namespace FireEscape.Repositories
                 connection.Table<Protocol>().Where(protocol => protocol.OrderId == order.Id).Delete();
                 connection.Delete(order);
             });
+
+            var imageFileMask = $"{order.Id}_*.{AppUtils.IMAGE_FILE_EXTENSION}";
+            var dir = new DirectoryInfo(applicationSettings.ContentFolder);
+            dir.EnumerateFiles(imageFileMask).ForEach(file => file.Delete());
         }
 
         public async Task<Order[]> GetOrdersAsync()
