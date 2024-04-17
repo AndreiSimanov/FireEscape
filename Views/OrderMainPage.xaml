@@ -16,17 +16,26 @@
              x:DataType="viewmodel:OrderMainViewModel"
              Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="Auto,*">
-        <dxe:TextEdit 
+
+        <Frame Margin="10" 
+               Padding="8,-9,8,1"  
+               CornerRadius ="25"
+               BorderColor="{dx:ThemeColor SurfaceContainer}"
+               BackgroundColor="{dx:ThemeColor SurfaceContainer}">
+            <Entry 
             Text="{Binding Search}"
-            EndIcon="search" PlaceholderText="{x:Static lang:AppResources.OrdersSearch}" TextFontSize="14"
-            ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
-            BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
-            BorderThickness="0" BoxPadding="20,8,10,8"
-            EndIconColor="{dx:ThemeColor OnSurfaceVariant}"
-            FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38" Margin="15,10,15,10"
+             BackgroundColor="{dx:ThemeColor SurfaceContainer}"
             ReturnType="Search"
-            ClearIconClicked="ClearSearch"
-            Completed="SearchTextChanged"/>
+            
+            Placeholder="{x:Static lang:AppResources.OrdersSearch}">
+                <Entry.Behaviors>
+                    <toolkit:UserStoppedTypingBehavior 
+                        Command="{Binding GetOrdersCommand}"
+                        StoppedTypingTimeThreshold="1000"
+                        ShouldDismissKeyboardAutomatically="False" />
+                </Entry.Behaviors>
+            </Entry>
+        </Frame>
         <Border
             IsVisible="{Binding IsEmptyList}"
             StrokeShape="RoundRectangle 80"

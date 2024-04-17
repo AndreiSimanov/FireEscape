@@ -256,27 +256,6 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
-        <Setter Property="BackgroundColor" Value="{dx:ThemeColor Surface}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
-                    <VisualState x:Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
 
     <Style TargetType="Frame">
         <Setter Property="HasShadow" Value="False" />
@@ -538,6 +517,15 @@
         <Setter Property="TextVerticalAlignment" Value="Start" />
         <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+
+    <Style TargetType="Entry">
+        <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
+        <Setter Property="BackgroundColor" Value="{dx:ThemeColor Surface}" />
+        <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
     </Style>
 
     <Style TargetType="VerticalStackLayout">

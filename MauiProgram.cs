@@ -8,7 +8,6 @@ namespace FireEscape
     {
         public static MauiApp CreateMauiApp()
         {
-
             var builder = MauiApp.CreateBuilder();
             using var stream = GetStreamFromFile("appsettings.json");
             var configuration = new ConfigurationBuilder().AddJsonStream(stream!).Build();

@@ -313,10 +313,10 @@
     <value>Качество сварных швов соответствует ГОСТ</value>
   </data>
   <data name="ProtocolsSearch" xml:space="preserve">
-    <value>Поиск протоколов</value>
+    <value>Поиск протоколов...</value>
   </data>
   <data name="UserAccountsSearch" xml:space="preserve">
-    <value>Поиск учетных записей</value>
+    <value>Поиск учетных записей...</value>
   </data>
   <data name="SelectPhotoHint" xml:space="preserve">
     <value>Галерея</value>
@@ -373,7 +373,7 @@
     <value>Заказ</value>
   </data>
   <data name="OrdersSearch" xml:space="preserve">
-    <value>Поиск заказов</value>
+    <value>Поиск заказов...</value>
   </data>
   <data name="OrderPageTitle" xml:space="preserve">
     <value>Заказ</value>

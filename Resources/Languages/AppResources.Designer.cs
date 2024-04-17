@@ -574,7 +574,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Поиск заказов.
+        ///   Looks up a localized string similar to Поиск заказов....
         /// </summary>
         internal static string OrdersSearch {
             get {
@@ -628,7 +628,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Поиск протоколов.
+        ///   Looks up a localized string similar to Поиск протоколов....
         /// </summary>
         internal static string ProtocolsSearch {
             get {
@@ -862,7 +862,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Поиск учетных записей.
+        ///   Looks up a localized string similar to Поиск учетных записей....
         /// </summary>
         internal static string UserAccountsSearch {
             get {

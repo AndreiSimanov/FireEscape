@@ -14,18 +14,6 @@ public partial class OrderMainPage : ContentPage
         OrderMainViewModel?.AddOrderCommand.Execute(null);
         orders.ScrollTo(0);
     }
-    void SearchTextChanged(object sender, EventArgs e)
-    {
-        OrderMainViewModel?.GetOrdersCommand.Execute(null);
-    }
-
-    private void ClearSearch(object sender, System.ComponentModel.HandledEventArgs e)
-    {
-        if (OrderMainViewModel == null)
-            return;
-        OrderMainViewModel.Search = string.Empty;
-        OrderMainViewModel.GetOrdersCommand.Execute(null);
-    }
 
     void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {

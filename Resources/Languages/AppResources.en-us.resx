@@ -313,10 +313,10 @@
     <value>Weld seam quality corresponds to GOST</value>
   </data>
   <data name="ProtocolsSearch" xml:space="preserve">
-    <value>Search protocols</value>
+    <value>Search protocols...</value>
   </data>
   <data name="UserAccountSearch" xml:space="preserve">
-    <value>Search user accounts</value>
+    <value>Search user accounts...</value>
   </data>
   <data name="SelectPhotoHint" xml:space="preserve">
     <value>Gallery</value>
@@ -373,7 +373,7 @@
     <value>Order name</value>
   </data>
   <data name="OrdersSearch" xml:space="preserve">
-    <value>Search orders</value>
+    <value>Search orders...</value>
   </data>
   <data name="OrderPageTitle" xml:space="preserve">
     <value>Order</value>
