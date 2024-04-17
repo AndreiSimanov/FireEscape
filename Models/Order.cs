@@ -12,18 +12,18 @@ namespace FireEscape.Models
         int id;
 
         [ObservableProperty]
-        [property: Column(nameof(Name))]
-        [property: Indexed]
-        [property: MaxLength(128)]
-        string name = string.Empty;
-
-        [ObservableProperty]
         [property: Column(nameof(Created))]
         DateTime created;
 
         [ObservableProperty]
         [property: Column(nameof(Updated))]
         DateTime updated;
+
+        [ObservableProperty]
+        [property: Column(nameof(Name))]
+        [property: Indexed]
+        [property: MaxLength(128)]
+        string name = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(FullAddress))]
@@ -50,6 +50,10 @@ namespace FireEscape.Models
         [property: Indexed]
         [property: MaxLength(128)]
         string executiveCompany = string.Empty;
+
+        [property: Column(nameof(SearchData))]
+        [property: Indexed]
+        public string SearchData { get;set;} = string.Empty;
 
         [JsonIgnore]
         public string FullAddress => Location + ", " + Address;

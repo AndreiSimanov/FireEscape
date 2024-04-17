@@ -13,9 +13,9 @@ namespace FireEscape.DBContext
             connection = new AsyncLazy<SQLiteAsyncConnection>(async () =>
             {
                 var conn = new SQLiteAsyncConnection(dbPath);
-
-                await conn.CreateTableAsync<Order>();
+                //await conn.DropTableAsync<Order>();
                 //await conn.DropTableAsync<Protocol>();
+                await conn.CreateTableAsync<Order>();
                 await conn.CreateTableAsync<Protocol>();
                 return conn;
             });

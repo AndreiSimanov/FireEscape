@@ -1,32 +1,65 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
 using FireEscape.Resources.Languages;
+using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels
 {
-    public partial class OrderMainViewModel(OrderService orderService, UserAccountService userAccountService) : BaseViewModel
+    public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicationSettings, OrderService orderService, UserAccountService userAccountService ) : BaseViewModel
     {
+        readonly ApplicationSettings applicationSettings = applicationSettings.Value;
+        PagingParameters pageParams;
+
         [ObservableProperty]
         ObservableCollection<Order> orders = new();
+
         [ObservableProperty]
         bool isRefreshing;
 
         [ObservableProperty]
+        bool isLoadMore;
+
+        [ObservableProperty]
+        string search = string.Empty;
+
+
+        [ObservableProperty]
         bool isEmptyList = true;
 
-    
         [RelayCommand]
-        async Task GetOrdersAsync() => //!! todo: add paging
+        async Task GetOrdersAsync() =>
             await DoCommandAsync(async () =>
             {
                 try
                 {
-                    if (Orders.Any())
-                        return;
                     IsRefreshing = true;
+                    IsLoadMore = true;
+                    pageParams = new PagingParameters(0, applicationSettings.PageSize);
+                    var pagedResult = await orderService.GetOrdersAsync(Search, pageParams);
+                    IsLoadMore = pagedResult.IsLoadMore;
+                    Orders = pagedResult.Result.ToObservableCollection();
+                }
+                finally
+                {
+                    IsRefreshing = false;
+                }
+            },
+            AppResources.GetOrdersError);
 
-                    var orders = await orderService.GetOrdersAsync();
-                    Orders = orders.ToObservableCollection();
+        [RelayCommand]
+        async Task LoadMoreAsync() =>
+            await DoCommandAsync(async () =>
+            {
+                if (!IsLoadMore)
+                    return;
+                try
+                {
+                    IsRefreshing = true;
+                    pageParams = new PagingParameters(pageParams.Skip + pageParams.Take, applicationSettings.PageSize);
+                    var pagedResult = await orderService.GetOrdersAsync(Search, pageParams);
+                    IsLoadMore = pagedResult.IsLoadMore;
+                    foreach (var order in pagedResult.Result)
+                        Orders.Add(order);
                 }
                 finally
                 {
@@ -104,7 +137,7 @@ namespace FireEscape.ViewModels
         async Task AddOrdersAsync() => 
             await DoCommandAsync(async () =>
             {
-                for (var i = 0; i < 1000; i++)
+                for (var i = 0; i < 10000; i++)
                 {
                     await orderService.CreateOrderAsync();
                 }

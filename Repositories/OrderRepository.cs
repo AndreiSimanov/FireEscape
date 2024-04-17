@@ -2,7 +2,10 @@
 using FireEscape.DBContext;
 using FireEscape.Factories;
 using Microsoft.Extensions.Options;
+using Microsoft.Maui.Graphics.Text;
 using SQLite;
+using System.Linq.Expressions;
+using System.Text;
 
 namespace FireEscape.Repositories
 {
@@ -20,6 +23,7 @@ namespace FireEscape.Repositories
 
         public async Task<Order> SaveOrderAsync(Order order)
         {
+            SetSearchData(order);
             if (order.Id != 0)
             {
                 order.Updated = DateTime.Now;
@@ -45,10 +49,52 @@ namespace FireEscape.Repositories
             dir.EnumerateFiles(imageFileMask).ForEach(file => file.Delete());
         }
 
-        public async Task<Order[]> GetOrdersAsync()
+        public async Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams)
         {
-            var query = (await connection).Table<Order>().OrderByDescending(item => item.Created);
-            return await query.ToArrayAsync();
+            var query = (await connection).Table<Order>();
+
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                searchText = searchText.Trim().ToLowerInvariant();
+                Expression<Func<Order, bool>> expr = order => order.SearchData.Contains(searchText);
+
+                if (int.TryParse(searchText, out int orderId))
+                {
+                    Expression<Func<Order, bool>> idExpr = order => order.Id == orderId;
+                    expr = CombineOr(expr, idExpr);
+                }    
+                query = query.Where(expr);
+            }
+            query = AddSortAndPaging(query, pageParams);
+
+            var orders = await query.ToArrayAsync();
+            return PagedResult<Order>.Create(orders, orders.Length >= pageParams.Take);
+        }
+
+        static AsyncTableQuery<Order> AddSortAndPaging(AsyncTableQuery<Order> tableQuery, PagingParameters pageParams)
+        {
+            return tableQuery.OrderByDescending(item => item.Id).Skip(pageParams.Skip).Take(pageParams.Take);
+        }
+
+        static Expression<Func<T, bool>> CombineOr<T>(Expression<Func<T, bool>> expr1, Expression<Func<T, bool>> expr2)
+        {
+            return Expression.Lambda<Func<T, bool>>(Expression.Or(expr1.Body, expr2.Body), expr1.Parameters[0]);
+        }
+
+        void SetSearchData(Order order)
+        {
+            var sb = new StringBuilder();
+            SetData(order.Name);
+            SetData(order.Location);
+            SetData(order.Address);
+            SetData(order.Customer);
+            SetData(order.ExecutiveCompany);
+            order.SearchData = sb.ToString();
+
+            void SetData(string searchData)
+            {
+                sb.Append(searchData.Trim().ToLowerInvariant() + " ");
+            };
         }
     }
 }

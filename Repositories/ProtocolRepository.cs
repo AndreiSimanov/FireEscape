@@ -49,7 +49,7 @@ namespace FireEscape.Repositories
             var query = (await connection)
                 .Table<Protocol>()
                 .Where(protocol => protocol.OrderId == orderId)
-                .OrderByDescending(item => item.Created);
+                .OrderByDescending(item => item.Id);
             return await query.ToArrayAsync();
         }
 

@@ -1,5 +1,3 @@
-using DevExpress.Maui.Editors;
-
 namespace FireEscape.Views;
 
 public partial class OrderMainPage : ContentPage
@@ -11,11 +9,6 @@ public partial class OrderMainPage : ContentPage
     }
     OrderMainViewModel? OrderMainViewModel => BindingContext as OrderMainViewModel;
 
-    void ContentPage_Appearing(object sender, EventArgs e)
-    {
-        orders.PullToRefreshCommand.Execute(null);
-    }
-
     void CreateOrder(object sender, EventArgs e)
     {
         OrderMainViewModel?.AddOrderCommand.Execute(null);
@@ -23,11 +16,7 @@ public partial class OrderMainPage : ContentPage
     }
     void SearchTextChanged(object sender, EventArgs e)
     {
-        var searchText = ((TextEdit)sender).Text;
-        orders.FilterString = $"Contains([FullAddress], '{searchText}') " +
-            $"or Contains([Name], '{searchText}') " +
-            $"or Contains([Customer], '{searchText}') " +
-            $"or Contains([ExecutiveCompany], '{searchText}')";
+        OrderMainViewModel?.GetOrdersCommand.Execute(null);
     }
 
     void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

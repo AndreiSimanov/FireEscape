@@ -4,7 +4,7 @@
     {
         Task<Order> CreateOrderAsync();
         Task DeleteOrderAsync(Order order);
-        Task<Order[]> GetOrdersAsync();
+        Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams);
         Task<Order> SaveOrderAsync(Order order);
     }
 }

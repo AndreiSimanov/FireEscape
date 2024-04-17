@@ -8,6 +8,6 @@
 
         public async Task DeleteOrderAsync(Order order) => await orderRepository.DeleteOrderAsync(order);
 
-        public async Task<Order[]> GetOrdersAsync() => await orderRepository.GetOrdersAsync();
+        public async Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams) => await orderRepository.GetOrdersAsync(searchText, pageParams);
     }
 }

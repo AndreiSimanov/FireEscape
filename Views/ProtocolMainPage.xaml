@@ -161,7 +161,6 @@
                 </DataTemplate>
             </dxcv:DXCollectionView.ItemTemplate>
         </dxcv:DXCollectionView>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsRefreshing}" HeightRequest="100" WidthRequest="100" />
         <dx:DXButton
             IsEnabled="{Binding IsNotBusy}"
             VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"

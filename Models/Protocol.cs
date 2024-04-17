@@ -39,6 +39,12 @@ namespace FireEscape.Models
         string address = string.Empty;
 
         [ObservableProperty]
+        [property: Column(nameof(FireEscapeObject))]
+        [property: Indexed]
+        [property: MaxLength(128)]
+        string fireEscapeObject = string.Empty;
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasImage))]
         [property: Column(nameof(Image))]
         string? image;
@@ -54,12 +60,6 @@ namespace FireEscape.Models
         [ObservableProperty]
         [property: Column(nameof(FireEscapeNum))]
         int fireEscapeNum;
-        
-        [ObservableProperty]
-        [property: Column(nameof(FireEscapeObject))]
-        [property: Indexed]
-        [property: MaxLength(128)]
-        string fireEscapeObject = string.Empty;
 
         [ObservableProperty]
         [property: Ignore]

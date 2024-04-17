@@ -14,10 +14,10 @@
              x:Class="FireEscape.Views.OrderMainPage"
              Title="{x:Static lang:AppResources.OrderMainPageTitle}"
              x:DataType="viewmodel:OrderMainViewModel"
-             Shell.NavBarIsVisible="False"
-             Appearing="ContentPage_Appearing">
+             Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="Auto,*">
         <dxe:TextEdit 
+            Text="{Binding Search}"
             EndIcon="search" PlaceholderText="{x:Static lang:AppResources.OrdersSearch}" TextFontSize="14"
             ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
             BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
@@ -48,8 +48,10 @@
             x:Name="orders"
             ItemsSource="{Binding Orders}"
             IsPullToRefreshEnabled="True"
-            IsRefreshing="{Binding IsRefreshing}"
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
             PullToRefreshCommand="{Binding GetOrdersCommand}"
+            IsLoadMoreEnabled="{Binding IsLoadMore}"
+            LoadMoreCommand="{Binding LoadMoreCommand}"
             AllowLiveDataShaping="True"
             SelectionMode="Single" Grid.Row="1"
             ItemSeparatorThickness="0"
@@ -154,7 +156,6 @@
                 </DataTemplate>
             </dxcv:DXCollectionView.ItemTemplate>
         </dxcv:DXCollectionView>
-        <ActivityIndicator Grid.Row="1" IsRunning="{Binding IsRefreshing}" HeightRequest="100" WidthRequest="100" />
         <dx:DXButton
             x:Name="addButton"
             IsEnabled="{Binding IsNotBusy}"
