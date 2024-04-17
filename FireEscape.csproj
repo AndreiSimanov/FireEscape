@@ -98,6 +98,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Controls\SearchControl.xaml.cs">
+	    <DependentUpon>SearchControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Controls\ServiceabilityControl.xaml.cs">
 	    <DependentUpon>ServiceabilityControl.xaml</DependentUpon>
 	  </Compile>
@@ -123,6 +126,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\Controls\SearchControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\ServiceabilityControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

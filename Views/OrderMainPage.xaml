@@ -10,32 +10,18 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
              xmlns:model="clr-namespace:FireEscape.Models"
+             xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
              ios:Page.UseSafeArea="True"
              x:Class="FireEscape.Views.OrderMainPage"
              Title="{x:Static lang:AppResources.OrderMainPageTitle}"
              x:DataType="viewmodel:OrderMainViewModel"
              Shell.NavBarIsVisible="False">
     <Grid RowDefinitions="Auto,*">
-
-        <Frame Margin="10" 
-               Padding="8,-9,8,1"  
-               CornerRadius ="25"
-               BorderColor="{dx:ThemeColor SurfaceContainer}"
-               BackgroundColor="{dx:ThemeColor SurfaceContainer}">
-            <Entry 
-            Text="{Binding Search}"
-             BackgroundColor="{dx:ThemeColor SurfaceContainer}"
-            ReturnType="Search"
-            
-            Placeholder="{x:Static lang:AppResources.OrdersSearch}">
-                <Entry.Behaviors>
-                    <toolkit:UserStoppedTypingBehavior 
-                        Command="{Binding GetOrdersCommand}"
-                        StoppedTypingTimeThreshold="1000"
-                        ShouldDismissKeyboardAutomatically="False" />
-                </Entry.Behaviors>
-            </Entry>
-        </Frame>
+        <ctrl:SearchControl
+            Search="{Binding Search}"
+            SearchCommand="{Binding GetOrdersCommand}"
+            Placeholder="{x:Static lang:AppResources.OrdersSearch}"
+            StoppedTypingTimeThreshold="1000"/>
         <Border
             IsVisible="{Binding IsEmptyList}"
             StrokeShape="RoundRectangle 80"

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    x:Name="this"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:control="clr-namespace:FireEscape.Views.Controls"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    x:DataType="control:SearchControl"
+    x:Class="FireEscape.Views.Controls.SearchControl">
+
+    <Frame 
+        Margin="10" 
+        Padding="8,-9,8,1"  
+        CornerRadius ="25"
+        BorderColor="{dx:ThemeColor SurfaceContainer}"
+        BackgroundColor="{dx:ThemeColor SurfaceContainer}">
+        <Entry 
+            x:Name="searchEntry"
+            Text="{Binding Search}"
+            BackgroundColor="{dx:ThemeColor SurfaceContainer}"
+            ReturnType="Search"
+            Placeholder="{Binding Placeholder}">
+            <Entry.Behaviors>
+                <toolkit:UserStoppedTypingBehavior 
+                    x:Name="stoppedTyping"
+                    Command="{Binding Source={x:Reference this}, Path=SearchCommand}"
+                    StoppedTypingTimeThreshold="{Binding StoppedTypingTimeThreshold}"
+                    ShouldDismissKeyboardAutomatically="False" />
+            </Entry.Behaviors>
+        </Entry>
+    </Frame>
+
+</ContentView>
