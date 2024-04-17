@@ -25,7 +25,8 @@
             EndIconColor="{dx:ThemeColor OnSurfaceVariant}"
             FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38" Margin="15,10,15,10"
             ReturnType="Search"
-            TextChanged="SearchTextChanged" />
+            ClearIconClicked="ClearSearch"
+            Completed="SearchTextChanged"/>
         <Border
             IsVisible="{Binding IsEmptyList}"
             StrokeShape="RoundRectangle 80"
@@ -58,7 +59,7 @@
             UseRippleEffect="true"
             PropertyChanged="CollectionViewChanged">
             <dxcv:DXCollectionView.SortDescriptions>
-                <dxcv:SortDescription FieldName="Created" SortOrder="Descending" />
+                <dxcv:SortDescription FieldName="Id" SortOrder="Descending" />
             </dxcv:DXCollectionView.SortDescriptions>
             <dxcv:DXCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Order">
@@ -170,7 +171,7 @@
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>
         </dx:DXButton>
-        <!--    //For tests only
+
         <dx:DXButton
             x:Name="addBatchButton"
             IsEnabled="{Binding IsNotBusy}"
@@ -182,6 +183,6 @@
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>
         </dx:DXButton>
--->
+
     </Grid>
 </ContentPage>

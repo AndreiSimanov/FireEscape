@@ -139,9 +139,29 @@ namespace FireEscape.ViewModels
             {
                 for (var i = 0; i < 10000; i++)
                 {
-                    await orderService.CreateOrderAsync();
+                    var order = new Order
+                    {
+                        Name = RandomString(15),
+                        Location = RandomString(25),
+                        Address = RandomString(35),
+                        Customer = RandomString(15),
+                        ExecutiveCompany = RandomString(15),
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now
+                    };
+                    await orderService.SaveOrderAsync(order);
                 }
             },
             AppResources.AddOrderError);
+
+
+        static Random random = new Random();
+        static string RandomString(int length)
+        {
+            length = random.Next(0, length);
+            const string chars = "ЙЦУКЕНГШЩЗХЪЭЖДЛОРПАВЫФЯЧСМИТЬБЮйцукенгшщзхъфывапролджэячсмитьбю., 0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
     }
 }

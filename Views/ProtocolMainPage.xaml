@@ -55,7 +55,7 @@
             UseRippleEffect="true"
             PropertyChanged="CollectionViewChanged">
             <dxcv:DXCollectionView.SortDescriptions>
-                <dxcv:SortDescription FieldName="Created" SortOrder="Descending" />
+                <dxcv:SortDescription FieldName="Id" SortOrder="Descending" />
             </dxcv:DXCollectionView.SortDescriptions>
             <dxcv:DXCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Protocol">

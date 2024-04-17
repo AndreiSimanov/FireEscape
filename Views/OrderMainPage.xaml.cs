@@ -19,6 +19,14 @@ public partial class OrderMainPage : ContentPage
         OrderMainViewModel?.GetOrdersCommand.Execute(null);
     }
 
+    private void ClearSearch(object sender, System.ComponentModel.HandledEventArgs e)
+    {
+        if (OrderMainViewModel == null)
+            return;
+        OrderMainViewModel.Search = string.Empty;
+        OrderMainViewModel.GetOrdersCommand.Execute(null);
+    }
+
     void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (OrderMainViewModel != null)
