@@ -89,12 +89,12 @@ namespace FireEscape.ViewModels
             await DoCommandAsync(async () =>
             {
                 var userAccount = await userAccountService.GetCurrentUserAccount();
-                if (userAccount == null)
+                if (userAccount == null || Order == null)
                     return;
                 if (UserAccountService.IsValidUserAccount(userAccount))
                 {
                     userAccountService.UpdateExpirationCount(userAccount!);
-                    await protocolService.CreateReportAsync(protocol, userAccount!);
+                    await protocolService.CreateReportAsync(Order, protocol, userAccount!);
                 }
                 else
                 {

@@ -24,10 +24,10 @@
         public async Task SelectPhotoAsync(Protocol protocol) => 
             await protocolRepository.AddImageAsync(protocol, await MediaPicker.PickPhotoAsync());
 
-        public async Task CreateReportAsync(Protocol protocol, UserAccount userAccount)
+        public async Task CreateReportAsync(Order order, Protocol protocol, UserAccount userAccount)
         {
             var fileName = "protocol"; //todo: change file name to some protocol attribute 
-            var filePath = await reportRepository.CreateReportAsync(protocol,  userAccount, fileName);
+            var filePath = await reportRepository.CreateReportAsync(order, protocol,  userAccount, fileName);
             await Launcher.OpenAsync(new OpenFileRequest
             {
                 File = new ReadOnlyFile(filePath)

@@ -171,7 +171,7 @@ namespace FireEscape.Reports.ReportMakers
                 .SetFixedLeading(8)
                 .AddAll(new[] {
                     new Text("Испытания проводили: инженер "),
-                    new Text(protocolRdp.UserAccountCompany).SetBold()}));
+                    new Text(protocolRdp.ExecutiveCompany).SetBold()}));
             document.Add(new Paragraph("М.П.").SetFixedLeading(8));
             document.Add(new Paragraph("_______________ / " + protocolRdp.UserAccountSignature + " /").SetTextAlignment(TextAlignment.RIGHT));
             document.Add(new Paragraph("_______________ / ___________ /").SetTextAlignment(TextAlignment.RIGHT));

@@ -1,7 +1,8 @@
 ﻿namespace FireEscape.Reports.ReportDataProviders
 {
-    public class ProtocolReportDataProvider(Protocol protocol, ServiceabilityLimits? serviceabilityLimits, UserAccount userAccount)
+    public class ProtocolReportDataProvider(Order order, Protocol protocol, ServiceabilityLimits? serviceabilityLimits, UserAccount userAccount)
     {
+        Order order = order;
         Protocol protocol = protocol;
         Stairs stairs = protocol.Stairs;
         ServiceabilityLimits? serviceabilityLimits = serviceabilityLimits;
@@ -14,7 +15,8 @@
                 ? "испытания пожарной маршевой лестницы"
                 : "испытания пожарной лестницы";
 
-        public string Location => protocol.Location;
+        public string Location => string.IsNullOrWhiteSpace(protocol.Location) ? order.Location : protocol.Location;
+        public string Address => string.IsNullOrWhiteSpace(protocol.Address) ? order.Address : protocol.Address;
 
         public string ProtocolDate => string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate);
 
@@ -25,7 +27,7 @@
         public string StairsMountType => stairs.StairsMountType;
 
         public string FireEscapeObject => protocol.FireEscapeObject;
-        public string FullAddress => protocol.FullAddress;
+        public string FullAddress => Location + ", " + Address;
         public int FireEscapeNum => protocol.FireEscapeNum;
 
         public float StairsHeight => stairs.StairsHeight.Value?? 0f;
@@ -43,9 +45,9 @@
         public bool HasImage => protocol.HasImage;
         public string Image => protocol.HasImage ? protocol.Image! : string.Empty;
 
-        public string Customer => string.Empty; //!!protocol.Customer;
+        public string Customer => order.Customer;
 
-        public string UserAccountCompany => string.IsNullOrWhiteSpace(userAccount.Company) ? string.Empty : userAccount.Company;
+        public string ExecutiveCompany => string.IsNullOrWhiteSpace(order.ExecutiveCompany) ? string.Empty : order.ExecutiveCompany;
         
         public string UserAccountSignature => string.IsNullOrWhiteSpace(userAccount.Signature) ? "___________" : userAccount.Signature;
 
