@@ -3,9 +3,6 @@ using FireEscape.Reports.ReportWriters;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.IO.Image;
-using MetadataExtractor;
-using MetadataExtractor.Formats.Exif;
-using System.Text.RegularExpressions;
 using Cell = iText.Layout.Element.Cell;
 using TextAlignment = iText.Layout.Properties.TextAlignment;
 using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
@@ -133,7 +130,6 @@ namespace FireEscape.Reports.ReportMakers
                     new Text("  ГОСТ 9.302 - 88.")}));
 
             document.Add(new Paragraph(" "));
-
         }
 
         static void MakeImage(Document document, ProtocolReportDataProvider protocolRdp)
@@ -147,7 +143,7 @@ namespace FireEscape.Reports.ReportMakers
                 .SetHorizontalAlignment(HorizontalAlignment.CENTER)
                 .SetMaxWidth(pageSize.GetWidth() / 1.5f)
                 .SetMaxHeight(pageSize.GetHeight() / 1.5f)
-                .SetRotationAngle(GetRotation(protocolRdp.Image));
+                .SetRotationAngle(ImageUtils.GetRotation(protocolRdp.Image));
             document.Add(pdfImage);
             document.Add(new Paragraph(" "));
         }
@@ -190,22 +186,6 @@ namespace FireEscape.Reports.ReportMakers
                 document.Add(new Paragraph("М.П.").SetFixedLeading(8));
                 document.Add(new Paragraph("_______________ / ___________ /").SetTextAlignment(TextAlignment.RIGHT));
             }    
-        }
-
-        static double GetRotation(string filePath)
-        {
-            var angle = 0;
-            var orientation = ImageMetadataReader.ReadMetadata(filePath)
-                .OfType<ExifIfd0Directory>()
-                .FirstOrDefault()?
-                .GetDescription(ExifIfd0Directory.TagOrientation);
-            if (!string.IsNullOrWhiteSpace(orientation))
-            {
-                var angleStr = Regex.Match(orientation, @"\d+").Value;
-                if (!string.IsNullOrWhiteSpace(angleStr))
-                    angle = int.Parse(angleStr);
-            }
-            return -angle * Math.PI / 180;
         }
     }
 }

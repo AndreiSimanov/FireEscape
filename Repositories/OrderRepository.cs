@@ -40,7 +40,7 @@ namespace FireEscape.Repositories
                 connection.Delete(order);
             });
 
-            var imageFileMask = $"{order.Id}_*.{AppUtils.IMAGE_FILE_EXTENSION}";
+            var imageFileMask = $"{order.Id}_*.{ImageUtils.IMAGE_FILE_EXTENSION}";
             var dir = new DirectoryInfo(applicationSettings.ContentFolder);
             dir.EnumerateFiles(imageFileMask).ForEach(file => file.Delete());
         }
