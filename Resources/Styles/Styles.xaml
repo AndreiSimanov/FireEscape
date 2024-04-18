@@ -13,13 +13,10 @@
         <Setter Property="TextVerticalAlignment" Value="Center" />
     </Style>
 
-
-
     <Style TargetType="IndicatorView">
         <Setter Property="IndicatorColor" Value="{dx:ThemeColor OnSurface, Alpha=0.12}"/>
         <Setter Property="SelectedIndicatorColor" Value="{dx:ThemeColor OnSurface}"/>
     </Style>
-
 
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{dx:ThemeColor Primary}" />
@@ -212,7 +209,6 @@
         </Setter>
     </Style>
 
-
     <Style TargetType="DatePicker">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="BackgroundColor" Value="{dx:ThemeColor Surface}" />
@@ -255,7 +251,6 @@
             </VisualStateGroupList>
         </Setter>
     </Style>
-
 
     <Style TargetType="Frame">
         <Setter Property="HasShadow" Value="False" />
@@ -360,7 +355,6 @@
         </Setter>
     </Style>
 
-
     <Style TargetType="RadioButton">
         <Setter Property="BackgroundColor" Value="Transparent"/>
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
@@ -381,7 +375,6 @@
             </VisualStateGroupList>
         </Setter>
     </Style>
-
 
     <Style TargetType="SearchBar">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />

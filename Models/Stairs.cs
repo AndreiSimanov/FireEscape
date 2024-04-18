@@ -1,8 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using FireEscape.Models.BaseModels;
+using System.Collections.ObjectModel;
 
 namespace FireEscape.Models
 {
-    public partial class Stairs : ObservableObject
+    public partial class Stairs : BaseObject
     {
         [ObservableProperty]
         StairsType stairsType;

@@ -84,7 +84,7 @@
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=GoToProtocolsCommand}"
                                             CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    <VerticalStackLayout Spacing="2" >
+                                    <VerticalStackLayout Spacing="2" Margin="10,0,10,0">
                                         <Label Style="{StaticResource Titleline}">
                                             <Label.FormattedText>
                                                 <FormattedString>
@@ -94,7 +94,7 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label Style="{StaticResource Titleline}">
+                                        <Label Style="{StaticResource SubTitleline}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.Customer}" />
@@ -127,6 +127,15 @@
                                                     <Span Text="{x:Static lang:AppResources.Address}" />
                                                     <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                     <Span Text="{Binding Address}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Style="{StaticResource SubTitleline}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.FireEscapeObject}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding FireEscapeObject}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

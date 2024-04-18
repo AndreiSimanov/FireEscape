@@ -33,6 +33,10 @@
                 Text="{Binding Order.Address}"
                 LabelText="{x:Static lang:AppResources.Address}"
                 PlaceholderText="{x:Static lang:AppResources.AddressHint}"/>
+            <dxe:TextEdit
+                    Text="{Binding Order.FireEscapeObject}"
+                    LabelText="{x:Static lang:AppResources.FireEscapeObject}"
+                    PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

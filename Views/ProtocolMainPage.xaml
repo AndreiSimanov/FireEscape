@@ -117,7 +117,14 @@
                                             </Image.Clip>
                                         </Image>
                                         <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
-                                            <Label Style="{StaticResource Titleline}" Text="{Binding FireEscapeObject}"/>
+                                            <Label 
+                                                IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                                Style="{StaticResource Titleline}" 
+                                                Text="{Binding FireEscapeObject}"/>
+                                            <Label 
+                                                IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
+                                                Style="{StaticResource Titleline}" 
+                                                Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.FireEscapeObject}"/>
                                             <Label Style="{StaticResource SubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
@@ -150,7 +157,6 @@
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                            
                                             <Label 
                                                 IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Style="{StaticResource SubTitleline}" 

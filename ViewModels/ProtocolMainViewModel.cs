@@ -48,6 +48,15 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         async Task AddProtocolAsync()
         {
+            if (Protocols.Any())
+                await CopyProtocolAsync(Protocols[0]);
+            else
+                await CreateProtocolAsync();
+        }
+
+        [RelayCommand]
+        async Task CreateProtocolAsync()
+        {
             Protocol? newProtocol = null;
             await DoCommandAsync(async () =>
             {
@@ -127,9 +136,14 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         void FilterProtocols()
         {
-            Filter = $"Contains([Location], '{Search}') " +
-                $" or Contains([Address], '{Search}') " +
-                $" or Contains([FireEscapeObject], '{Search}')";
+            var searchValue = Search.Trim().ToLowerInvariant();
+            var isOrderLocation = Order != null && Order.Location.ToLowerInvariant().Contains(searchValue);
+            var isOrderAddress = Order != null && Order.Address.ToLowerInvariant().Contains(searchValue);
+            var isOrderFireEscapeObject = Order != null && Order.FireEscapeObject.ToLowerInvariant().Contains(searchValue);
+
+            Filter = $"(Contains([Location], '{searchValue}') or (IsNullOrEmpty([Location]) and {isOrderLocation}))" +
+                $" or (Contains([Address], '{searchValue}') or (IsNullOrEmpty([Address]) and {isOrderAddress}))" +
+                $" or (Contains([FireEscapeObject], '{searchValue}') or (IsNullOrEmpty([FireEscapeObject]) and {isOrderFireEscapeObject}))";
         }
     }
 }

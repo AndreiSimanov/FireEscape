@@ -15,7 +15,7 @@
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
         <Grid RowDefinitions="Auto,Auto,*">
             <VerticalStackLayout  Margin="0,0,0,0">
-                <Grid HorizontalOptions="Center" RowDefinitions="Auto,Auto,Auto">
+                <Grid IsEnabled="{Binding IsNotBusy}" HorizontalOptions="Center" RowDefinitions="Auto,Auto,Auto">
                     <Grid.Resources>
                         <ResourceDictionary>
                             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
@@ -36,6 +36,9 @@
                             HeightRequest="100"
                             HorizontalOptions="Center"
                             VerticalOptions="Center">
+                            <Image.GestureRecognizers>                            
+                                <TapGestureRecognizer Command="{Binding AddPhotoCommand}"/>
+                            </Image.GestureRecognizers>
                         </Image>
                     </Border>
                     <Border
@@ -54,7 +57,10 @@
                             HeightRequest="180"
                             HorizontalOptions="Center"
                             VerticalOptions="Center">
-                       </Image>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddPhotoCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
                     </Border>
                     <HorizontalStackLayout Grid.Row="2" Margin="0,10,0,0">
                         <dx:DXButton
@@ -93,15 +99,15 @@
                     Text="{Binding Protocol.Address}"
                     LabelText="{x:Static lang:AppResources.Address}"
                     PlaceholderText="{x:Static lang:AppResources.AddressHint}"/>
+                <dxe:TextEdit
+                    Text="{Binding Protocol.FireEscapeObject}"
+                    LabelText="{x:Static lang:AppResources.FireEscapeObject}"
+                    PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"/>
                 <dxe:NumericEdit
                     Style="{StaticResource DefaultNumericEdit}"
                     Value="{Binding Protocol.FireEscapeNum}"
                     PlaceholderText="{x:Static lang:AppResources.FireEscapeNum}"
                     LabelText="{x:Static lang:AppResources.FireEscapeNum}"/>
-                <dxe:TextEdit
-                    Text="{Binding Protocol.FireEscapeObject}"
-                    LabelText="{x:Static lang:AppResources.FireEscapeObject}"
-                    PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"/>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

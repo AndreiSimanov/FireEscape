@@ -1,46 +1,14 @@
 ﻿using SQLite;
-using System.Text.Json.Serialization;
+using FireEscape.Models.BaseModels;
 
 namespace FireEscape.Models
 {
     [Table("Protocols")]
-    public partial class Protocol : ObservableObject, ICloneable
+    public partial class Protocol : BaseDocument, ICloneable
     {
-        [ObservableProperty]
-        [property: PrimaryKey]
-        [property: AutoIncrement]
-        [property: Column(nameof(Id))]
-        int id;
-
         [Indexed]
         [Column(nameof(OrderId))]
         public int OrderId { get; set; }
-
-        [ObservableProperty]
-        [property: Column(nameof(Created))]
-        DateTime created;
-
-        [ObservableProperty]
-        [property: Column(nameof(Updated))]
-        DateTime updated;
-
-        [ObservableProperty]
-        [property: Column(nameof(Location))]
-        [property: Indexed]
-        [property: MaxLength(128)]
-        string location = string.Empty;
-
-        [ObservableProperty]
-        [property: Column(nameof(Address))]
-        [property: Indexed]
-        [property: MaxLength(256)]
-        string address = string.Empty;
-
-        [ObservableProperty]
-        [property: Column(nameof(FireEscapeObject))]
-        [property: Indexed]
-        [property: MaxLength(128)]
-        string fireEscapeObject = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasImage))]
@@ -63,9 +31,11 @@ namespace FireEscape.Models
         [property: Ignore]
         Stairs stairs = new();
 
-        [JsonIgnore]
+        [property: Ignore]
         public bool HasImage => !string.IsNullOrWhiteSpace(Image) && File.Exists(Image);
 
         public object Clone() => MemberwiseClone();
+
+
     }
 }
