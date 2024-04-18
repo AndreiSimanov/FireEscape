@@ -10,22 +10,19 @@
              xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+             xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
              ios:Page.UseSafeArea="True"
              x:Class="FireEscape.Views.UserAccountMainPage"
-             Title="{x:Static lang:AppResources.UserAccountMainPageTitle}"
              x:DataType="viewmodel:UserAccountMainViewModel"
+             Title="{x:Static lang:AppResources.UserAccountMainPageTitle}"
              Shell.NavBarIsVisible="False"
              Appearing="ContentPage_Appearing">
     <Grid RowDefinitions="Auto,*">
-        <dxe:TextEdit
-            EndIcon="search" PlaceholderText="{x:Static lang:AppResources.UserAccountsSearch}" TextFontSize="14"
-            ClearIconColor="{dx:ThemeColor OnSurfaceVariant}" TextVerticalAlignment="Center"
-            BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
-            BorderThickness="0" BoxPadding="20,8,10,8"
-            EndIconColor="{dx:ThemeColor OnSurfaceVariant}"
-            FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38" Margin="15,10,15,10"
-            ReturnType="Search"
-            TextChanged="SearchTextChanged" />
+        <ctrl:SearchControl
+            Search="{Binding Search}"
+            SearchCommand="{Binding FilterUserAccountsCommand}"
+            Placeholder="{x:Static lang:AppResources.UserAccountsSearch}"
+            StoppedTypingTimeThreshold="300"/>        
         <Border
             IsVisible="{Binding IsEmptyList}"
             StrokeShape="RoundRectangle 80"
@@ -48,8 +45,9 @@
             x:Name="userAccounts"
             ItemsSource="{Binding UserAccounts}"
             IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing}" 
             PullToRefreshCommand="{Binding GetUserAccountsCommand}"
-            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}" 
+            FilterString ="{Binding Filter}"
             AllowLiveDataShaping="True"
             SelectionMode="Single" Grid.Row="1"
             ItemSeparatorThickness="0"

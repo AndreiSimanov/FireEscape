@@ -16,7 +16,6 @@
              x:DataType="viewmodel:ProtocolMainViewModel"
              x:Class="FireEscape.Views.ProtocolMainPage"             
              Appearing="ContentPage_Appearing">
-    
     <Grid RowDefinitions="Auto,*">
         <ctrl:SearchControl
             Search="{Binding Search}"

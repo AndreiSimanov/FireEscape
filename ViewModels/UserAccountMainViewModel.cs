@@ -7,11 +7,18 @@ namespace FireEscape.ViewModels
     {
         [ObservableProperty]
         ObservableCollection<UserAccount> userAccounts = new();
+
         [ObservableProperty]
         bool isRefreshing;
 
         [ObservableProperty]
         bool isEmptyList = true;
+
+        [ObservableProperty]
+        string search = string.Empty;
+
+        [ObservableProperty]
+        string filter = string.Empty;
 
         [RelayCommand]
         async Task GetUserAccountsAsync() =>
@@ -25,7 +32,6 @@ namespace FireEscape.ViewModels
                     {
                         UserAccounts.Add(item);
                     }
-                    IsEmptyList = !UserAccounts.Any();
                 }
                 finally
                 {
@@ -58,5 +64,14 @@ namespace FireEscape.ViewModels
             },
             userAccount,
             AppResources.DeleteUserAccountError);
+
+        [RelayCommand]
+        void FilterUserAccounts()
+        {
+            Filter = $"Contains([id], '{Search}') " +
+                $"or Contains([Name], '{Search}') " +
+                $"or Contains([Signature], '{Search}') " +
+                $"or Contains([Company], '{Search}')";
+        }
     }
 }

@@ -21,15 +21,6 @@ public partial class UserAccountMainPage : ContentPage
     void CreateUserAccount(object sender, EventArgs e)
     {
         //todo: make UserAccount
-
-    }
-    void SearchTextChanged(object sender, EventArgs e)
-    {
-        var searchText = ((TextEdit)sender).Text;
-        userAccounts.FilterString = $"Contains([id], '{searchText}') " +
-            $"or Contains([Name], '{searchText}') " +
-            $"or Contains([Signature], '{searchText}') " +
-            $"or Contains([Company], '{searchText}')";
     }
 
     void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

@@ -22,7 +22,6 @@ namespace FireEscape.ViewModels
         [ObservableProperty]
         string search = string.Empty;
 
-
         [ObservableProperty]
         bool isEmptyList = true;
 
@@ -99,8 +98,6 @@ namespace FireEscape.ViewModels
             order,
             AppResources.DeleteOrderError);
 
-
-
         [RelayCommand]
         async Task GoToDetailsAsync(Order order) =>
             await DoCommandAsync(async () =>
@@ -119,7 +116,6 @@ namespace FireEscape.ViewModels
             },
             order,
             AppResources.EditOrderError);
-
 
         [RelayCommand]
         async Task OpenUserAccountMainPageAsync() =>
@@ -153,7 +149,6 @@ namespace FireEscape.ViewModels
                 }
             },
             AppResources.AddOrderError);
-
 
         static Random random = new Random();
         static string RandomString(int length)
