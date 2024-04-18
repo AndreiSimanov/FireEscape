@@ -11,27 +11,37 @@
     x:Name="this"
     x:DataType="control:SearchControl"
     x:Class="FireEscape.Views.Controls.SearchControl">
-
-    <Frame 
-        Margin="10" 
-        Padding="8,-9,8,1"  
-        CornerRadius ="25"
-        BorderColor="{dx:ThemeColor SurfaceContainerHighest}"
-        BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}">
-        <Entry 
-            x:Name="searchEntry"
-            Text="{Binding Search}"
-            BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}"
-            ReturnType="Search"
-            Placeholder="{Binding Placeholder}">
-            <Entry.Behaviors>
-                <toolkit:UserStoppedTypingBehavior 
-                    x:Name="stoppedTyping"
-                    Command="{Binding Source={x:Reference this}, Path=SearchCommand}"
-                    StoppedTypingTimeThreshold="{Binding StoppedTypingTimeThreshold}"
-                    ShouldDismissKeyboardAutomatically="False" />
-            </Entry.Behaviors>
-        </Entry>
-    </Frame>
-
+    <StackLayout>
+        <Frame 
+            Margin="10" 
+            Padding="8,-9,25,0"
+            CornerRadius ="25"
+            BorderColor="{dx:ThemeColor SurfaceContainerHighest}"
+            BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}">
+            <Entry 
+                x:Name="searchEntry"
+                Text="{Binding Search}"
+                BackgroundColor="{dx:ThemeColor Primary}"
+                ReturnType="Search"
+                TextChanged="searchTextChanged"
+                Placeholder="{Binding Placeholder}">
+                <Entry.Behaviors>
+                    <toolkit:UserStoppedTypingBehavior 
+                        x:Name="stoppedTyping"
+                        Command="{Binding Source={x:Reference this}, Path=SearchCommand}"
+                        StoppedTypingTimeThreshold="{Binding StoppedTypingTimeThreshold}"
+                        ShouldDismissKeyboardAutomatically="False" />
+                </Entry.Behaviors>
+            </Entry>
+        </Frame>
+        <dx:DXButton
+            x:Name="clearSearchText"
+            Clicked="SearchTextClicked" 
+            HorizontalOptions="End"
+            Margin="0,-42,22,22"
+            Icon="clearsearch"
+            WidthRequest="20" 
+            HeightRequest="20" Padding="0"
+            CornerRadius="10"/>
+    </StackLayout>
 </ContentView>

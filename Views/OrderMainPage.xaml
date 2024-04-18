@@ -21,7 +21,7 @@
             Search="{Binding Search}"
             SearchCommand="{Binding GetOrdersCommand}"
             Placeholder="{x:Static lang:AppResources.OrdersSearch}"
-            StoppedTypingTimeThreshold="1000"/>
+            StoppedTypingTimeThreshold="700"/>
         <Border
             IsVisible="{Binding IsEmptyList}"
             StrokeShape="RoundRectangle 80"

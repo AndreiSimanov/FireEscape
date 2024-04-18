@@ -1,10 +1,8 @@
 using System.Windows.Input;
 
 namespace FireEscape.Views.Controls;
-
 public partial class SearchControl : ContentView
 {
-
     public static readonly BindableProperty SearchProperty = BindableProperty.Create(nameof(Search), typeof(string), typeof(SearchControl), defaultBindingMode: BindingMode.TwoWay);
     public string Search
     {
@@ -20,10 +18,13 @@ public partial class SearchControl : ContentView
     }
 
     public int StoppedTypingTimeThreshold { get => stoppedTyping.StoppedTypingTimeThreshold; set => stoppedTyping.StoppedTypingTimeThreshold = value; }
+
     public string Placeholder { get => searchEntry.Placeholder; set => searchEntry.Placeholder = value; }
-  
-    public SearchControl()
-    {
-        InitializeComponent();
-    }
+
+    public SearchControl() => InitializeComponent();
+
+    void SearchTextClicked(object sender, EventArgs e) => Search = string.Empty;
+
+    void searchTextChanged(object sender, TextChangedEventArgs e) =>
+        clearSearchText.IsEnabled = !string.IsNullOrEmpty(e.NewTextValue);
 }

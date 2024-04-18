@@ -36,8 +36,5 @@ public partial class ServiceabilityControl : ContentView
     public decimal MaxValue { get => numEdit.MaxValue; set => numEdit.MaxValue = value; }
     public int MaxDecimalDigitCount { get => numEdit.MaxDecimalDigitCount; set => numEdit.MaxDecimalDigitCount = value; }
 
-    public ServiceabilityControl()
-    {
-        InitializeComponent();
-    }
+    public ServiceabilityControl() => InitializeComponent();
 }
