@@ -94,6 +94,8 @@
                                         <Grid.Resources>
                                             <ResourceDictionary>
                                                 <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                                                <toolkit:IsStringNullOrWhiteSpaceConverter x:Key="IsStringNullOrWhiteSpaceConverter" />
+                                                <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
                                             </ResourceDictionary>
                                         </Grid.Resources>
                                         <Image
@@ -126,7 +128,9 @@
                                                 </Label.FormattedText>
                                             </Label>
                                             <Label Style="{StaticResource SubTitleline}" Text="{Binding Stairs.StairsType}"/>
-                                            <Label Style="{StaticResource SubTitleline}">
+                                            <Label 
+                                                IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                                Style="{StaticResource SubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
@@ -135,7 +139,26 @@
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                            <Label Style="{StaticResource SubTitleline}" Text="{Binding Address}"/>
+                                            <Label 
+                                                IsVisible="{Binding Location, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
+                                                Style="{StaticResource SubTitleline}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Location}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            
+                                            <Label 
+                                                IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                                Style="{StaticResource SubTitleline}" 
+                                                Text="{Binding Address}"/>
+                                            <Label 
+                                                IsVisible="{Binding Address, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
+                                                Style="{StaticResource SubTitleline}" 
+                                                Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Address}"/>
                                             <Label Style="{StaticResource SmallSubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>

@@ -127,7 +127,9 @@ namespace FireEscape.ViewModels
         [RelayCommand]
         void FilterProtocols()
         {
-            Filter = $"Contains([FullAddress], '{Search}') or Contains([FireEscapeObject], '{Search}')";
+            Filter = $"Contains([Location], '{Search}') " +
+                $" or Contains([Address], '{Search}') " +
+                $" or Contains([FireEscapeObject], '{Search}')";
         }
     }
 }

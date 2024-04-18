@@ -21,7 +21,7 @@
             Search="{Binding Search}"
             SearchCommand="{Binding GetOrdersCommand}"
             Placeholder="{x:Static lang:AppResources.OrdersSearch}"
-            StoppedTypingTimeThreshold="700"/>
+            StoppedTypingTimeThreshold="900"/>
         <Border
             IsVisible="{Binding IsEmptyList}"
             StrokeShape="RoundRectangle 80"
@@ -64,7 +64,7 @@
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel } }, Path=IsNotBusy}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=GoToDetailsCommand}"
                                 CommandParameter="{Binding .}"
-                                Caption="Edit"
+                                Caption="{x:Static lang:AppResources.Edit}"
                                 Image="edit"/>
                         </dxcv:SwipeContainer.StartSwipeItems>
                         <dxcv:SwipeContainer.EndSwipeItems>

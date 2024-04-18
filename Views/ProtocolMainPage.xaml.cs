@@ -31,13 +31,6 @@ public partial class ProtocolMainPage : ContentPage
         protocols.ScrollTo(0);
     }
 
-    void SearchTextChanged(object sender, EventArgs e)
-    { 
-        var searchText = ((TextEdit)sender).Text;
-        protocols.FilterString = $"Contains([FullAddress], '{searchText}') " + 
-            $"or Contains([FireEscapeObject], '{searchText}')";
-    }
-
     void CollectionViewChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (ProtocolMainViewModel != null)

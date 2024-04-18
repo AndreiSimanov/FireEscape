@@ -25,14 +25,12 @@ namespace FireEscape.Models
         DateTime updated;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FullAddress))]
         [property: Column(nameof(Location))]
         [property: Indexed]
         [property: MaxLength(128)]
         string location = string.Empty;
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FullAddress))]
         [property: Column(nameof(Address))]
         [property: Indexed]
         [property: MaxLength(256)]
@@ -65,8 +63,6 @@ namespace FireEscape.Models
         [property: Ignore]
         Stairs stairs = new();
 
-        [JsonIgnore]
-        public string FullAddress => Location + ", " + Address;
         [JsonIgnore]
         public bool HasImage => !string.IsNullOrWhiteSpace(Image) && File.Exists(Image);
 
