@@ -10,13 +10,21 @@ namespace FireEscape.ViewModels
     {
         [ObservableProperty]
         Order? order;
+
         [ObservableProperty]
         ObservableCollection<Protocol> protocols = new();
+
         [ObservableProperty]
         bool isRefreshing;
 
         [ObservableProperty]
         bool isEmptyList = true;
+
+        [ObservableProperty]
+        string search = string.Empty;
+
+        [ObservableProperty]
+        string filter = string.Empty;
 
         [RelayCommand]
         async Task GetProtocolsAsync() =>
@@ -115,5 +123,11 @@ namespace FireEscape.ViewModels
             },
             protocol,
             AppResources.EditProtocolError);
+
+        [RelayCommand]
+        void FilterProtocols()
+        {
+            Filter = $"Contains([FullAddress], '{Search}') or Contains([FireEscapeObject], '{Search}')";
+        }
     }
 }

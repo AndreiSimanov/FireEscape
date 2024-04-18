@@ -21,9 +21,7 @@ public partial class SearchControl : ContentView
 
     public int StoppedTypingTimeThreshold { get => stoppedTyping.StoppedTypingTimeThreshold; set => stoppedTyping.StoppedTypingTimeThreshold = value; }
     public string Placeholder { get => searchEntry.Placeholder; set => searchEntry.Placeholder = value; }
-    
-    public ICommand? SearchCommand1 { get => stoppedTyping.Command; set => stoppedTyping.Command = value; }
-
+  
     public SearchControl()
     {
         InitializeComponent();

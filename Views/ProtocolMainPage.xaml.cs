@@ -1,7 +1,6 @@
 ﻿using DevExpress.Maui.Editors;
 
 namespace FireEscape.Views;
-
 public partial class ProtocolMainPage : ContentPage
 {
     public ProtocolMainPage(ProtocolMainViewModel viewModel)
