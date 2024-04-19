@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
-             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
-             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
-             xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
-             xmlns:model="clr-namespace:FireEscape.Models"
-             xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="FireEscape.Views.ProtocolPage"
-             Title="{x:Static lang:AppResources.ProtocolPageTitle}"
-             x:DataType="viewmodel:ProtocolViewModel"
-             Disappearing="ContentPage_Disappearing">
+<baseview:BaseProtocolPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"
+    x:Class="FireEscape.Views.ProtocolPage"
+    x:TypeArguments="viewmodel:ProtocolViewModel"
+    x:DataType="viewmodel:ProtocolViewModel"
+    Title="{x:Static lang:AppResources.ProtocolPageTitle}">
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
         <Grid RowDefinitions="Auto,Auto,*">
             <VerticalStackLayout  Margin="0,0,0,0">
@@ -29,7 +30,7 @@
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <Image
-                            IsVisible="{Binding Protocol.HasImage, Converter={StaticResource InvertedBoolConverter}}"
+                            IsVisible="{Binding EditObject.HasImage, Converter={StaticResource InvertedBoolConverter}}"
                             Source="nophoto.svg"
                             Aspect="AspectFill"
                             WidthRequest="100"
@@ -42,7 +43,7 @@
                         </Image>
                     </Border>
                     <Border
-                        IsVisible="{Binding  Protocol.HasImage}"
+                        IsVisible="{Binding  EditObject.HasImage}"
                         StrokeShape="RoundRectangle 85"
                         Stroke="White"
                         StrokeThickness="8"
@@ -51,7 +52,7 @@
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <Image
-                            Source="{Binding  Protocol.Image}"
+                            Source="{Binding  EditObject.Image}"
                             Aspect="AspectFill"
                             WidthRequest="180"
                             HeightRequest="180"
@@ -85,30 +86,30 @@
                     Icon="edit" Margin="10,0,10,0" IconHeight="22" IconWidth="22"/>
                 <dxe:NumericEdit
                     Style="{StaticResource DefaultNumericEdit}"
-                    Value="{Binding Protocol.ProtocolNum}"
+                    Value="{Binding EditObject.ProtocolNum}"
                     PlaceholderText="{x:Static lang:AppResources.ProtocolNum}"
                     LabelText="{x:Static lang:AppResources.ProtocolNum}"/>
                 <dxe:DateEdit
-                    Date="{Binding Protocol.ProtocolDate}"                    
+                    Date="{Binding EditObject.ProtocolDate}"                    
                     LabelText="{x:Static lang:AppResources.ProtocolDate}"/>
                 <dxe:TextEdit
-                    Text="{Binding Protocol.Location}"
+                    Text="{Binding EditObject.Location}"
                     LabelText="{x:Static lang:AppResources.Location}"
                     PlaceholderText="{x:Static lang:AppResources.LocationHint}"/>
                 <dxe:TextEdit
-                    Text="{Binding Protocol.Address}"
+                    Text="{Binding EditObject.Address}"
                     LabelText="{x:Static lang:AppResources.Address}"
                     PlaceholderText="{x:Static lang:AppResources.AddressHint}"/>
                 <dxe:TextEdit
-                    Text="{Binding Protocol.FireEscapeObject}"
+                    Text="{Binding EditObject.FireEscapeObject}"
                     LabelText="{x:Static lang:AppResources.FireEscapeObject}"
                     PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"/>
                 <dxe:NumericEdit
                     Style="{StaticResource DefaultNumericEdit}"
-                    Value="{Binding Protocol.FireEscapeNum}"
+                    Value="{Binding EditObject.FireEscapeNum}"
                     PlaceholderText="{x:Static lang:AppResources.FireEscapeNum}"
                     LabelText="{x:Static lang:AppResources.FireEscapeNum}"/>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>
-</ContentPage>
+</baseview:BaseProtocolPage>

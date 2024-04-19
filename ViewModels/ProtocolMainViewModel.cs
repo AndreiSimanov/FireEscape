@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
-using FireEscape.Resources.Languages;
 using System.Collections.ObjectModel;
 using Protocol = FireEscape.Models.Protocol;
 
@@ -127,7 +126,8 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
     async Task GoToDetailsAsync(Protocol protocol) =>
         await DoCommandAsync(async () =>
         {
-            await Shell.Current.GoToAsync(nameof(ProtocolPage), true, new Dictionary<string, object> { { nameof(Protocol), protocol } });
+            await Shell.Current.GoToAsync(nameof(ProtocolPage), true, 
+                new Dictionary<string, object> { { ProtocolViewModel.EDIT_PROPERTY_NAME, protocol } });
             // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
         },
         protocol,

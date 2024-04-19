@@ -1,5 +1,4 @@
-﻿using FireEscape.Resources.Languages;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels;
 
@@ -44,7 +43,8 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
     async Task GoToDetailsAsync(UserAccount userAccount) =>
         await DoCommandAsync(async () =>
         {
-            await Shell.Current.GoToAsync(nameof(UserAccountPage), true, new Dictionary<string, object> { { nameof(UserAccount), userAccount } });
+            await Shell.Current.GoToAsync(nameof(UserAccountPage), true, 
+                new Dictionary<string, object> { { UserAccountViewModel.EDIT_PROPERTY_NAME, userAccount } });
         },
         userAccount,
         AppResources.EditUserAccountError);

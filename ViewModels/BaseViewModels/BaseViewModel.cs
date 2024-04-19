@@ -1,7 +1,6 @@
-﻿using FireEscape.Resources.Languages;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace FireEscape.ViewModels;
+namespace FireEscape.ViewModels.BaseViewModels;
 
 public partial class BaseViewModel : ObservableObject
 {
@@ -56,7 +55,7 @@ public partial class BaseViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _ = ProcessExeptionAsync(exceptionCaption, ex);
+            ProcessExeptionAsync(exceptionCaption, ex).Wait();
         }
         finally
         {

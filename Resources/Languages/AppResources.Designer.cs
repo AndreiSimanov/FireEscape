@@ -682,6 +682,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно сохранить учетную запись.
+        /// </summary>
+        internal static string SaveUserAccountError {
+            get {
+                return ResourceManager.GetString("SaveUserAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Галерея.
         /// </summary>
         internal static string SelectPhotoHint {

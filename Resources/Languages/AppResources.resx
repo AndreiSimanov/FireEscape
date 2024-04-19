@@ -393,4 +393,7 @@
   <data name="Edit" xml:space="preserve">
     <value>Редакт.</value>
   </data>
+  <data name="SaveUserAccountError" xml:space="preserve">
+    <value>Невозможно сохранить учетную запись</value>
+  </data>
 </root>

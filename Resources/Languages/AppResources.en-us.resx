@@ -393,4 +393,7 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="SaveUserAccountError" xml:space="preserve">
+    <value>Unable to save the user account</value>
+  </data>
 </root>

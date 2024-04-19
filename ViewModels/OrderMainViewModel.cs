@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
-using FireEscape.Resources.Languages;
 using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 
@@ -102,7 +101,8 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task GoToDetailsAsync(Order order) =>
         await DoCommandAsync(async () =>
         {
-            await Shell.Current.GoToAsync(nameof(OrderPage), true, new Dictionary<string, object> { { nameof(Order), order } });
+            await Shell.Current.GoToAsync(nameof(OrderPage), true, 
+                new Dictionary<string, object> { { OrderViewModel.EDIT_PROPERTY_NAME, order } });
         },
         order,
         AppResources.EditOrderError);
