@@ -1,10 +1,16 @@
 ﻿using FireEscape.Resources.Languages;
+using System.ComponentModel;
 
 namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
 public partial class OrderViewModel(OrderService orderService) : BaseViewModel
 {
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+    }
+
     [ObservableProperty]
     Order? order;
 
