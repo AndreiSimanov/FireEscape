@@ -1,4 +1,6 @@
 ﻿using FireEscape.Resources.Languages;
+using System.ComponentModel;
+using System.Text.Json;
 
 namespace FireEscape.ViewModels;
 
@@ -7,6 +9,7 @@ public partial class ProtocolViewModel(ProtocolService protocolService) : BaseVi
 {
     [ObservableProperty]
     Protocol? protocol;
+    string? origProtocol;
 
     [RelayCommand]
     async Task AddPhotoAsync() =>
@@ -30,7 +33,11 @@ public partial class ProtocolViewModel(ProtocolService protocolService) : BaseVi
     async Task SaveProtocolAsync() =>
         await DoCommandAsync(async () =>
         {
-            await protocolService.SaveProtocolAsync(Protocol!);
+            if (Protocol == null)
+                return;
+            var editedProtocol = JsonSerializer.Serialize(Protocol);
+            if (!string.Equals(origProtocol, editedProtocol))
+                await protocolService.SaveProtocolAsync(Protocol!);
         },
         Protocol!,
         AppResources.SaveProtocolError);
@@ -43,4 +50,11 @@ public partial class ProtocolViewModel(ProtocolService protocolService) : BaseVi
         },
         Protocol!,
         AppResources.EditStairsError);
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        if (e.PropertyName == nameof(Protocol))
+            origProtocol = JsonSerializer.Serialize(Protocol);
+    }
 }
