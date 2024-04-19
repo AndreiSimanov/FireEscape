@@ -23,7 +23,10 @@ public class SearchDataRepository(SqliteContext context) : ISearchDataRepository
             "FireEscapeObject from Orders where Id=?", id);
         protocolsSearchData.AddRange(orderSearchData);
         var words = new HashSet<string>();
-        protocolsSearchData.Where(item => !string.IsNullOrWhiteSpace(item)).SelectMany(token => token.Split(' ')).ForEach(word => words.Add(word));
+        protocolsSearchData.Where(item => !string.IsNullOrWhiteSpace(item))
+            .SelectMany(token => token.Split(' '))
+            .Where(token => !string.IsNullOrWhiteSpace(token))
+            .ForEach(word =>  words.Add(word.Trim()));
         var searchData = string.Join(" ", words).ToLowerInvariant();
         await conn.ExecuteAsync("update Orders set SearchData=? where Id=?", [searchData, id]);
     }
