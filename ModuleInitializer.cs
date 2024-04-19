@@ -1,49 +1,49 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories;
 
-namespace FireEscape
+namespace FireEscape;
+
+public static class ModuleInitializer
 {
-    public static class ModuleInitializer
+    public static IServiceCollection ConfigureServices(this IServiceCollection services)
     {
-        public static IServiceCollection ConfigureServices(this IServiceCollection services)
-        {
-            services.AddSingleton<SqliteContext>();
+        services.AddSingleton<SqliteContext>();
 
-            services.AddSingleton<OrderFactory>();
-            services.AddSingleton<ProtocolFactory>();
-            services.AddSingleton<StairsFactory>();
+        services.AddSingleton<OrderFactory>();
+        services.AddSingleton<ProtocolFactory>();
+        services.AddSingleton<StairsFactory>();
 
-            services.AddSingleton<IOrderRepository, OrderRepository>();
-            services.AddSingleton<IProtocolRepository, ProtocolRepository>();
-            services.AddSingleton<IReportRepository, PdfWriterRepository>();
-            services.AddSingleton<IFileHostingRepository, DropboxRepository>();
+        services.AddSingleton<ISearchDataRepository, SearchDataRepository>();
+        services.AddSingleton<IOrderRepository, OrderRepository>();
+        services.AddSingleton<IProtocolRepository, ProtocolRepository>();
+        services.AddSingleton<IReportRepository, PdfWriterRepository>();
+        services.AddSingleton<IFileHostingRepository, DropboxRepository>();
 
-            services.AddSingleton<OrderService>();
-            services.AddSingleton<ProtocolService>();
-            services.AddSingleton<UserAccountService>();
+        services.AddSingleton<OrderService>();
+        services.AddSingleton<ProtocolService>();
+        services.AddSingleton<UserAccountService>();
 
-            services.AddSingleton<OrderMainViewModel>();
-            services.AddSingleton<OrderMainPage>();
+        services.AddSingleton<OrderMainViewModel>();
+        services.AddSingleton<OrderMainPage>();
 
-            services.AddTransient<OrderViewModel>();
-            services.AddTransient<OrderPage>();
+        services.AddTransient<OrderViewModel>();
+        services.AddTransient<OrderPage>();
 
-            services.AddTransient<ProtocolMainViewModel>();
-            services.AddTransient<ProtocolMainPage>();
+        services.AddTransient<ProtocolMainViewModel>();
+        services.AddTransient<ProtocolMainPage>();
 
-            services.AddTransient<ProtocolViewModel>();
-            services.AddTransient<ProtocolPage>();
+        services.AddTransient<ProtocolViewModel>();
+        services.AddTransient<ProtocolPage>();
 
-            services.AddTransient<StairsViewModel>();
-            services.AddTransient<StairsPage>();
+        services.AddTransient<StairsViewModel>();
+        services.AddTransient<StairsPage>();
 
-            services.AddSingleton<UserAccountMainViewModel>();
-            services.AddSingleton<UserAccountMainPage>();
+        services.AddSingleton<UserAccountMainViewModel>();
+        services.AddSingleton<UserAccountMainPage>();
 
-            services.AddTransient<UserAccountViewModel>();
-            services.AddTransient<UserAccountPage>();
+        services.AddTransient<UserAccountViewModel>();
+        services.AddTransient<UserAccountPage>();
 
-            return services;
-        }
+        return services;
     }
 }

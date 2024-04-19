@@ -1,7 +1,6 @@
-﻿namespace FireEscape.AppSettings
+﻿namespace FireEscape.AppSettings;
+
+public class NewOrderSettings
 {
-    public class NewOrderSettings
-    {
-        public required string Location { get; set; }
-    }
+    public required string Location { get; set; }
 }

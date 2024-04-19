@@ -12,9 +12,9 @@ namespace FireEscape.Reports.ReportMakers
 {
     public static class ProtocolPdfReportMaker
     {
-        public static async Task<string> MakeReport(ProtocolReportDataProvider protocolRdp, string filePath)
+        public static async Task<string> MakeReportAsync(ProtocolReportDataProvider protocolRdp, string filePath)
         {
-            var document = await PdfReportWriter.GetPdfDocument(filePath);
+            var document = await PdfReportWriter.GetPdfDocumentAsync(filePath);
             try
             {
                 MakeHeader(document, protocolRdp);

@@ -81,8 +81,14 @@ namespace FireEscape.Repositories
             return Expression.Lambda<Func<T, bool>>(Expression.Or(expr1.Body, expr2.Body), expr1.Parameters[0]);
         }
 
-        void SetSearchData(Order order)
+
+
+
+        void SetSearchData(Order order)// todo: split strings by space and save distinct words
         {
+
+
+
             var sb = new StringBuilder();
             SetData(order.Name);
             SetData(order.Location);

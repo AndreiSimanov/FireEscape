@@ -1,12 +1,11 @@
-﻿namespace FireEscape.Repositories.Interfaces
+﻿namespace FireEscape.Repositories.Interfaces;
+
+public interface IProtocolRepository
 {
-    public interface IProtocolRepository
-    {
-        Task AddImageAsync(Protocol protocol, FileResult? imageFile);
-        Task<Protocol> CopyProtocolAsync(Protocol protocol);
-        Task<Protocol> CreateProtocolAsync(Order order);
-        Task DeleteProtocol(Protocol protocol);
-        Task<Protocol[]> GetProtocolsAsync(int orderId);
-        Task<Protocol> SaveProtocolAsync(Protocol protocol);
-    }
+    Task AddImageAsync(Protocol protocol, FileResult? imageFile);
+    Task<Protocol> CopyProtocolAsync(Protocol protocol);
+    Task<Protocol> CreateProtocolAsync(Order order);
+    Task DeleteProtocolAsync(Protocol protocol);
+    Task<Protocol[]> GetProtocolsAsync(int orderId);
+    Task<Protocol> SaveProtocolAsync(Protocol protocol);
 }

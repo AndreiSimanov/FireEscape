@@ -1,67 +1,66 @@
 ﻿using FireEscape.Resources.Languages;
 using System.Diagnostics;
 
-namespace FireEscape.ViewModels
+namespace FireEscape.ViewModels;
+
+public partial class BaseViewModel : ObservableObject
 {
-    public partial class BaseViewModel : ObservableObject
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsNotBusy))]
+    bool isBusy;
+
+    [ObservableProperty]
+    string? title;
+
+    public bool IsNotBusy => !IsBusy;
+
+    protected async Task ProcessExeptionAsync(string caption, Exception ex)
     {
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-        bool isBusy;
+        Debug.WriteLine($"{caption}: {ex.Message}");
+        await Shell.Current.DisplayAlert(AppResources.Error, ex.Message, AppResources.OK);
+    }
 
-        [ObservableProperty]
-        string? title;
+    protected async Task DoCommandAsync(Func<Task> func, object item, string exceptionCaption)
+    {
+        if (item != null)
+            await DoCommandAsync(func, exceptionCaption);
+    }
 
-        public bool IsNotBusy => !IsBusy;
-
-        protected async Task ProcessExeptionAsync(string caption, Exception ex)
+    protected async Task DoCommandAsync(Func<Task> func, string exceptionCaption)
+    {
+        if (IsBusy)
+            return;
+        try
         {
-            Debug.WriteLine($"{caption}: {ex.Message}");
-            await Shell.Current.DisplayAlert(AppResources.Error, ex.Message, AppResources.OK);
+            IsBusy = true;
+            await func();
         }
-
-        protected async Task DoCommandAsync(Func<Task> func, object item, string exceptionCaption)
+        catch (Exception ex)
         {
-            if (item != null)
-                await DoCommandAsync(func, exceptionCaption);
+            await ProcessExeptionAsync(exceptionCaption, ex);
         }
-
-        protected async Task DoCommandAsync(Func<Task> func, string exceptionCaption)
+        finally
         {
-            if (IsBusy)
-                return;
-            try
-            {
-                IsBusy = true;
-                await func();
-            }
-            catch (Exception ex)
-            {
-                await ProcessExeptionAsync(exceptionCaption, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            IsBusy = false;
         }
+    }
 
-        protected void DoCommand(Action action, string exceptionCaption)
+    protected void DoCommand(Action action, string exceptionCaption)
+    {
+        if (IsBusy)
+            return;
+        try
         {
-            if (IsBusy)
-                return;
-            try
-            {
-                IsBusy = true;
-                action();
-            }
-            catch (Exception ex)
-            {
-                _ = ProcessExeptionAsync(exceptionCaption, ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            IsBusy = true;
+            action();
+        }
+        catch (Exception ex)
+        {
+            _ = ProcessExeptionAsync(exceptionCaption, ex);
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 }

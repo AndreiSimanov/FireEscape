@@ -1,7 +1,6 @@
-﻿namespace FireEscape.Repositories.Interfaces
+﻿namespace FireEscape.Repositories.Interfaces;
+
+public interface IReportRepository
 {
-    public interface IReportRepository
-    {
-        Task<string> CreateReportAsync(Order order, Protocol protocol, UserAccount userAccount, string fileName);
-    }
+    Task<string> CreateReportAsync(Order order, Protocol protocol, UserAccount userAccount, string fileName);
 }

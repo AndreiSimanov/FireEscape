@@ -1,9 +1,8 @@
-﻿namespace FireEscape.Models.StairsElements
-{
-    public class FenceP1 : BaseStairsElement
-    {
-        protected override string GetName() => "Ограждение лестниц";
+﻿namespace FireEscape.Models.StairsElements;
 
-        protected override StairsTypeEnum GetStairsType() => StairsTypeEnum.P1_1;
-    }
+public class FenceP1 : BaseStairsElement
+{
+    protected override string GetName() => "Ограждение лестниц";
+
+    protected override StairsTypeEnum GetStairsType() => StairsTypeEnum.P1_1;
 }

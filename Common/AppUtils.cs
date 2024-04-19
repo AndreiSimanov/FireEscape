@@ -1,29 +1,28 @@
 ﻿using FireEscape.Resources.Languages;
 
-namespace FireEscape.Common
+namespace FireEscape.Common;
+
+public static class AppUtils
 {
-    public static class AppUtils
+    public static string DefaultContentFolder
     {
-        public static string DefaultContentFolder
+        get
         {
-            get
-            {
 #if ANDROID
-                var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
-                return docsDirectory!.AbsoluteFile.Path;
+            var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
+            return docsDirectory!.AbsoluteFile.Path;
 #else
-                return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
-            }
         }
+    }
 
-        public static async Task<bool> IsNetworkAccess()
-        {
-            if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
-                return true;
+    public static async Task<bool> IsNetworkAccessAsync()
+    {
+        if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+            return true;
 
-            await Shell.Current.DisplayAlert(AppResources.NoConnectivity, AppResources.CheckInternetMessage, AppResources.OK);
-            return false;
-        }
+        await Shell.Current.DisplayAlert(AppResources.NoConnectivity, AppResources.CheckInternetMessage, AppResources.OK);
+        return false;
     }
 }

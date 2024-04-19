@@ -1,10 +1,9 @@
-﻿namespace FireEscape.Repositories.Interfaces
+﻿namespace FireEscape.Repositories.Interfaces;
+
+public interface IOrderRepository
 {
-    public interface IOrderRepository
-    {
-        Task<Order> CreateOrderAsync();
-        Task DeleteOrderAsync(Order order);
-        Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams);
-        Task<Order> SaveOrderAsync(Order order);
-    }
+    Task<Order> CreateOrderAsync();
+    Task DeleteOrderAsync(Order order);
+    Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams);
+    Task<Order> SaveOrderAsync(Order order);
 }
