@@ -1,22 +1,21 @@
-﻿using FireEscape.Resources.Languages;
+﻿using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace FireEscape.Factories;
 
-public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings, StairsFactory stairsFactory)
+public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings) : IProtocolFactory
 {
     readonly NewProtocolSettings newProtocolSettings = newProtocolSettings.Value;
 
     public Protocol CreateBrokenDataProtocol(int id) => new() { Id = id, FireEscapeObject = AppResources.BrokenData };
 
-    public Protocol CreateDefaultProtocol(Order order) => new()
+    public Protocol CreateDefault(Order? order) => new()
     {
-        OrderId = order.Id,
+        OrderId = (order == null) ? 0 : order.Id,
         ProtocolNum = newProtocolSettings.ProtocolNum,
-        Location = string.IsNullOrWhiteSpace(order.Location) ? newProtocolSettings.Location : string.Empty,
         ProtocolDate = DateTime.Today,
         FireEscapeNum = newProtocolSettings.FireEscapeNum,
-        Stairs = stairsFactory.CreateDefaultStairs(),
+        Location = (order != null && string.IsNullOrWhiteSpace(order.Location)) ? newProtocolSettings.Location : string.Empty,
         Created = DateTime.Now
     };
 
@@ -25,8 +24,8 @@ public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings, 
         var newProtocol = (Protocol)protocol.Clone();
         newProtocol.Id = 0;
         newProtocol.Image = null;
+        newProtocol.Stairs = null;
         newProtocol.FireEscapeNum = newProtocol.FireEscapeNum + 1;
-        newProtocol.Stairs = stairsFactory.CreateDefaultStairs();
         newProtocol.Created = DateTime.Now;
         return newProtocol;
     }

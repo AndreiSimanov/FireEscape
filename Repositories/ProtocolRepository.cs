@@ -1,47 +1,26 @@
 ﻿using FireEscape.DBContext;
-using FireEscape.Factories;
+using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
-using SQLite;
 
 namespace FireEscape.Repositories;
 
-public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSettings> applicationSettings, ProtocolFactory protocolFactory) : IProtocolRepository
+public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSettings> applicationSettings, IProtocolFactory factory)
+    : BaseObjectRepository<Protocol, Order>(context, factory), IProtocolRepository
 {
-    readonly AsyncLazy<SQLiteAsyncConnection> connection = context.Connection;
     readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
-    public async Task<Protocol> CreateProtocolAsync(Order order)
+    public override async Task DeleteAsync(Protocol protocol)
     {
-        var protocol = protocolFactory.CreateDefaultProtocol(order);
-        await SaveProtocolAsync(protocol);
-        return protocol;
+        await base.DeleteAsync(protocol);
+        if (protocol.HasImage)
+            File.Delete(protocol.Image!);
     }
 
     public async Task<Protocol> CopyProtocolAsync(Protocol protocol)
     {
-        var newProtocol = protocolFactory.CopyProtocol(protocol);
-        await SaveProtocolAsync(newProtocol);
+        var newProtocol = factory.CopyProtocol(protocol);
+        await SaveAsync(newProtocol);
         return newProtocol;
-    }
-
-    public async Task<Protocol> SaveProtocolAsync(Protocol protocol)
-    {
-        if (protocol.Id != 0)
-        {
-            protocol.Updated = DateTime.Now;
-            await (await connection).UpdateAsync(protocol);
-        }
-        else
-            await (await connection).InsertAsync(protocol);
-        return protocol;
-    }
-
-    public async Task DeleteProtocolAsync(Protocol protocol)
-    {
-        if (protocol.Id != 0)
-            await (await connection).DeleteAsync(protocol);
-        if (protocol.HasImage)
-            File.Delete(protocol.Image!);
     }
 
     public async Task<Protocol[]> GetProtocolsAsync(int orderId)
@@ -68,6 +47,6 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
         if (protocol.HasImage)
             File.Delete(protocol.Image!);
         protocol.Image = imageFilePath;
-        await SaveProtocolAsync(protocol);
+        await SaveAsync(protocol);
     }
 }

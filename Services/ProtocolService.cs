@@ -2,19 +2,19 @@
 
 public class ProtocolService(IProtocolRepository protocolRepository, ISearchDataRepository searchDataRepository, IReportRepository reportRepository)
 {
-    public async Task<Protocol> CreateProtocolAsync(Order order) => await protocolRepository.CreateProtocolAsync(order);
+    public async Task<Protocol> CreateProtocolAsync(Order order) => await protocolRepository.CreateAsync(order);
 
     public async Task<Protocol> CopyProtocolAsync(Protocol protocol) => await protocolRepository.CopyProtocolAsync(protocol);
 
     public async Task SaveProtocolAsync(Protocol protocol)
     {
-        await protocolRepository.SaveProtocolAsync(protocol);
+        await protocolRepository.SaveAsync(protocol);
         await searchDataRepository.SetSearchDataAsync(protocol.OrderId);
     }
 
     public async Task DeleteProtocolAsync(Protocol protocol)
     {
-        await protocolRepository.DeleteProtocolAsync(protocol);
+        await protocolRepository.DeleteAsync(protocol);
         await searchDataRepository.SetSearchDataAsync(protocol.OrderId);
     }
 

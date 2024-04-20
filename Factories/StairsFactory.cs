@@ -1,14 +1,16 @@
-﻿using Microsoft.Extensions.Options;
+﻿using FireEscape.Factories.Interfaces;
+using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 
 namespace FireEscape.Factories;
 
-public class StairsFactory(IOptions<StairsSettings> stairsSettings)
+public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFactory
 {
     readonly StairsSettings stairsSettings = stairsSettings.Value;
 
-    public Stairs CreateDefaultStairs() => new()
+    public Stairs CreateDefault(Protocol? protocol) => new()
     {
+        ProtocolId = (protocol == null) ? 0 : protocol.Id,
         StairsHeight = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
         StairsWidth = new ServiceabilityProperty<int?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
         StairsType = stairsSettings.StairsTypes![0],

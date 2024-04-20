@@ -1,11 +1,12 @@
 ﻿global using FireEscape.Common;
 global using FireEscape.AppSettings;
-global using FireEscape.Views;
 global using FireEscape.Views.BaseViews;
+global using FireEscape.Views;
 global using FireEscape.ViewModels.BaseViewModels;
 global using FireEscape.ViewModels;
-global using FireEscape.Models;
+global using FireEscape.Models.BaseModels;
 global using FireEscape.Models.StairsElements;
+global using FireEscape.Models;
 global using FireEscape.Services;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;

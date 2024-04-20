@@ -1,44 +1,26 @@
 ﻿using DevExpress.Maui.Core.Internal;
 using FireEscape.DBContext;
-using FireEscape.Factories;
+using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 using SQLite;
 using System.Linq.Expressions;
 
 namespace FireEscape.Repositories;
 
-public class OrderRepository(SqliteContext context, IOptions<ApplicationSettings> applicationSettings, OrderFactory orderFactory) : IOrderRepository
+public class OrderRepository(SqliteContext context, IOrderFactory factory, IOptions<ApplicationSettings> applicationSettings) 
+    : BaseObjectRepository<Order, BaseObject> (context, factory ), IOrderRepository
 {
-    readonly AsyncLazy<SQLiteAsyncConnection> connection = context.Connection;
+
     readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
-    public async Task<Order> CreateOrderAsync()
-    {
-        var order = orderFactory.CreateDefaultOrder();
-        await SaveOrderAsync(order);
-        return order;
-    }
-
-    public async Task<Order> SaveOrderAsync(Order order)
-    {
-        if (order.Id != 0)
-        {
-            order.Updated = DateTime.Now;
-            await (await connection).UpdateAsync(order);
-        }
-        else
-            await (await connection).InsertAsync(order);
-        return order;
-    }
-
-    public async Task DeleteOrderAsync(Order order)
+    public override async Task DeleteAsync(Order order)
     {
         if (order.Id == 0)
             return;
         await (await connection).RunInTransactionAsync(connection =>
         {
-            connection.Table<Protocol>().Where(protocol => protocol.OrderId == order.Id).Delete();
-            connection.Delete(order);
+            connection.Table<Protocol>().Where(protocol => protocol.OrderId == order.Id).Delete(); //!! todo Delete protocol & stairs
+            base.DeleteAsync(order).Wait();
         });
 
         var imageFileMask = $"{order.Id}_*.{ImageUtils.IMAGE_FILE_EXTENSION}";

@@ -1,11 +1,8 @@
 ﻿namespace FireEscape.Repositories.Interfaces;
 
-public interface IProtocolRepository
+public interface IProtocolRepository : IBaseObjectRepository<Protocol, Order>
 {
     Task AddImageAsync(Protocol protocol, FileResult? imageFile);
     Task<Protocol> CopyProtocolAsync(Protocol protocol);
-    Task<Protocol> CreateProtocolAsync(Order order);
-    Task DeleteProtocolAsync(Protocol protocol);
     Task<Protocol[]> GetProtocolsAsync(int orderId);
-    Task<Protocol> SaveProtocolAsync(Protocol protocol);
 }

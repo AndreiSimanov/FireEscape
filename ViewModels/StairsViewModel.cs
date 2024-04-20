@@ -1,11 +1,10 @@
-﻿using FireEscape.Factories;
-using FireEscape.Resources.Languages;
+﻿using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Stairs), nameof(Stairs))]
-public partial class StairsViewModel(IOptions<StairsSettings> stairsSettings, StairsFactory stairsFactory) : BaseViewModel
+public partial class StairsViewModel(IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory) : BaseViewModel
 {
     [ObservableProperty]
     Stairs? stairs;

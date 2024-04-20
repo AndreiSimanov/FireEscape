@@ -1,5 +1,6 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories;
+using FireEscape.Factories.Interfaces;
 
 namespace FireEscape;
 
@@ -9,13 +10,14 @@ public static class ModuleInitializer
     {
         services.AddSingleton<SqliteContext>();
 
-        services.AddSingleton<OrderFactory>();
-        services.AddSingleton<ProtocolFactory>();
-        services.AddSingleton<StairsFactory>();
+        services.AddSingleton<IOrderFactory, OrderFactory>();
+        services.AddSingleton<IProtocolFactory, ProtocolFactory>();
+        services.AddSingleton<IStairsFactory, StairsFactory>();
 
         services.AddSingleton<ISearchDataRepository, SearchDataRepository>();
         services.AddSingleton<IOrderRepository, OrderRepository>();
         services.AddSingleton<IProtocolRepository, ProtocolRepository>();
+        services.AddSingleton<IStairsRepository, StairsRepository>();
         services.AddSingleton<IReportRepository, PdfWriterRepository>();
         services.AddSingleton<IFileHostingRepository, DropboxRepository>();
 

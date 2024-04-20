@@ -1,5 +1,4 @@
 ﻿using SQLite;
-using FireEscape.Models.BaseModels;
 
 namespace FireEscape.Models;
 
@@ -29,12 +28,10 @@ public partial class Protocol : BaseDocument, ICloneable
 
     [ObservableProperty]
     [property: Ignore]
-    Stairs stairs = new();
+    Stairs? stairs;
 
     [property: Ignore]
     public bool HasImage => !string.IsNullOrWhiteSpace(Image) && File.Exists(Image);
 
     public object Clone() => MemberwiseClone();
-
-
 }
