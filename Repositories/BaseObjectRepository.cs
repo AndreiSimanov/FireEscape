@@ -1,6 +1,7 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
 using SQLite;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace FireEscape.Repositories;
 
@@ -22,19 +23,19 @@ public class BaseObjectRepository<T, P>(SqliteContext context, IBaseObjectFactor
         if (obj.Id != 0)
         {
             obj.Updated = DateTime.Now;
-            await (await connection).UpdateAsync(obj);
+            await (await connection).UpdateWithChildrenAsync(obj);
         }
         else
-            await (await connection).InsertAsync(obj);
+            await (await connection).InsertWithChildrenAsync(obj, true);
         return obj;
     }
 
     public virtual async Task DeleteAsync(T obj)
     {
         if (obj.Id != 0)
-            await (await connection).DeleteAsync(obj);
+            await (await connection).DeleteAsync(obj,  true);
     }
 
-    public virtual async Task<T> GetAsync(int id) => 
-        await (await connection).Table<T>().Where(obj => obj.Id == id).FirstOrDefaultAsync();
+    public virtual async Task<T> GetAsync(int id) =>
+        await (await connection).GetWithChildrenAsync<T>(id, true);
 }

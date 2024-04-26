@@ -1,5 +1,8 @@
 ﻿using DevExpress.Maui;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using System.Reflection;
 
 namespace FireEscape;
@@ -12,6 +15,13 @@ public static class MauiProgram
         using var stream = GetStreamFromFile("appsettings.json");
         var configuration = new ConfigurationBuilder().AddJsonStream(stream!).Build();
         builder.Configuration.AddConfiguration(configuration);
+
+        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            TypeNameHandling = TypeNameHandling.All
+        };
 
         builder
             .UseMauiApp<App>()

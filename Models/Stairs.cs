@@ -1,7 +1,6 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System.Collections.ObjectModel;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace FireEscape.Models;
 
@@ -37,62 +36,22 @@ public partial class Stairs : BaseObject
     bool protectiveServiceability;
 
     [ObservableProperty]
-    [property: Ignore]
+    [property: TextBlob(nameof(StairsTypeBlob))]
     StairsType stairsType;
-
-    [Column(nameof(StairsTypeJson))]
-    public byte[]? StairsTypeJson
-    {
-        get => JsonSerializer.SerializeToUtf8Bytes(StairsType);
-        set => StairsType = JsonSerializer.Deserialize<StairsType>(value);
-    }
+    public string? StairsTypeBlob { get; set; }
 
     [ObservableProperty]
-    [property: Ignore]
+    [property: TextBlob(nameof(StairsHeightBlob))]
     ServiceabilityProperty<float?> stairsHeight = new();
-
-    [Column(nameof(StairsHeightJson))]
-    public byte[]? StairsHeightJson
-    {
-        get => JsonSerializer.SerializeToUtf8Bytes(StairsHeight);
-        set
-        {
-            var result = JsonSerializer.Deserialize<ServiceabilityProperty<float?>>(value);
-            if (result != null)
-                StairsHeight = result;
-        }
-    }
+    public string? StairsHeightBlob { get; set; }
 
     [ObservableProperty]
-    [property: Ignore]
+    [property: TextBlob(nameof(StairsWidthBlob))]
     ServiceabilityProperty<int?> stairsWidth = new();
-
-    [Column(nameof(StairsWidthJson))]
-    public byte[]? StairsWidthJson
-    {
-        get => JsonSerializer.SerializeToUtf8Bytes(StairsWidth);
-        set
-        {
-            var result = JsonSerializer.Deserialize<ServiceabilityProperty<int?>>(value);
-            if (result != null)
-                StairsWidth = result;
-        }
-    }
+    public string? StairsWidthBlob { get; set; }
 
     [ObservableProperty]
-    [property: Ignore]
+    [property: TextBlob(nameof(StairsElementsBlob))]
     ObservableCollection<BaseStairsElement> stairsElements = new();
-
-
-    [Column(nameof(StairsElementsJson))]
-    public byte[]? StairsElementsJson
-    {
-        get => JsonSerializer.SerializeToUtf8Bytes(StairsElements);
-        set
-        {
-            var result = JsonSerializer.Deserialize<ObservableCollection<BaseStairsElement>>(value);
-            if (result != null)
-                StairsElements = result;
-        }
-    }
+    public string? StairsElementsBlob { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace FireEscape.Repositories;
 
@@ -9,8 +10,7 @@ public class StairsRepository(SqliteContext context, IStairsFactory factory)
     public async Task<Dictionary<int, Stairs>> GetStairsesAsync(int orderId)
     {
         var stairses = await (await connection)
-            .Table<Stairs>()
-            .Where(stairs => stairs.OrderId == orderId).ToArrayAsync();
+            .GetAllWithChildrenAsync<Stairs>(stairs => stairs.OrderId == orderId);
         return stairses.ToDictionary(stairs => stairs.ProtocolId);
     }
 }
