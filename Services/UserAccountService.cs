@@ -44,7 +44,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
         userAccount = await DownloadUserAccountAsync(CurrentUserAccountId);
 
         if (userAccount == null)
-            userAccount = await CreateNewUserAsync(CurrentUserAccountId);
+            userAccount = await CreateAsync(CurrentUserAccountId);
         else
         {
             if (userAccount.ExpirationCount > 0) // clear remote ExpirationCount
@@ -59,7 +59,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
         return userAccount;
     }
 
-    public async Task SaveUserAccountAsync(UserAccount userAccount)
+    public async Task SaveAsync(UserAccount userAccount)
     {
         if (string.IsNullOrWhiteSpace(userAccount.Id) || !await AppUtils.IsNetworkAccessAsync())
             return;
@@ -67,7 +67,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
         SetLocalUserAccount(userAccount);
     }
 
-    public async Task DeleteUserAccountAsync(UserAccount userAccount)
+    public async Task DeleteAsync(UserAccount userAccount)
     {
         if (string.IsNullOrWhiteSpace(userAccount.Id) || !await AppUtils.IsNetworkAccessAsync())
             return;
@@ -76,7 +76,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
             Preferences.Default.Remove(USER_ACCOUNT);
     }
 
-    public async IAsyncEnumerable<UserAccount> GetUserAccountsAsync()
+    public async IAsyncEnumerable<UserAccount> GetAsync()
     {
         if (!await AppUtils.IsNetworkAccessAsync())
             yield break;
@@ -123,7 +123,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
 
     public bool IsCurrentUserAccount(UserAccount? userAccount) => userAccount != null && userAccount.Id == CurrentUserAccountId;
 
-    async Task<UserAccount> CreateNewUserAsync(string userAccountId)
+    async Task<UserAccount> CreateAsync(string userAccountId)
     {
         var userAccount = new UserAccount()
         {

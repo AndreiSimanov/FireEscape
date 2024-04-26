@@ -61,7 +61,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
         {
             if (Order == null)
                 return;
-            newProtocol = await protocolService.CreateProtocolAsync(Order);
+            newProtocol = await protocolService.CreateAsync(Order);
             Protocols.Insert(0, newProtocol);
         },
         AppResources.AddProtocolError);
@@ -76,7 +76,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
         Protocol? newProtocol = null;
         await DoCommandAsync(async () =>
         {
-            newProtocol = await protocolService.CopyProtocolAsync(protocol);
+            newProtocol = await protocolService.CopyAsync(protocol);
             Protocols.Insert(0, newProtocol);
         },
         AppResources.CopyProtocolError);
@@ -94,7 +94,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
             if (string.Equals(action, AppResources.Cancel))
                 return;
 
-            await protocolService.DeleteProtocolAsync(protocol);
+            await protocolService.DeleteAsync(protocol);
             Protocols.Remove(protocol);
         },
         protocol,

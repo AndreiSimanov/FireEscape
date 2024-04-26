@@ -16,7 +16,8 @@ public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings) 
         ProtocolDate = DateTime.Today,
         FireEscapeNum = newProtocolSettings.FireEscapeNum,
         Location = (order != null && string.IsNullOrWhiteSpace(order.Location)) ? newProtocolSettings.Location : string.Empty,
-        Created = DateTime.Now
+        Created = DateTime.Now,
+        Updated = DateTime.Now
     };
 
     public Protocol CopyProtocol(Protocol protocol)
@@ -27,6 +28,7 @@ public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings) 
         newProtocol.Stairs = null;
         newProtocol.FireEscapeNum = newProtocol.FireEscapeNum + 1;
         newProtocol.Created = DateTime.Now;
+        newProtocol.Updated = DateTime.Now;
         return newProtocol;
     }
 }

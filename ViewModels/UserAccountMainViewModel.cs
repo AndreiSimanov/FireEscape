@@ -27,7 +27,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
             {
                 IsRefreshing = false;
                 UserAccounts.Clear();
-                await foreach (var item in userAccountService.GetUserAccountsAsync())
+                await foreach (var item in userAccountService.GetAsync())
                 {
                     UserAccounts.Add(item);
                 }
@@ -59,7 +59,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
             if (string.Equals(action, AppResources.Cancel))
                 return;
 
-            await userAccountService.DeleteUserAccountAsync(userAccount);
+            await userAccountService.DeleteAsync(userAccount);
             UserAccounts.Remove(userAccount);
         },
         userAccount,

@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System.Text.Json.Serialization;
 
 namespace FireEscape.Models;
 
@@ -28,6 +29,7 @@ public partial class Protocol : BaseDocument, ICloneable
 
     [ObservableProperty]
     [property: Ignore]
+    [JsonIgnore]
     Stairs? stairs;
 
     [property: Ignore]

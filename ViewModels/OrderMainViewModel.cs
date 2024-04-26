@@ -72,7 +72,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         Order? newOrder = null;
         await DoCommandAsync(async () =>
         {
-            newOrder = await orderService.CreateOrderAsync();
+            newOrder = await orderService.CreateAsync();
             Orders.Insert(0, newOrder);
         },
         AppResources.AddOrderError);
@@ -91,7 +91,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             if (string.Equals(action, AppResources.Cancel))
                 return;
 
-            await orderService.DeleteOrderAsync(order);
+            await orderService.DeleteAsync(order);
             Orders.Remove(order);
         },
         order,
@@ -145,7 +145,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
                     Created = DateTime.Now,
                     Updated = DateTime.Now
                 };
-                await orderService.SaveOrderAsync(order);
+                await orderService.SaveAsync(order);
             }
         },
         AppResources.AddOrderError);

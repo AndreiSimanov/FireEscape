@@ -8,7 +8,7 @@ public class StairsRepository(SqliteContext context, IStairsFactory factory)
 {
     public async Task<Dictionary<int, Stairs>> GetStairsesAsync(int orderId)
     {
-        var stairses = await  (await connection)
+        var stairses = await (await connection)
             .Table<Stairs>()
             .Where(stairs => stairs.OrderId == orderId).ToArrayAsync();
         return stairses.ToDictionary(stairs => stairs.ProtocolId);

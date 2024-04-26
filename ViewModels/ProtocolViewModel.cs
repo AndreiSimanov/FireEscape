@@ -33,7 +33,7 @@ public partial class ProtocolViewModel(ProtocolService protocolService) : BaseEd
     protected override async Task SaveEditObjectAsync() =>
        await DoCommandAsync(async () =>
        {
-           await protocolService.SaveProtocolAsync(EditObject!);
+           await protocolService.SaveAsync(EditObject!);
        },
        EditObject,
        AppResources.SaveProtocolError);

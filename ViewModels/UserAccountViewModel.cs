@@ -5,8 +5,8 @@ public partial class UserAccountViewModel(UserAccountService userAccountService)
     protected override async Task SaveEditObjectAsync() =>
        await DoCommandAsync(async () =>
        {
-           await userAccountService.SaveUserAccountAsync(EditObject!);
+           await userAccountService.SaveAsync(EditObject!);
        },
-       EditObject!,
+       EditObject,
        AppResources.SaveUserAccountError);
 }

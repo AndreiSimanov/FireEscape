@@ -5,7 +5,7 @@ public partial class OrderViewModel(OrderService orderService) : BaseEditViewMod
     protected override async Task SaveEditObjectAsync() =>
        await DoCommandAsync(async () =>
        {
-           await orderService.SaveOrderAsync(EditObject!);
+           await orderService.SaveAsync(EditObject!);
        },
        EditObject,
        AppResources.SaveOrderError);

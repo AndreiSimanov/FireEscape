@@ -20,7 +20,7 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
             File.Delete(protocol.Image!);
     }
 
-    public async Task<Protocol> CopyProtocolAsync(Protocol protocol)
+    public async Task<Protocol> CopyAsync(Protocol protocol)
     {
         var newProtocol = factory.CopyProtocol(protocol);
         await SaveAsync(newProtocol);

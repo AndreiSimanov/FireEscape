@@ -1,5 +1,7 @@
 ﻿using SQLite;
 using System.Collections.ObjectModel;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FireEscape.Models;
 
@@ -15,25 +17,12 @@ public partial class Stairs : BaseObject
     public int ProtocolId { get; set; }
 
     [ObservableProperty]
-    [property: Ignore]
-    StairsType stairsType;
-
-    [ObservableProperty]
     [property: Column(nameof(IsEvacuation))]
     bool isEvacuation;
 
     [ObservableProperty]
     [property: Column(nameof(StairsMountType))]
-    [property: MaxLength(64)]
     string stairsMountType = string.Empty;
-
-    [ObservableProperty]
-    [property: Ignore]
-    ServiceabilityProperty<float?> stairsHeight = new();
-
-    [ObservableProperty]
-    [property: Ignore]
-    ServiceabilityProperty<int?> stairsWidth = new();
 
     [ObservableProperty]
     [property: Column(nameof(StepsCount))]
@@ -49,5 +38,61 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: Ignore]
+    StairsType stairsType;
+
+    [Column(nameof(StairsTypeJson))]
+    public byte[]? StairsTypeJson
+    {
+        get => JsonSerializer.SerializeToUtf8Bytes(StairsType);
+        set => StairsType = JsonSerializer.Deserialize<StairsType>(value);
+    }
+
+    [ObservableProperty]
+    [property: Ignore]
+    ServiceabilityProperty<float?> stairsHeight = new();
+
+    [Column(nameof(StairsHeightJson))]
+    public byte[]? StairsHeightJson
+    {
+        get => JsonSerializer.SerializeToUtf8Bytes(StairsHeight);
+        set
+        {
+            var result = JsonSerializer.Deserialize<ServiceabilityProperty<float?>>(value);
+            if (result != null)
+                StairsHeight = result;
+        }
+    }
+
+    [ObservableProperty]
+    [property: Ignore]
+    ServiceabilityProperty<int?> stairsWidth = new();
+
+    [Column(nameof(StairsWidthJson))]
+    public byte[]? StairsWidthJson
+    {
+        get => JsonSerializer.SerializeToUtf8Bytes(StairsWidth);
+        set
+        {
+            var result = JsonSerializer.Deserialize<ServiceabilityProperty<int?>>(value);
+            if (result != null)
+                StairsWidth = result;
+        }
+    }
+
+    [ObservableProperty]
+    [property: Ignore]
     ObservableCollection<BaseStairsElement> stairsElements = new();
+
+
+    [Column(nameof(StairsElementsJson))]
+    public byte[]? StairsElementsJson
+    {
+        get => JsonSerializer.SerializeToUtf8Bytes(StairsElements);
+        set
+        {
+            var result = JsonSerializer.Deserialize<ObservableCollection<BaseStairsElement>>(value);
+            if (result != null)
+                StairsElements = result;
+        }
+    }
 }

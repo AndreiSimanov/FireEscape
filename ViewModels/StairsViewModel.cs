@@ -45,7 +45,7 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
     protected override async Task SaveEditObjectAsync() =>
        await DoCommandAsync(async () =>
        {
-           await stairsService.SaveStairsAsync(EditObject!);
+           await stairsService.SaveAsync(EditObject!);
        },
        EditObject,
        AppResources.SaveProtocolError);
