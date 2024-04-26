@@ -9,7 +9,6 @@
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
     xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"
     x:Class="FireEscape.Views.OrderPage"
-    x:TypeArguments="viewmodel:OrderViewModel"
     x:DataType="viewmodel:OrderViewModel"
     Title="{x:Static lang:AppResources.OrderPageTitle}">
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">

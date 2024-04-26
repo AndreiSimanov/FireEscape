@@ -14,7 +14,6 @@
     xmlns:stairselmodel="clr-namespace:FireEscape.Models.StairsElements"
     xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
     x:Class="FireEscape.Views.StairsPage"
-    x:TypeArguments="viewmodel:StairsViewModel"
     x:DataType="viewmodel:StairsViewModel"
     Title="{x:Static lang:AppResources.StairsPageTitle}">
 

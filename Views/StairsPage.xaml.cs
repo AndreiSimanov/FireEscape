@@ -2,7 +2,7 @@ using DevExpress.Maui.Editors;
 
 namespace FireEscape.Views;
 
-public partial class StairsPage : BaseStairsPage<StairsViewModel>
+public partial class StairsPage : BaseStairsPage
 {
     public StairsPage(StairsViewModel viewModel) : base(viewModel)
     {

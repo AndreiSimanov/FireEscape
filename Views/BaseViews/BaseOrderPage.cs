@@ -1,8 +1,8 @@
 namespace FireEscape.Views.BaseViews;
 
-public abstract class BaseOrderPage<T> : BaseEditPage<BaseEditViewModel<Order>, Order>
+public abstract class BaseOrderPage : BaseEditPage<OrderViewModel, Order>
 {
-    protected BaseOrderPage(BaseEditViewModel<Order> viewModel) : base(viewModel)
+    protected BaseOrderPage(OrderViewModel viewModel) : base(viewModel)
     {
     }
 }

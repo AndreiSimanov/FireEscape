@@ -1,8 +1,8 @@
 namespace FireEscape.Views.BaseViews;
 
-public abstract class BaseStairsPage<T> : BaseEditPage<BaseEditViewModel<Stairs>, Stairs>
+public abstract class BaseStairsPage : BaseEditPage<StairsViewModel, Stairs>
 {
-    protected BaseStairsPage(BaseEditViewModel<Stairs> viewModel) : base(viewModel)
+    protected BaseStairsPage(StairsViewModel viewModel) : base(viewModel)
     {
     }
 }

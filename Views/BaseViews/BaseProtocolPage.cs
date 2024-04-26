@@ -1,8 +1,8 @@
 namespace FireEscape.Views.BaseViews;
 
-public abstract class BaseProtocolPage<T> : BaseEditPage<BaseEditViewModel<Protocol>, Protocol>
+public abstract class BaseProtocolPage : BaseEditPage<ProtocolViewModel, Protocol>
 {
-    protected BaseProtocolPage(BaseEditViewModel<Protocol> viewModel) : base(viewModel)
+    protected BaseProtocolPage(ProtocolViewModel viewModel) : base(viewModel)
     {
     }
 }

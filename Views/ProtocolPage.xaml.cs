@@ -1,6 +1,6 @@
 namespace FireEscape.Views;
 
-public partial class ProtocolPage : BaseProtocolPage<ProtocolViewModel>
+public partial class ProtocolPage : BaseProtocolPage
 {
     public ProtocolPage(ProtocolViewModel viewModel) : base(viewModel)
     {

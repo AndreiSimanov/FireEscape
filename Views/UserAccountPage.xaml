@@ -9,7 +9,6 @@
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
     xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"                     
     x:Class="FireEscape.Views.UserAccountPage"
-    x:TypeArguments="viewmodel:UserAccountViewModel"
     x:DataType="viewmodel:UserAccountViewModel"
     Title="{x:Static lang:AppResources.UserAccountPageTitle}">
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
