@@ -17,9 +17,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public string ProtocolDate => string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate);
 
-    public string StairsType => stairs.StairsType.Type == StairsTypeEnum.P2
-        ? "маршевая лестница тип П2"
-        : stairs.StairsType.Name;
+    public string StairsType => stairs.StairsType.Name;
 
     public string StairsMountType => stairs.StairsMountType;
 
