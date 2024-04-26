@@ -13,7 +13,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
     {
         var newProtocol = await protocolRepository.CopyAsync(protocol);
         newProtocol.Stairs = await stairsRepository.CreateAsync(newProtocol);
-        return protocol;
+        return newProtocol;
     }
 
     public async Task SaveAsync(Protocol protocol)

@@ -18,10 +18,13 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
             if (availableStairsElements != null)
             {
                 var elementNames = availableStairsElements.Select(item => item.ToString()).ToArray();
-                var action = await Shell.Current.DisplayActionSheet("Выберете элемент", AppResources.Cancel, string.Empty, elementNames);
-                var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
-                if (element != null)
-                    EditObject.StairsElements.Add(element);
+                if (elementNames.Any())
+                {
+                    var action = await Shell.Current.DisplayActionSheet("Выберете элемент", AppResources.Cancel, string.Empty, elementNames);
+                    var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
+                    if (element != null)
+                        EditObject.StairsElements.Insert(0, element);
+                }
             }
         },
         AppResources.AddProtocolError);

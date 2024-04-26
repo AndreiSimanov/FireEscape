@@ -39,16 +39,6 @@
                 ItemsSource="{Binding StairsSettings.StairsMountTypes}"/>
 
             <ctrl:ServiceabilityControl
-                MaxValue="100"
-                MaxDecimalDigitCount="2"
-                PlaceholderText ="{x:Static lang:AppResources.StairsHeightHint}"
-                LabelText ="{x:Static lang:AppResources.StairsHeight}"
-                Value="{Binding EditObject.StairsHeight.Value}"
-                Serviceability ="{Binding EditObject.StairsHeight.Serviceability}"
-                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding EditObject.StairsHeight.RejectExplanation}"/>
-
-            <ctrl:ServiceabilityControl
                 PlaceholderText ="{x:Static lang:AppResources.StairsWidthHint}"
                 LabelText ="{x:Static lang:AppResources.StairsWidth}"
                 Value="{Binding EditObject.StairsWidth.Value}"
@@ -61,6 +51,16 @@
                 Value="{Binding EditObject.StepsCount}"
                 PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"
                 LabelText="{x:Static lang:AppResources.StepsCount}"/>
+
+            <ctrl:ServiceabilityControl
+                MaxValue="100"
+                MaxDecimalDigitCount="2"
+                PlaceholderText ="{x:Static lang:AppResources.StairsHeightHint}"
+                LabelText ="{x:Static lang:AppResources.StairsHeight}"
+                Value="{Binding EditObject.StairsHeight.Value}"
+                Serviceability ="{Binding EditObject.StairsHeight.Serviceability}"
+                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
+                RejectExplanationText ="{Binding EditObject.StairsHeight.RejectExplanation}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
@@ -92,12 +92,6 @@
                 SelectionMode="Single"
                 ItemSeparatorThickness="0"
                 UseRippleEffect="true">
-                
-                <dxcv:DXCollectionView.SortDescriptions>
-                    <dxcv:SortDescription FieldName="Order" SortOrder="Ascending" />
-                    <dxcv:SortDescription FieldName="Name" SortOrder="Ascending" />
-                </dxcv:DXCollectionView.SortDescriptions>
-                
                 <dxcv:DXCollectionView.ItemTemplate>
                     <DataTemplate x:DataType="stairselmodel:BaseStairsElement">
                         <dxcv:SwipeContainer>
