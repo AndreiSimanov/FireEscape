@@ -298,10 +298,10 @@
     <value>Specify stair height (m)</value>
   </data>
   <data name="StairsWidth" xml:space="preserve">
-    <value>Stair width (mm)</value>
+    <value>Stair width ({0})</value>
   </data>
   <data name="StairsWidthHint" xml:space="preserve">
-    <value>Specify stair width (mm)</value>
+    <value>Specify stair width ({0})</value>
   </data>
   <data name="StepsCount" xml:space="preserve">
     <value>Steps count</value>

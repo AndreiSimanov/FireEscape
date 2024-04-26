@@ -1,13 +1,10 @@
 ﻿namespace FireEscape.Reports.ReportDataProviders;
 
-public class ProtocolReportDataProvider(Order order, Protocol protocol, ServiceabilityLimits? serviceabilityLimits, UserAccount userAccount)
+public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs stairs, StairsSettings stairsSettings, UserAccount userAccount)
 {
-    Order order = order;
-    Protocol protocol = protocol;
-    Stairs stairs = protocol.Stairs;
-    ServiceabilityLimits? serviceabilityLimits = serviceabilityLimits;
-    UserAccount userAccount = userAccount;
-
+    ServiceabilityLimits? serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
+           item.StairsType == stairs.StairsType.Type &&
+           item.IsEvacuation == stairs.IsEvacuation);
     public int ProtocolNum => protocol.ProtocolNum;
     public string StairsTypeDescription => stairs.IsEvacuation
         ? "испытания пожарной эвакуационной лестницы"
@@ -31,7 +28,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Servicea
     public int FireEscapeNum => protocol.FireEscapeNum;
 
     public float StairsHeight => stairs.StairsHeight.Value?? 0f;
-    public int StairsWidth => stairs.StairsWidth.Value?? 0;
+    public int StairsWidth => stairs.StairsWidth.Value.HasValue ? (int)stairs.StairsWidth.Value * stairsSettings.DefaultUnitMultiplier : 0;
 
     public int StepsCount => stairs.StepsCount?? 0;
 

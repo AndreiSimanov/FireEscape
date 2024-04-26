@@ -30,8 +30,20 @@ public partial class ServiceabilityControl : ContentView
         set => SetValue(RejectExplanationTextProperty, value);
     }
 
-    public string LabelText { get=> numEdit.LabelText; set => numEdit.LabelText = value; }
-    public string PlaceholderText { get => numEdit.PlaceholderText; set => numEdit.PlaceholderText = value; }
+    public static readonly BindableProperty LabelTextProperty = BindableProperty.Create(nameof(LabelText), typeof(string), typeof(ServiceabilityControl), defaultBindingMode: BindingMode.TwoWay);
+    public string LabelText
+    {
+        get => (string)GetValue(LabelTextProperty);
+        set => SetValue(LabelTextProperty, value);
+    }
+
+    public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText), typeof(string), typeof(ServiceabilityControl), defaultBindingMode: BindingMode.TwoWay);
+    public string PlaceholderText
+    {
+        get => (string)GetValue(PlaceholderTextProperty);
+        set => SetValue(PlaceholderTextProperty, value);
+    }
+
     public decimal MinValue { get => numEdit.MinValue; set => numEdit.MinValue = value; }
     public decimal MaxValue { get => numEdit.MaxValue; set => numEdit.MaxValue = value; }
     public int MaxDecimalDigitCount { get => numEdit.MaxDecimalDigitCount; set => numEdit.MaxDecimalDigitCount = value; }

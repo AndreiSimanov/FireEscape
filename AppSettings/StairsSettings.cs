@@ -2,6 +2,8 @@
 
 public class StairsSettings
 {
+    public required string DefaultUnit { get; set; }
+    public int DefaultUnitMultiplier { get; set; }
     public string[]? StairsMountTypes { get; set; }
     public StairsType[]? StairsTypes { get; set; }
     public ServiceabilityType[]? ServiceabilityTypes { get; set; }

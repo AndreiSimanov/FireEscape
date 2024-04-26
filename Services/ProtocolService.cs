@@ -58,6 +58,8 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
     public async Task CreateReportAsync(Order order, Protocol protocol, UserAccount userAccount)
     {
         var fileName = "protocol"; //todo: change file name to some protocol attribute 
+        if (protocol.Stairs == null)
+            return;
         var filePath = await reportRepository.CreateReportAsync(order, protocol,  userAccount, fileName);
         await Launcher.OpenAsync(new OpenFileRequest
         {

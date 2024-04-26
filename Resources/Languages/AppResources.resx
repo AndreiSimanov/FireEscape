@@ -298,10 +298,10 @@
     <value>Укажите высоту лестницы в метрах</value>
   </data>
   <data name="StairsWidth" xml:space="preserve">
-    <value>Ширина лестницы (мм)</value>
+    <value>Ширина лестницы ({0})</value>
   </data>
   <data name="StairsWidthHint" xml:space="preserve">
-    <value>Укажите ширину лестницы в миллиметрах</value>
+    <value>Укажите ширину лестницы в {0}.</value>
   </data>
   <data name="StepsCount" xml:space="preserve">
     <value>Количество ступеней</value>

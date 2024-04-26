@@ -763,7 +763,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ширина лестницы (мм).
+        ///   Looks up a localized string similar to Ширина лестницы ({0}).
         /// </summary>
         internal static string StairsWidth {
             get {
@@ -772,7 +772,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите ширину лестницы в миллиметрах.
+        ///   Looks up a localized string similar to Укажите ширину лестницы в {0}..
         /// </summary>
         internal static string StairsWidthHint {
             get {

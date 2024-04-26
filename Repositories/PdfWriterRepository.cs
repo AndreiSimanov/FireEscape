@@ -15,11 +15,7 @@ public class PdfWriterRepository(IOptions<ApplicationSettings> applicationSettin
             throw new ArgumentNullException(nameof(fileName));
         fileName = fileName + ".pdf";
 
-        var serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
-            item.StairsType == protocol.Stairs.StairsType.Type &&
-            item.IsEvacuation == protocol.Stairs.IsEvacuation);
-
-        var protocolRdp = new ProtocolReportDataProvider(order, protocol, serviceabilityLimits, userAccount);
+        var protocolRdp = new ProtocolReportDataProvider(order, protocol, protocol.Stairs!, stairsSettings,  userAccount);
 
         var filePath = Path.Combine(applicationSettings.ContentFolder, fileName);
 

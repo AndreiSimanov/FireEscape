@@ -20,6 +20,8 @@
 
         <dxe:NumericEdit
             x:Name="numEdit"
+            LabelText="{Binding LabelText}"
+            PlaceholderText="{Binding PlaceholderText}"
             Grid.Column="0"
             Value="{Binding Value}"
             Style="{StaticResource DefaultNumericEdit}" />

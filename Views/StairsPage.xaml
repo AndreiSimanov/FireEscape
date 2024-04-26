@@ -38,9 +38,19 @@
                 SelectedItem="{Binding EditObject.StairsMountType}"
                 ItemsSource="{Binding StairsSettings.StairsMountTypes}"/>
 
+            <dxe:CheckEdit
+                Style="{StaticResource DefaultCheckEdit}"
+                IsChecked="{Binding EditObject.WeldSeamServiceability}"
+                Label="{x:Static lang:AppResources.WeldSeamServiceability}"/>
+
+            <dxe:CheckEdit
+                Style="{StaticResource DefaultCheckEdit}"
+                IsChecked="{Binding EditObject.ProtectiveServiceability}"
+                Label="{x:Static lang:AppResources.ProtectiveServiceability}"/>
+
             <ctrl:ServiceabilityControl
-                PlaceholderText ="{x:Static lang:AppResources.StairsWidthHint}"
-                LabelText ="{x:Static lang:AppResources.StairsWidth}"
+                PlaceholderText ="{Binding StairsWidthHint}"
+                LabelText ="{Binding StairsWidth}"
                 Value="{Binding EditObject.StairsWidth.Value}"
                 Serviceability ="{Binding EditObject.StairsWidth.Serviceability}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
@@ -61,16 +71,6 @@
                 Serviceability ="{Binding EditObject.StairsHeight.Serviceability}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.StairsHeight.RejectExplanation}"/>
-
-            <dxe:CheckEdit
-                Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding EditObject.WeldSeamServiceability}"
-                Label="{x:Static lang:AppResources.WeldSeamServiceability}"/>
-
-            <dxe:CheckEdit
-                Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding EditObject.ProtectiveServiceability}"
-                Label="{x:Static lang:AppResources.ProtectiveServiceability}"/>
 
             <dxe:FormGroupItem Header="Элементы лестницы" HeightRequest="38" Margin="0,0,80,0" />
             <dx:DXButton 
@@ -114,7 +114,6 @@
                                         </Frame.GestureRecognizers>
                                         <VerticalStackLayout Spacing="2" >
                                             <Label Style="{StaticResource Titleline}" Text="{Binding Name}"/>
-
                                         </VerticalStackLayout>
                                     </Frame>
                                 </Grid>

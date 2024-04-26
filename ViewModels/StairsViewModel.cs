@@ -52,4 +52,7 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
        },
        EditObject,
        AppResources.SaveProtocolError);
+
+    public string StairsWidth => string.Format(AppResources.StairsWidth, StairsSettings.DefaultUnit);
+    public string StairsWidthHint => string.Format(AppResources.StairsWidthHint, StairsSettings.DefaultUnit);
 }
