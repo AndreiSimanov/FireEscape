@@ -44,7 +44,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
         await DoCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(UserAccountPage), true, 
-                new Dictionary<string, object> { { UserAccountViewModel.EDIT_PROPERTY_NAME, userAccount } });
+                new Dictionary<string, object> { { nameof(UserAccountViewModel.EditObject), userAccount } });
         },
         userAccount,
         AppResources.EditUserAccountError);

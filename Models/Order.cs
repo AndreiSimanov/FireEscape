@@ -1,5 +1,4 @@
 ﻿using SQLite;
-using FireEscape.Models.BaseModels;
 
 namespace FireEscape.Models;
 

@@ -1,10 +1,20 @@
 ﻿namespace FireEscape.Services;
 
-public class ProtocolService(IProtocolRepository protocolRepository, ISearchDataRepository searchDataRepository, IReportRepository reportRepository)
+public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepository stairsRepository, ISearchDataRepository searchDataRepository, IReportRepository reportRepository)
 {
-    public async Task<Protocol> CreateProtocolAsync(Order order) => await protocolRepository.CreateAsync(order);
+    public async Task<Protocol> CreateProtocolAsync(Order order)
+    {
+        var protocol = await protocolRepository.CreateAsync(order);
+        protocol.Stairs = await stairsRepository.CreateAsync(protocol);
+        return protocol;
+    }
 
-    public async Task<Protocol> CopyProtocolAsync(Protocol protocol) => await protocolRepository.CopyProtocolAsync(protocol);
+    public async Task<Protocol> CopyProtocolAsync(Protocol protocol)
+    {
+        var newProtocol = await protocolRepository.CopyProtocolAsync(protocol);
+        newProtocol.Stairs = await stairsRepository.CreateAsync(newProtocol);
+        return protocol;
+    }
 
     public async Task SaveProtocolAsync(Protocol protocol)
     {
@@ -18,7 +28,20 @@ public class ProtocolService(IProtocolRepository protocolRepository, ISearchData
         await searchDataRepository.SetSearchDataAsync(protocol.OrderId);
     }
 
-    public async Task<Protocol[]> GetProtocolsAsync(int orderId) => await protocolRepository.GetProtocolsAsync(orderId);
+    public async Task<Protocol[]> GetProtocolsAsync(int orderId)
+    {
+        var protocols  =  await protocolRepository.GetProtocolsAsync(orderId);
+        var stairses = await stairsRepository.GetStairsesAsync(orderId);
+
+        foreach(var protocol in protocols)
+        {
+            if (stairses.TryGetValue(protocol.Id, out Stairs? stairs))
+                protocol.Stairs = stairs;
+            else
+                protocol.Stairs = await stairsRepository.CreateAsync(protocol);
+        }
+        return protocols;
+    }
 
     public async Task AddPhotoAsync(Protocol protocol)
     {

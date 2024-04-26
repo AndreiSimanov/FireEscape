@@ -2,16 +2,15 @@ using DevExpress.Maui.Editors;
 
 namespace FireEscape.Views;
 
-public partial class StairsPage : ContentPage
+public partial class StairsPage : BaseStairsPage<StairsViewModel>
 {
-    public StairsPage(StairsViewModel viewModel)
-	{
+    public StairsPage(StairsViewModel viewModel) : base(viewModel)
+    {
 		InitializeComponent();
-        BindingContext = viewModel;
         stairsElements.HeightRequest = DeviceDisplay.Current.MainDisplayInfo.Height / DeviceDisplay.Current.MainDisplayInfo.Density - 180;
     }
 
-    StairsViewModel? StairsViewModel => BindingContext as StairsViewModel;
+    StairsViewModel? StairsViewModel => ViewModel as StairsViewModel;
 
     void AddStairsElement(object sender, EventArgs e)
     {

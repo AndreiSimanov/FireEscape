@@ -19,7 +19,7 @@ public partial class BaseViewModel : ObservableObject
         await Shell.Current.DisplayAlert(AppResources.Error, ex.Message, AppResources.OK);
     }
 
-    protected async Task DoCommandAsync(Func<Task> func, object item, string exceptionCaption)
+    protected async Task DoCommandAsync(Func<Task> func, object? item, string exceptionCaption)
     {
         if (item != null)
             await DoCommandAsync(func, exceptionCaption);

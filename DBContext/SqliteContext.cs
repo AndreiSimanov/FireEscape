@@ -15,8 +15,8 @@ public class SqliteContext : IAsyncDisposable
             var conn = new SQLiteAsyncConnection(dbPath);
             //await conn.DropTableAsync<Order>();
             //await conn.DropTableAsync<Protocol>();
-            await conn.CreateTableAsync<Order>();
-            await conn.CreateTableAsync<Protocol>();
+            //await conn.DropTableAsync<Stairs>();
+            await conn.CreateTablesAsync<Order, Protocol, Stairs>();
             return conn;
         });
     }

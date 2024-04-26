@@ -7,6 +7,6 @@ public partial class OrderViewModel(OrderService orderService) : BaseEditViewMod
        {
            await orderService.SaveOrderAsync(EditObject!);
        },
-       EditObject!,
+       EditObject,
        AppResources.SaveOrderError);
 }

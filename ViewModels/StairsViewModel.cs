@@ -3,12 +3,8 @@ using Microsoft.Extensions.Options;
 
 namespace FireEscape.ViewModels;
 
-[QueryProperty(nameof(Stairs), nameof(Stairs))]
-public partial class StairsViewModel(IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory) : BaseViewModel
+public partial class StairsViewModel(StairsService stairsService, IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory) : BaseEditViewModel<Stairs>
 {
-    [ObservableProperty]
-    Stairs? stairs;
-
     public StairsSettings StairsSettings { get; private set; } = stairsSettings.Value;
 
     [RelayCommand]
@@ -16,16 +12,16 @@ public partial class StairsViewModel(IOptions<StairsSettings> stairsSettings, IS
     {
         await DoCommandAsync(async () =>
         {
-            if (Stairs == null)
+            if (EditObject == null)
                 return;
-            var availableStairsElements = stairsFactory.GetAvailableStairsElements(Stairs).ToList();
+            var availableStairsElements = stairsFactory.GetAvailableStairsElements(EditObject).ToList();
             if (availableStairsElements != null)
             {
                 var elementNames = availableStairsElements.Select(item => item.ToString()).ToArray();
                 var action = await Shell.Current.DisplayActionSheet("Выберете элемент", AppResources.Cancel, string.Empty, elementNames);
                 var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
                 if (element != null)
-                    Stairs.StairsElements.Add(element);
+                    EditObject.StairsElements.Add(element);
             }
         },
         AppResources.AddProtocolError);
@@ -41,8 +37,16 @@ public partial class StairsViewModel(IOptions<StairsSettings> stairsSettings, IS
             if (string.Equals(action, AppResources.Cancel))
                 return;
 
-            Stairs!.StairsElements.Remove(element);
+            EditObject!.StairsElements.Remove(element);
         },
         element,
         AppResources.DeleteStairsElementError);
+
+    protected override async Task SaveEditObjectAsync() =>
+       await DoCommandAsync(async () =>
+       {
+           await stairsService.SaveStairsAsync(EditObject!);
+       },
+       EditObject,
+       AppResources.SaveProtocolError);
 }

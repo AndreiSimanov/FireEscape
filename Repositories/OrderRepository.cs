@@ -19,7 +19,8 @@ public class OrderRepository(SqliteContext context, IOrderFactory factory, IOpti
             return;
         await (await connection).RunInTransactionAsync(connection =>
         {
-            connection.Table<Protocol>().Where(protocol => protocol.OrderId == order.Id).Delete(); //!! todo Delete protocol & stairs
+            connection.Table<Protocol>().Where(protocol => protocol.OrderId == order.Id).Delete();
+            connection.Table<Stairs>().Where(stairs => stairs.OrderId == order.Id).Delete();
             base.DeleteAsync(order).Wait();
         });
 

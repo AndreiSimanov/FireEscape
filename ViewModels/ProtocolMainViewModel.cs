@@ -127,7 +127,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
         await DoCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(ProtocolPage), true, 
-                new Dictionary<string, object> { { ProtocolViewModel.EDIT_PROPERTY_NAME, protocol } });
+                new Dictionary<string, object> { { nameof(ProtocolViewModel.EditObject), protocol } });
             // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
         },
         protocol,

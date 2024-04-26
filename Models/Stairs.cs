@@ -7,11 +7,15 @@ namespace FireEscape.Models;
 public partial class Stairs : BaseObject
 {
     [Indexed]
+    [Column(nameof(OrderId))]
+    public int OrderId { get; set; }
+
+    [Indexed]
     [Column(nameof(ProtocolId))]
     public int ProtocolId { get; set; }
 
     [ObservableProperty]
-    [property: Column(nameof(StairsType))]
+    [property: Ignore]
     StairsType stairsType;
 
     [ObservableProperty]
@@ -24,11 +28,11 @@ public partial class Stairs : BaseObject
     string stairsMountType = string.Empty;
 
     [ObservableProperty]
-    [property: Column(nameof(StairsHeight))]
+    [property: Ignore]
     ServiceabilityProperty<float?> stairsHeight = new();
 
     [ObservableProperty]
-    [property: Column(nameof(StairsWidth))]
+    [property: Ignore]
     ServiceabilityProperty<int?> stairsWidth = new();
 
     [ObservableProperty]

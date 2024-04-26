@@ -6,8 +6,6 @@ namespace FireEscape.ViewModels.BaseViewModels;
 [QueryProperty(nameof(EditObject), nameof(EditObject))]
 public abstract partial class BaseEditViewModel<T> : BaseViewModel
 {
-    public const string EDIT_PROPERTY_NAME = nameof(EditObject);
-
     [ObservableProperty]
     T? editObject;
     string? origObject;

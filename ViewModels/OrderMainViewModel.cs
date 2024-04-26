@@ -102,7 +102,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         await DoCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(OrderPage), true, 
-                new Dictionary<string, object> { { OrderViewModel.EDIT_PROPERTY_NAME, order } });
+                new Dictionary<string, object> { {nameof(OrderViewModel.EditObject), order } });
         },
         order,
         AppResources.EditOrderError);

@@ -11,7 +11,11 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
 
     public override async Task DeleteAsync(Protocol protocol)
     {
-        await base.DeleteAsync(protocol);
+        await (await connection).RunInTransactionAsync(connection =>
+        {
+            connection.Table<Stairs>().Where(stairs => stairs.ProtocolId == protocol.Id).Delete();
+            base.DeleteAsync(protocol).Wait();
+        });
         if (protocol.HasImage)
             File.Delete(protocol.Image!);
     }

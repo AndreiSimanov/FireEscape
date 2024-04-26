@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FireEscape.Views.StairsPage"
-             xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
-             xmlns:model="clr-namespace:FireEscape.Models"
-             xmlns:stairsmodel="clr-namespace:FireEscape.Models.StairsElements"
-             xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
-             xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
-             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
-             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
-             xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
-             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
-             Title="{x:Static lang:AppResources.StairsPageTitle}"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:DataType="viewmodel:StairsViewModel">
+<baseview:BaseStairsPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"
+    xmlns:stairselmodel="clr-namespace:FireEscape.Models.StairsElements"
+    xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
+    x:Class="FireEscape.Views.StairsPage"
+    x:TypeArguments="viewmodel:StairsViewModel"
+    x:DataType="viewmodel:StairsViewModel"
+    Title="{x:Static lang:AppResources.StairsPageTitle}">
 
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
 
@@ -22,18 +25,18 @@
                 SelectionChanged="StairsTypeChanged"
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.StairsTypesHint}"
-                SelectedItem="{Binding Stairs.StairsType}"
+                SelectedItem="{Binding EditObject.StairsType}"
                 ItemsSource="{Binding StairsSettings.StairsTypes}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding Stairs.IsEvacuation}"
+                IsChecked="{Binding EditObject.IsEvacuation}"
                 Label="{x:Static lang:AppResources.EscapeStairs}"/>
 
             <dxe:ComboBoxEdit
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.StairsMountTypesHint}"
-                SelectedItem="{Binding Stairs.StairsMountType}"
+                SelectedItem="{Binding EditObject.StairsMountType}"
                 ItemsSource="{Binding StairsSettings.StairsMountTypes}"/>
 
             <ctrl:ServiceabilityControl
@@ -41,33 +44,33 @@
                 MaxDecimalDigitCount="2"
                 PlaceholderText ="{x:Static lang:AppResources.StairsHeightHint}"
                 LabelText ="{x:Static lang:AppResources.StairsHeight}"
-                Value="{Binding Stairs.StairsHeight.Value}"
-                Serviceability ="{Binding Stairs.StairsHeight.Serviceability}"
+                Value="{Binding EditObject.StairsHeight.Value}"
+                Serviceability ="{Binding EditObject.StairsHeight.Serviceability}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding Stairs.StairsHeight.RejectExplanation}"/>
+                RejectExplanationText ="{Binding EditObject.StairsHeight.RejectExplanation}"/>
 
             <ctrl:ServiceabilityControl
                 PlaceholderText ="{x:Static lang:AppResources.StairsWidthHint}"
                 LabelText ="{x:Static lang:AppResources.StairsWidth}"
-                Value="{Binding Stairs.StairsWidth.Value}"
-                Serviceability ="{Binding Stairs.StairsWidth.Serviceability}"
+                Value="{Binding EditObject.StairsWidth.Value}"
+                Serviceability ="{Binding EditObject.StairsWidth.Serviceability}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding Stairs.StairsWidth.RejectExplanation}"/>
+                RejectExplanationText ="{Binding EditObject.StairsWidth.RejectExplanation}"/>
 
             <dxe:NumericEdit
                 Style="{StaticResource DefaultNumericEdit}"
-                Value="{Binding Stairs.StepsCount}"
+                Value="{Binding EditObject.StepsCount}"
                 PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"
                 LabelText="{x:Static lang:AppResources.StepsCount}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding Stairs.WeldSeamServiceability}"
+                IsChecked="{Binding EditObject.WeldSeamServiceability}"
                 Label="{x:Static lang:AppResources.WeldSeamServiceability}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding Stairs.ProtectiveServiceability}"
+                IsChecked="{Binding EditObject.ProtectiveServiceability}"
                 Label="{x:Static lang:AppResources.ProtectiveServiceability}"/>
 
             <dxe:FormGroupItem Header="Элементы лестницы" HeightRequest="38" Margin="0,0,80,0" />
@@ -85,7 +88,7 @@
 
             <dxcv:DXCollectionView 
                 x:Name="stairsElements"
-                ItemsSource="{Binding Stairs.StairsElements}"
+                ItemsSource="{Binding EditObject.StairsElements}"
                 AllowLiveDataShaping="True"
                 SelectionMode="Single"
                 ItemSeparatorThickness="0"
@@ -97,7 +100,7 @@
                 </dxcv:DXCollectionView.SortDescriptions>
                 
                 <dxcv:DXCollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="stairsmodel:BaseStairsElement">
+                    <DataTemplate x:DataType="stairselmodel:BaseStairsElement">
                         <dxcv:SwipeContainer>
                             <dxcv:SwipeContainer.EndSwipeItems>
                                 <dxcv:SwipeItem 
@@ -129,4 +132,4 @@
             </dxcv:DXCollectionView>
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage>
+</baseview:BaseStairsPage>
