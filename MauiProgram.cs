@@ -20,7 +20,7 @@ public static class MauiProgram
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-            TypeNameHandling = TypeNameHandling.All
+            TypeNameHandling = TypeNameHandling.All // Customizing JsonConvert for SQLiteNetExtensions TextBlob
         };
 
         builder
