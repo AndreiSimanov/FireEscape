@@ -17,18 +17,20 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
     public async Task<UserAccount?> GetCurrentUserAccountAsync(bool download = false)
     {
 #if DEBUG
-        return new UserAccount { 
-            IsAdmin = true, 
-            Name = "Debug User",  
-            Company = "",  
-            Signature = "", 
-            Id = "debugUser", 
-            ExpirationCount = -1, 
-            ExpirationDate = DateTime.MaxValue};
+        return new UserAccount
+        {
+            IsAdmin = true,
+            Name = "Debug User",
+            Company = string.Empty,
+            Signature = string.Empty,
+            Id = "debugUser",
+            ExpirationCount = -1,
+            ExpirationDate = DateTime.MaxValue
+        };
 #endif
         UserAccount? userAccount = null;
 
-        if (!download) 
+        if (!download)
         {
             userAccount = GetLocalUserAccount();
             if (IsValidUserAccount(userAccount))
@@ -55,7 +57,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
                 userAccount.ExpirationCount = expirationCount;
             }
             SetLocalUserAccount(userAccount);
-        }    
+        }
         return userAccount;
     }
 
@@ -144,8 +146,8 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
         return userAccount;
     }
 
-    async Task UploadUserAccountAsync(UserAccount userAccount) => 
-        await fileHostingRepository.UploadJsonAsync(userAccount.Id, 
+    async Task UploadUserAccountAsync(UserAccount userAccount) =>
+        await fileHostingRepository.UploadJsonAsync(userAccount.Id,
             JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
 
     async Task<UserAccount?> DownloadUserAccountAsync(string userAccountId)
@@ -184,7 +186,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
             Preferences.Default.Remove(USER_ACCOUNT); // perform to download UserAccount
             return;
         }
-        
+
         if (checkCounter < applicationSettings.CheckUserAccountCounter / 2  // try to upload & update UserAccount 
             && Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
         {

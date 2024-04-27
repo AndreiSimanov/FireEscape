@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using SQLite;
 
 namespace FireEscape.DBContext;
 
@@ -24,6 +23,6 @@ public class SqliteContext : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-       await(await connection).CloseAsync();
+        await (await connection).CloseAsync();
     }
 }

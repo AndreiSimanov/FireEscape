@@ -43,7 +43,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
     async Task GoToDetailsAsync(UserAccount userAccount) =>
         await DoCommandAsync(async () =>
         {
-            await Shell.Current.GoToAsync(nameof(UserAccountPage), true, 
+            await Shell.Current.GoToAsync(nameof(UserAccountPage), true,
                 new Dictionary<string, object> { { nameof(UserAccountViewModel.EditObject), userAccount } });
         },
         userAccount,

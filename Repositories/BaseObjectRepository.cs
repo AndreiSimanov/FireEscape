@@ -5,8 +5,8 @@ using SQLiteNetExtensionsAsync.Extensions;
 
 namespace FireEscape.Repositories;
 
-public class BaseObjectRepository<T, P>(SqliteContext context, IBaseObjectFactory<T, P> factory) : IBaseObjectRepository<T, P> 
-    where T : BaseObject, new() 
+public class BaseObjectRepository<T, P>(SqliteContext context, IBaseObjectFactory<T, P> factory) : IBaseObjectRepository<T, P>
+    where T : BaseObject, new()
     where P : BaseObject
 {
     protected readonly AsyncLazy<SQLiteAsyncConnection> connection = context.Connection;
@@ -33,7 +33,7 @@ public class BaseObjectRepository<T, P>(SqliteContext context, IBaseObjectFactor
     public virtual async Task DeleteAsync(T obj)
     {
         if (obj.Id != 0)
-            await (await connection).DeleteAsync(obj,  true);
+            await (await connection).DeleteAsync(obj, true);
     }
 
     public virtual async Task<T> GetAsync(int id) =>

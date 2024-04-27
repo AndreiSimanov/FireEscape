@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels;
 
-public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicationSettings, OrderService orderService, UserAccountService userAccountService ) : BaseViewModel
+public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicationSettings, OrderService orderService, UserAccountService userAccountService) : BaseViewModel
 {
     readonly ApplicationSettings applicationSettings = applicationSettings.Value;
     PagingParameters pageParams;
@@ -101,8 +101,8 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task GoToDetailsAsync(Order order) =>
         await DoCommandAsync(async () =>
         {
-            await Shell.Current.GoToAsync(nameof(OrderPage), true, 
-                new Dictionary<string, object> { {nameof(OrderViewModel.EditObject), order } });
+            await Shell.Current.GoToAsync(nameof(OrderPage), true,
+                new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
         },
         order,
         AppResources.EditOrderError);
@@ -130,7 +130,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         AppResources.OpenUserAccountMainPageError);
 
     [RelayCommand] //For test only 
-    async Task AddOrdersAsync() => 
+    async Task AddOrdersAsync() =>
         await DoCommandAsync(async () =>
         {
             for (var i = 0; i < 10000; i++)

@@ -15,7 +15,7 @@ public class PdfWriterRepository(IOptions<ApplicationSettings> applicationSettin
             throw new ArgumentNullException(nameof(fileName));
         fileName = fileName + ".pdf";
 
-        var protocolRdp = new ProtocolReportDataProvider(order, protocol, protocol.Stairs!, stairsSettings,  userAccount);
+        var protocolRdp = new ProtocolReportDataProvider(order, protocol, protocol.Stairs!, stairsSettings, userAccount);
 
         var filePath = Path.Combine(applicationSettings.ContentFolder, fileName);
 

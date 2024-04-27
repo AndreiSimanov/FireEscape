@@ -1,5 +1,5 @@
-﻿using Dropbox.Api.Files;
-using Dropbox.Api;
+﻿using Dropbox.Api;
+using Dropbox.Api.Files;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FireEscape.Repositories;
 
-public class DropboxRepository (IOptions<FileHostingSettings> fileHostingSettings) : IFileHostingRepository
+public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings) : IFileHostingRepository
 {
     readonly FileHostingSettings fileHostingSettings = fileHostingSettings.Value;
     readonly HttpClient httpClient = new HttpClient(new AndroidMessageHandler());
@@ -15,7 +15,7 @@ public class DropboxRepository (IOptions<FileHostingSettings> fileHostingSetting
     public async Task<string> UploadJsonAsync(string key, string value, string folder = "")
     {
         using var dbx = new DropboxClient(await GetTokenAsync());
-        using var mem = new MemoryStream(Encoding.UTF8.GetBytes(value ?? ""));
+        using var mem = new MemoryStream(Encoding.UTF8.GetBytes(value ?? string.Empty));
         var updated = await dbx.Files.UploadAsync(GetJsonPath(key, folder), WriteMode.Overwrite.Instance, body: mem);
         return updated.Id;
     }
@@ -29,10 +29,10 @@ public class DropboxRepository (IOptions<FileHostingSettings> fileHostingSetting
             var s = await response.GetContentAsByteArrayAsync();
             return Encoding.Default.GetString(s);
         }
-        catch (ApiException<DownloadError> ex) 
+        catch (ApiException<DownloadError> ex)
         {
             var errorResponse = ex.ErrorResponse as DownloadError.Path;
-            if (errorResponse != null && errorResponse.Value.IsNotFound) 
+            if (errorResponse != null && errorResponse.Value.IsNotFound)
                 return string.Empty;
             throw;
         }

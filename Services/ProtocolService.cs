@@ -41,7 +41,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
         }
     }
 
-    public async Task SelectPhotoAsync(Protocol protocol) => 
+    public async Task SelectPhotoAsync(Protocol protocol) =>
         await protocolRepository.AddImageAsync(protocol, await MediaPicker.PickPhotoAsync());
 
     public async Task CreateReportAsync(Order order, Protocol protocol, UserAccount userAccount)
@@ -49,7 +49,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
         var fileName = "protocol"; //todo: change file name to some protocol attribute 
         if (protocol.Stairs == null)
             return;
-        var filePath = await reportRepository.CreateReportAsync(order, protocol,  userAccount, fileName);
+        var filePath = await reportRepository.CreateReportAsync(order, protocol, userAccount, fileName);
         await Launcher.OpenAsync(new OpenFileRequest
         {
             File = new ReadOnlyFile(filePath)

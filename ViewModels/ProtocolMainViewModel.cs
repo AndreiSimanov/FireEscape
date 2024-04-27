@@ -114,7 +114,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
             }
             else
             {
-                await Shell.Current.DisplayAlert("",
+                await Shell.Current.DisplayAlert(string.Empty,
                     string.Format(AppResources.UnregisteredApplicationMessage,
                     userAccountService.CurrentUserAccountId), AppResources.OK);
             }
@@ -126,7 +126,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
     async Task GoToDetailsAsync(Protocol protocol) =>
         await DoCommandAsync(async () =>
         {
-            await Shell.Current.GoToAsync(nameof(ProtocolPage), true, 
+            await Shell.Current.GoToAsync(nameof(ProtocolPage), true,
                 new Dictionary<string, object> { { nameof(ProtocolViewModel.EditObject), protocol } });
             // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
         },

@@ -2,8 +2,8 @@ namespace FireEscape.Views;
 
 public partial class OrderPage : BaseOrderPage
 {
-	public OrderPage(OrderViewModel viewModel) : base(viewModel)
-	{
-		InitializeComponent();
-	}
+    public OrderPage(OrderViewModel viewModel) : base(viewModel)
+    {
+        InitializeComponent();
+    }
 }

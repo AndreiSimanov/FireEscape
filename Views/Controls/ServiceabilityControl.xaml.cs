@@ -23,7 +23,7 @@ public partial class ServiceabilityControl : ContentView
         set => SetValue(ServiceabilityTypesProperty, value);
     }
 
-    public static readonly BindableProperty RejectExplanationTextProperty = BindableProperty.Create(nameof(RejectExplanationText), typeof(string), typeof(ServiceabilityControl), defaultBindingMode: BindingMode.TwoWay );
+    public static readonly BindableProperty RejectExplanationTextProperty = BindableProperty.Create(nameof(RejectExplanationText), typeof(string), typeof(ServiceabilityControl), defaultBindingMode: BindingMode.TwoWay);
     public string RejectExplanationText
     {
         get => (string)GetValue(RejectExplanationTextProperty);

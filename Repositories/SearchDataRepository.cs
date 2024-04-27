@@ -26,7 +26,7 @@ public class SearchDataRepository(SqliteContext context) : ISearchDataRepository
         protocolsSearchData.Where(item => !string.IsNullOrWhiteSpace(item))
             .SelectMany(token => token.Split(' '))
             .Where(token => !string.IsNullOrWhiteSpace(token))
-            .ForEach(word =>  words.Add(word.Trim()));
+            .ForEach(word => words.Add(word.Trim()));
         var searchData = string.Join(" ", words).ToLowerInvariant();
         await conn.ExecuteAsync("update Orders set SearchData=? where Id=?", [searchData, id]);
     }

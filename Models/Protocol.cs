@@ -1,6 +1,4 @@
-﻿using SQLite;
-using SQLiteNetExtensions.Attributes;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace FireEscape.Models;
 

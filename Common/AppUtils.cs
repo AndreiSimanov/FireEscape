@@ -1,6 +1,4 @@
-﻿using FireEscape.Resources.Languages;
-
-namespace FireEscape.Common;
+﻿namespace FireEscape.Common;
 
 public static class AppUtils
 {

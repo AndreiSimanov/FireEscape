@@ -1,6 +1,4 @@
-﻿using SQLite;
-
-namespace FireEscape.Models.BaseModels;
+﻿namespace FireEscape.Models.BaseModels;
 
 public partial class BaseDocument : BaseObject
 {

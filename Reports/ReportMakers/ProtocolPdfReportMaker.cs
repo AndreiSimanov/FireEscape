@@ -1,12 +1,12 @@
 ﻿using FireEscape.Reports.ReportDataProviders;
 using FireEscape.Reports.ReportWriters;
+using iText.IO.Image;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.IO.Image;
-using Cell = iText.Layout.Element.Cell;
-using TextAlignment = iText.Layout.Properties.TextAlignment;
-using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 using Border = iText.Layout.Borders.Border;
+using Cell = iText.Layout.Element.Cell;
+using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
+using TextAlignment = iText.Layout.Properties.TextAlignment;
 
 namespace FireEscape.Reports.ReportMakers
 {
@@ -163,8 +163,8 @@ namespace FireEscape.Reports.ReportMakers
                     new Text("«Техника пожарная. Лестницы пожарные наружные стационарные. Ограждения кровли. Общие технические требования. Методы испытаний» пожарная стационарная лестница, к эксплуатации "),
                     new Text(summary.Any()? "не пригодна." : "пригодна.").SetBold()
                 }));
-            foreach ( var item in summary )
-                document.Add(new Paragraph("- "+ item).SetFixedLeading(8));
+            foreach (var item in summary)
+                document.Add(new Paragraph("- " + item).SetFixedLeading(8));
             document.Add(new Paragraph(" "));
 
             document.Add(new Paragraph()
@@ -185,7 +185,7 @@ namespace FireEscape.Reports.ReportMakers
                     new Text(protocolRdp.Customer).SetBold()}));
                 document.Add(new Paragraph("М.П.").SetFixedLeading(8));
                 document.Add(new Paragraph("_______________ / ___________ /").SetTextAlignment(TextAlignment.RIGHT));
-            }    
+            }
         }
     }
 }

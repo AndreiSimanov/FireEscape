@@ -7,8 +7,8 @@ using System.Linq.Expressions;
 
 namespace FireEscape.Repositories;
 
-public class OrderRepository(SqliteContext context, IOrderFactory factory, IOptions<ApplicationSettings> applicationSettings) 
-    : BaseObjectRepository<Order, BaseObject> (context, factory ), IOrderRepository
+public class OrderRepository(SqliteContext context, IOrderFactory factory, IOptions<ApplicationSettings> applicationSettings)
+    : BaseObjectRepository<Order, BaseObject>(context, factory), IOrderRepository
 {
 
     readonly ApplicationSettings applicationSettings = applicationSettings.Value;
@@ -42,7 +42,7 @@ public class OrderRepository(SqliteContext context, IOrderFactory factory, IOpti
             {
                 Expression<Func<Order, bool>> idExpr = order => order.Id == orderId;
                 expr = CombineOr(expr, idExpr);
-            }    
+            }
             query = query.Where(expr);
         }
         query = AddSortAndPaging(query, pageParams);

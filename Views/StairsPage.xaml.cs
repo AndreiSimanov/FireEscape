@@ -6,7 +6,7 @@ public partial class StairsPage : BaseStairsPage
 {
     public StairsPage(StairsViewModel viewModel) : base(viewModel)
     {
-		InitializeComponent();
+        InitializeComponent();
         stairsElements.HeightRequest = DeviceDisplay.Current.MainDisplayInfo.Height / DeviceDisplay.Current.MainDisplayInfo.Density - 180;
     }
 
@@ -23,7 +23,7 @@ public partial class StairsPage : BaseStairsPage
         if (cbx == null)
             return;
         var stairsType = cbx.SelectedItem as StairsType?;
-        if (stairsType != null )
-            stairsElements.FilterString = stairsType.Value.Type == StairsTypeEnum.P2 ?  "[StairsType] == 2" : "[StairsType] == 1";
+        if (stairsType != null)
+            stairsElements.FilterString = stairsType.Value.Type == StairsTypeEnum.P2 ? "[StairsType] == 2" : "[StairsType] == 1";
     }
 }

@@ -1,6 +1,4 @@
-﻿using SQLite;
-
-namespace FireEscape.Models;
+﻿namespace FireEscape.Models;
 
 [Table("Orders")]
 public partial class Order : BaseDocument
@@ -25,5 +23,5 @@ public partial class Order : BaseDocument
 
     [property: Column(nameof(SearchData))]
     [property: Indexed]
-    public string SearchData { get;set;} = string.Empty;
+    public string SearchData { get; set; } = string.Empty;
 }

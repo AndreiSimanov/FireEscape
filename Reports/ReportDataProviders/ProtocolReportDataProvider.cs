@@ -25,10 +25,10 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     public string FullAddress => Location + ", " + Address;
     public int FireEscapeNum => protocol.FireEscapeNum;
 
-    public float StairsHeight => stairs.StairsHeight.Value?? 0f;
+    public float StairsHeight => stairs.StairsHeight.Value ?? 0f;
     public int StairsWidth => stairs.StairsWidth.Value.HasValue ? (int)stairs.StairsWidth.Value * stairsSettings.DefaultUnitMultiplier : 0;
 
-    public int StepsCount => stairs.StepsCount?? 0;
+    public int StepsCount => stairs.StepsCount ?? 0;
 
     public string TestEquipment => stairs.StairsType.Type == StairsTypeEnum.P2
         ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
@@ -43,7 +43,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     public string Customer => order.Customer;
 
     public string ExecutiveCompany => string.IsNullOrWhiteSpace(order.ExecutiveCompany) ? string.Empty : order.ExecutiveCompany;
-    
+
     public string UserAccountSignature => string.IsNullOrWhiteSpace(userAccount.Signature) ? "___________" : userAccount.Signature;
 
     public List<string> GetSummary()
@@ -58,7 +58,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             return summary;
 
         CheckServiceability(summary, stairs.StairsHeight,
-            item => (item?? 0f) > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
+            item => (item ?? 0f) > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
             $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м" + " ({0}м)",
             "высота лестницы не соответствует ГОСТ");
 
