@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System.Text.Json.Serialization;
 
 namespace FireEscape.Models;
@@ -27,9 +28,12 @@ public partial class Protocol : BaseDocument, ICloneable
     [property: Column(nameof(FireEscapeNum))]
     int fireEscapeNum;
 
+    [property: ForeignKey(typeof(Stairs))]
+    public int StairsId { get; set; }
+
     [ObservableProperty]
-    [property: Ignore]
-    [JsonIgnore]
+    [property: OneToOne(CascadeOperations = CascadeOperation.CascadeDelete)]
+    [property: JsonIgnore]
     Stairs? stairs;
 
     [property: Ignore]

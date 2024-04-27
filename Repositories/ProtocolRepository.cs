@@ -1,6 +1,7 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace FireEscape.Repositories;
 
@@ -11,11 +12,7 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
 
     public override async Task DeleteAsync(Protocol protocol)
     {
-        await (await connection).RunInTransactionAsync(connection =>
-        {
-            connection.Table<Stairs>().Where(stairs => stairs.ProtocolId == protocol.Id).Delete();
-            base.DeleteAsync(protocol).Wait();
-        });
+        await base.DeleteAsync(protocol);
         if (protocol.HasImage)
             File.Delete(protocol.Image!);
     }
@@ -29,11 +26,8 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
 
     public async Task<Protocol[]> GetProtocolsAsync(int orderId)
     {
-        var query = (await connection)
-            .Table<Protocol>()
-            .Where(protocol => protocol.OrderId == orderId)
-            .OrderByDescending(item => item.Id);
-        return await query.ToArrayAsync();
+        var protocols = await (await connection).GetAllWithChildrenAsync<Protocol>(protocol => protocol.OrderId == orderId, true);
+        return protocols.OrderByDescending(item => item.Id).ToArray();
     }
 
     public async Task AddImageAsync(Protocol protocol, FileResult? imageFile)

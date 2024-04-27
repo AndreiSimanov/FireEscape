@@ -6,6 +6,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
     {
         var protocol = await protocolRepository.CreateAsync(order);
         protocol.Stairs = await stairsRepository.CreateAsync(protocol);
+        await protocolRepository.SaveAsync(protocol);
         return protocol;
     }
 
@@ -13,6 +14,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
     {
         var newProtocol = await protocolRepository.CopyAsync(protocol);
         newProtocol.Stairs = await stairsRepository.CreateAsync(newProtocol);
+        await protocolRepository.SaveAsync(newProtocol);
         return newProtocol;
     }
 
@@ -28,20 +30,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
         await searchDataRepository.SetSearchDataAsync(protocol.OrderId);
     }
 
-    public async Task<Protocol[]> GetProtocolsAsync(int orderId)
-    {
-        var protocols  =  await protocolRepository.GetProtocolsAsync(orderId);
-        var stairses = await stairsRepository.GetStairsesAsync(orderId);
-
-        foreach(var protocol in protocols)
-        {
-            if (stairses.TryGetValue(protocol.Id, out Stairs? stairs))
-                protocol.Stairs = stairs;
-            else
-                protocol.Stairs = await stairsRepository.CreateAsync(protocol);
-        }
-        return protocols;
-    }
+    public async Task<Protocol[]> GetProtocolsAsync(int orderId) => await protocolRepository.GetProtocolsAsync(orderId);
 
     public async Task AddPhotoAsync(Protocol protocol)
     {

@@ -11,7 +11,6 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
     public Stairs CreateDefault(Protocol? protocol) => new()
     {
         OrderId = (protocol == null) ? 0 : protocol.OrderId,
-        ProtocolId = (protocol == null) ? 0 : protocol.Id,
         Created = DateTime.Now,
         Updated = DateTime.Now,
         StairsHeight = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
