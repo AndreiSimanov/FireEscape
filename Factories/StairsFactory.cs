@@ -19,6 +19,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         StairsMountType = stairsSettings.StairsMountTypes![0],
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
         ProtectiveServiceability = stairsSettings.ProtectiveServiceability,
+        SupportВeams = CreateElement(typeof(SupportВeamsP1)) as SupportВeamsP1,
         StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
     };
 
@@ -41,18 +42,30 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         }
     }
 
-    static BaseStairsElement? CreateElement(Type type, StairsElementSettings elementSettings)
+    BaseStairsElement? CreateElement(Type type)
+    {
+        if (stairsSettings.StairsElementSettings == null)
+            return null;
+        var elementSettings = stairsSettings.StairsElementSettings.Where(item => item.Type == type.FullName).FirstOrDefault();
+        if (elementSettings == null)
+            return null;
+        return CreateElement(type, elementSettings);
+    }
+
+    BaseStairsElement? CreateElement(Type type, StairsElementSettings elementSettings)
     {
         var stairsElement = Activator.CreateInstance(type) as BaseStairsElement;
         if (stairsElement != null)
         {
-            stairsElement.Order = elementSettings.Order;
+            stairsElement.PrintOrder = elementSettings.PrintOrder;
             stairsElement.TestPointCount = elementSettings.TestPointCount;
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
             if (elementSettings.MaxCount > 1)
                 stairsElement.ElementNumber = "1";
+            stairsElement.Deformation = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] };
+            return stairsElement;
         }
-        return stairsElement;
+        return null;
     }
 
     IEnumerable<BaseStairsElement> GetRequiredStairsElements()

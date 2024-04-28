@@ -24,6 +24,7 @@
             PlaceholderText="{Binding PlaceholderText}"
             Grid.Column="0"
             Value="{Binding Value}"
+            ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"
             Style="{StaticResource DefaultNumericEdit}" />
 
         <dxe:ComboBoxEdit

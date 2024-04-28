@@ -3,7 +3,7 @@
 public record StairsElementSettings(
     StairsTypeEnum StairsType,
     string Type,
-    int Order,
+    int PrintOrder,
     int TestPointCount,
     float WithstandLoad,
     bool Required,

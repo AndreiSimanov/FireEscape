@@ -1,5 +1,6 @@
 ﻿using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
+using System.ComponentModel;
 
 namespace FireEscape.ViewModels;
 
@@ -23,7 +24,10 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
                     var action = await Shell.Current.DisplayActionSheet("Выберете элемент", AppResources.Cancel, string.Empty, elementNames);
                     var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
                     if (element != null)
+                    {
+                        element.StairsHeight = EditObject.StairsHeight.Value;
                         EditObject.StairsElements.Insert(0, element);
+                    }
                 }
             }
         },
@@ -45,6 +49,13 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
         element,
         AppResources.DeleteStairsElementError);
 
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(EditObject))
+            EditObject?.UpdatStairsElementsCommand.Execute(null);
+        base.OnPropertyChanged(e);
+    }
+
     protected override async Task SaveEditObjectAsync() =>
        await DoCommandAsync(async () =>
        {
@@ -55,4 +66,7 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
 
     public string StairsWidth => string.Format(AppResources.StairsWidth, StairsSettings.DefaultUnit);
     public string StairsWidthHint => string.Format(AppResources.StairsWidthHint, StairsSettings.DefaultUnit);
+
+    public string Deformation => string.Format(AppResources.Deformation, StairsSettings.DefaultUnit);
+    public string DeformationHint => string.Format(AppResources.DeformationHint, StairsSettings.DefaultUnit);
 }

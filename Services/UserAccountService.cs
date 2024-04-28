@@ -28,7 +28,9 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
             ExpirationDate = DateTime.MaxValue
         };
 #endif
+#pragma warning disable CS0162 // Unreachable code detected
         UserAccount? userAccount = null;
+#pragma warning restore CS0162 // Unreachable code detected
 
         if (!download)
         {

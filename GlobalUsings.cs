@@ -1,8 +1,6 @@
 ﻿global using CommunityToolkit.Maui;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
-global using SQLite;
-global using SQLiteNetExtensions.Attributes;
 global using FireEscape.AppSettings;
 global using FireEscape.Common;
 global using FireEscape.Models;
@@ -17,3 +15,5 @@ global using FireEscape.ViewModels.BaseViewModels;
 global using FireEscape.Views;
 global using FireEscape.Views.BaseViews;
 global using Microsoft.Extensions.Configuration;
+global using SQLite;
+global using SQLiteNetExtensions.Attributes;

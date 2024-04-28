@@ -17,7 +17,14 @@
     x:DataType="viewmodel:StairsViewModel"
     Title="{x:Static lang:AppResources.StairsPageTitle}">
 
-    <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
+    <ScrollView 
+        
+        BackgroundColor="{dx:ThemeColor Surface}">
+        <ScrollView.Resources>
+            <ResourceDictionary>
+                <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+            </ResourceDictionary>
+        </ScrollView.Resources>
 
         <VerticalStackLayout>
             <dxe:ComboBoxEdit
@@ -27,16 +34,16 @@
                 SelectedItem="{Binding EditObject.StairsType}"
                 ItemsSource="{Binding StairsSettings.StairsTypes}"/>
 
-            <dxe:CheckEdit
-                Style="{StaticResource DefaultCheckEdit}"
-                IsChecked="{Binding EditObject.IsEvacuation}"
-                Label="{x:Static lang:AppResources.EscapeStairs}"/>
-
             <dxe:ComboBoxEdit
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.StairsMountTypesHint}"
                 SelectedItem="{Binding EditObject.StairsMountType}"
                 ItemsSource="{Binding StairsSettings.StairsMountTypes}"/>
+
+            <dxe:CheckEdit
+                Style="{StaticResource DefaultCheckEdit}"
+                IsChecked="{Binding EditObject.IsEvacuation}"
+                Label="{x:Static lang:AppResources.EscapeStairs}"/>
 
             <dxe:CheckEdit
                 Style="{StaticResource DefaultCheckEdit}"
@@ -56,6 +63,41 @@
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.StairsWidth.RejectExplanation}"/>
 
+            <Frame
+                IsVisible="{Binding EditObject.StairsType.Type, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:StairsTypeEnum.P1_1}}"
+                Style="{StaticResource CardView}" CornerRadius="5" Margin="10" Padding="0,0,0,10">
+                <StackLayout>
+                    <Grid RowDefinitions="Auto,*">
+                        <Label  Text="{Binding EditObject.SupportВeams.Name}" Margin="10,5,0,5"/>
+                        <Label   Margin="0,5,10,5" HorizontalTextAlignment="End">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding EditObject.SupportВeams.CalcWithstandLoad}" />
+                                    <Span Text=" кгс" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                        
+                    <dx:DXSeparator SideMargin="0"/>
+
+                    <dxe:NumericEdit
+                        Style="{StaticResource DefaultNumericEdit}"
+                        Value="{Binding EditObject.SupportВeams.TestPointCount}"
+                        PlaceholderText="{x:Static lang:AppResources.TestPointCountHint}"
+                        LabelText="{x:Static lang:AppResources.TestPointCount}"/>
+
+                    <ctrl:ServiceabilityControl
+                        MaxDecimalDigitCount="1"
+                        PlaceholderText ="{Binding DeformationHint}"
+                        LabelText ="{Binding Deformation}"
+                        Value="{Binding EditObject.SupportВeams.Deformation.Value}"
+                        Serviceability ="{Binding EditObject.SupportВeams.Deformation.Serviceability}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
+                        RejectExplanationText ="{Binding EditObject.SupportВeams.Deformation.RejectExplanation}"/>
+                </StackLayout>
+            </Frame>
+
             <dxe:NumericEdit
                 Style="{StaticResource DefaultNumericEdit}"
                 Value="{Binding EditObject.StepsCount}"
@@ -68,6 +110,7 @@
                 PlaceholderText ="{x:Static lang:AppResources.StairsHeightHint}"
                 LabelText ="{x:Static lang:AppResources.StairsHeight}"
                 Value="{Binding EditObject.StairsHeight.Value}"
+                ValueChangedCommand="{Binding EditObject.UpdatStairsElementsCommand}"
                 Serviceability ="{Binding EditObject.StairsHeight.Serviceability}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.StairsHeight.RejectExplanation}"/>

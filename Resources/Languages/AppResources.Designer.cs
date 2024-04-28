@@ -223,6 +223,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Деформация ({0}).
+        /// </summary>
+        internal static string Deformation {
+            get {
+                return ResourceManager.GetString("Deformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите размер деформации в {0}..
+        /// </summary>
+        internal static string DeformationHint {
+            get {
+                return ResourceManager.GetString("DeformationHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Удалить.
         /// </summary>
         internal static string Delete {
@@ -795,6 +813,24 @@ namespace FireEscape.Resources.Languages {
         internal static string StepsCountHint {
             get {
                 return ResourceManager.GetString("StepsCountHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Количество точек испытаний.
+        /// </summary>
+        internal static string TestPointCount {
+            get {
+                return ResourceManager.GetString("TestPointCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите количество точек испытаний.
+        /// </summary>
+        internal static string TestPointCountHint {
+            get {
+                return ResourceManager.GetString("TestPointCountHint", resourceCulture);
             }
         }
         

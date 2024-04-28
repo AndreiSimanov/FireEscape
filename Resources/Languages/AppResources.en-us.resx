@@ -396,4 +396,16 @@
   <data name="SaveUserAccountError" xml:space="preserve">
     <value>Unable to save the user account</value>
   </data>
+  <data name="Deformation" xml:space="preserve">
+    <value>Deformation ({0})</value>
+  </data>
+  <data name="DeformationHint" xml:space="preserve">
+    <value>Specify the size of the deformation ({0})</value>
+  </data>
+  <data name="TestPointCount" xml:space="preserve">
+    <value>Count of test points</value>
+  </data>
+  <data name="TestPointCountHint" xml:space="preserve">
+    <value>Specify the count of test points</value>
+  </data>
 </root>

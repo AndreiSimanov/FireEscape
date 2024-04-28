@@ -1,6 +1,5 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
-using SQLite;
 using SQLiteNetExtensionsAsync.Extensions;
 
 namespace FireEscape.Repositories;

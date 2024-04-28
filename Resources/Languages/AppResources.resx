@@ -396,4 +396,16 @@
   <data name="SaveUserAccountError" xml:space="preserve">
     <value>Невозможно сохранить учетную запись</value>
   </data>
+  <data name="Deformation" xml:space="preserve">
+    <value>Деформация ({0})</value>
+  </data>
+  <data name="DeformationHint" xml:space="preserve">
+    <value>Укажите размер деформации в {0}.</value>
+  </data>
+  <data name="TestPointCount" xml:space="preserve">
+    <value>Количество точек испытаний</value>
+  </data>
+  <data name="TestPointCountHint" xml:space="preserve">
+    <value>Укажите количество точек испытаний</value>
+  </data>
 </root>

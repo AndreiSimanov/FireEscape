@@ -2,7 +2,6 @@
 using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
-using SQLite;
 using System.Linq.Expressions;
 
 namespace FireEscape.Repositories;

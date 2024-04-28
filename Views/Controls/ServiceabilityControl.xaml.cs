@@ -1,3 +1,5 @@
+using System.Windows.Input;
+
 namespace FireEscape.Views.Controls;
 
 public partial class ServiceabilityControl : ContentView
@@ -42,6 +44,13 @@ public partial class ServiceabilityControl : ContentView
     {
         get => (string)GetValue(PlaceholderTextProperty);
         set => SetValue(PlaceholderTextProperty, value);
+    }
+
+    public static readonly BindableProperty ValueChangedCommandProperty = BindableProperty.Create(nameof(ValueChangedCommand), typeof(ICommand), typeof(ServiceabilityControl));
+    public ICommand ValueChangedCommand
+    {
+        get => (ICommand)GetValue(ValueChangedCommandProperty);
+        set => SetValue(ValueChangedCommandProperty, value);
     }
 
     public decimal MinValue { get => numEdit.MinValue; set => numEdit.MinValue = value; }

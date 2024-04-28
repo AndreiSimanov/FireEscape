@@ -187,6 +187,5 @@
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>
         </dx:DXButton>
-
     </Grid>
 </ContentPage>
