@@ -63,8 +63,8 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             "высота лестницы не соответствует ГОСТ");
 
         CheckServiceability(summary, stairs.StairsWidth,
-            item => (item ?? 0) < serviceabilityLimits.MinStairsWidth,
-            $"ширина лестницы не менее {serviceabilityLimits.MinStairsWidth}мм" + " ({0}мм)",
+            _ => StairsWidth < serviceabilityLimits.MinStairsWidth,
+            $"ширина лестницы не менее {serviceabilityLimits.MinStairsWidth}мм ({StairsWidth}мм)",
             "ширина лестницы не соответствует ГОСТ");
         return summary;
     }
