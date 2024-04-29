@@ -38,7 +38,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     public string ProtectiveServiceability => stairs.ProtectiveServiceability ? "соответствует" : "не соответствует";
 
     public bool HasImage => protocol.HasImage;
-    public string Image => protocol.HasImage ? protocol.Image! : string.Empty;
+    public string ImageFilePath => HasImage ? protocol.ImageFilePath! : string.Empty;
 
     public string Customer => order.Customer;
 

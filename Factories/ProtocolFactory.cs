@@ -25,6 +25,7 @@ public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings) 
         var newProtocol = (Protocol)protocol.Clone();
         newProtocol.Id = 0;
         newProtocol.Image = null;
+        newProtocol.ImageFilePath = null;
         newProtocol.Stairs = null;
         newProtocol.StairsId = 0;
         newProtocol.FireEscapeNum = newProtocol.FireEscapeNum + 1;

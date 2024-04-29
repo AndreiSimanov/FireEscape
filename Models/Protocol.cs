@@ -10,7 +10,6 @@ public partial class Protocol : BaseDocument, ICloneable
     public int OrderId { get; set; }
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(HasImage))]
     [property: Column(nameof(Image))]
     string? image;
 
@@ -34,8 +33,15 @@ public partial class Protocol : BaseDocument, ICloneable
     [property: JsonIgnore]
     Stairs? stairs;
 
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasImage))]
     [property: Ignore]
-    public bool HasImage => !string.IsNullOrWhiteSpace(Image) && File.Exists(Image);
+    [property: JsonIgnore]
+    string? imageFilePath;
+
+    [Ignore]
+    [JsonIgnore]
+    public bool HasImage => !string.IsNullOrWhiteSpace(ImageFilePath) && File.Exists(ImageFilePath);
 
     public object Clone() => MemberwiseClone();
 }

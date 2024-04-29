@@ -139,11 +139,11 @@ namespace FireEscape.Reports.ReportMakers
 
             var pageSize = document.GetPdfDocument().GetDefaultPageSize();
 
-            var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocolRdp.Image))
+            var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocolRdp.ImageFilePath))
                 .SetHorizontalAlignment(HorizontalAlignment.CENTER)
                 .SetMaxWidth(pageSize.GetWidth() / 1.5f)
                 .SetMaxHeight(pageSize.GetHeight() / 1.5f)
-                .SetRotationAngle(ImageUtils.GetRotation(protocolRdp.Image));
+                .SetRotationAngle(ImageUtils.GetRotation(protocolRdp.ImageFilePath));
             document.Add(pdfImage);
             document.Add(new Paragraph(" "));
         }

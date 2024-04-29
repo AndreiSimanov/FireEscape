@@ -1,4 +1,5 @@
-﻿using FireEscape.DBContext;
+﻿using DevExpress.Maui.Core.Internal;
+using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 using SQLiteNetExtensionsAsync.Extensions;
@@ -14,7 +15,7 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
     {
         await base.DeleteAsync(protocol);
         if (protocol.HasImage)
-            File.Delete(protocol.Image!);
+            File.Delete(protocol.ImageFilePath!);
     }
 
     public async Task<Protocol> CopyAsync(Protocol protocol)
@@ -27,6 +28,8 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
     public async Task<Protocol[]> GetProtocolsAsync(int orderId)
     {
         var protocols = await (await connection).GetAllWithChildrenAsync<Protocol>(protocol => protocol.OrderId == orderId, true);
+        protocols.Where(protocol => !string.IsNullOrWhiteSpace(protocol.Image))
+            .ForEach(protocol => protocol.ImageFilePath = Path.Combine(applicationSettings.ImagesFolder, protocol.Image!));
         return protocols.OrderByDescending(item => item.Id).ToArray();
     }
 
@@ -36,15 +39,17 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
             return;
 
         var imageFileName = $"{protocol.OrderId}_{Path.GetFileNameWithoutExtension(Path.GetRandomFileName())}.{ImageUtils.IMAGE_FILE_EXTENSION}";
-        var imageFilePath = Path.Combine(applicationSettings.ContentFolder, imageFileName);
+        var imageFilePath = Path.Combine(applicationSettings.ImagesFolder, imageFileName);
 
         var orientation = ImageUtils.GetImageOrientation(imageFile.FullPath);
         await ImageUtils.TransformImageAsync(imageFile, applicationSettings.MaxImageSize, imageFilePath);
         ImageUtils.SetImageOrientation(imageFilePath, orientation);
 
         if (protocol.HasImage)
-            File.Delete(protocol.Image!);
-        protocol.Image = imageFilePath;
+            File.Delete(protocol.ImageFilePath!);
+        protocol.Image = imageFileName;
+        protocol.ImageFilePath = imageFilePath;
+
         await SaveAsync(protocol);
     }
 }

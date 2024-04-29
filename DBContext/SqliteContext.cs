@@ -8,7 +8,7 @@ public class SqliteContext : IAsyncDisposable
 
     public SqliteContext(IOptions<ApplicationSettings> applicationSettings)
     {
-        var dbPath = Path.Combine(FileSystem.AppDataDirectory, applicationSettings.Value.DbName);
+        var dbPath = Path.Combine(applicationSettings.Value.ContentFolder, applicationSettings.Value.DbName);
         connection = new AsyncLazy<SQLiteAsyncConnection>(async () =>
         {
             var conn = new SQLiteAsyncConnection(dbPath);

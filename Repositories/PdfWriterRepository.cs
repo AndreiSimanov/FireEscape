@@ -14,11 +14,8 @@ public class PdfWriterRepository(IOptions<ApplicationSettings> applicationSettin
         if (string.IsNullOrWhiteSpace(fileName))
             throw new ArgumentNullException(nameof(fileName));
         fileName = fileName + ".pdf";
-
         var protocolRdp = new ProtocolReportDataProvider(order, protocol, protocol.Stairs!, stairsSettings, userAccount);
-
-        var filePath = Path.Combine(applicationSettings.ContentFolder, fileName);
-
+        var filePath = Path.Combine(applicationSettings.DocumentsFolder, fileName);
         return await ProtocolPdfReportMaker.MakeReportAsync(protocolRdp, filePath);
     }
 }

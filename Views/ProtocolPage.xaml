@@ -51,7 +51,7 @@
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <Image
-                            Source="{Binding  EditObject.Image}"
+                            Source="{Binding  EditObject.ImageFilePath}"
                             Aspect="AspectFill"
                             WidthRequest="180"
                             HeightRequest="180"

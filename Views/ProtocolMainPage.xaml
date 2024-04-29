@@ -111,7 +111,7 @@
                                             Aspect="AspectFill"
                                             HeightRequest="110"
                                             WidthRequest="110" 
-                                            Source="{Binding Image}">
+                                            Source="{Binding ImageFilePath}">
                                             <Image.Clip>
                                                 <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
                                             </Image.Clip>
