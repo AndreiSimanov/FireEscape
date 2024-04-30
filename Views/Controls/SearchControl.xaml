@@ -11,8 +11,8 @@
     x:Name="this"
     x:DataType="control:SearchControl"
     x:Class="FireEscape.Views.Controls.SearchControl">
-    <StackLayout BindingContext="{x:Reference this}">
-        <Frame 
+    <StackLayout>
+        <Frame
             Margin="10" 
             Padding="8,-9,25,0"
             CornerRadius ="25"

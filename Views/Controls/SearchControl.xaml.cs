@@ -21,7 +21,11 @@ public partial class SearchControl : ContentView
 
     public string Placeholder { get => searchEntry.Placeholder; set => searchEntry.Placeholder = value; }
 
-    public SearchControl() => InitializeComponent();
+    public SearchControl()
+    {
+        InitializeComponent();
+        searchEntry.BindingContext = this;
+    }
 
     void SearchTextClicked(object sender, EventArgs e) => Search = string.Empty;
 

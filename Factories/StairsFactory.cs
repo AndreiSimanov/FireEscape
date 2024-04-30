@@ -19,7 +19,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         StairsMountType = stairsSettings.StairsMountTypes![0],
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
         ProtectiveServiceability = stairsSettings.ProtectiveServiceability,
-        SupportВeams = CreateElement(typeof(SupportВeamsP1)) as SupportВeamsP1,
+        SupportBeams = CreateElement(typeof(SupportBeamsP1)) as SupportBeamsP1,
         StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
     };
 

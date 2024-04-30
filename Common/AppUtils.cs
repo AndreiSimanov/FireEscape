@@ -9,7 +9,9 @@ public static class AppUtils
 
 #if ANDROID
             var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
-            return docsDirectory!.AbsoluteFile.Parent;
+            return (docsDirectory!.AbsoluteFile.Parent == null) 
+                ? docsDirectory!.AbsoluteFile.Path
+                : docsDirectory!.AbsoluteFile.Parent;
 #else
             return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif

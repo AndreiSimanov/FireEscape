@@ -6,13 +6,14 @@ namespace FireEscape
 {
     public partial class App : Application
     {
-        public App(IOptions<ApplicationSettings> applicationSettings)
+        public App(UserAccountService userAccountService, IOptions<ApplicationSettings> applicationSettings )
         {
             SetPrimaryThemeColor(applicationSettings.Value);
             CultureInfo.CurrentCulture = SetNumberDecimalSeparator(CultureInfo.CurrentCulture);
             CultureInfo.CurrentUICulture = SetNumberDecimalSeparator(CultureInfo.CurrentUICulture);
-            Localizer.StringLoader = new ResourceStringLoader(FireEscape.Resources.Languages.AppResources.ResourceManager);
+            Localizer.StringLoader = new ResourceStringLoader(AppResources.ResourceManager);
             RemoveBorders();
+            Task.Run(() => userAccountService.GetCurrentUserAccountAsync());
             InitializeComponent();
             MainPage = new AppShell();
         }

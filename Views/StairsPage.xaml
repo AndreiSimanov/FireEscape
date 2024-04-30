@@ -68,11 +68,11 @@
                 Style="{StaticResource CardView}" CornerRadius="5" Margin="10" Padding="0,0,0,10">
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
-                        <Label  Text="{Binding EditObject.SupportВeams.Name}" Margin="10,5,0,5"/>
+                        <Label  Text="{Binding EditObject.SupportBeams.Name}" Margin="10,5,0,5"/>
                         <Label   Margin="0,5,10,5" HorizontalTextAlignment="End">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="{Binding EditObject.SupportВeams.CalcWithstandLoad}" />
+                                    <Span Text="{Binding EditObject.SupportBeams.CalcWithstandLoad}" />
                                     <Span Text=" кгс" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -83,7 +83,7 @@
 
                     <dxe:NumericEdit
                         Style="{StaticResource DefaultNumericEdit}"
-                        Value="{Binding EditObject.SupportВeams.TestPointCount}"
+                        Value="{Binding EditObject.SupportBeams.TestPointCount}"
                         PlaceholderText="{x:Static lang:AppResources.TestPointCountHint}"
                         LabelText="{x:Static lang:AppResources.TestPointCount}"/>
 
@@ -91,10 +91,10 @@
                         MaxDecimalDigitCount="1"
                         PlaceholderText ="{Binding DeformationHint}"
                         LabelText ="{Binding Deformation}"
-                        Value="{Binding EditObject.SupportВeams.Deformation.Value}"
-                        Serviceability ="{Binding EditObject.SupportВeams.Deformation.Serviceability}"
+                        Value="{Binding EditObject.SupportBeams.Deformation.Value}"
+                        Serviceability ="{Binding EditObject.SupportBeams.Deformation.Serviceability}"
                         ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText ="{Binding EditObject.SupportВeams.Deformation.RejectExplanation}"/>
+                        RejectExplanationText ="{Binding EditObject.SupportBeams.Deformation.RejectExplanation}"/>
                 </StackLayout>
             </Frame>
 

@@ -14,7 +14,7 @@ public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings
 
     public async Task<string> UploadJsonAsync(string key, string value, string folder = "")
     {
-        using var dbx = new DropboxClient(await GetTokenAsync());
+        using var dbx = await GetDropboxClient();
         using var mem = new MemoryStream(Encoding.UTF8.GetBytes(value ?? string.Empty));
         var updated = await dbx.Files.UploadAsync(GetJsonPath(key, folder), WriteMode.Overwrite.Instance, body: mem);
         return updated.Id;
@@ -22,7 +22,7 @@ public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings
 
     public async Task<string> DownloadJsonAsync(string key, string folder = "")
     {
-        using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
+        using var dbx = await GetDropboxClient();
         try
         {
             using var response = await dbx.Files.DownloadAsync(GetJsonPath(key, folder));
@@ -40,7 +40,7 @@ public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings
 
     public async IAsyncEnumerable<string> DownloadJsonAsync(IEnumerable<string> keys, string folder = "")
     {
-        using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
+        using var dbx = await GetDropboxClient();
         foreach (var key in keys)
         {
             using var response = await dbx.Files.DownloadAsync(GetJsonPath(key, folder));
@@ -51,13 +51,13 @@ public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings
 
     public async Task DeleteJsonAsync(string key, string folder = "")
     {
-        using var dbx = new DropboxClient(await GetTokenAsync());
+        using var dbx = await GetDropboxClient();
         await dbx.Files.DeleteV2Async(GetJsonPath(key, folder));
     }
 
     public async Task<string> UploadAsync(string sourceFilePath, string destinationFilePath)
     {
-        using var dbx = new DropboxClient(await GetTokenAsync());
+        using var dbx = await GetDropboxClient();
         using var mem = new MemoryStream(await File.ReadAllBytesAsync(sourceFilePath));
         var updated = await dbx.Files.UploadAsync(GetAppPath() + destinationFilePath, WriteMode.Overwrite.Instance, body: mem);
         return updated.Id;
@@ -65,14 +65,14 @@ public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings
 
     public async Task DownloadAsync(string sourceFilePath, string destinationFilePath)
     {
-        using var dbx = new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
+        using var dbx = await GetDropboxClient();
         using var response = await dbx.Files.DownloadAsync(GetAppPath() + sourceFilePath);
         var content = await response.GetContentAsByteArrayAsync();
         await File.WriteAllBytesAsync(destinationFilePath, content);
     }
     public async IAsyncEnumerable<string> ListFolderAsync(string folder)
     {
-        using var dbx = new DropboxClient(await GetTokenAsync());
+        using var dbx = await GetDropboxClient();
         var result = await dbx.Files.ListFolderAsync(GetAppPath() + folder + "/");
         foreach (var file in result.Entries)
         {
@@ -102,11 +102,14 @@ public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings
         }
         return null;
     }
+
+    async Task<DropboxClient> GetDropboxClient() => new DropboxClient(await GetTokenAsync(), new DropboxClientConfig() { HttpClient = httpClient });
+
     /*
     public async Task<FullAccount> GetCurrentAccountAsync()
     {
         var token = await GetTokenAsync();
-        using var dbx = new DropboxClient(token);
+        using var dbx = await GetDropboxClient();
         return await dbx.Users.GetCurrentAccountAsync();
     }
 

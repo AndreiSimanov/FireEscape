@@ -46,9 +46,9 @@ public partial class Stairs : BaseObject
     public string? StairsWidthBlob { get; set; }
 
     [ObservableProperty]
-    [property: TextBlob(nameof(SupportВeamsBlob))]
-    SupportВeamsP1? supportВeams = new();
-    public string? SupportВeamsBlob { get; set; }
+    [property: TextBlob(nameof(SupportBeamsBlob))]
+    SupportBeamsP1? supportBeams = new();
+    public string? SupportBeamsBlob { get; set; }
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsElementsBlob))]
@@ -62,7 +62,7 @@ public partial class Stairs : BaseObject
     {
         foreach (var element in StairsElements)
             yield return element;
-        if (SupportВeams != null)
-            yield return SupportВeams;
+        if (SupportBeams != null)
+            yield return SupportBeams;
     }
 }

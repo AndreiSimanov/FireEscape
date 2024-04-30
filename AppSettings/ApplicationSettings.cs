@@ -6,8 +6,6 @@ public class ApplicationSettings
     private const string DOCUMENTS_FOLDER = "/Documents";
 
     public required string UserAccountsFolderName { get; set; }
-    public int NewUserAccountExpirationDays { get; set; }
-    public int NewUserAccountExpirationCount { get; set; }
     public int CheckUserAccountCounter { get; set; }
     public int MaxImageSize { get; set; }
     public int PageSize { get; set; }
