@@ -60,18 +60,18 @@
                     <dxcv:SwipeContainer>
                         <dxcv:SwipeContainer.StartSwipeItems>
                             <dxcv:SwipeItem
-                                BackgroundColor="Green"
-                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel } }, Path=IsNotBusy}"
-                                Tap="CopyProtocol"
-                                Caption="{x:Static lang:AppResources.Copy}"
-                                Image="copy"/>
-                            <dxcv:SwipeItem
                                 BackgroundColor="{dx:ThemeColor Primary}"
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel } }, Path=IsNotBusy}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=CreateReportCommand}"
                                 CommandParameter="{Binding .}"
                                 Caption="PDF"
                                 Image="pdf"/>
+                            <dxcv:SwipeItem
+                                BackgroundColor="Green"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel } }, Path=IsNotBusy}"
+                                Tap="CopyProtocol"
+                                Caption="{x:Static lang:AppResources.Copy}"
+                                Image="copy"/>
                         </dxcv:SwipeContainer.StartSwipeItems>
                         <dxcv:SwipeContainer.EndSwipeItems>
                             <dxcv:SwipeItem 
