@@ -70,6 +70,7 @@ public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings
         var content = await response.GetContentAsByteArrayAsync();
         await File.WriteAllBytesAsync(destinationFilePath, content);
     }
+
     public async IAsyncEnumerable<string> ListFolderAsync(string folder)
     {
         using var dbx = await GetDropboxClient();

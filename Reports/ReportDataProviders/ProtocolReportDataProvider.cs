@@ -46,7 +46,16 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public string ExecutiveCompany => string.IsNullOrWhiteSpace(order.ExecutiveCompany) ? string.Empty : order.ExecutiveCompany;
 
-    public string UserAccountSignature => string.IsNullOrWhiteSpace(userAccount.Signature) ? EMPTY_SIGNATURE : userAccount.Signature;
+    public string UserAccountSignature
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(userAccount.Signature))
+                return EMPTY_SIGNATURE;
+            var empty =  new string(' ', (EMPTY_SIGNATURE.Length - userAccount.Signature.Length));
+            return  empty +  userAccount.Signature + empty;
+        }
+    }
 
     public List<string> GetSummary()
     {
