@@ -188,7 +188,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
             return;
          
         var checkCounter = Preferences.Default.Get(CHECK_COUNTER, 0);
-        if (checkCounter == 0 || !IsValidUserAccount(userAccount) )
+        if (checkCounter == 0 || !IsValidUserAccount(userAccount) || string.Equals(userAccount.Name, NEW_USER_NAME))
             _ = Task.Run(TryToGetUserAccountAsync);
         if (checkCounter > 0)
             Preferences.Default.Set(CHECK_COUNTER, --checkCounter);

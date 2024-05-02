@@ -2,6 +2,8 @@
 
 public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs stairs, StairsSettings stairsSettings, UserAccount userAccount)
 {
+    public const string EMPTY_SIGNATURE = "___________________";
+
     ServiceabilityLimits? serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
            item.StairsType == stairs.StairsType.Type &&
            item.IsEvacuation == stairs.IsEvacuation);
@@ -44,7 +46,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public string ExecutiveCompany => string.IsNullOrWhiteSpace(order.ExecutiveCompany) ? string.Empty : order.ExecutiveCompany;
 
-    public string UserAccountSignature => string.IsNullOrWhiteSpace(userAccount.Signature) ? "___________" : userAccount.Signature;
+    public string UserAccountSignature => string.IsNullOrWhiteSpace(userAccount.Signature) ? EMPTY_SIGNATURE : userAccount.Signature;
 
     public List<string> GetSummary()
     {
