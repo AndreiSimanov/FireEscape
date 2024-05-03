@@ -19,6 +19,6 @@ public partial class StairsPage : BaseStairsPage
             return;
         var stairsType = cbx.SelectedItem as StairsType?;
         if (stairsType != null)
-            stairsElements.FilterString = stairsType.Value.Type == StairsTypeEnum.P2 ? "[StairsType] == 2" : "[StairsType] == 1";
+            stairsElements.FilterString = stairsType.Value.Type == StairsTypeEnum.P2 ? "[StairsType] == 2" : "[StairsType] <= 1";
     }
 }

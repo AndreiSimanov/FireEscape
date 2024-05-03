@@ -75,7 +75,7 @@
                                         <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="Green" FalseObject="Red" />
                                     </ResourceDictionary>
                                 </Grid.Resources>
-                                <Frame HeightRequest="165" Style="{StaticResource CardView}" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
+                                <Frame HeightRequest="162" Style="{StaticResource CardView}" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"

@@ -2,7 +2,7 @@
 
 public enum StairsTypeEnum
 {
-    P1_1 = 1,
+    P1_1 = 0,
     P1_2 = 1,
     P2 = 2
 }

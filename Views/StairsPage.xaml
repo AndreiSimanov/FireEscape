@@ -22,7 +22,12 @@
         BackgroundColor="{dx:ThemeColor Surface}">
         <ScrollView.Resources>
             <ResourceDictionary>
-                <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+                <toolkit:EnumToBoolConverter x:Key="StairsTypeConverter">
+                    <toolkit:EnumToBoolConverter.TrueValues>
+                        <model:StairsTypeEnum>P1_1</model:StairsTypeEnum>
+                        <model:StairsTypeEnum>P1_2</model:StairsTypeEnum>
+                    </toolkit:EnumToBoolConverter.TrueValues>
+                </toolkit:EnumToBoolConverter>
             </ResourceDictionary>
         </ScrollView.Resources>
 
@@ -64,7 +69,7 @@
                 RejectExplanationText ="{Binding EditObject.StairsWidth.RejectExplanation}"/>
 
             <Frame
-                IsVisible="{Binding EditObject.StairsType.Type, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:StairsTypeEnum.P1_1}}"
+                IsVisible="{Binding EditObject.StairsType.Type, Converter={StaticResource StairsTypeConverter}}"
                 Style="{StaticResource CardView}" CornerRadius="5" Margin="10" Padding="0,0,0,10">
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
