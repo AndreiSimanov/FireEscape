@@ -18,13 +18,12 @@
     Title="{x:Static lang:AppResources.StairsPageTitle}">
     <ScrollView 
         BackgroundColor="{dx:ThemeColor Surface}">
-        
         <ScrollView.Resources>
             <ResourceDictionary>
                 <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+                <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor SurfaceContainerHighest}" FalseObject="#D74F67" />
             </ResourceDictionary>
         </ScrollView.Resources>
-
         <VerticalStackLayout>
             <dxe:ComboBoxEdit
                 SelectionChanged="StairsTypeChanged"
@@ -61,10 +60,9 @@
                 Serviceability ="{Binding EditObject.StairsWidth.Serviceability}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.StairsWidth.RejectExplanation}"/>
-
             <Frame
                 IsVisible="{Binding EditObject.StairsType.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:BaseStairsTypeEnum.P1}}"
-                Style="{StaticResource CardView}" CornerRadius="5" Margin="10" Padding="0,0,0,10">
+                Style="{StaticResource CardView}" Margin="10" Padding="0,0,0,10">
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
                         <Label  Text="{Binding EditObject.SupportBeams.Name}" Margin="10,5,0,5"/>
@@ -77,15 +75,12 @@
                             </Label.FormattedText>
                         </Label>
                     </Grid>
-
                     <dx:DXSeparator SideMargin="0"/>
-
                     <dxe:NumericEdit
                         Style="{StaticResource DefaultNumericEdit}"
                         Value="{Binding EditObject.SupportBeams.TestPointCount}"
                         PlaceholderText="{x:Static lang:AppResources.TestPointCountHint}"
                         LabelText="{x:Static lang:AppResources.TestPointCount}"/>
-
                     <ctrl:ServiceabilityControl
                         MaxDecimalDigitCount="1"
                         PlaceholderText ="{Binding DeformationHint}"
@@ -138,25 +133,52 @@
                     <DataTemplate x:DataType="stairselmodel:BaseStairsElement">
                         <dxcv:SwipeContainer>
                             <dxcv:SwipeContainer.EndSwipeItems>
-                                <dxcv:SwipeItem 
-                                BackgroundColor="#D74F67"
-                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel } }, Path=IsNotBusy}"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=DeleteElementCommand}"
-                                CommandParameter="{Binding .}"
-                                Caption="{x:Static lang:AppResources.Delete}"
-                                Image="delete"/>
+                                <dxcv:SwipeItem
+                                    BackgroundColor="{Binding Required, Converter={StaticResource BoolToObjectConverter}}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=DeleteElementCommand}"
+                                    CommandParameter="{Binding .}"
+                                    Caption="{x:Static lang:AppResources.Delete}"
+                                    Image="delete"/>
                             </dxcv:SwipeContainer.EndSwipeItems>
                             <dxcv:SwipeContainer.ItemView>
                                 <Grid Padding="10" HorizontalOptions="Fill">
-                                    <Frame HeightRequest="160" Style="{StaticResource CardView}">
+                                    <Frame Style="{StaticResource CardView}" Padding="0,0,0,10">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                                         </Frame.GestureRecognizers>
-                                        <VerticalStackLayout Spacing="2" >
-                                            <Label Style="{StaticResource Titleline}" Text="{Binding Name}"/>
-                                        </VerticalStackLayout>
+
+                                        <StackLayout>
+                                            <Grid RowDefinitions="Auto,*">
+                                                <Label  Text="{Binding Name}" Margin="10,5,0,5"/>
+                                                <Label   Margin="0,5,10,5" HorizontalTextAlignment="End">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding CalcWithstandLoad}" />
+                                                            <Span Text=" кгс" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+
+                                            <dx:DXSeparator SideMargin="0"/>
+
+                                            <dxe:NumericEdit
+                                                Style="{StaticResource DefaultNumericEdit}"
+                                                Value="{Binding TestPointCount}"
+                                                PlaceholderText="{x:Static lang:AppResources.TestPointCountHint}"
+                                                LabelText="{x:Static lang:AppResources.TestPointCount}"/>
+
+                                            <ctrl:ServiceabilityControl
+                                                MaxDecimalDigitCount="1"
+                                                PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=DeformationHint}"
+                                                LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=Deformation}"
+                                                Value="{Binding Deformation.Value}"
+                                                Serviceability ="{Binding Deformation.Serviceability}"
+                                                ServiceabilityTypes ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"
+                                                RejectExplanationText ="{Binding Deformation.RejectExplanation}"/>
+                                        </StackLayout>
                                     </Frame>
                                 </Grid>
                             </dxcv:SwipeContainer.ItemView>

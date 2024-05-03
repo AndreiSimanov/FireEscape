@@ -7,4 +7,5 @@ public record StairsElementSettings(
     int TestPointCount,
     float WithstandLoad,
     bool Required,
+    bool AddToNewStairs,
     int MaxCount);

@@ -15,7 +15,8 @@ public abstract partial class BaseStairsElement : ObservableObject
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     [property: JsonIgnore]
     float? stairsHeight;
-
+    [ObservableProperty]
+    bool required;
     [ObservableProperty]
     int printOrder;
     [ObservableProperty]

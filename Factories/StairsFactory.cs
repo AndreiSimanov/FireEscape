@@ -19,7 +19,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         StairsMountType = stairsSettings.StairsMountTypes![0],
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
         ProtectiveServiceability = stairsSettings.ProtectiveServiceability,
-        StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
+        StairsElements = new ObservableCollection<BaseStairsElement>(GetDefaultStairsElements())
     };
 
     public IEnumerable<BaseStairsElement> GetAvailableStairsElements(Stairs stairs)
@@ -56,6 +56,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         var stairsElement = Activator.CreateInstance(type) as BaseStairsElement;
         if (stairsElement != null)
         {
+            stairsElement.Required = elementSettings.Required;  
             stairsElement.PrintOrder = elementSettings.PrintOrder;
             stairsElement.TestPointCount = elementSettings.TestPointCount;
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
@@ -67,11 +68,11 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         return null;
     }
 
-    IEnumerable<BaseStairsElement> GetRequiredStairsElements()
+    IEnumerable<BaseStairsElement> GetDefaultStairsElements()
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;
-        foreach (var elementSetting in stairsSettings.StairsElementSettings.Where(item => item.Required))
+        foreach (var elementSetting in stairsSettings.StairsElementSettings.Where(item => item.AddToNewStairs))
         {
             var elementType = Type.GetType(elementSetting.Type);
             if (elementType == null)

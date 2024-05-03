@@ -38,6 +38,8 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
     async Task DeleteElementAsync(BaseStairsElement element) =>
         await DoCommandAsync(async () =>
         {
+            if (element.Required)
+                return;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteStairsElement,
                 AppResources.Cancel,
                 AppResources.Delete);
