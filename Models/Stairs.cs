@@ -45,9 +45,8 @@ public partial class Stairs : BaseObject
     ServiceabilityProperty<int?> stairsWidth = new();
     public string? StairsWidthBlob { get; set; }
 
-    [ObservableProperty]
-    [property: TextBlob(nameof(SupportBeamsBlob))]
-    SupportBeamsP1? supportBeams = new();
+    public SupportBeamsP1? SupportBeams => StairsElements.FirstOrDefault(element => element.GetType() == typeof(SupportBeamsP1)) as SupportBeamsP1;
+
     public string? SupportBeamsBlob { get; set; }
 
     [ObservableProperty]

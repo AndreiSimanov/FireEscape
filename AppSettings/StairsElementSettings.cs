@@ -1,7 +1,7 @@
 ﻿namespace FireEscape.AppSettings;
 
 public record StairsElementSettings(
-    StairsTypeEnum StairsType,
+    BaseStairsTypeEnum BaseStairsType,
     string Type,
     int PrintOrder,
     int TestPointCount,

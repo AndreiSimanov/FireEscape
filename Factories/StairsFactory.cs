@@ -19,7 +19,6 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         StairsMountType = stairsSettings.StairsMountTypes![0],
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
         ProtectiveServiceability = stairsSettings.ProtectiveServiceability,
-        SupportBeams = CreateElement(typeof(SupportBeamsP1)) as SupportBeamsP1,
         StairsElements = new ObservableCollection<BaseStairsElement>(GetRequiredStairsElements())
     };
 
@@ -27,7 +26,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;
-        foreach (var elementSettings in stairsSettings.StairsElementSettings.Where(item => (int)item.StairsType == (int)stairs.StairsType.Type))
+        foreach (var elementSettings in stairsSettings.StairsElementSettings.Where(item => item.BaseStairsType == stairs.StairsType.BaseStairsType))
         {
             var elementType = Type.GetType(elementSettings.Type);
             if (elementType == null)

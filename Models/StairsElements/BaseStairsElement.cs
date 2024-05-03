@@ -7,7 +7,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     [JsonIgnore]
     public string Name => GetName();
     [JsonIgnore]
-    public StairsTypeEnum StairsType => GetStairsType();
+    public BaseStairsTypeEnum BaseStairsType => GetBaseStairsType();
     [JsonIgnore]
     public float CalcWithstandLoad => CalculateWithstandLoad();
 
@@ -32,7 +32,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     ServiceabilityProperty<float?> deformation = new();
 
     protected abstract string GetName();
-    protected abstract StairsTypeEnum GetStairsType();
+    protected abstract BaseStairsTypeEnum GetBaseStairsType();
     public override string ToString() => GetName();
     protected virtual float CalculateWithstandLoad() => WithstandLoad;
 }

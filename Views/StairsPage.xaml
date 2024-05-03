@@ -16,18 +16,12 @@
     x:Class="FireEscape.Views.StairsPage"
     x:DataType="viewmodel:StairsViewModel"
     Title="{x:Static lang:AppResources.StairsPageTitle}">
-
     <ScrollView 
-        
         BackgroundColor="{dx:ThemeColor Surface}">
+        
         <ScrollView.Resources>
             <ResourceDictionary>
-                <toolkit:EnumToBoolConverter x:Key="StairsTypeConverter">
-                    <toolkit:EnumToBoolConverter.TrueValues>
-                        <model:StairsTypeEnum>P1_1</model:StairsTypeEnum>
-                        <model:StairsTypeEnum>P1_2</model:StairsTypeEnum>
-                    </toolkit:EnumToBoolConverter.TrueValues>
-                </toolkit:EnumToBoolConverter>
+                <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
             </ResourceDictionary>
         </ScrollView.Resources>
 
@@ -69,7 +63,7 @@
                 RejectExplanationText ="{Binding EditObject.StairsWidth.RejectExplanation}"/>
 
             <Frame
-                IsVisible="{Binding EditObject.StairsType.Type, Converter={StaticResource StairsTypeConverter}}"
+                IsVisible="{Binding EditObject.StairsType.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:BaseStairsTypeEnum.P1}}"
                 Style="{StaticResource CardView}" CornerRadius="5" Margin="10" Padding="0,0,0,10">
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
@@ -83,7 +77,7 @@
                             </Label.FormattedText>
                         </Label>
                     </Grid>
-                        
+
                     <dx:DXSeparator SideMargin="0"/>
 
                     <dxe:NumericEdit
