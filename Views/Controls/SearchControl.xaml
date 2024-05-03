@@ -12,11 +12,11 @@
     x:DataType="control:SearchControl"
     x:Class="FireEscape.Views.Controls.SearchControl">
     <StackLayout>
-        <Frame
+        <Border
             Margin="10" 
             Padding="8,-9,25,0"
-            CornerRadius ="25"
-            BorderColor="{dx:ThemeColor SurfaceContainerHighest}"
+            StrokeShape="RoundRectangle 25,25,25,25"
+            StrokeThickness="0"
             BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}">
             <Entry 
                 x:Name="searchEntry"
@@ -33,12 +33,12 @@
                         ShouldDismissKeyboardAutomatically="False" />
                 </Entry.Behaviors>
             </Entry>
-        </Frame>
+        </Border>
         <dx:DXButton
             x:Name="clearSearchText"
             Clicked="SearchTextClicked" 
             HorizontalOptions="End"
-            Margin="0,-42,22,22"
+            Margin="0,-40,22,10"
             Icon="clearsearch"
             WidthRequest="20" 
             HeightRequest="20" Padding="0"
