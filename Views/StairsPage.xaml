@@ -13,6 +13,7 @@
     xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"
     xmlns:stairselmodel="clr-namespace:FireEscape.Models.StairsElements"
     xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
+    xmlns:conv="clr-namespace:FireEscape.Views.Converters"
     x:Class="FireEscape.Views.StairsPage"
     x:DataType="viewmodel:StairsViewModel"
     Title="{x:Static lang:AppResources.StairsPageTitle}">
@@ -20,7 +21,9 @@
         BackgroundColor="{dx:ThemeColor Surface}">
         <ScrollView.Resources>
             <ResourceDictionary>
+                <conv:FloatZeroToObjectConverter x:Key="FloatZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
                 <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+                <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
                 <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor SurfaceContainerHighest}" FalseObject="#D74F67" />
             </ResourceDictionary>
         </ScrollView.Resources>
@@ -66,7 +69,9 @@
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
                         <Label Text="{Binding EditObject.SupportBeams.Name}" Margin="10,5,0,5"/>
-                        <Label Margin="0,5,10,5" HorizontalTextAlignment="End">
+                        <Label
+                            TextColor = "{Binding EditObject.SupportBeams.CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}"
+                            Margin="0,5,10,5" HorizontalTextAlignment="End">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding EditObject.SupportBeams.CalcWithstandLoad}" />
@@ -152,8 +157,10 @@
 
                                         <StackLayout>
                                             <Grid RowDefinitions="Auto,*">
-                                                <Label Text="{Binding Name}" Margin="10,5,0,5"/>
-                                                <Label Margin="0,5,10,5" HorizontalTextAlignment="End">
+                                                <Label Text="{Binding Name}" Margin="10,5,0,5" />
+                                                <Label 
+                                                    TextColor = "{Binding CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}"
+                                                    Margin="0,5,10,5" HorizontalTextAlignment="End">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{Binding CalcWithstandLoad}" />
@@ -168,7 +175,7 @@
 
                                             <dxe:NumericEdit
                                                 Style="{StaticResource DefaultNumericEdit}"
-                                                IsReadOnly="{Binding IsTestPointCountsReadOnly}"
+                                                IsVisible="{Binding IsTestPointCountsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
                                                 Value="{Binding TestPointCount}"
                                                 PlaceholderText="{x:Static lang:AppResources.TestPointCountHint}"
                                                 LabelText="{x:Static lang:AppResources.TestPointCount}"/>

@@ -56,7 +56,6 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         var stairsElement = Activator.CreateInstance(type) as BaseStairsElement;
         if (stairsElement != null)
         {
-            stairsElement.Required = elementSettings.Required;  
             stairsElement.PrintOrder = elementSettings.PrintOrder;
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
             if (elementSettings.MaxCount > 1)
@@ -71,7 +70,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;
-        foreach (var elementSetting in stairsSettings.StairsElementSettings.Where(item => item.AddToNewStairs || item.Required))
+        foreach (var elementSetting in stairsSettings.StairsElementSettings.Where(item => item.Required))
         {
             var elementType = Type.GetType(elementSetting.Type);
             if (elementType == null)

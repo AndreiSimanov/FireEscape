@@ -6,5 +6,4 @@ public record StairsElementSettings(
     int PrintOrder,
     float WithstandLoad,
     bool Required,
-    bool AddToNewStairs,
     int MaxCount);
