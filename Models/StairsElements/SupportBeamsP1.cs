@@ -4,8 +4,6 @@ public class SupportBeamsP1 : BaseStairsElement
 {
     protected override string GetName() => "Балки крепления лестниц";
 
-    protected override BaseStairsTypeEnum GetBaseStairsType() => BaseStairsTypeEnum.P1;
-
     protected override float CalculateWithstandLoad()
     {
         // М = (Н * К2 / К1 * Х) * К3

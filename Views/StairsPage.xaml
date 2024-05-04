@@ -65,8 +65,8 @@
                 Style="{StaticResource CardView}" Margin="10" Padding="0,0,0,10">
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
-                        <Label  Text="{Binding EditObject.SupportBeams.Name}" Margin="10,5,0,5"/>
-                        <Label   Margin="0,5,10,5" HorizontalTextAlignment="End">
+                        <Label Text="{Binding EditObject.SupportBeams.Name}" Margin="10,5,0,5"/>
+                        <Label Margin="0,5,10,5" HorizontalTextAlignment="End">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding EditObject.SupportBeams.CalcWithstandLoad}" />
@@ -151,8 +151,8 @@
 
                                         <StackLayout>
                                             <Grid RowDefinitions="Auto,*">
-                                                <Label  Text="{Binding Name}" Margin="10,5,0,5"/>
-                                                <Label   Margin="0,5,10,5" HorizontalTextAlignment="End">
+                                                <Label Text="{Binding Name}" Margin="10,5,0,5"/>
+                                                <Label Margin="0,5,10,5" HorizontalTextAlignment="End">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{Binding CalcWithstandLoad}" />
@@ -166,6 +166,7 @@
 
                                             <dxe:NumericEdit
                                                 Style="{StaticResource DefaultNumericEdit}"
+                                                IsReadOnly="{Binding IsTestPointCountsReadOnly}"
                                                 Value="{Binding TestPointCount}"
                                                 PlaceholderText="{x:Static lang:AppResources.TestPointCountHint}"
                                                 LabelText="{x:Static lang:AppResources.TestPointCount}"/>
