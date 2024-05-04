@@ -736,6 +736,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ограждение лестниц.
+        /// </summary>
+        internal static string StairsFence {
+            get {
+                return ResourceManager.GetString("StairsFence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Высота лестницы (м).
         /// </summary>
         internal static string StairsHeight {
@@ -772,6 +781,33 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Площадка.
+        /// </summary>
+        internal static string StairsPlatform {
+            get {
+                return ResourceManager.GetString("StairsPlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Площадка выхода на кровлю.
+        /// </summary>
+        internal static string StairsRoofPlatform {
+            get {
+                return ResourceManager.GetString("StairsRoofPlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ступени лестниц.
+        /// </summary>
+        internal static string StairsSteps {
+            get {
+                return ResourceManager.GetString("StairsSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Укажите тип лестницы.
         /// </summary>
         internal static string StairsTypesHint {
@@ -799,6 +835,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Марш.
+        /// </summary>
+        internal static string Stairway {
+            get {
+                return ResourceManager.GetString("Stairway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Количество ступеней.
         /// </summary>
         internal static string StepsCount {
@@ -813,6 +858,15 @@ namespace FireEscape.Resources.Languages {
         internal static string StepsCountHint {
             get {
                 return ResourceManager.GetString("StepsCountHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Балки крепления лестниц.
+        /// </summary>
+        internal static string SupportBeams {
+            get {
+                return ResourceManager.GetString("SupportBeams", resourceCulture);
             }
         }
         

@@ -2,5 +2,5 @@
 
 public class StepsP1 : BaseStairsElement
 {
-    protected override string GetName() => "Ступени лестниц";
+    public override string Name => AppResources.StairsSteps;
 }

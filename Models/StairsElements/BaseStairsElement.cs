@@ -4,8 +4,12 @@ namespace FireEscape.Models.StairsElements;
 
 public abstract partial class BaseStairsElement : ObservableObject
 {
+    public const float K1 = 2.5f;
+    public const float K2 = 120f;
+    public const float K3 = 1.5f;
+
     [JsonIgnore]
-    public string Name => GetName();
+    public virtual string Name => string.Empty;
 
     [JsonIgnore]
     public virtual BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P1;
@@ -51,8 +55,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     [ObservableProperty]
     ServiceabilityProperty<float?> deformation = new();
 
-    protected abstract string GetName();
-    public override string ToString() => GetName();
+    public override string ToString() => Name;
     protected virtual float CalculateWithstandLoad() => WithstandLoad;
     protected virtual int CalculateTestPointCount(int newTestPointCount) => newTestPointCount;
 }

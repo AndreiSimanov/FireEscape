@@ -2,7 +2,7 @@
 
 public class StairwayP2 : BaseStairsElement
 {
-    protected override string GetName() => "Марш " + ElementNumber.Trim();
+    public override string Name => AppResources.Stairway + " " + ElementNumber.Trim();
 
     public override bool IsTestPointCountsReadOnly => true;
 

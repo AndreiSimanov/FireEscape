@@ -408,4 +408,22 @@
   <data name="TestPointCountHint" xml:space="preserve">
     <value>Specify the count of test points</value>
   </data>
+  <data name="StairsFence" xml:space="preserve">
+    <value>Stairs fence</value>
+  </data>
+  <data name="StairsPlatform" xml:space="preserve">
+    <value>Stairs platform</value>
+  </data>
+  <data name="StairsRoofPlatform" xml:space="preserve">
+    <value>Stairs roof platform</value>
+  </data>
+  <data name="StairsSteps" xml:space="preserve">
+    <value>Stairs steps</value>
+  </data>
+  <data name="Stairway" xml:space="preserve">
+    <value>Stairway</value>
+  </data>
+  <data name="SupportBeams" xml:space="preserve">
+    <value>Support beams</value>
+  </data>
 </root>

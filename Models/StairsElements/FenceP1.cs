@@ -2,7 +2,7 @@
 
 public class FenceP1 : BaseStairsElement
 {
-    protected override string GetName() => "Ограждение лестниц";
+    public override string Name => AppResources.StairsFence;
 
     public override bool IsTestPointCountsReadOnly => true;
 

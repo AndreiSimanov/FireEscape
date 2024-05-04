@@ -2,7 +2,7 @@
 
 public class PlatformP2 : BaseStairsElement
 {
-    protected override string GetName() => "Площадка " + ElementNumber.Trim();
+    public override string Name => AppResources.StairsPlatform + " " +ElementNumber.Trim();
 
     public override bool IsTestPointCountsReadOnly => true;
 
