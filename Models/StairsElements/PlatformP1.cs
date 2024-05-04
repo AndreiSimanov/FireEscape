@@ -6,5 +6,5 @@ public class PlatformP1 : BaseStairsElement
 
     public override bool IsTestPointCountsReadOnly => true;
 
-    protected override int CalculateTestPointCount(int newTestPointCount) => 1;
+    public override int TestPointCount => 1;
 }

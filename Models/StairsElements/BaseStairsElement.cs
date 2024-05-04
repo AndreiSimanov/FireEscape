@@ -7,6 +7,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     public const float K1 = 2.5f;
     public const float K2 = 120f;
     public const float K3 = 1.5f;
+    public const float TEST_POINT_DIVIDER = 1.5f;
 
     [JsonIgnore]
     public virtual string Name => string.Empty;
@@ -23,6 +24,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     [property: JsonIgnore]
     float? stairsHeight;
     [ObservableProperty]
+    [property: JsonIgnore]
     bool required;
     [ObservableProperty]
     int printOrder;
@@ -31,14 +33,14 @@ public abstract partial class BaseStairsElement : ObservableObject
     string elementNumber = string.Empty;
 
     int testPointCount;
-    public int TestPointCount
+    public virtual int TestPointCount
     {
-        get => CalculateTestPointCount(testPointCount);
+        get => testPointCount;
         set
         {
             if (testPointCount != value)
             {
-                testPointCount = CalculateTestPointCount(value);
+                testPointCount = value;
                 OnPropertyChanged(nameof(TestPointCount));
                 OnPropertyChanged(nameof(CalcWithstandLoad));
             }
@@ -57,5 +59,4 @@ public abstract partial class BaseStairsElement : ObservableObject
 
     public override string ToString() => Name;
     protected virtual float CalculateWithstandLoad() => WithstandLoad;
-    protected virtual int CalculateTestPointCount(int newTestPointCount) => newTestPointCount;
 }

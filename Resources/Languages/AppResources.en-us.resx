@@ -426,4 +426,10 @@
   <data name="SupportBeams" xml:space="preserve">
     <value>Support beams</value>
   </data>
+  <data name="StairsElements" xml:space="preserve">
+    <value>Stairs elements</value>
+  </data>
+  <data name="WithstandLoad" xml:space="preserve">
+    <value>kgs</value>
+  </data>
 </root>

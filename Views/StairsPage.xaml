@@ -70,7 +70,8 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding EditObject.SupportBeams.CalcWithstandLoad}" />
-                                    <Span Text=" кгс" />
+                                    <Span Text=" " />
+                                    <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -109,7 +110,7 @@
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.StairsHeight.RejectExplanation}"/>
 
-            <dxe:FormGroupItem Header="Элементы лестницы" HeightRequest="38" Margin="0,0,80,0" />
+            <dxe:FormGroupItem Header="{x:Static lang:AppResources.StairsElements}" HeightRequest="38" Margin="0,0,80,0" />
             <dx:DXButton 
                 x:Name="addButton"
                 IsEnabled="{Binding IsNotBusy}"
@@ -156,7 +157,8 @@
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{Binding CalcWithstandLoad}" />
-                                                            <Span Text=" кгс" />
+                                                            <Span Text=" " />
+                                                            <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>

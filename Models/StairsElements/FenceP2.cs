@@ -8,5 +8,5 @@ public class FenceP2 : BaseStairsElement
 
     public override BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P2;
 
-    protected override int CalculateTestPointCount(int newTestPointCount) => 1;
+    public override int TestPointCount => 1;
 }

@@ -736,6 +736,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Элементы лестницы.
+        /// </summary>
+        internal static string StairsElements {
+            get {
+                return ResourceManager.GetString("StairsElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ограждение лестниц.
         /// </summary>
         internal static string StairsFence {
@@ -984,6 +993,15 @@ namespace FireEscape.Resources.Languages {
         internal static string WeldSeamServiceability {
             get {
                 return ResourceManager.GetString("WeldSeamServiceability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to кгс.
+        /// </summary>
+        internal static string WithstandLoad {
+            get {
+                return ResourceManager.GetString("WithstandLoad", resourceCulture);
             }
         }
     }

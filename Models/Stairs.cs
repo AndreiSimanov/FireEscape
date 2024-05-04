@@ -1,5 +1,6 @@
 ﻿using DevExpress.Maui.Core.Internal;
 using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 
 namespace FireEscape.Models;
 
@@ -45,9 +46,9 @@ public partial class Stairs : BaseObject
     ServiceabilityProperty<int?> stairsWidth = new();
     public string? StairsWidthBlob { get; set; }
 
+    [property: Ignore]
+    [property: JsonIgnore]
     public SupportBeamsP1? SupportBeams => StairsElements.FirstOrDefault(element => element.GetType() == typeof(SupportBeamsP1)) as SupportBeamsP1;
-
-    public string? SupportBeamsBlob { get; set; }
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsElementsBlob))]
