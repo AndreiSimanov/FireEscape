@@ -19,6 +19,7 @@ namespace FireEscape.Reports.ReportMakers
             {
                 MakeHeader(document, protocolRdp);
                 MakeOverview(document, protocolRdp);
+                MakeTestResultsTable(document, protocolRdp);
                 MakeImage(document, protocolRdp);
                 MakeFooter(document, protocolRdp);
             }
@@ -131,6 +132,44 @@ namespace FireEscape.Reports.ReportMakers
 
             document.Add(new Paragraph(" "));
         }
+
+        static void MakeTestResultsTable(Document document, ProtocolReportDataProvider protocolRdp)
+        {
+            document.Add(new Paragraph("РЕЗУЛЬТАТЫ ИСПЫТАНИЙ")
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetBold()
+                .SetUnderline());
+            var table = new Table(5).UseAllAvailableWidth();
+            table.AddHeaderCell(MakeCell("№\r\nп/п", alignment: TextAlignment.CENTER));
+            table.AddHeaderCell(MakeCell("Наименование", alignment: TextAlignment.CENTER));
+            table.AddHeaderCell(MakeCell("Количество\r\nточек\r\nиспытаний", alignment: TextAlignment.CENTER));
+            table.AddHeaderCell(MakeCell("Нагрузка\r\n(кгс.)", alignment: TextAlignment.CENTER));
+            table.AddHeaderCell(MakeCell("Результаты\r\nиспытания", alignment: TextAlignment.CENTER));
+            foreach (var stairsElement in protocolRdp.GetStairsElements())
+                MakeTestResultsRow(table, stairsElement);
+            document.Add(table);
+        }
+
+        static void MakeTestResultsRow(Table table, BaseStairsElement stairsElement)
+        {
+            table.StartNewRow();
+            table.AddCell(MakeCell(table.GetNumberOfRows().ToString(), alignment: TextAlignment.CENTER));
+            table.AddCell(MakeCell(stairsElement.Name));
+            table.AddCell(MakeCell(stairsElement.TestPointCount.ToString(), true, TextAlignment.CENTER));
+            table.AddCell(MakeCell(stairsElement.CalcWithstandLoad.ToString(), true, TextAlignment.CENTER));
+            table.AddCell(MakeCell("Соответствует требованиям\r\nГОСТ Р. 53254-2009\r\n", alignment: TextAlignment.CENTER));
+        }
+
+        static Cell MakeCell(string text, bool bold = false, TextAlignment? alignment = null )
+        {
+            var paragraph = new Paragraph(text).SetFixedLeading(12);
+            if (alignment != null)
+                paragraph.SetTextAlignment(alignment);
+            if (bold)
+                paragraph.SetBold();
+            return new Cell().Add(paragraph).SetVerticalAlignment(iText.Layout.Properties.VerticalAlignment.MIDDLE);
+        }
+
 
         static void MakeImage(Document document, ProtocolReportDataProvider protocolRdp)
         {

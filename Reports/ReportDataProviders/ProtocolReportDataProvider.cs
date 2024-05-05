@@ -103,4 +103,12 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
         if (serviceabilityType == ServiceabilityTypeEnum.Reject)
             summary.Add(defaultExplanation);
     }
+
+    public List<BaseStairsElement> GetStairsElements() // todo: group elements by WithstandLoad
+    {
+        return stairs.StairsElements
+            .Where(stairsElement => stairsElement.BaseStairsType == stairs.StairsType.BaseStairsType)
+            .OrderBy(stairsElement => stairsElement.PrintOrder)
+            .ThenBy(stairsElement => stairsElement.Name) .ToList();
+    }
 }
