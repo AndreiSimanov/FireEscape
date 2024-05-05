@@ -35,7 +35,7 @@ public abstract partial class BaseStairsElement : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Name))]
-    string elementNumber = string.Empty;
+    int elementNumber;
 
     int testPointCount;
     public virtual int TestPointCount

@@ -22,6 +22,7 @@
         <ScrollView.Resources>
             <ResourceDictionary>
                 <conv:FloatZeroToObjectConverter x:Key="FloatZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
+                <conv:IntZeroToObjectConverter x:Key="IntZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
                 <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
                 <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
                 <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor SurfaceContainerHighest}" FalseObject="#D74F67" />
@@ -67,20 +68,39 @@
                 IsVisible="{Binding EditObject.StairsType.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:BaseStairsTypeEnum.P1}}"
                 Style="{StaticResource CardView}" Margin="10" Padding="0,0,0,10">
                 <StackLayout>
+                    
                     <Grid RowDefinitions="Auto,*">
-                        <Label Text="{Binding EditObject.SupportBeams.Name}" Margin="10,5,0,5"/>
+                        <Label Grid.Row ="0" Text="{Binding EditObject.SupportBeams.Name}" Margin="10,5,0,0" />
                         <Label
-                            TextColor = "{Binding EditObject.SupportBeams.CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}"
-                            Margin="0,5,10,5" HorizontalTextAlignment="End">
+                            Grid.Row ="1" 
+                            FontSize="12"                                                    
+                            TextColor = "{Binding EditObject.SupportBeams.TestPointCount,  Converter={StaticResource IntZeroToObjectConverter}}"
+                            Margin="10,0,0,5">
                             <Label.FormattedText>
                                 <FormattedString>
+                                    <Span Text="{x:Static lang:AppResources.TestPointCountTrim}" />
+                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                    <Span Text="{Binding EditObject.SupportBeams.TestPointCount}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label
+                            Grid.Row ="1"
+                            FontSize="12"
+                            TextColor = "{Binding EditObject.SupportBeams.CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}"
+                            Margin="0,0,10,5" HorizontalTextAlignment="End">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
+                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                     <Span Text="{Binding EditObject.SupportBeams.CalcWithstandLoad}" />
                                     <Span Text=" " />
-                                    <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
+                                    <Span Text="{x:Static lang:AppResources.WithstandLoadUnit}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
                     </Grid>
+                    
                     <dx:DXSeparator SideMargin="0"/>
                     <dxe:NumericEdit
                         Style="{StaticResource DefaultNumericEdit}"
@@ -154,18 +174,35 @@
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=GoToDetailsCommand}"
                                             CommandParameter="{Binding .}"/>
                                         </Frame.GestureRecognizers>
-
                                         <StackLayout>
+                                            
                                             <Grid RowDefinitions="Auto,*">
-                                                <Label Text="{Binding Name}" Margin="10,5,0,5" />
-                                                <Label 
-                                                    TextColor = "{Binding CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}"
-                                                    Margin="0,5,10,5" HorizontalTextAlignment="End">
+                                                <Label Grid.Row ="0" Text="{Binding Name}" Margin="10,5,0,0" />
+                                                <Label
+                                                    Grid.Row ="1" 
+                                                    FontSize="12"                                                    
+                                                    TextColor = "{Binding TestPointCount,  Converter={StaticResource IntZeroToObjectConverter}}"
+                                                    Margin="10,0,0,5">
                                                     <Label.FormattedText>
                                                         <FormattedString>
+                                                            <Span Text="{x:Static lang:AppResources.TestPointCountTrim}" />
+                                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                            <Span Text="{Binding TestPointCount}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label
+                                                    Grid.Row ="1"
+                                                    FontSize="12"
+                                                    TextColor = "{Binding CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}"
+                                                    Margin="0,0,10,5" HorizontalTextAlignment="End">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
+                                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                             <Span Text="{Binding CalcWithstandLoad}" />
                                                             <Span Text=" " />
-                                                            <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
+                                                            <Span Text="{x:Static lang:AppResources.WithstandLoadUnit}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>

@@ -429,7 +429,13 @@
   <data name="StairsElements" xml:space="preserve">
     <value>Элементы лестницы</value>
   </data>
-  <data name="WithstandLoad" xml:space="preserve">
+  <data name="WithstandLoadUnit" xml:space="preserve">
     <value>кгс</value>
+  </data>
+  <data name="TestPointCountTrim" xml:space="preserve">
+    <value>Точек испытаний</value>
+  </data>
+  <data name="WithstandLoad" xml:space="preserve">
+    <value>Нагрузка</value>
   </data>
 </root>

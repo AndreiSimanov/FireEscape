@@ -31,35 +31,25 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             var elementType = Type.GetType(elementSettings.Type);
             if (elementType == null)
                 continue;
-            var elementsCount = stairs.StairsElements.Where(item => item.GetType() == elementType).Count();
+            var stairsElements = stairs.StairsElements.Where(item => item.GetType() == elementType).ToList();
+            var elementsCount = stairsElements.Count();
             if (elementsCount >= elementSettings.MaxCount)
                 continue;
-            var stairsElement = CreateElement(elementType, elementSettings);
+            var elementNumber = stairsElements.Any() ? stairsElements.Max(element => element.ElementNumber) + 1 : 1;
+            var stairsElement = CreateElement(elementType, elementNumber, elementSettings);
             if (stairsElement == null)
                 continue;
             yield return stairsElement;
         }
     }
-
-    BaseStairsElement? CreateElement(Type type)
-    {
-        if (stairsSettings.StairsElementSettings == null)
-            return null;
-        var elementSettings = stairsSettings.StairsElementSettings.Where(item => item.Type == type.FullName).FirstOrDefault();
-        if (elementSettings == null)
-            return null;
-        return CreateElement(type, elementSettings);
-    }
-
-    BaseStairsElement? CreateElement(Type type, StairsElementSettings elementSettings)
+    BaseStairsElement? CreateElement(Type type, int elementNumber, StairsElementSettings elementSettings)
     {
         var stairsElement = Activator.CreateInstance(type) as BaseStairsElement;
         if (stairsElement != null)
         {
             stairsElement.PrintOrder = elementSettings.PrintOrder;
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
-            if (elementSettings.MaxCount > 1)
-                stairsElement.ElementNumber = "1";
+            stairsElement.ElementNumber = elementNumber;
             stairsElement.Deformation = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] };
             return stairsElement;
         }
@@ -75,7 +65,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             var elementType = Type.GetType(elementSetting.Type);
             if (elementType == null)
                 continue;
-            var stairsElement = CreateElement(elementType, elementSetting);
+            var stairsElement = CreateElement(elementType, 1, elementSetting);
             if (stairsElement == null)
                 continue;
             yield return stairsElement;

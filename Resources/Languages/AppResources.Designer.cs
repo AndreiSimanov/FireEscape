@@ -898,6 +898,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Точек испытаний.
+        /// </summary>
+        internal static string TestPointCountTrim {
+            get {
+                return ResourceManager.GetString("TestPointCountTrim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Незарегистрированная версия приложения либо действие учетной записи истекло. Сообщите номер {0} вендору приложения..
         /// </summary>
         internal static string UnregisteredApplicationMessage {
@@ -997,11 +1006,20 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to кгс.
+        ///   Looks up a localized string similar to Нагрузка.
         /// </summary>
         internal static string WithstandLoad {
             get {
                 return ResourceManager.GetString("WithstandLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to кгс.
+        /// </summary>
+        internal static string WithstandLoadUnit {
+            get {
+                return ResourceManager.GetString("WithstandLoadUnit", resourceCulture);
             }
         }
     }

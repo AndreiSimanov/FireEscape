@@ -8,6 +8,11 @@ namespace FireEscape.Views.Converters
         public override object? ConvertFrom(float value, CultureInfo? culture = null) => value == 0 ? TrueObject : FalseObject;
     }
 
+    public class IntZeroToObjectConverter : ZeroToObjectConverter<int, object>
+    {
+        public override object? ConvertFrom(int value, CultureInfo? culture = null) => value == 0 ? TrueObject : FalseObject;
+    }
+
     public abstract class ZeroToObjectConverter<TFrom, TTo> : BaseConverter<TFrom, TTo?> where TFrom : struct
     {
         public override TTo? DefaultConvertReturnValue { get; set; } = default;
