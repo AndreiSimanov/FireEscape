@@ -21,10 +21,11 @@
         BackgroundColor="{dx:ThemeColor Surface}">
         <ScrollView.Resources>
             <ResourceDictionary>
-                <conv:FloatZeroToObjectConverter x:Key="FloatZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
-                <conv:IntZeroToObjectConverter x:Key="IntZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
                 <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
                 <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
+                <conv:FloatZeroToObjectConverter x:Key="FloatZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
+                <conv:IntZeroToObjectConverter x:Key="IntZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
                 <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor SurfaceContainerHighest}" FalseObject="#D74F67" />
             </ResourceDictionary>
         </ScrollView.Resources>
@@ -104,9 +105,10 @@
                     <dx:DXSeparator SideMargin="0"/>
                     <dxe:NumericEdit
                         Style="{StaticResource DefaultNumericEdit}"
-                        Value="{Binding EditObject.SupportBeams.TestPointCount}"
-                        PlaceholderText="{x:Static lang:AppResources.TestPointCountHint}"
-                        LabelText="{x:Static lang:AppResources.TestPointCount}"/>
+                        IsVisible="{Binding EditObject.SupportBeams.SupportBeamsCountCaption, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                        Value="{Binding EditObject.SupportBeams.SupportBeamsCount}"
+                        PlaceholderText="{Binding EditObject.SupportBeams.SupportBeamsCountHint}"
+                        LabelText="{Binding EditObject.SupportBeams.SupportBeamsCountCaption}"/>
                     <ctrl:ServiceabilityControl
                         MaxDecimalDigitCount="1"
                         PlaceholderText ="{Binding DeformationHint}"
@@ -212,10 +214,17 @@
 
                                             <dxe:NumericEdit
                                                 Style="{StaticResource DefaultNumericEdit}"
-                                                IsVisible="{Binding IsTestPointCountsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                                                IsVisible="{Binding TestPointCountCaption, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Value="{Binding TestPointCount}"
-                                                PlaceholderText="{x:Static lang:AppResources.TestPointCountHint}"
-                                                LabelText="{x:Static lang:AppResources.TestPointCount}"/>
+                                                PlaceholderText="{Binding TestPointCountHint}"
+                                                LabelText="{Binding TestPointCountCaption}"/>
+
+                                            <dxe:NumericEdit
+                                                Style="{StaticResource DefaultNumericEdit}"
+                                                IsVisible="{Binding SupportBeamsCountCaption, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                                Value="{Binding SupportBeamsCount}"
+                                                PlaceholderText="{Binding SupportBeamsCountHint}"
+                                                LabelText="{Binding SupportBeamsCountCaption}"/>
 
                                             <ctrl:ServiceabilityControl
                                                 MaxDecimalDigitCount="1"

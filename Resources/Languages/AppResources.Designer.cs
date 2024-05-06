@@ -880,6 +880,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество балок (парами).
+        /// </summary>
+        internal static string SupportBeamsCount {
+            get {
+                return ResourceManager.GetString("SupportBeamsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите количество балок (парами).
+        /// </summary>
+        internal static string SupportBeamsCountHint {
+            get {
+                return ResourceManager.GetString("SupportBeamsCountHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Количество точек испытаний.
         /// </summary>
         internal static string TestPointCount {

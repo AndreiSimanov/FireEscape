@@ -6,4 +6,5 @@ public record StairsElementSettings(
     int PrintOrder,
     float WithstandLoad,
     bool Required,
-    int MaxCount);
+    int MaxCount,
+    int SupportBeamsCount);

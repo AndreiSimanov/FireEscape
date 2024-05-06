@@ -50,6 +50,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             stairsElement.PrintOrder = elementSettings.PrintOrder;
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
             stairsElement.ElementNumber = elementNumber;
+            stairsElement.SupportBeamsCount = elementSettings.SupportBeamsCount;
             stairsElement.Deformation = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] };
             return stairsElement;
         }

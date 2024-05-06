@@ -19,14 +19,11 @@ public abstract partial class BaseStairsElement : ObservableObject
     public virtual BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P1;
 
     [JsonIgnore]
-    public virtual bool IsTestPointCountsReadOnly => false;
-
-    [JsonIgnore]
     public virtual float CalcWithstandLoad => WithstandLoad;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     [NotifyPropertyChangedFor(nameof(TestPointCount))]
+    [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     [property: JsonIgnore]
     float? stairsHeight;
 
@@ -38,6 +35,8 @@ public abstract partial class BaseStairsElement : ObservableObject
     int elementNumber;
 
     int testPointCount;
+
+    [JsonIgnore]
     public virtual int TestPointCount
     {
         get => testPointCount;
@@ -46,11 +45,16 @@ public abstract partial class BaseStairsElement : ObservableObject
             if (testPointCount != value)
             {
                 testPointCount = value;
-                OnPropertyChanged(nameof(CalcWithstandLoad));
                 OnPropertyChanged(nameof(TestPointCount));
+                OnPropertyChanged(nameof(CalcWithstandLoad));
             }
         }
     }
+
+    [JsonIgnore]
+    public virtual string TestPointCountCaption => string.Empty;
+    [JsonIgnore]
+    public virtual string TestPointCountHint => string.Empty;
 
     [ObservableProperty]
     float withstandLoad;
@@ -58,6 +62,16 @@ public abstract partial class BaseStairsElement : ObservableObject
     bool serviceability;
     [ObservableProperty]
     ServiceabilityProperty<float?> deformation = new();
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(TestPointCount))]
+    [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
+    int supportBeamsCount;
+
+    [JsonIgnore]
+    public virtual string SupportBeamsCountCaption => string.Empty;
+    [JsonIgnore]
+    public virtual string SupportBeamsCountHint => string.Empty;
 
     public override string ToString() => Name;
 }

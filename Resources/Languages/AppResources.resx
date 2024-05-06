@@ -438,4 +438,10 @@
   <data name="WithstandLoad" xml:space="preserve">
     <value>Нагрузка</value>
   </data>
+  <data name="SupportBeamsCount" xml:space="preserve">
+    <value>Количество балок (парами)</value>
+  </data>
+  <data name="SupportBeamsCountHint" xml:space="preserve">
+    <value>Укажите количество балок (парами)</value>
+  </data>
 </root>

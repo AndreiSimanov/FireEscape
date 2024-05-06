@@ -438,4 +438,10 @@
   <data name="WithstandLoad" xml:space="preserve">
     <value>Withstand load</value>
   </data>
+  <data name="SupportBeamsCount" xml:space="preserve">
+    <value>Support beams count (in pairs)</value>
+  </data>
+  <data name="SupportBeamsCountHint" xml:space="preserve">
+    <value>Specify support beams count (in pairs)</value>
+  </data>
 </root>
