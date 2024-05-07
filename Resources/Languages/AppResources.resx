@@ -445,12 +445,18 @@
     <value>Укажите высоту ограждения в {0}.</value>
   </data>
   <data name="SupportBeamsCount" xml:space="preserve">
-    <value>Количество балок (парами)</value>
+    <value>Количество балок</value>
   </data>
   <data name="SupportBeamsCountHint" xml:space="preserve">
-    <value>Укажите количество балок (парами)</value>
+    <value>Укажите количество балок</value>
   </data>
   <data name="SelectStairsElement" xml:space="preserve">
     <value>Выберете элемент</value>
+  </data>
+  <data name="SupportBeamsPairsCount" xml:space="preserve">
+    <value>Количество балок (парами)</value>
+  </data>
+  <data name="SupportBeamsPairsCountHint" xml:space="preserve">
+    <value>Укажите количество балок (парами)</value>
   </data>
 </root>

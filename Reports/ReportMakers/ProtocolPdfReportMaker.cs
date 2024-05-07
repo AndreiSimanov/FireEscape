@@ -12,6 +12,7 @@ namespace FireEscape.Reports.ReportMakers
 {
     public static class ProtocolPdfReportMaker
     {
+        const string DEFAULT_FLOAT_FORMAT = "0.0";
         public static async Task<string> MakeReportAsync(ProtocolReportDataProvider protocolRdp, string filePath)
         {
             var document = await PdfReportWriter.GetPdfDocumentAsync(filePath);
@@ -91,7 +92,7 @@ namespace FireEscape.Reports.ReportMakers
                 .SetFixedLeading(8)
                 .AddAll(new[] {
                     new Text("Высота лестницы: ").SetBold(),
-                    new Text(protocolRdp.StairsHeight.ToString()).SetBold().SetUnderline(),
+                    new Text(protocolRdp.StairsHeight.ToString(DEFAULT_FLOAT_FORMAT)).SetBold().SetUnderline(),
                     new Text(" м.")}));
 
             document.Add(new Paragraph()
@@ -150,14 +151,25 @@ namespace FireEscape.Reports.ReportMakers
             document.Add(table);
         }
 
-        static void MakeTestResultsRow(Table table, BaseStairsElement stairsElement)
+        static void MakeTestResultsRow(Table table, StairsElementResult stairsElementResult)
         {
             table.StartNewRow();
             table.AddCell(MakeCell(table.GetNumberOfRows().ToString(), alignment: TextAlignment.CENTER));
-            table.AddCell(MakeCell(stairsElement.Name));
-            table.AddCell(MakeCell(stairsElement.TestPointCount.ToString(), true, TextAlignment.CENTER));
-            table.AddCell(MakeCell(stairsElement.CalcWithstandLoad.ToString(), true, TextAlignment.CENTER));
-            table.AddCell(MakeCell("Соответствует требованиям\r\nГОСТ Р. 53254-2009\r\n", alignment: TextAlignment.CENTER));
+            table.AddCell(MakeCell(stairsElementResult.Name));
+
+            var testPointCount = stairsElementResult.TestPointCount == 0 ? "-" : stairsElementResult.TestPointCount.ToString();
+            table.AddCell(MakeCell(testPointCount, true, TextAlignment.CENTER));
+
+            var calcWithstandLoad = stairsElementResult.TestPointCount == 0 ? "-" :  stairsElementResult.CalcWithstandLoad.ToString(DEFAULT_FLOAT_FORMAT);
+            table.AddCell(MakeCell(calcWithstandLoad, true, TextAlignment.CENTER));
+
+            var serviceability = stairsElementResult.TestPointCount == 0 ?
+                "-" :
+                stairsElementResult.Summary.Any() ?
+                    "Не соответствует требованиям\r\nГОСТ Р. 53254-2009\r\n" :
+                    "Соответствует требованиям\r\nГОСТ Р. 53254-2009\r\n";
+
+            table.AddCell(MakeCell(serviceability, alignment: TextAlignment.CENTER));
         }
 
         static Cell MakeCell(string text, bool bold = false, TextAlignment? alignment = null )

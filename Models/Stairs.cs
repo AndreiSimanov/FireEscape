@@ -1,5 +1,6 @@
 ﻿using DevExpress.Maui.Core.Internal;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Text.Json.Serialization;
 
 namespace FireEscape.Models;
@@ -21,7 +22,7 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: Column(nameof(StepsCount))]
-    int? stepsCount;
+    int stepsCount;
 
     [ObservableProperty]
     [property: Column(nameof(WeldSeamServiceability))]
@@ -38,31 +39,50 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsHeightBlob))]
-    ServiceabilityProperty<float?> stairsHeight = new();
+    ServiceabilityProperty<float> stairsHeight = new();
     public string? StairsHeightBlob { get; set; }
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsWidthBlob))]
-    ServiceabilityProperty<int?> stairsWidth = new();
+    ServiceabilityProperty<int> stairsWidth = new();
     public string? StairsWidthBlob { get; set; }
 
-    [property: Ignore]
-    [property: JsonIgnore]
+    [Ignore]
+    [JsonIgnore]
     public SupportBeamsP1? SupportBeams => StairsElements.FirstOrDefault(element => element.GetType() == typeof(SupportBeamsP1)) as SupportBeamsP1;
+
+    [Ignore]
+    [JsonIgnore]
+    public BaseStairsTypeEnum BaseStairsType => StairsType.BaseStairsType;
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsElementsBlob))]
     ObservableCollection<BaseStairsElement> stairsElements = new();
+
     public string? StairsElementsBlob { get; set; }
 
-    [RelayCommand]
-    void UpdatStairsElements() => GetAllStairsElements().ForEach(element => element.StairsHeight = StairsHeight.Value);
+    public void UpdatStairsElements() => StairsElements.ForEach(UpdateStairsElement);
 
-    public IEnumerable<BaseStairsElement> GetAllStairsElements()
+    partial void OnStairsElementsChanged(ObservableCollection<BaseStairsElement> value)
     {
-        foreach (var element in StairsElements)
-            yield return element;
-        if (SupportBeams != null)
-            yield return SupportBeams;
+        if (value != null)
+        {
+            UpdatStairsElements();
+            value.CollectionChanged += OnStairsElementsChanged;
+        }
+    }
+
+    void OnStairsElementsChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.NewItems == null)
+            return;
+        foreach (BaseStairsElement element in e.NewItems)
+            UpdateStairsElement(element);
+    }
+
+    void UpdateStairsElement(BaseStairsElement element)
+    {
+        element.StairsHeight = StairsHeight.Value;
+        element.StepsCount = StepsCount;
     }
 }

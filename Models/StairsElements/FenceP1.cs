@@ -3,5 +3,5 @@
 public class FenceP1 : BaseStairsElement
 {
     public override string Name => AppResources.StairsFence;
-    public override int TestPointCount => (int)(StairsHeight.HasValue ? Math.Ceiling(StairsHeight.Value / TEST_POINT_DIVIDER) : 0);
+    public override int TestPointCount => (int)Math.Floor(StairsHeight / FENCE_TEST_POINT_DIVIDER);
 }

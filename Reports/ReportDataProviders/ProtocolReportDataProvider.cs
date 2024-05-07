@@ -1,6 +1,8 @@
-﻿namespace FireEscape.Reports.ReportDataProviders;
+﻿using FireEscape.Factories.Interfaces;
 
-public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs stairs, StairsSettings stairsSettings, UserAccount userAccount)
+namespace FireEscape.Reports.ReportDataProviders;
+
+public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs stairs, IStairsFactory stairsFactory, StairsSettings stairsSettings, UserAccount userAccount)
 {
     public const string EMPTY_SIGNATURE = "___________________";
 
@@ -27,10 +29,10 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     public string FullAddress => Location + ", " + Address;
     public int FireEscapeNum => protocol.FireEscapeNum;
 
-    public float StairsHeight => stairs.StairsHeight.Value ?? 0f;
-    public int StairsWidth => stairs.StairsWidth.Value.HasValue ? (int)stairs.StairsWidth.Value * stairsSettings.DefaultUnitMultiplier : 0;
+    public float StairsHeight => stairs.StairsHeight.Value;
+    public int StairsWidth => stairs.StairsWidth.Value * stairsSettings.DefaultUnitMultiplier;
 
-    public int StepsCount => stairs.StepsCount ?? 0;
+    public int StepsCount => stairs.StepsCount;
 
     public string TestEquipment => stairs.StairsType.Type == StairsTypeEnum.P2
         ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
@@ -69,7 +71,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             return summary;
 
         CheckServiceability(summary, stairs.StairsHeight,
-            item => (item ?? 0f) > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
+            item => item > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
             $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м" + " ({0}м)",
             "высота лестницы не соответствует ГОСТ");
 
@@ -104,11 +106,17 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             summary.Add(defaultExplanation);
     }
 
-    public List<BaseStairsElement> GetStairsElements() // todo: group elements by WithstandLoad
+    public List<StairsElementResult> GetStairsElements() // todo: group elements by Type & WithstandLoad
     {
-        return stairs.StairsElements
-            .Where(stairsElement => stairsElement.BaseStairsType == stairs.StairsType.BaseStairsType)
-            .OrderBy(stairsElement => stairsElement.PrintOrder)
-            .ThenBy(stairsElement => stairsElement.Name) .ToList();
+        var result = stairs.StairsElements
+            .Where(stairsElement => stairsElement.BaseStairsType == stairs.BaseStairsType)
+            .Select(element => new StairsElementResult(element.Name, element.GetType().FullName!, element.PrintOrder, element.TestPointCount, element.CalcWithstandLoad, []))
+            .ToList();
+
+        result.AddRange(stairsFactory.GetAvailableStairsElements(stairs)
+            .Where(element => !result.Any(item => string.Equals(item.TypeName, element.GetType().FullName)))
+            .Select(element => new StairsElementResult(element.Name, element.GetType().FullName!, element.PrintOrder, 0, 0, [])));
+
+        return result.OrderBy(stairsElement => stairsElement.PrintOrder).ThenBy(stairsElement => stairsElement.Name).ToList();
     }
 }

@@ -13,8 +13,8 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         OrderId = (protocol == null) ? 0 : protocol.OrderId,
         Created = DateTime.Now,
         Updated = DateTime.Now,
-        StairsHeight = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
-        StairsWidth = new ServiceabilityProperty<int?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
+        StairsHeight = new ServiceabilityProperty<float>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
+        StairsWidth = new ServiceabilityProperty<int>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
         StairsType = stairsSettings.StairsTypes![0],
         StairsMountType = stairsSettings.StairsMountTypes![0],
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
@@ -26,9 +26,9 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;
-        foreach (var elementSettings in stairsSettings.StairsElementSettings.Where(item => item.BaseStairsType == stairs.StairsType.BaseStairsType))
+        foreach (var elementSettings in stairsSettings.StairsElementSettings.Where(item => item.BaseStairsType == stairs.BaseStairsType))
         {
-            var elementType = Type.GetType(elementSettings.Type);
+            var elementType = Type.GetType(elementSettings.TypeName);
             if (elementType == null)
                 continue;
             var stairsElements = stairs.StairsElements.Where(item => item.GetType() == elementType).ToList();
@@ -51,7 +51,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
             stairsElement.ElementNumber = elementNumber;
             stairsElement.SupportBeamsCount = elementSettings.SupportBeamsCount;
-            stairsElement.Deformation = new ServiceabilityProperty<float?>() { Serviceability = stairsSettings.ServiceabilityTypes![0] };
+            stairsElement.Deformation = new ServiceabilityProperty<float>() { Serviceability = stairsSettings.ServiceabilityTypes![0] };
             return stairsElement;
         }
         return null;
@@ -63,7 +63,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             yield break;
         foreach (var elementSetting in stairsSettings.StairsElementSettings.Where(item => item.Required))
         {
-            var elementType = Type.GetType(elementSetting.Type);
+            var elementType = Type.GetType(elementSetting.TypeName);
             if (elementType == null)
                 continue;
             var stairsElement = CreateElement(elementType, 1, elementSetting);

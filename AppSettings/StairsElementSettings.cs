@@ -2,7 +2,7 @@
 
 public record StairsElementSettings(
     BaseStairsTypeEnum BaseStairsType,
-    string Type,
+    string TypeName,
     int PrintOrder,
     float WithstandLoad,
     bool Required,

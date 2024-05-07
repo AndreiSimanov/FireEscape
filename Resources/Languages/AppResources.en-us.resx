@@ -445,12 +445,18 @@
     <value>Specify stairs fence height ({0})</value>
   </data>
   <data name="SupportBeamsCount" xml:space="preserve">
-    <value>Support beams count (in pairs)</value>
+    <value>Support beams count</value>
   </data>
   <data name="SupportBeamsCountHint" xml:space="preserve">
-    <value>Specify support beams count (in pairs)</value>
+    <value>Specify support beams count</value>
   </data>
   <data name="SelectStairsElement" xml:space="preserve">
     <value>Select stairs element</value>
+  </data>
+  <data name="SupportBeamsPairsCount" xml:space="preserve">
+    <value>Support beams count (in pairs)</value>
+  </data>
+  <data name="SupportBeamsPairsCountHint" xml:space="preserve">
+    <value>Specify support beams count (in pairs)</value>
   </data>
 </root>

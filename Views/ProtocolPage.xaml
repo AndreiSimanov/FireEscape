@@ -63,17 +63,17 @@
                         </Image>
                     </Border>
                     <HorizontalStackLayout Grid.Row="2" Margin="0,10,0,0">
-                        <dx:DXButton
-                            Content="{x:Static lang:AppResources.MakePhotoHint}"
-                            Command="{Binding AddPhotoCommand}" 
-                            WidthRequest="160"
-                            Icon="photo" IconHeight="22" IconWidth="22">
-                        </dx:DXButton>
                         <dx:DXButton 
                             Content="{x:Static lang:AppResources.SelectPhotoHint}" 
                             Command="{Binding SelectPhotoCommand}" 
                             WidthRequest="160"
-                            Icon="image" Margin="20,0,0,0" IconHeight="22" IconWidth="22"/>
+                            Icon="image" IconHeight="22" IconWidth="22"/>
+                        <dx:DXButton
+                            Content="{x:Static lang:AppResources.MakePhotoHint}"
+                            Command="{Binding AddPhotoCommand}" 
+                            WidthRequest="160"
+                            Icon="photo" Margin="20,0,0,0" IconHeight="22" IconWidth="22">
+                        </dx:DXButton>
                     </HorizontalStackLayout>
                 </Grid>
             </VerticalStackLayout>

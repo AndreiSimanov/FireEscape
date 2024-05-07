@@ -7,7 +7,8 @@ public abstract partial class BaseStairsElement : ObservableObject
     public const float K1 = 2.5f;
     public const float K2 = 120f;
     public const float K3 = 1.5f;
-    public const float TEST_POINT_DIVIDER = 1.5f;
+    public const float FENCE_TEST_POINT_DIVIDER = 1.5f;
+    public const float STEPS_TEST_POINT_DIVIDER = 5f;
 
     public static string DefaultUnit { get; set; } = string.Empty;
     public static int DefaultUnitMultiplier { get; set; }
@@ -28,7 +29,13 @@ public abstract partial class BaseStairsElement : ObservableObject
     [NotifyPropertyChangedFor(nameof(TestPointCount))]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     [property: JsonIgnore]
-    float? stairsHeight;
+    float stairsHeight;
+
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(TestPointCount))]
+    [property: JsonIgnore]
+    int stepsCount;
 
     [ObservableProperty]
     int printOrder;
@@ -37,34 +44,16 @@ public abstract partial class BaseStairsElement : ObservableObject
     [NotifyPropertyChangedFor(nameof(Name))]
     int elementNumber;
 
-    int testPointCount;
 
     [JsonIgnore]
-    public virtual int TestPointCount
-    {
-        get => testPointCount;
-        set
-        {
-            if (testPointCount != value)
-            {
-                testPointCount = value;
-                OnPropertyChanged(nameof(TestPointCount));
-                OnPropertyChanged(nameof(CalcWithstandLoad));
-            }
-        }
-    }
-
-    [JsonIgnore]
-    public virtual string TestPointCountCaption => string.Empty;
-    [JsonIgnore]
-    public virtual string TestPointCountHint => string.Empty;
+    public virtual int TestPointCount => 0;
 
     [ObservableProperty]
     float withstandLoad;
     [ObservableProperty]
     bool serviceability;
     [ObservableProperty]
-    ServiceabilityProperty<float?> deformation = new();
+    ServiceabilityProperty<float> deformation = new();
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TestPointCount))]

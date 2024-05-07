@@ -20,6 +20,9 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     }
 
     [RelayCommand]
+    void UpdatStairsElements() => EditObject?.UpdatStairsElements();
+
+    [RelayCommand]
     async Task AddStairsElementAsync()
     {
         await DoCommandAsync(async () =>
@@ -35,10 +38,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                     var action = await Shell.Current.DisplayActionSheet(AppResources.SelectStairsElement, AppResources.Cancel, string.Empty, elementNames);
                     var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
                     if (element != null)
-                    {
-                        element.StairsHeight = EditObject.StairsHeight.Value;
                         EditObject.StairsElements.Insert(0, element);
-                    }
                 }
             }
         },
@@ -61,13 +61,6 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         },
         element,
         AppResources.DeleteStairsElementError);
-
-    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(EditObject))
-            EditObject?.UpdatStairsElementsCommand.Execute(null);
-        base.OnPropertyChanged(e);
-    }
 
     protected override async Task SaveEditObjectAsync() =>
        await DoCommandAsync(async () =>
