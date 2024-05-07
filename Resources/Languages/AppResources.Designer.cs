@@ -718,6 +718,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберете элемент.
+        /// </summary>
+        internal static string SelectStairsElement {
+            get {
+                return ResourceManager.GetString("SelectStairsElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Соотв. ГОСТ.
         /// </summary>
         internal static string Serviceability {
@@ -750,6 +759,24 @@ namespace FireEscape.Resources.Languages {
         internal static string StairsFence {
             get {
                 return ResourceManager.GetString("StairsFence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Высота ограждения ({0}).
+        /// </summary>
+        internal static string StairsFenceHeight {
+            get {
+                return ResourceManager.GetString("StairsFenceHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите высоту ограждения в {0}..
+        /// </summary>
+        internal static string StairsFenceHeightHint {
+            get {
+                return ResourceManager.GetString("StairsFenceHeightHint", resourceCulture);
             }
         }
         

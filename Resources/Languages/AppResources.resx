@@ -438,10 +438,19 @@
   <data name="WithstandLoad" xml:space="preserve">
     <value>Нагрузка</value>
   </data>
+  <data name="StairsFenceHeight" xml:space="preserve">
+    <value>Высота ограждения ({0})</value>
+  </data>
+  <data name="StairsFenceHeightHint" xml:space="preserve">
+    <value>Укажите высоту ограждения в {0}.</value>
+  </data>
   <data name="SupportBeamsCount" xml:space="preserve">
     <value>Количество балок (парами)</value>
   </data>
   <data name="SupportBeamsCountHint" xml:space="preserve">
     <value>Укажите количество балок (парами)</value>
+  </data>
+  <data name="SelectStairsElement" xml:space="preserve">
+    <value>Выберете элемент</value>
   </data>
 </root>

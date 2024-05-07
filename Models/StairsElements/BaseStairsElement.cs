@@ -9,6 +9,9 @@ public abstract partial class BaseStairsElement : ObservableObject
     public const float K3 = 1.5f;
     public const float TEST_POINT_DIVIDER = 1.5f;
 
+    public static string DefaultUnit { get; set; } = string.Empty;
+    public static int DefaultUnitMultiplier { get; set; }
+
     [JsonIgnore]
     public virtual string Name => string.Empty;
 
@@ -67,11 +70,24 @@ public abstract partial class BaseStairsElement : ObservableObject
     [NotifyPropertyChangedFor(nameof(TestPointCount))]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     int supportBeamsCount;
-
     [JsonIgnore]
     public virtual string SupportBeamsCountCaption => string.Empty;
     [JsonIgnore]
     public virtual string SupportBeamsCountHint => string.Empty;
+
+    [ObservableProperty]
+    float elementHeight;
+    [JsonIgnore]
+    public virtual string ElementHeightCaption => string.Empty;
+    [JsonIgnore]
+    public virtual string ElementHeightHint => string.Empty;
+
+    [ObservableProperty]
+    float elementWidth;
+    [JsonIgnore]
+    public virtual string ElementWidthCaption => string.Empty;
+    [JsonIgnore]
+    public virtual string ElementWidthHint => string.Empty;
 
     public override string ToString() => Name;
 }

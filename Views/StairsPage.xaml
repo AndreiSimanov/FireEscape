@@ -69,7 +69,6 @@
                 IsVisible="{Binding EditObject.StairsType.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:BaseStairsTypeEnum.P1}}"
                 Style="{StaticResource CardView}" Margin="10" Padding="0,0,0,10">
                 <StackLayout>
-                    
                     <Grid RowDefinitions="Auto,*">
                         <Label Grid.Row ="0" Text="{Binding EditObject.SupportBeams.Name}" Margin="10,5,0,0" />
                         <Label
@@ -101,7 +100,6 @@
                             </Label.FormattedText>
                         </Label>
                     </Grid>
-                    
                     <dx:DXSeparator SideMargin="0"/>
                     <dxe:NumericEdit
                         Style="{StaticResource DefaultNumericEdit}"
@@ -225,6 +223,14 @@
                                                 Value="{Binding SupportBeamsCount}"
                                                 PlaceholderText="{Binding SupportBeamsCountHint}"
                                                 LabelText="{Binding SupportBeamsCountCaption}"/>
+
+                                            <dxe:NumericEdit
+                                                Style="{StaticResource DefaultNumericEdit}"
+                                                IsVisible="{Binding ElementHeightCaption, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                                Value="{Binding ElementHeight}"
+                                                MaxDecimalDigitCount="1"
+                                                PlaceholderText="{Binding ElementHeightHint}"
+                                                LabelText="{Binding ElementHeightCaption}"/>
 
                                             <ctrl:ServiceabilityControl
                                                 MaxDecimalDigitCount="1"

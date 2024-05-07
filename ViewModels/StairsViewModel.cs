@@ -4,9 +4,20 @@ using System.ComponentModel;
 
 namespace FireEscape.ViewModels;
 
-public partial class StairsViewModel(StairsService stairsService, IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory) : BaseEditViewModel<Stairs>
+public partial class StairsViewModel : BaseEditViewModel<Stairs>
 {
-    public StairsSettings StairsSettings { get; private set; } = stairsSettings.Value;
+    private readonly StairsService stairsService;
+    private readonly IStairsFactory stairsFactory;
+    public StairsSettings StairsSettings { get; private set; }
+
+    public StairsViewModel(StairsService stairsService, IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory)
+    {
+        this.stairsService = stairsService;
+        this.stairsFactory = stairsFactory;
+        StairsSettings = stairsSettings.Value;
+        BaseStairsElement.DefaultUnit = StairsSettings.DefaultUnit;
+        BaseStairsElement.DefaultUnitMultiplier = StairsSettings.DefaultUnitMultiplier;
+    }
 
     [RelayCommand]
     async Task AddStairsElementAsync()
@@ -21,7 +32,7 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
                 var elementNames = availableStairsElements.Select(item => item.ToString()).ToArray();
                 if (elementNames.Any())
                 {
-                    var action = await Shell.Current.DisplayActionSheet("Выберете элемент", AppResources.Cancel, string.Empty, elementNames);
+                    var action = await Shell.Current.DisplayActionSheet(AppResources.SelectStairsElement, AppResources.Cancel, string.Empty, elementNames);
                     var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
                     if (element != null)
                     {
@@ -66,9 +77,9 @@ public partial class StairsViewModel(StairsService stairsService, IOptions<Stair
        EditObject,
        AppResources.SaveProtocolError);
 
-    public string StairsWidth => string.Format(AppResources.StairsWidth, StairsSettings.DefaultUnit);
-    public string StairsWidthHint => string.Format(AppResources.StairsWidthHint, StairsSettings.DefaultUnit);
+    public string StairsWidth => string.Format(AppResources.StairsWidth, BaseStairsElement.DefaultUnit);
+    public string StairsWidthHint => string.Format(AppResources.StairsWidthHint, BaseStairsElement.DefaultUnit);
 
-    public string Deformation => string.Format(AppResources.Deformation, StairsSettings.DefaultUnit);
-    public string DeformationHint => string.Format(AppResources.DeformationHint, StairsSettings.DefaultUnit);
+    public string Deformation => string.Format(AppResources.Deformation, BaseStairsElement.DefaultUnit);
+    public string DeformationHint => string.Format(AppResources.DeformationHint, BaseStairsElement.DefaultUnit);
 }

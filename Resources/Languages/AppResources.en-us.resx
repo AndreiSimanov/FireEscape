@@ -438,10 +438,19 @@
   <data name="WithstandLoad" xml:space="preserve">
     <value>Withstand load</value>
   </data>
+  <data name="StairsFenceHeight" xml:space="preserve">
+    <value>Stairs fence height ({0})</value>
+  </data>
+  <data name="StairsFenceHeightHint" xml:space="preserve">
+    <value>Specify stairs fence height ({0})</value>
+  </data>
   <data name="SupportBeamsCount" xml:space="preserve">
     <value>Support beams count (in pairs)</value>
   </data>
   <data name="SupportBeamsCountHint" xml:space="preserve">
     <value>Specify support beams count (in pairs)</value>
+  </data>
+  <data name="SelectStairsElement" xml:space="preserve">
+    <value>Select stairs element</value>
   </data>
 </root>
