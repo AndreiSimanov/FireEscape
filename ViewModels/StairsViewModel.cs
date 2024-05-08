@@ -23,6 +23,9 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     void UpdatStairsElements() => EditObject?.UpdatStairsElements();
 
     [RelayCommand]
+    void UpdateStepsCount() => EditObject?.UpdateStepsCount();
+
+    [RelayCommand]
     async Task AddStairsElementAsync()
     {
         await DoCommandAsync(async () =>
@@ -38,7 +41,10 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                     var action = await Shell.Current.DisplayActionSheet(AppResources.SelectStairsElement, AppResources.Cancel, string.Empty, elementNames);
                     var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
                     if (element != null)
+                    {
+                        EditObject.UpdatStairsElement(element);
                         EditObject.StairsElements.Insert(0, element);
+                    }
                 }
             }
         },
@@ -58,6 +64,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                 return;
 
             EditObject!.StairsElements.Remove(element);
+            EditObject!.UpdateStepsCount();
         },
         element,
         AppResources.DeleteStairsElementError);

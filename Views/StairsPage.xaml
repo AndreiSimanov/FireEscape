@@ -121,12 +121,13 @@
             <dxe:NumericEdit
                 Style="{StaticResource DefaultNumericEdit}"
                 Value="{Binding EditObject.StepsCount}"
+                IsEnabled="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:BaseStairsTypeEnum.P1}}"
                 ValueChangedCommand="{Binding UpdatStairsElementsCommand}"
                 PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"
                 LabelText="{x:Static lang:AppResources.StepsCount}"/>
 
             <ctrl:ServiceabilityControl
-                MaxValue="100"
+                MaxValue="1000"
                 MaxDecimalDigitCount="2"
                 PlaceholderText ="{x:Static lang:AppResources.StairsHeightHint}"
                 LabelText ="{x:Static lang:AppResources.StairsHeight}"
@@ -225,6 +226,14 @@
                                                 MaxDecimalDigitCount="1"
                                                 PlaceholderText="{Binding ElementHeightHint}"
                                                 LabelText="{Binding ElementHeightCaption}"/>
+
+                                            <dxe:NumericEdit
+                                                Style="{StaticResource DefaultNumericEdit}"
+                                                IsVisible="{Binding StepsCountCaption, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                                Value="{Binding ElementStepsCount}"
+                                                ValueChangedCommand="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=UpdateStepsCountCommand}"
+                                                PlaceholderText="{Binding StepsCountHint}"
+                                                LabelText="{Binding StepsCountCaption}"/>
 
                                             <ctrl:ServiceabilityControl
                                                 MaxDecimalDigitCount="1"

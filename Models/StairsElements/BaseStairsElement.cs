@@ -25,17 +25,19 @@ public abstract partial class BaseStairsElement : ObservableObject
     [JsonIgnore]
     public virtual float CalcWithstandLoad => WithstandLoad;
 
+    [JsonIgnore]
+    public virtual int TestPointCount => 0;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TestPointCount))]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     [property: JsonIgnore]
     float stairsHeight;
 
-
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TestPointCount))]
     [property: JsonIgnore]
-    int stepsCount;
+    int stairsStepsCount;
 
     [ObservableProperty]
     int printOrder;
@@ -44,14 +46,12 @@ public abstract partial class BaseStairsElement : ObservableObject
     [NotifyPropertyChangedFor(nameof(Name))]
     int elementNumber;
 
-
-    [JsonIgnore]
-    public virtual int TestPointCount => 0;
-
     [ObservableProperty]
     float withstandLoad;
+
     [ObservableProperty]
     bool serviceability;
+
     [ObservableProperty]
     ServiceabilityProperty<float> deformation = new();
 
@@ -59,24 +59,47 @@ public abstract partial class BaseStairsElement : ObservableObject
     [NotifyPropertyChangedFor(nameof(TestPointCount))]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     int supportBeamsCount;
-    [JsonIgnore]
-    public virtual string SupportBeamsCountCaption => string.Empty;
-    [JsonIgnore]
-    public virtual string SupportBeamsCountHint => string.Empty;
 
     [ObservableProperty]
     float elementHeight;
-    [JsonIgnore]
-    public virtual string ElementHeightCaption => string.Empty;
-    [JsonIgnore]
-    public virtual string ElementHeightHint => string.Empty;
 
     [ObservableProperty]
     float elementWidth;
+
+    [ObservableProperty]
+    int elementStepsCount;
+
+    [JsonIgnore]
+    public virtual string StepsCountCaption => string.Empty;
+
+    [JsonIgnore]
+    public virtual string StepsCountHint => string.Empty;
+
+    [JsonIgnore]
+    public virtual string SupportBeamsCountCaption => string.Empty;
+
+    [JsonIgnore]
+    public virtual string SupportBeamsCountHint => string.Empty;
+
+    [JsonIgnore]
+    public virtual string ElementHeightCaption => string.Empty;
+
+    [JsonIgnore]
+    public virtual string ElementHeightHint => string.Empty;
+
     [JsonIgnore]
     public virtual string ElementWidthCaption => string.Empty;
+
     [JsonIgnore]
     public virtual string ElementWidthHint => string.Empty;
 
     public override string ToString() => Name;
+
+    static protected int CalcTestPointCount(float measure, float divider )
+    {
+        var count = measure / divider;
+        if (count > 0 && count < 1)
+            return 1;
+        return (int)Math.Floor(count);
+    }
 }

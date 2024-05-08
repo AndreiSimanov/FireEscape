@@ -34,6 +34,7 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsTypeBlob))]
+    [NotifyPropertyChangedFor(nameof(BaseStairsType))]
     StairsType stairsType;
     public string? StairsTypeBlob { get; set; }
 
@@ -61,28 +62,20 @@ public partial class Stairs : BaseObject
 
     public string? StairsElementsBlob { get; set; }
 
-    public void UpdatStairsElements() => StairsElements.ForEach(UpdateStairsElement);
-
-    partial void OnStairsElementsChanged(ObservableCollection<BaseStairsElement> value)
+    public void UpdateStepsCount()
     {
-        if (value != null)
-        {
-            UpdatStairsElements();
-            value.CollectionChanged += OnStairsElementsChanged;
-        }
+        if (BaseStairsType == BaseStairsTypeEnum.P2)
+            StepsCount = StairsElements.Where(element => element.GetType() == typeof(StairwayP2)).Sum(item => item.ElementStepsCount);
     }
 
-    void OnStairsElementsChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    public void UpdatStairsElements()
     {
-        if (e.NewItems == null)
-            return;
-        foreach (BaseStairsElement element in e.NewItems)
-            UpdateStairsElement(element);
+        StairsElements.ForEach(UpdatStairsElement);
     }
 
-    void UpdateStairsElement(BaseStairsElement element)
+    public void UpdatStairsElement(BaseStairsElement element)
     {
         element.StairsHeight = StairsHeight.Value;
-        element.StepsCount = StepsCount;
+        element.StairsStepsCount = StepsCount;
     }
 }

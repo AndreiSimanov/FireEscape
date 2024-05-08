@@ -473,7 +473,7 @@
     <Style TargetType="dxe:NumericEdit"  x:Key="DefaultNumericEdit">
         <Setter Property="SelectValueOnFocus" Value="True" />
         <Setter Property="MinValue" Value="0" />
-        <Setter Property="MaxValue" Value="10000" />
+        <Setter Property="MaxValue" Value="1000000" />
         <Setter Property="MaxDecimalDigitCount" Value="0" />
         <Setter Property="TextHorizontalAlignment" Value="Start" />
         <Setter Property="ReturnType" Value="Next" />
