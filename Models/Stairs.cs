@@ -1,6 +1,6 @@
 ﻿using DevExpress.Maui.Core.Internal;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace FireEscape.Models;
@@ -77,5 +77,12 @@ public partial class Stairs : BaseObject
     {
         element.StairsHeight = StairsHeight.Value;
         element.StairsStepsCount = StepsCount;
+    }
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        if (e.PropertyName == nameof(StairsElements))
+            UpdatStairsElements();
     }
 }
