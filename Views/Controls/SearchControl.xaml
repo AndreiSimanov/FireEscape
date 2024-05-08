@@ -38,7 +38,7 @@
             x:Name="clearSearchText"
             Clicked="SearchTextClicked" 
             HorizontalOptions="End"
-            Margin="0,-40,22,10"
+            Margin="0,-40,22,20"
             Icon="clearsearch"
             WidthRequest="20" 
             HeightRequest="20" Padding="0"
