@@ -1,9 +1,8 @@
-﻿namespace FireEscape.Views.BaseViews
+﻿namespace FireEscape.Views.BaseViews;
+
+public abstract class BaseUserAccountPage : BaseEditPage<UserAccountViewModel, UserAccount>
 {
-    public abstract class BaseUserAccountPage : BaseEditPage<UserAccountViewModel, UserAccount>
+    protected BaseUserAccountPage(UserAccountViewModel viewModel) : base(viewModel)
     {
-        protected BaseUserAccountPage(UserAccountViewModel viewModel) : base(viewModel)
-        {
-        }
     }
 }

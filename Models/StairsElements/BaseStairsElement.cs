@@ -96,6 +96,9 @@ public abstract partial class BaseStairsElement : ObservableObject
     [JsonIgnore]
     public virtual string ElementWidthHint => string.Empty;
 
+    [JsonIgnore]
+    public string TypeName => GetType().Name;
+
     public override string ToString() => Caption;
 
     static protected int CalcTestPointCount(float measure, float divider )

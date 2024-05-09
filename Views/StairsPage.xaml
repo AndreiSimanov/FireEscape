@@ -32,6 +32,7 @@
         <VerticalStackLayout>
             <dxe:ComboBoxEdit
                 SelectionChanged="StairsTypeChanged"
+                SelectionChangedCommand="{Binding UpdateStepsCountCommand}"
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.StairsTypesHint}"
                 SelectedItem="{Binding EditObject.StairsType}"
@@ -211,18 +212,19 @@
 
                                             <dx:DXSeparator SideMargin="0"/>
 
-
-                                            <StackLayout>
-
                                             <dxe:NumericEdit
+                                                x:Name="supportBeamsCountEdit"
+                                                Focused="EditorFocused"
                                                 Style="{StaticResource DefaultNumericEdit}"
                                                 IsVisible="{Binding SupportBeamsCountCaption, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
-                                                AllowNullValue="True"
                                                 Value="{Binding SupportBeamsCount}"
                                                 PlaceholderText="{Binding SupportBeamsCountHint}"
                                                 LabelText="{Binding SupportBeamsCountCaption}"/>
 
-                                            <dxe:NumericEdit
+                                            <dxe:NumericEdit 
+                                                
+                                                x:Name="elementHeightEdit"
+                                                Focused="EditorFocused"
                                                 Style="{StaticResource DefaultNumericEdit}"
                                                 IsVisible="{Binding ElementHeightCaption, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Value="{Binding ElementHeight}"
@@ -231,6 +233,8 @@
                                                 LabelText="{Binding ElementHeightCaption}"/>
 
                                             <dxe:NumericEdit
+                                                x:Name="elementStepsCountEdit"
+                                                Focused="EditorFocused"
                                                 Style="{StaticResource DefaultNumericEdit}"
                                                 IsVisible="{Binding StepsCountCaption, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Value="{Binding ElementStepsCount}"
@@ -239,6 +243,7 @@
                                                 LabelText="{Binding StepsCountCaption}"/>
 
                                             <ctrl:ServiceabilityControl
+                                                x:Name="deformationEdit"
                                                 MaxDecimalDigitCount="1"
                                                 PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=DeformationHint}"
                                                 LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=Deformation}"
@@ -247,7 +252,6 @@
                                                 ServiceabilityTypes ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"
                                                 RejectExplanationText ="{Binding Deformation.RejectExplanation}"/>
 
-                                            </StackLayout>
                                         </StackLayout>
                                     </Frame>
                                 </Grid>

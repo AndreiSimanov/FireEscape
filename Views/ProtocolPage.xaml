@@ -83,14 +83,14 @@
                     Command="{Binding GoToDetailsCommand}"
                     IsEnabled="{Binding IsNotBusy}"
                     Icon="edit" Margin="10,0,10,0" IconHeight="22" IconWidth="22"/>
+                <dxe:DateEdit
+                    Date="{Binding EditObject.ProtocolDate}"                    
+                    LabelText="{x:Static lang:AppResources.ProtocolDate}"/>
                 <dxe:NumericEdit
                     Style="{StaticResource DefaultNumericEdit}"
                     Value="{Binding EditObject.ProtocolNum}"
                     PlaceholderText="{x:Static lang:AppResources.ProtocolNum}"
                     LabelText="{x:Static lang:AppResources.ProtocolNum}"/>
-                <dxe:DateEdit
-                    Date="{Binding EditObject.ProtocolDate}"                    
-                    LabelText="{x:Static lang:AppResources.ProtocolDate}"/>
                 <dxe:TextEdit
                     Text="{Binding EditObject.Location}"
                     LabelText="{x:Static lang:AppResources.Location}"

@@ -25,4 +25,20 @@ public partial class StairsPage : BaseStairsPage
         if (stairsType != null)
             stairsElements.FilterString = $"[BaseStairsType] == {(int)stairsType.Value.BaseStairsType}";
     }
+
+    private void EditorFocused(object sender, FocusEventArgs e) // avoid set focus on invisible controls
+    {
+        var editor = sender as NumericEdit;
+        if (editor == null) 
+            return;
+        if (e.IsFocused && !editor.IsVisible)
+        {
+            var parent = editor.Parent as Layout;
+            if (parent != null)
+            {
+                var editorIdx = parent.Children.IndexOf(editor);
+                parent.Children[editorIdx +1].Focus();
+            }
+        }
+    }
 }
