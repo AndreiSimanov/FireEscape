@@ -97,6 +97,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ограждение лестниц.
+        /// </summary>
+        internal static string FenceP1 {
+            get {
+                return ResourceManager.GetString("FenceP1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to вертикальная лестница тип П1-1.
         /// </summary>
         internal static string P1_1 {
@@ -124,11 +133,56 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Площадка выхода на кровлю.
+        /// </summary>
+        internal static string PlatformP1 {
+            get {
+                return ResourceManager.GetString("PlatformP1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Площадка.
+        /// </summary>
+        internal static string PlatformP2 {
+            get {
+                return ResourceManager.GetString("PlatformP2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Нет.
         /// </summary>
         internal static string Reject {
             get {
                 return ResourceManager.GetString("Reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Марш.
+        /// </summary>
+        internal static string StairwayP2 {
+            get {
+                return ResourceManager.GetString("StairwayP2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ступени лестниц.
+        /// </summary>
+        internal static string StepsP1 {
+            get {
+                return ResourceManager.GetString("StepsP1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Балки крепления лестниц.
+        /// </summary>
+        internal static string SupportBeamsP1 {
+            get {
+                return ResourceManager.GetString("SupportBeamsP1", resourceCulture);
             }
         }
     }

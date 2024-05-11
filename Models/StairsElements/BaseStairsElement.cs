@@ -14,13 +14,16 @@ public abstract partial class BaseStairsElement : ObservableObject
     public static int DefaultUnitMultiplier { get; set; }
 
     [JsonIgnore]
-    public virtual string Name => string.Empty;
+    public virtual string Name => EnumDescriptionTypeConverter.GetEnumDescription(StairsElementType);
 
     [JsonIgnore]
     public virtual string Caption => Name;
 
     [JsonIgnore]
     public virtual bool Required => false;
+
+    [JsonIgnore]
+    public abstract StairsElementTypeEnum StairsElementType { get; }
 
     [JsonIgnore]
     public virtual BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P1;
@@ -95,9 +98,6 @@ public abstract partial class BaseStairsElement : ObservableObject
 
     [JsonIgnore]
     public virtual string ElementWidthHint => string.Empty;
-
-    [JsonIgnore]
-    public string TypeName => GetType().Name;
 
     public override string ToString() => Caption;
 

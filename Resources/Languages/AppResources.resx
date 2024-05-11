@@ -408,24 +408,6 @@
   <data name="TestPointCountHint" xml:space="preserve">
     <value>Укажите количество точек испытаний</value>
   </data>
-  <data name="StairsFence" xml:space="preserve">
-    <value>Ограждение лестниц</value>
-  </data>
-  <data name="StairsPlatform" xml:space="preserve">
-    <value>Площадка</value>
-  </data>
-  <data name="StairsRoofPlatform" xml:space="preserve">
-    <value>Площадка выхода на кровлю</value>
-  </data>
-  <data name="StairsSteps" xml:space="preserve">
-    <value>Ступени лестниц</value>
-  </data>
-  <data name="Stairway" xml:space="preserve">
-    <value>Марш</value>
-  </data>
-  <data name="SupportBeams" xml:space="preserve">
-    <value>Балки крепления лестниц</value>
-  </data>
   <data name="StairsElements" xml:space="preserve">
     <value>Элементы лестницы</value>
   </data>

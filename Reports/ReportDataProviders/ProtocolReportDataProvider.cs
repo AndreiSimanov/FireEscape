@@ -106,18 +106,18 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     List<StairsElementResult>? stairsElementResults;
 
-    public List<StairsElementResult> GetStairsElements() // todo: group elements by Type & WithstandLoad
+    public List<StairsElementResult> GetStairsElements() // todo: group elements by StairsElementType & WithstandLoad
     {
         if (stairsElementResults != null)
             return stairsElementResults;
         stairsElementResults = stairs.StairsElements
             .Where(stairsElement => stairsElement.BaseStairsType == stairs.BaseStairsType)
-            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.TypeName, element.PrintOrder, element.TestPointCount, element.CalcWithstandLoad, []))
+            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, element.TestPointCount, element.CalcWithstandLoad, []))
             .ToList();
 
         stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(stairs)
-            .Where(element => !stairsElementResults.Any(item => string.Equals(item.TypeName, element.TypeName)))
-            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.TypeName, element.PrintOrder, 0, 0, [])));
+            .Where(element => !stairsElementResults.Any(item => string.Equals(item.StairsElementType, element.StairsElementType)))
+            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, 0, 0, [])));
 
         return stairsElementResults = stairsElementResults.OrderBy(stairsElement => stairsElement.PrintOrder).ThenBy(stairsElement => stairsElement.Name).ToList();
     }

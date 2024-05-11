@@ -129,6 +129,9 @@
   <data name="ElevationMounted" xml:space="preserve">
     <value>установленная на перепаде высот здания</value>
   </data>
+  <data name="FenceP1" xml:space="preserve">
+    <value>Ограждение лестниц</value>
+  </data>
   <data name="P1_1" xml:space="preserve">
     <value>вертикальная лестница тип П1-1</value>
   </data>
@@ -138,7 +141,22 @@
   <data name="P2" xml:space="preserve">
     <value>маршевая лестница тип П2</value>
   </data>
+  <data name="PlatformP1" xml:space="preserve">
+    <value>Площадка выхода на кровлю</value>
+  </data>
+  <data name="PlatformP2" xml:space="preserve">
+    <value>Площадка</value>
+  </data>
   <data name="Reject" xml:space="preserve">
     <value>Нет</value>
+  </data>
+  <data name="StairwayP2" xml:space="preserve">
+    <value>Марш</value>
+  </data>
+  <data name="StepsP1" xml:space="preserve">
+    <value>Ступени лестниц</value>
+  </data>
+  <data name="SupportBeamsP1" xml:space="preserve">
+    <value>Балки крепления лестниц</value>
   </data>
 </root>

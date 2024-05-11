@@ -129,6 +129,9 @@
   <data name="ElevationMounted" xml:space="preserve">
     <value>escapes at level difference points on the building's roof</value>
   </data>
+  <data name="FenceP1" xml:space="preserve">
+    <value>Stairs fence</value>
+  </data>
   <data name="P1_1" xml:space="preserve">
     <value>vertical stairs P1-1 type</value>
   </data>
@@ -138,7 +141,22 @@
   <data name="P2" xml:space="preserve">
     <value>marching stairs P2 type</value>
   </data>
+  <data name="PlatformP1" xml:space="preserve">
+    <value>Stairs roof platform</value>
+  </data>
+  <data name="PlatformP2" xml:space="preserve">
+    <value>Stairs platform</value>
+  </data>
   <data name="Reject" xml:space="preserve">
     <value>Reject</value>
+  </data>
+  <data name="StairwayP2" xml:space="preserve">
+    <value>Stairway</value>
+  </data>
+  <data name="StepsP1" xml:space="preserve">
+    <value>Stairs steps</value>
+  </data>
+  <data name="SupportBeamsP1" xml:space="preserve">
+    <value>Support beams</value>
   </data>
 </root>

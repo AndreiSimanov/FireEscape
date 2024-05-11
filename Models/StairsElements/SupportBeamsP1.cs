@@ -2,7 +2,7 @@
 
 public class SupportBeamsP1 : BaseStairsElement
 {
-    public override string Name => AppResources.SupportBeams;
+    public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.SupportBeamsP1;
     public override bool Required => true;
     public override float CalcWithstandLoad => (float)((TestPointCount > 0)
             ? Math.Round(StairsHeight * K2 / (K1 * TestPointCount) * K3) // М = (Н * К2 / К1 * Х) * К3
