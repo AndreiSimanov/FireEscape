@@ -11,17 +11,17 @@ public partial class ServiceabilityControl : ContentView
         set => SetValue(ValueProperty, value);
     }
 
-    public static readonly BindableProperty ServiceabilityProperty = BindableProperty.Create(nameof(Serviceability), typeof(ServiceabilityType), typeof(ServiceabilityControl), defaultBindingMode: BindingMode.TwoWay);
-    public ServiceabilityType Serviceability
+    public static readonly BindableProperty ServiceabilityTypeProperty = BindableProperty.Create(nameof(ServiceabilityType), typeof(ServiceabilityTypeEnum), typeof(ServiceabilityControl), defaultBindingMode: BindingMode.TwoWay);
+    public ServiceabilityTypeEnum ServiceabilityType
     {
-        get => (ServiceabilityType)GetValue(ServiceabilityProperty);
-        set => SetValue(ServiceabilityProperty, value);
+        get => (ServiceabilityTypeEnum)GetValue(ServiceabilityTypeProperty);
+        set => SetValue(ServiceabilityTypeProperty, value);
     }
 
-    public static readonly BindableProperty ServiceabilityTypesProperty = BindableProperty.Create(nameof(ServiceabilityTypes), typeof(ServiceabilityType[]), typeof(ServiceabilityControl));
-    public ServiceabilityType[] ServiceabilityTypes
+    public static readonly BindableProperty ServiceabilityTypesProperty = BindableProperty.Create(nameof(ServiceabilityTypes), typeof(string[]), typeof(ServiceabilityControl));
+    public string[] ServiceabilityTypes
     {
-        get => (ServiceabilityType[])GetValue(ServiceabilityTypesProperty);
+        get => (string[])GetValue(ServiceabilityTypesProperty);
         set => SetValue(ServiceabilityTypesProperty, value);
     }
 

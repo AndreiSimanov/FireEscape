@@ -13,8 +13,8 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         OrderId = (protocol == null) ? 0 : protocol.OrderId,
         Created = DateTime.Now,
         Updated = DateTime.Now,
-        StairsHeight = new ServiceabilityProperty<float>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
-        StairsWidth = new ServiceabilityProperty<int>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
+        StairsHeight = new ServiceabilityProperty<float>() { ServiceabilityType = ServiceabilityTypeEnum.Auto },
+        StairsWidth = new ServiceabilityProperty<int>() { ServiceabilityType = ServiceabilityTypeEnum.Auto },
         StairsType = StairsTypeEnum.P1_1,
         StairsMountType =  StairsMountTypeEnum.BuildingMounted,
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
@@ -51,7 +51,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
             stairsElement.ElementNumber = elementNumber;
             stairsElement.SupportBeamsCount = elementSettings.SupportBeamsCount;
-            stairsElement.Deformation = new ServiceabilityProperty<float>() { Serviceability = stairsSettings.ServiceabilityTypes![0] };
+            stairsElement.Deformation = new ServiceabilityProperty<float>() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
             return stairsElement;
         }
         return null;

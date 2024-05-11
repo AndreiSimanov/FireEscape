@@ -85,12 +85,10 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
         Predicate<T?> predicate, string rejectExplanation, string defaultExplanation)
     {
-        var serviceabilityType = serviceabilityProperty.Serviceability.Type;
-
-        if (serviceabilityType == ServiceabilityTypeEnum.Approve)
+        if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Approve)
             return;
 
-        if (serviceabilityType == ServiceabilityTypeEnum.Reject && !string.IsNullOrWhiteSpace(serviceabilityProperty.RejectExplanation))
+        if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Reject && !string.IsNullOrWhiteSpace(serviceabilityProperty.RejectExplanation))
         {
             summary.Add(serviceabilityProperty.RejectExplanation.Replace(Environment.NewLine, " "));
             return;
@@ -102,7 +100,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             return;
         }
 
-        if (serviceabilityType == ServiceabilityTypeEnum.Reject)
+        if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Reject)
             summary.Add(defaultExplanation);
     }
 

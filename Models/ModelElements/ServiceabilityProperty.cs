@@ -5,7 +5,7 @@ public partial class ServiceabilityProperty<T> : ObservableObject
     [ObservableProperty]
     T? value;
     [ObservableProperty]
-    ServiceabilityType serviceability;
+    ServiceabilityTypeEnum serviceabilityType;
     [ObservableProperty]
     string rejectExplanation = string.Empty;
 }

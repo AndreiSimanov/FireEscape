@@ -65,7 +65,7 @@
                 PlaceholderText ="{Binding StairsWidthHint}"
                 LabelText ="{Binding StairsWidth}"
                 Value="{Binding EditObject.StairsWidth.Value}"
-                Serviceability ="{Binding EditObject.StairsWidth.Serviceability}"
+                ServiceabilityType ="{Binding EditObject.StairsWidth.ServiceabilityType}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.StairsWidth.RejectExplanation}"/>
             <Frame
@@ -115,7 +115,7 @@
                         PlaceholderText ="{Binding DeformationHint}"
                         LabelText ="{Binding Deformation}"
                         Value="{Binding EditObject.SupportBeams.Deformation.Value}"
-                        Serviceability ="{Binding EditObject.SupportBeams.Deformation.Serviceability}"
+                        ServiceabilityType ="{Binding EditObject.SupportBeams.Deformation.ServiceabilityType}"
                         ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                         RejectExplanationText ="{Binding EditObject.SupportBeams.Deformation.RejectExplanation}"/>
                 </StackLayout>
@@ -136,7 +136,7 @@
                 LabelText ="{x:Static lang:AppResources.StairsHeight}"
                 Value="{Binding EditObject.StairsHeight.Value}"
                 ValueChangedCommand="{Binding UpdatStairsElementsCommand}"
-                Serviceability ="{Binding EditObject.StairsHeight.Serviceability}"
+                ServiceabilityType ="{Binding EditObject.StairsHeight.ServiceabilityType}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.StairsHeight.RejectExplanation}"/>
 
@@ -250,7 +250,7 @@
                                                 PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=DeformationHint}"
                                                 LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=Deformation}"
                                                 Value="{Binding Deformation.Value}"
-                                                Serviceability ="{Binding Deformation.Serviceability}"
+                                                ServiceabilityType ="{Binding Deformation.ServiceabilityType}"
                                                 ServiceabilityTypes ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"
                                                 RejectExplanationText ="{Binding Deformation.RejectExplanation}"/>
 
