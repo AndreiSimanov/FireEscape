@@ -18,7 +18,7 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: Column(nameof(StairsMountType))]
-    string stairsMountType = string.Empty;
+    StairsMountTypeEnum stairsMountType = StairsMountTypeEnum.BuildingMounted;
 
     [ObservableProperty]
     [property: Column(nameof(StepsCount))]

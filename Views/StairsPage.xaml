@@ -8,6 +8,7 @@
     xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:enums="clr-namespace:FireEscape.Models.Enums"
     xmlns:model="clr-namespace:FireEscape.Models"
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
     xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"
@@ -24,6 +25,7 @@
                 <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
                 <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
                 <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
+                <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
                 <conv:FloatZeroToObjectConverter x:Key="FloatZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
                 <conv:IntZeroToObjectConverter x:Key="IntZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
                 <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor SurfaceContainerHighest}" FalseObject="#D74F67" />
@@ -41,7 +43,7 @@
             <dxe:ComboBoxEdit
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.StairsMountTypesHint}"
-                SelectedItem="{Binding EditObject.StairsMountType}"
+                SelectedItem="{Binding EditObject.StairsMountType, Converter={StaticResource EnumToStringConverter}}"
                 ItemsSource="{Binding StairsSettings.StairsMountTypes}"/>
 
             <dxe:CheckEdit
@@ -67,7 +69,7 @@
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.StairsWidth.RejectExplanation}"/>
             <Frame
-                IsVisible="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:BaseStairsTypeEnum.P1}}"
+                IsVisible="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
                 Style="{StaticResource CardView}" Margin="10" Padding="0,0,0,10">
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
@@ -122,7 +124,7 @@
             <dxe:NumericEdit
                 Style="{StaticResource DefaultNumericEdit}"
                 Value="{Binding EditObject.StepsCount}"
-                IsEnabled="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static model:BaseStairsTypeEnum.P1}}"
+                IsEnabled="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
                 ValueChangedCommand="{Binding UpdatStairsElementsCommand}"
                 PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"
                 LabelText="{x:Static lang:AppResources.StepsCount}"/>

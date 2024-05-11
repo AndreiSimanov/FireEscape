@@ -23,7 +23,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public string StairsType => stairs.StairsType.Name;
 
-    public string StairsMountType => stairs.StairsMountType;
+    public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(stairs.StairsMountType);
 
     public string FireEscapeObject => protocol.FireEscapeObject;
     public string FullAddress => Location + ", " + Address;
@@ -106,7 +106,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             summary.Add(defaultExplanation);
     }
 
-    List<StairsElementResult> stairsElementResults;
+    List<StairsElementResult>? stairsElementResults;
 
     public List<StairsElementResult> GetStairsElements() // todo: group elements by Type & WithstandLoad
     {

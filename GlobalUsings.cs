@@ -4,6 +4,7 @@ global using CommunityToolkit.Mvvm.Input;
 global using FireEscape.AppSettings;
 global using FireEscape.Common;
 global using FireEscape.Models;
+global using FireEscape.Models.Enums;
 global using FireEscape.Models.BaseModels;
 global using FireEscape.Models.StairsElements;
 global using FireEscape.Repositories;
