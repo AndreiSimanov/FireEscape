@@ -15,7 +15,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         Updated = DateTime.Now,
         StairsHeight = new ServiceabilityProperty<float>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
         StairsWidth = new ServiceabilityProperty<int>() { Serviceability = stairsSettings.ServiceabilityTypes![0] },
-        StairsType = stairsSettings.StairsTypes![0],
+        StairsType = StairsTypeEnum.P1_1,
         StairsMountType =  StairsMountTypeEnum.BuildingMounted,
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
         ProtectiveServiceability = stairsSettings.ProtectiveServiceability,

@@ -2,13 +2,16 @@
 
 public enum BaseStairsTypeEnum
 {
-    P1 = 1,
-    P2 = 2
+    P1,
+    P2
 }
 
 public enum StairsTypeEnum
 {
-    P1_1 = 1,
-    P1_2 = 2,
-    P2 = 3
+    [LocalizedDescription(nameof(P1_1), typeof(EnumResources))]
+    P1_1,
+    [LocalizedDescription(nameof(P1_2), typeof(EnumResources))]
+    P1_2,
+    [LocalizedDescription(nameof(P2), typeof(EnumResources))]
+    P2
 }

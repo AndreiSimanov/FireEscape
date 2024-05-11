@@ -37,7 +37,7 @@
                 SelectionChangedCommand="{Binding UpdateStepsCountCommand}"
                 Style="{StaticResource DefaultComboBoxEdit}"
                 LabelText="{x:Static lang:AppResources.StairsTypesHint}"
-                SelectedItem="{Binding EditObject.StairsType}"
+                SelectedItem="{Binding EditObject.StairsType, Converter={StaticResource EnumToStringConverter}}"
                 ItemsSource="{Binding StairsSettings.StairsTypes}"/>
 
             <dxe:ComboBoxEdit

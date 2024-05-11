@@ -18,12 +18,10 @@ public partial class StairsPage : BaseStairsPage
 
     void StairsTypeChanged(object sender, EventArgs e)
     {
-        var cbx = sender as ComboBoxEdit;
-        if (cbx == null)
-            return;
-        var stairsType = cbx.SelectedItem as StairsType?;
-        if (stairsType != null)
-            stairsElements.FilterString = $"[BaseStairsType] == {(int)stairsType.Value.BaseStairsType}";
+        var baseStairsType = ViewModel?.EditObject?.BaseStairsType;
+        if (!baseStairsType.HasValue)
+            baseStairsType = BaseStairsTypeEnum.P1;
+        stairsElements.FilterString = $"[BaseStairsType] == {(int)baseStairsType.Value}";
     }
 
     private void EditorFocused(object sender, FocusEventArgs e) // avoid set focus on invisible controls

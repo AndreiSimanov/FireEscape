@@ -11,6 +11,7 @@
              xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
              xmlns:model="clr-namespace:FireEscape.Models"
              xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
+             xmlns:conv="clr-namespace:FireEscape.Views.Converters"
              ios:Page.UseSafeArea="True"
              Title="{x:Static lang:AppResources.ProtocolMainPageTitle}"
              x:DataType="viewmodel:ProtocolMainViewModel"
@@ -93,6 +94,7 @@
                                     <Grid ColumnDefinitions="125,*">
                                         <Grid.Resources>
                                             <ResourceDictionary>
+                                                <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
                                                 <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
                                                 <toolkit:IsStringNullOrWhiteSpaceConverter x:Key="IsStringNullOrWhiteSpaceConverter" />
                                                 <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
@@ -134,7 +136,7 @@
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                            <Label Style="{StaticResource SubTitleline}" Text="{Binding Stairs.StairsType}"/>
+                                            <Label Style="{StaticResource SubTitleline}" Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}"/>
                                             <Label 
                                                 IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Style="{StaticResource SubTitleline}">

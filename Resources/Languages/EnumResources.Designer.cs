@@ -97,6 +97,33 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to вертикальная лестница тип П1-1.
+        /// </summary>
+        internal static string P1_1 {
+            get {
+                return ResourceManager.GetString("P1_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to вертикальная лестница тип П1-2.
+        /// </summary>
+        internal static string P1_2 {
+            get {
+                return ResourceManager.GetString("P1_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to маршевая лестница тип П2.
+        /// </summary>
+        internal static string P2 {
+            get {
+                return ResourceManager.GetString("P2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Нет.
         /// </summary>
         internal static string Reject {

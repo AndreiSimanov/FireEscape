@@ -7,12 +7,12 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     public const string EMPTY_SIGNATURE = "___________________";
 
     ServiceabilityLimits? serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
-           item.StairsType == stairs.StairsType.Type &&
+           item.StairsType == stairs.StairsType &&
            item.IsEvacuation == stairs.IsEvacuation);
     public int ProtocolNum => protocol.ProtocolNum;
     public string StairsTypeDescription => stairs.IsEvacuation
         ? "испытания пожарной эвакуационной лестницы"
-        : stairs.StairsType.Type == StairsTypeEnum.P2
+        : stairs.StairsType == StairsTypeEnum.P2
             ? "испытания пожарной маршевой лестницы"
             : "испытания пожарной лестницы";
 
@@ -21,7 +21,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public string ProtocolDate => string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate);
 
-    public string StairsType => stairs.StairsType.Name;
+    public string StairsType => EnumDescriptionTypeConverter.GetEnumDescription(stairs.StairsType);
 
     public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(stairs.StairsMountType);
 
@@ -34,7 +34,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public int StepsCount => stairs.StepsCount;
 
-    public string TestEquipment => stairs.StairsType.Type == StairsTypeEnum.P2
+    public string TestEquipment => stairs.StairsType == StairsTypeEnum.P2
         ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
         : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.";
 

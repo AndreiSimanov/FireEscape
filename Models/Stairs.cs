@@ -33,10 +33,8 @@ public partial class Stairs : BaseObject
     bool protectiveServiceability;
 
     [ObservableProperty]
-    [property: TextBlob(nameof(StairsTypeBlob))]
     [NotifyPropertyChangedFor(nameof(BaseStairsType))]
-    StairsType stairsType;
-    public string? StairsTypeBlob { get; set; }
+    StairsTypeEnum stairsType;
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsHeightBlob))]
@@ -54,7 +52,7 @@ public partial class Stairs : BaseObject
 
     [Ignore]
     [JsonIgnore]
-    public BaseStairsTypeEnum BaseStairsType => StairsType.BaseStairsType;
+    public BaseStairsTypeEnum BaseStairsType => StairsType == StairsTypeEnum.P2 ? BaseStairsTypeEnum.P2 : BaseStairsTypeEnum.P1;
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsElementsBlob))]

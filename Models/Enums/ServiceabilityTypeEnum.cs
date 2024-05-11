@@ -2,10 +2,10 @@
 
 public enum ServiceabilityTypeEnum
 {
-    [LocalizedDescription("Auto", typeof(EnumResources))]
+    [LocalizedDescription(nameof(Auto), typeof(EnumResources))]
     Auto,
-    [LocalizedDescription("Approve", typeof(EnumResources))]
+    [LocalizedDescription(nameof(Approve), typeof(EnumResources))]
     Approve,
-    [LocalizedDescription("Reject", typeof(EnumResources))]
+    [LocalizedDescription(nameof(Reject), typeof(EnumResources))]
     Reject
 }

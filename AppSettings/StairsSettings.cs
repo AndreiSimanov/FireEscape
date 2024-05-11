@@ -5,7 +5,7 @@ public class StairsSettings
     public required string DefaultUnit { get; set; }
     public int DefaultUnitMultiplier { get; set; }
     public string[] StairsMountTypes => EnumDescriptionTypeConverter.GetEnumDescriptions<StairsMountTypeEnum>().ToArray();
-    public StairsType[]? StairsTypes { get; set; }
+    public string[] StairsTypes => EnumDescriptionTypeConverter.GetEnumDescriptions<StairsTypeEnum>().ToArray();
     public ServiceabilityType[]? ServiceabilityTypes { get; set; }
     public ServiceabilityLimits[]? ServiceabilityLimits { get; set; }
     public StairsElementSettings[]? StairsElementSettings { get; set; }
