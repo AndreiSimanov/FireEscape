@@ -22,6 +22,7 @@
                         </ResourceDictionary>
                     </Grid.Resources>
                     <Border
+                        Style="{StaticResource BaseBorder}"
                         StrokeShape="RoundRectangle 85"
                         StrokeThickness="8"
                         HeightRequest="172"
@@ -87,24 +88,27 @@
                     Date="{Binding EditObject.ProtocolDate}"                    
                     LabelText="{x:Static lang:AppResources.ProtocolDate}"/>
                 <dxe:NumericEdit
-                    Style="{StaticResource DefaultNumericEdit}"
+                    Style="{StaticResource NextNumericEdit}"
                     Value="{Binding EditObject.ProtocolNum}"
                     PlaceholderText="{x:Static lang:AppResources.ProtocolNum}"
                     LabelText="{x:Static lang:AppResources.ProtocolNum}"/>
                 <dxe:TextEdit
+                    Style="{StaticResource NextTextEdit}"
                     Text="{Binding EditObject.Location}"
                     LabelText="{x:Static lang:AppResources.Location}"
                     PlaceholderText="{x:Static lang:AppResources.LocationHint}"/>
                 <dxe:TextEdit
+                    Style="{StaticResource NextTextEdit}"
                     Text="{Binding EditObject.Address}"
                     LabelText="{x:Static lang:AppResources.Address}"
                     PlaceholderText="{x:Static lang:AppResources.AddressHint}"/>
                 <dxe:TextEdit
+                    Style="{StaticResource NextTextEdit}"
                     Text="{Binding EditObject.FireEscapeObject}"
                     LabelText="{x:Static lang:AppResources.FireEscapeObject}"
                     PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"/>
                 <dxe:NumericEdit
-                    Style="{StaticResource DefaultNumericEdit}"
+                    Style="{StaticResource NextNumericEdit}"
                     Value="{Binding EditObject.FireEscapeNum}"
                     PlaceholderText="{x:Static lang:AppResources.FireEscapeNum}"
                     LabelText="{x:Static lang:AppResources.FireEscapeNum}"/>

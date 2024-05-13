@@ -9,7 +9,7 @@ public abstract class BaseEditPage<T, M> : ContentPage where T : BaseEditViewMod
     }
     protected T? ViewModel => BindingContext as T;
 
-    void ContentPageDisappearing(object sender, EventArgs e)
+    protected virtual void ContentPageDisappearing(object sender, EventArgs e)
     {
         ViewModel?.SaveEditObjectCommand.Execute(null);
     }

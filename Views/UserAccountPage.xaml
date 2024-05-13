@@ -14,19 +14,23 @@
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
         <VerticalStackLayout >
             <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
                 IsReadOnly="True"
                 Text="{Binding EditObject.Id}"
                 LabelText="{x:Static lang:AppResources.UserAccountId}"
                 PlaceholderText="{x:Static lang:AppResources.UserAccountIdHint}"/>
             <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
                 Text="{Binding EditObject.Name}"
                 LabelText="{x:Static lang:AppResources.UserAccountName}"
                 PlaceholderText="{x:Static lang:AppResources.UserAccountNameHint}"/>
             <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
                 Text="{Binding EditObject.Signature}"
                 LabelText="{x:Static lang:AppResources.Signature}"
                 PlaceholderText="{x:Static lang:AppResources.UserAccountSignatureHint}"/>
             <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
                 Text="{Binding EditObject.Company}"
                 LabelText="{x:Static lang:AppResources.Company}"
                 PlaceholderText="{x:Static lang:AppResources.UserAccountCompanyHint}"/>
@@ -34,7 +38,7 @@
                     Date="{Binding EditObject.ExpirationDate}"                    
                     LabelText="{x:Static lang:AppResources.ExpirationDate}"/>
             <dxe:NumericEdit
-                Style="{StaticResource DefaultNumericEdit}"
+                Style="{StaticResource NextNumericEdit}"
                 MaxValue="2147483647"
                 MinValue="-1"
                 Value="{Binding EditObject.ExpirationCount}"
@@ -46,5 +50,4 @@
                 Label="{x:Static lang:AppResources.Administrator}"/>
         </VerticalStackLayout>
     </ScrollView>
-</baseview:BaseUserAccountPage>    
-    
+</baseview:BaseUserAccountPage>

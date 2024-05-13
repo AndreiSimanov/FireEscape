@@ -18,6 +18,9 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         BaseStairsElement.DefaultUnitMultiplier = StairsSettings.DefaultUnitMultiplier;
     }
 
+    [ObservableProperty]
+    BaseStairsElement? selectedStairsElement;
+
     [RelayCommand]
     void UpdatStairsElements() => EditObject?.UpdatStairsElements();
 
@@ -43,6 +46,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                     {
                         EditObject.UpdatStairsElement(element);
                         EditObject.StairsElements.Insert(0, element);
+                        SelectedStairsElement = element;
                     }
                 }
             }
@@ -54,7 +58,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     async Task DeleteElementAsync(BaseStairsElement element) =>
         await DoCommandAsync(async () =>
         {
-            if (element.Required)
+            if (EditObject == null || element.Required)
                 return;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteStairsElement,
                 AppResources.Cancel,
@@ -62,8 +66,8 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
             if (string.Equals(action, AppResources.Cancel))
                 return;
 
-            EditObject!.StairsElements.Remove(element);
-            EditObject!.UpdateStepsCount();
+            EditObject.StairsElements.Remove(element);
+            EditObject.UpdateStepsCount();
         },
         element,
         AppResources.DeleteStairsElementError);

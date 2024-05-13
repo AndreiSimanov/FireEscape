@@ -25,17 +25,17 @@
         </Grid.Resources>
 
         <dxe:NumericEdit
+            Style="{StaticResource DefaultNumericEdit}"
             x:Name="numEdit"
             LabelText="{Binding LabelText}"
             PlaceholderText="{Binding PlaceholderText}"
             Grid.Column="0"
             Value="{Binding Value}"
-            ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"
-            Style="{StaticResource DefaultNumericEdit}" />
+            ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"/>
 
         <dxe:ComboBoxEdit
-            Grid.Column="2"
             Style="{StaticResource DefaultComboBoxEdit}"
+            Grid.Column="2"
             LabelText="{x:Static lang:AppResources.Serviceability}"
             SelectedItem="{Binding ServiceabilityType, Converter={StaticResource EnumToStringConverter}}"
             ItemsSource="{Binding ServiceabilityTypes}"/>

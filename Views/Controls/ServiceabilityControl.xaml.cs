@@ -53,6 +53,12 @@ public partial class ServiceabilityControl : ContentView
         set => SetValue(ValueChangedCommandProperty, value);
     }
 
+    public event EventHandler<FocusEventArgs> EditorFocused
+    {
+        add { numEdit.Focused += value; }
+        remove { numEdit.Focused -= value; }
+    }
+
     public decimal MinValue { get => numEdit.MinValue; set => numEdit.MinValue = value; }
     public decimal MaxValue { get => numEdit.MaxValue; set => numEdit.MaxValue = value; }
     public int MaxDecimalDigitCount { get => numEdit.MaxDecimalDigitCount; set => numEdit.MaxDecimalDigitCount = value; }

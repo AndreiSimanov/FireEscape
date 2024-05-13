@@ -47,7 +47,8 @@
             IsLoadMoreEnabled="{Binding IsLoadMore}"
             LoadMoreCommand="{Binding LoadMoreCommand}"
             AllowLiveDataShaping="True"
-            SelectionMode="Single" Grid.Row="1"
+            SelectionMode="Single" 
+            Grid.Row="1"
             ItemSeparatorThickness="0"
             UseRippleEffect="true"
             PropertyChanged="CollectionViewChanged">
@@ -76,7 +77,7 @@
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
                             <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="140" Style="{StaticResource CardView}">
+                                <Frame Style="{StaticResource CardView}" HeightRequest="140">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=GoToProtocolsCommand}"
@@ -173,7 +174,7 @@
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>
         </dx:DXButton>
-
+<!--
         <dx:DXButton
             x:Name="addBatchButton"
             IsEnabled="{Binding IsNotBusy}"
@@ -185,5 +186,6 @@
                 <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
             </dx:DXButton.Shadow>
         </dx:DXButton>
+-->        
     </Grid>
 </ContentPage>

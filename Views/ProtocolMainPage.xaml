@@ -47,7 +47,8 @@
             PullToRefreshCommand="{Binding GetProtocolsCommand}"
             FilterString ="{Binding Filter}"
             AllowLiveDataShaping="True"
-            SelectionMode="Single" Grid.Row="1"
+            SelectionMode="Single" 
+            Grid.Row="1"
             ItemSeparatorThickness="0"
             UseRippleEffect="true"
             PropertyChanged="CollectionViewChanged">
@@ -83,7 +84,7 @@
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
                             <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="140" Style="{StaticResource CardView}">
+                                <Frame Style="{StaticResource CardView}" HeightRequest="140">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=GoToDetailsCommand}"
@@ -118,12 +119,12 @@
                                         </Image>
                                         <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
                                             <Label 
-                                                IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Style="{StaticResource Titleline}" 
+                                                IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Text="{Binding FireEscapeObject}"/>
                                             <Label 
+                                                Style="{StaticResource Titleline}"                                                 
                                                 IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
-                                                Style="{StaticResource Titleline}" 
                                                 Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.FireEscapeObject}"/>
                                             <Label Style="{StaticResource SubTitleline}">
                                                 <Label.FormattedText>
@@ -136,8 +137,8 @@
                                             </Label>
                                             <Label Style="{StaticResource SubTitleline}" Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}"/>
                                             <Label 
-                                                IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
-                                                Style="{StaticResource SubTitleline}">
+                                                Style="{StaticResource SubTitleline}"
+                                                IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
@@ -147,8 +148,8 @@
                                                 </Label.FormattedText>
                                             </Label>
                                             <Label 
-                                                IsVisible="{Binding Location, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
-                                                Style="{StaticResource SubTitleline}">
+                                                Style="{StaticResource SubTitleline}"
+                                                IsVisible="{Binding Location, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
@@ -158,12 +159,12 @@
                                                 </Label.FormattedText>
                                             </Label>
                                             <Label 
-                                                IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Style="{StaticResource SubTitleline}" 
+                                                IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Text="{Binding Address}"/>
                                             <Label 
-                                                IsVisible="{Binding Address, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
                                                 Style="{StaticResource SubTitleline}" 
+                                                IsVisible="{Binding Address, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
                                                 Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Address}"/>
                                             <Label Style="{StaticResource SmallSubTitleline}">
                                                 <Label.FormattedText>

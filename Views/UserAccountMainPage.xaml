@@ -48,7 +48,8 @@
             PullToRefreshCommand="{Binding GetUserAccountsCommand}"
             FilterString ="{Binding Filter}"
             AllowLiveDataShaping="True"
-            SelectionMode="Single" Grid.Row="1"
+            SelectionMode="Single" 
+            Grid.Row="1"
             ItemSeparatorThickness="0"
             UseRippleEffect="true"
             PropertyChanged="CollectionViewChanged">
@@ -74,7 +75,7 @@
                                         <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="Green" FalseObject="Red" />
                                     </ResourceDictionary>
                                 </Grid.Resources>
-                                <Frame HeightRequest="162" Style="{StaticResource CardView}" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
+                                <Frame Style="{StaticResource CardView}" HeightRequest="162" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"

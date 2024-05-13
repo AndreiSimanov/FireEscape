@@ -3,7 +3,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
-                    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors">
+                    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+                    xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls">
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{dx:ThemeColor Primary}" />
@@ -173,10 +174,16 @@
         <Setter Property="SelectedTabColor" Value="{dx:ThemeColor Primary}" />
     </Style>
 
-    <Style TargetType="Border">
+    <Style TargetType="Border"  x:Key="BaseBorder">
         <Setter Property="Stroke" Value="{dx:ThemeColor Primary}" />
         <Setter Property="StrokeShape" Value="Rectangle"/>
         <Setter Property="StrokeThickness" Value="1"/>
+    </Style>
+
+    <Style TargetType="Border" x:Key="FrameBorder" BasedOn="{StaticResource BaseBorder}">
+        <Setter Property="Stroke"  Value="{dx:ThemeColor OnSurface, Alpha=0.22}"/>
+        <Setter Property="StrokeShape" Value="{OnPlatform RoundRectangle 8, iOS=RoundRectangle 1}"/>
+        <Setter Property="Padding" Value="0,0,0,10"/>
     </Style>
 
     <Style TargetType="BoxView">
@@ -476,9 +483,12 @@
         <Setter Property="MaxValue" Value="1000000" />
         <Setter Property="MaxDecimalDigitCount" Value="0" />
         <Setter Property="TextHorizontalAlignment" Value="Start" />
-        <Setter Property="ReturnType" Value="Next" />
         <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+    <Style TargetType="dxe:NumericEdit" x:Key="NextNumericEdit" BasedOn="{StaticResource DefaultNumericEdit}">
+        <Setter Property="ReturnType" Value="Next" />
     </Style>
 
     <Style TargetType="dxe:CheckEdit"  x:Key="DefaultCheckEdit">
@@ -500,10 +510,13 @@
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
     </Style>
 
-    <Style TargetType="dxe:TextEdit">
-        <Setter Property="ReturnType" Value="Next" />
+    <Style TargetType="dxe:TextEdit" x:Key="DefaultTextEdit">
         <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+    </Style>
+
+    <Style TargetType="dxe:TextEdit" x:Key="NextTextEdit" BasedOn="{StaticResource DefaultTextEdit}">
+        <Setter Property="ReturnType" Value="Next" />
     </Style>
 
     <Style TargetType="dxe:MultilineEdit" ApplyToDerivedTypes="True">
@@ -512,6 +525,12 @@
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
     </Style>
 
+    <Style TargetType="dxco:BottomSheet">
+        <Setter Property="BackgroundColor" Value="{dx:ThemeColor Surface}" />
+        <Setter Property="ShowGrabber" Value="True" />
+        <Setter Property="AllowDismiss" Value="True" />
+        <Setter Property="IsModal" Value="False" />
+    </Style>
 
     <Style TargetType="Entry">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
