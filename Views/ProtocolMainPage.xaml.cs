@@ -34,4 +34,6 @@ public partial class ProtocolMainPage : ContentPage
         if (ProtocolMainViewModel != null)
             ProtocolMainViewModel.IsEmptyList = protocols.VisibleItemCount == 0 && !ProtocolMainViewModel.IsRefreshing;
     }
+
+    async void ScrolledAsync(object sender, DevExpress.Maui.CollectionView.DXCollectionViewScrolledEventArgs e) => await searchControl.HideKeyboardAsync();
 }

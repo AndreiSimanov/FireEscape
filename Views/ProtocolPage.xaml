@@ -11,6 +11,7 @@
     xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"
     x:Class="FireEscape.Views.ProtocolPage"
     x:DataType="viewmodel:ProtocolViewModel"
+    HideSoftInputOnTapped="True"    
     Title="{x:Static lang:AppResources.ProtocolPageTitle}">
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
         <Grid RowDefinitions="Auto,Auto,*">

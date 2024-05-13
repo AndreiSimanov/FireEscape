@@ -5,8 +5,8 @@ namespace FireEscape.ViewModels;
 
 public partial class StairsViewModel : BaseEditViewModel<Stairs>
 {
-    private readonly StairsService stairsService;
-    private readonly IStairsFactory stairsFactory;
+    readonly StairsService stairsService;
+    readonly IStairsFactory stairsFactory;
     public StairsSettings StairsSettings { get; private set; }
 
     public StairsViewModel(StairsService stairsService, IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory)

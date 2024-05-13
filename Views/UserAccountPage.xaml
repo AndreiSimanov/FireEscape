@@ -10,6 +10,7 @@
     xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"                     
     x:Class="FireEscape.Views.UserAccountPage"
     x:DataType="viewmodel:UserAccountViewModel"
+    HideSoftInputOnTapped="True"
     Title="{x:Static lang:AppResources.UserAccountPageTitle}">
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
         <VerticalStackLayout >

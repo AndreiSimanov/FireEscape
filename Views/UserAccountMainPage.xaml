@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
-             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
-             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
-             xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
-             xmlns:model="clr-namespace:FireEscape.Models"
-             xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
-             xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
-             ios:Page.UseSafeArea="True"
-             x:Class="FireEscape.Views.UserAccountMainPage"
-             x:DataType="viewmodel:UserAccountMainViewModel"
-             Title="{x:Static lang:AppResources.UserAccountMainPageTitle}"
-             Shell.NavBarIsVisible="False"
-             Appearing="ContentPage_Appearing">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
+    ios:Page.UseSafeArea="True"
+    x:Class="FireEscape.Views.UserAccountMainPage"
+    x:DataType="viewmodel:UserAccountMainViewModel"
+    Title="{x:Static lang:AppResources.UserAccountMainPageTitle}"
+    HideSoftInputOnTapped="True"             
+    Shell.NavBarIsVisible="False"
+    Appearing="ContentPage_Appearing">
     <Grid RowDefinitions="Auto,*">
         <ctrl:SearchControl
+            x:Name="searchControl"
             Search="{Binding Search}"
             SearchCommand="{Binding FilterUserAccountsCommand}"
             Placeholder="{x:Static lang:AppResources.UserAccountsSearch}"
@@ -52,6 +55,7 @@
             Grid.Row="1"
             ItemSeparatorThickness="0"
             UseRippleEffect="true"
+            Scrolled ="ScrolledAsync"
             PropertyChanged="CollectionViewChanged">
             <dxcv:DXCollectionView.SortDescriptions>
                 <dxcv:SortDescription FieldName="Name" />

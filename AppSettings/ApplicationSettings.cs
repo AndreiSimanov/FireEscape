@@ -2,8 +2,8 @@
 
 public class ApplicationSettings
 {
-    private const string IMAGES_FOLDER = "/Images";
-    private const string DOCUMENTS_FOLDER = "/Documents";
+    const string IMAGES_FOLDER = "/Images";
+    const string DOCUMENTS_FOLDER = "/Documents";
 
     public required string UserAccountsFolderName { get; set; }
     public int CheckUserAccountCounter { get; set; }

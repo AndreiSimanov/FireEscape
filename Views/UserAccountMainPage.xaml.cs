@@ -26,4 +26,6 @@ public partial class UserAccountMainPage : ContentPage
         if (UserAccountMainViewModel != null)
             UserAccountMainViewModel.IsEmptyList = userAccounts.VisibleItemCount == 0;
     }
+
+    async void ScrolledAsync(object sender, DevExpress.Maui.CollectionView.DXCollectionViewScrolledEventArgs e) => await searchControl.HideKeyboardAsync();
 }

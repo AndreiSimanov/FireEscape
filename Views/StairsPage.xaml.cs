@@ -4,8 +4,8 @@ namespace FireEscape.Views;
 
 public partial class StairsPage : BaseStairsPage
 {
-    private const double MAX_BOTTOM_SHEET_HEIGHT = .5;
-    private const double MIN_BOTTOM_SHEET_HEIGHT = 0;
+    const double MAX_BOTTOM_SHEET_HEIGHT = .5;
+    const double MIN_BOTTOM_SHEET_HEIGHT = 0;
 
     public StairsPage(StairsViewModel viewModel) : base(viewModel)
     {
@@ -28,10 +28,10 @@ public partial class StairsPage : BaseStairsPage
         stairsElements.FilterString = $"[BaseStairsType] == {(int)baseStairsType.Value}";
     }
 
-    private void EditorFocused(object sender, FocusEventArgs e) => SetBottomSheetHeight(0);
+    void EditorFocused(object sender, FocusEventArgs e) => SetBottomSheetHeight(0);
 
 /*
-    private void EditorFocused(object sender, FocusEventArgs e) // avoid set focus on invisible controls
+    void EditorFocused(object sender, FocusEventArgs e) // avoid set focus on invisible controls
     {
         var editor = sender as NumericEdit;
         if (editor == null) 
@@ -54,23 +54,27 @@ public partial class StairsPage : BaseStairsPage
         base.ContentPageDisappearing(sender, e);
     }
 
-    private void StairsElementsSelectionChanged(object sender, DevExpress.Maui.CollectionView.CollectionViewSelectionChangedEventArgs e) => UpdateBottomSheet();
-    
-    private void StairsElementsTap(object sender, DevExpress.Maui.CollectionView.CollectionViewGestureEventArgs e) => UpdateBottomSheet();
+    void StairsElementsSelectionChanged(object sender, DevExpress.Maui.CollectionView.CollectionViewSelectionChangedEventArgs e) => UpdateBottomSheet();
 
-    private void ScrollViewScrolled(object sender, ScrolledEventArgs e) => SetBottomSheetHeight(MIN_BOTTOM_SHEET_HEIGHT);
+    void StairsElementsTap(object sender, DevExpress.Maui.CollectionView.CollectionViewGestureEventArgs e)
+    {
+        if (bottomSheet.State == BottomSheetState.Hidden)
+            UpdateBottomSheet();
+    }
 
-    private void StairsElementsScrolled(object sender, DevExpress.Maui.CollectionView.DXCollectionViewScrolledEventArgs e) => SetBottomSheetHeight(MIN_BOTTOM_SHEET_HEIGHT);
+    void ScrollViewScrolled(object sender, ScrolledEventArgs e) => SetBottomSheetHeight(MIN_BOTTOM_SHEET_HEIGHT);
+
+    void StairsElementsScrolled(object sender, DevExpress.Maui.CollectionView.DXCollectionViewScrolledEventArgs e) => SetBottomSheetHeight(MIN_BOTTOM_SHEET_HEIGHT);
 
 
-    private void UpdateBottomSheet()
+    void UpdateBottomSheet()
     {
         bottomSheet.State = ViewModel?.SelectedStairsElement == null ? BottomSheetState.Hidden : BottomSheetState.HalfExpanded;
         if (bottomSheet.State == BottomSheetState.HalfExpanded)
             SetBottomSheetHeight(MAX_BOTTOM_SHEET_HEIGHT);
     }
 
-    private void SetBottomSheetHeight(double height)
+    void SetBottomSheetHeight(double height)
     {
         if (bottomSheet.State == BottomSheetState.HalfExpanded && bottomSheet.HalfExpandedRatio != height)
         {

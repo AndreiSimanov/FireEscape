@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Core.Platform;
 using System.Windows.Input;
 
 namespace FireEscape.Views.Controls;
@@ -25,6 +26,12 @@ public partial class SearchControl : ContentView
     {
         InitializeComponent();
         searchEntry.BindingContext = this;
+    }
+    public async ValueTask<bool> HideKeyboardAsync()
+    {
+        if (searchEntry.IsSoftKeyboardShowing())
+            return await searchEntry.HideKeyboardAsync();
+        return true;
     }
 
     void SearchTextClicked(object sender, EventArgs e) => Search = string.Empty;

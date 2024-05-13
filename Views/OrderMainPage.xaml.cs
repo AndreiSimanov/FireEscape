@@ -1,3 +1,4 @@
+
 namespace FireEscape.Views;
 
 public partial class OrderMainPage : ContentPage
@@ -20,4 +21,6 @@ public partial class OrderMainPage : ContentPage
         if (OrderMainViewModel != null)
             OrderMainViewModel.IsEmptyList = orders.VisibleItemCount == 0 && !OrderMainViewModel.IsRefreshing;
     }
+
+    async void ScrolledAsync(object sender, DevExpress.Maui.CollectionView.DXCollectionViewScrolledEventArgs e) => await searchControl.HideKeyboardAsync();
 }
