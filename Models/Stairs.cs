@@ -63,7 +63,7 @@ public partial class Stairs : BaseObject
     public void UpdateStepsCount()
     {
         if (BaseStairsType == BaseStairsTypeEnum.P2)
-            StepsCount = StairsElements.Where(element => element.GetType() == typeof(StairwayP2)).Sum(item => ((StairwayP2)item).ElementStepsCount);
+            StepsCount = StairsElements.Where(element => element.GetType() == typeof(StairwayP2)).Sum(item => ((StairwayP2)item).StepsCount);
     }
 
     public void UpdateStairsElements()
