@@ -2,7 +2,7 @@
 
 namespace FireEscape.Models.StairsElements.BaseStairsElements;
 
-public abstract partial class BaseStairsElement : ObservableObject, IStairsElement
+public abstract partial class BaseStairsElement : ObservableObject
 {
     public const float K1 = 2.5f;
     public const float K2 = 120f;
@@ -14,19 +14,23 @@ public abstract partial class BaseStairsElement : ObservableObject, IStairsEleme
     public static int DefaultUnitMultiplier { get; set; }
 
     [JsonIgnore]
-    public virtual string Name => EnumDescriptionTypeConverter.GetEnumDescription(StairsElementType);
+    public abstract StairsElementTypeEnum StairsElementType { get; }
 
     [JsonIgnore]
-    public virtual string Caption => Name;
+    public virtual BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P1;
 
     [JsonIgnore]
     public virtual bool Required => false;
 
     [JsonIgnore]
-    public abstract StairsElementTypeEnum StairsElementType { get; }
+    public abstract int PrintOrder { get; }
+
 
     [JsonIgnore]
-    public virtual BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P1;
+    public virtual string Name => EnumDescriptionTypeConverter.GetEnumDescription(StairsElementType);
+
+    [JsonIgnore]
+    public virtual string Caption => Name;
 
     [JsonIgnore]
     public virtual float CalcWithstandLoad => WithstandLoad;
@@ -46,9 +50,6 @@ public abstract partial class BaseStairsElement : ObservableObject, IStairsEleme
     int stairsStepsCount;
 
     [ObservableProperty]
-    int printOrder;
-
-    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Name))]
     int elementNumber;
 
@@ -57,42 +58,6 @@ public abstract partial class BaseStairsElement : ObservableObject, IStairsEleme
 
     [ObservableProperty]
     ServiceabilityProperty<float> deformation = new();
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(TestPointCount))]
-    [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
-    int supportBeamsCount;
-
-    [ObservableProperty]
-    float elementHeight;
-
-    [ObservableProperty]
-    float elementWidth;
-
-
-    [JsonIgnore]
-    public virtual string StepsCountCaption => string.Empty;
-
-    [JsonIgnore]
-    public virtual string StepsCountHint => string.Empty;
-
-    [JsonIgnore]
-    public virtual string SupportBeamsCountCaption => string.Empty;
-
-    [JsonIgnore]
-    public virtual string SupportBeamsCountHint => string.Empty;
-
-    [JsonIgnore]
-    public virtual string ElementHeightCaption => string.Empty;
-
-    [JsonIgnore]
-    public virtual string ElementHeightHint => string.Empty;
-
-    [JsonIgnore]
-    public virtual string ElementWidthCaption => string.Empty;
-
-    [JsonIgnore]
-    public virtual string ElementWidthHint => string.Empty;
 
     public override string ToString() => Caption;
 

@@ -21,7 +21,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(BottomSheetState))]
-    IStairsElement? selectedStairsElement;
+    BaseStairsElement? selectedStairsElement;
 
     [ObservableProperty]
     BottomSheetState bottomSheetState;
@@ -33,7 +33,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     void UpdateStepsCount() => EditObject?.UpdateStepsCount();
 
     [RelayCommand]
-    void SelectStairsElement(IStairsElement? element)
+    void SelectStairsElement(BaseStairsElement? element)
     {
         BottomSheetState = element == null ? BottomSheetState.Hidden : BottomSheetState.HalfExpanded;
         SelectedStairsElement = element;
@@ -94,9 +94,12 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
        EditObject,
        AppResources.SaveProtocolError);
 
-    public string StairsWidth => string.Format(AppResources.StairsWidth, BaseStairsElement.DefaultUnit);
-    public string StairsWidthHint => string.Format(AppResources.StairsWidthHint, BaseStairsElement.DefaultUnit);
+    public string StairsWidth => string.Format(AppResources.StairsWidth, StairsSettings.DefaultUnit);
+    public string StairsWidthHint => string.Format(AppResources.StairsWidthHint, StairsSettings.DefaultUnit);
 
-    public string Deformation => string.Format(AppResources.Deformation, BaseStairsElement.DefaultUnit);
-    public string DeformationHint => string.Format(AppResources.DeformationHint, BaseStairsElement.DefaultUnit);
+    public string Deformation => string.Format(AppResources.Deformation, StairsSettings.DefaultUnit);
+    public string DeformationHint => string.Format(AppResources.DeformationHint, StairsSettings.DefaultUnit);
+
+    public  string StairsFenceHeight => string.Format(AppResources.StairsFenceHeight, StairsSettings.DefaultUnit);
+    public  string StairsFenceHeightHint => string.Format(AppResources.StairsFenceHeightHint, StairsSettings.DefaultUnit);
 }

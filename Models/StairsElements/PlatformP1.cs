@@ -1,11 +1,11 @@
 ﻿namespace FireEscape.Models.StairsElements;
 
-public class PlatformP1 : BaseStairsElement
+public partial class PlatformP1 : BaseSupportBeamsElement
 {
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.PlatformP1;
+    public override int PrintOrder => 40;
     public override int TestPointCount => 1;
-    public override string SupportBeamsCountCaption => AppResources.SupportBeamsCount;
-    public override string SupportBeamsCountHint => AppResources.SupportBeamsCountHint;
-    public override string ElementHeightCaption => string.Format(AppResources.StairsFenceHeight, DefaultUnit);
-    public override string ElementHeightHint => string.Format(AppResources.StairsFenceHeightHint, DefaultUnit);
+
+    [ObservableProperty]
+    int platformFenceHeight;
 }

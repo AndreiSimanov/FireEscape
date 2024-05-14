@@ -48,7 +48,7 @@ public partial class Stairs : BaseObject
 
     [Ignore]
     [JsonIgnore]
-    public IStairsElement? SupportBeams => StairsElements.FirstOrDefault(element => element.StairsElementType == StairsElementTypeEnum.SupportBeamsP1);
+    public SupportBeamsP1? SupportBeams => StairsElements.FirstOrDefault(element => element.StairsElementType == StairsElementTypeEnum.SupportBeamsP1) as SupportBeamsP1;
 
     [Ignore]
     [JsonIgnore]
@@ -56,7 +56,7 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsElementsBlob))]
-    ObservableCollection<IStairsElement> stairsElements = new();
+    ObservableCollection<BaseStairsElement> stairsElements = new();
 
     public string? StairsElementsBlob { get; set; }
 
@@ -71,7 +71,7 @@ public partial class Stairs : BaseObject
         StairsElements.ForEach(UpdateStairsElement);
     }
 
-    public void UpdateStairsElement(IStairsElement element)
+    public void UpdateStairsElement(BaseStairsElement element)
     {
         element.StairsHeight = StairsHeight.Value;
         element.StairsStepsCount = StepsCount;

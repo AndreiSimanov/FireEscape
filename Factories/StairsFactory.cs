@@ -1,5 +1,4 @@
 ﻿using FireEscape.Factories.Interfaces;
-using FireEscape.Models.StairsElements.BaseStairsElements;
 using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 
@@ -20,10 +19,10 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         StairsMountType =  StairsMountTypeEnum.BuildingMounted,
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
         ProtectiveServiceability = stairsSettings.ProtectiveServiceability,
-        StairsElements = new ObservableCollection<IStairsElement>(GetDefaultStairsElements())
+        StairsElements = new ObservableCollection<BaseStairsElement>(GetDefaultStairsElements())
     };
 
-    public IEnumerable<IStairsElement> GetAvailableStairsElements(Stairs stairs)
+    public IEnumerable<BaseStairsElement> GetAvailableStairsElements(Stairs stairs)
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;
@@ -43,22 +42,22 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             yield return stairsElement;
         }
     }
-    IStairsElement? CreateElement(Type type, int elementNumber, StairsElementSettings elementSettings)
+    BaseStairsElement? CreateElement(Type type, int elementNumber, StairsElementSettings elementSettings)
     {
         var stairsElement = Activator.CreateInstance(type) as BaseStairsElement;
         if (stairsElement != null)
         {
-            stairsElement.PrintOrder = elementSettings.PrintOrder;
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
             stairsElement.ElementNumber = elementNumber;
-            stairsElement.SupportBeamsCount = elementSettings.SupportBeamsCount;
+            if (stairsElement is BaseSupportBeamsElement)
+                ((BaseSupportBeamsElement)stairsElement).SupportBeamsCount = elementSettings.SupportBeamsCount;
             stairsElement.Deformation = new ServiceabilityProperty<float>() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
             return stairsElement;
         }
         return null;
     }
 
-    IEnumerable<IStairsElement> GetDefaultStairsElements()
+    IEnumerable<BaseStairsElement> GetDefaultStairsElements()
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;

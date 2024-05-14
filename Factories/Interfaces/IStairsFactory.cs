@@ -4,5 +4,5 @@ namespace FireEscape.Factories.Interfaces;
 
 public interface IStairsFactory : IBaseObjectFactory<Stairs, Protocol>
 {
-    IEnumerable<IStairsElement> GetAvailableStairsElements(Stairs stairs);
+    IEnumerable<BaseStairsElement> GetAvailableStairsElements(Stairs stairs);
 }
