@@ -21,19 +21,19 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(BottomSheetState))]
-    BaseStairsElement? selectedStairsElement;
+    IStairsElement? selectedStairsElement;
 
     [ObservableProperty]
     BottomSheetState bottomSheetState;
 
     [RelayCommand]
-    void UpdatStairsElements() => EditObject?.UpdatStairsElements();
+    void UpdatStairsElements() => EditObject?.UpdateStairsElements();
 
     [RelayCommand]
     void UpdateStepsCount() => EditObject?.UpdateStepsCount();
 
     [RelayCommand]
-    void SelectStairsElement(BaseStairsElement? element)
+    void SelectStairsElement(IStairsElement? element)
     {
         BottomSheetState = element == null ? BottomSheetState.Hidden : BottomSheetState.HalfExpanded;
         SelectedStairsElement = element;
@@ -56,7 +56,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                     var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
                     if (element != null)
                     {
-                        EditObject.UpdatStairsElement(element);
+                        EditObject.UpdateStairsElement(element);
                         EditObject.StairsElements.Insert(0, element);
                         SelectStairsElement(element);
                     }

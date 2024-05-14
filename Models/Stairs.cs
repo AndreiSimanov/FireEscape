@@ -48,7 +48,7 @@ public partial class Stairs : BaseObject
 
     [Ignore]
     [JsonIgnore]
-    public SupportBeamsP1? SupportBeams => StairsElements.FirstOrDefault(element => element.GetType() == typeof(SupportBeamsP1)) as SupportBeamsP1;
+    public IStairsElement? SupportBeams => StairsElements.FirstOrDefault(element => element.StairsElementType == StairsElementTypeEnum.SupportBeamsP1);
 
     [Ignore]
     [JsonIgnore]
@@ -56,22 +56,22 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsElementsBlob))]
-    ObservableCollection<BaseStairsElement> stairsElements = new();
+    ObservableCollection<IStairsElement> stairsElements = new();
 
     public string? StairsElementsBlob { get; set; }
 
     public void UpdateStepsCount()
     {
         if (BaseStairsType == BaseStairsTypeEnum.P2)
-            StepsCount = StairsElements.Where(element => element.GetType() == typeof(StairwayP2)).Sum(item => item.ElementStepsCount);
+            StepsCount = StairsElements.Where(element => element.GetType() == typeof(StairwayP2)).Sum(item => ((StairwayP2)item).ElementStepsCount);
     }
 
-    public void UpdatStairsElements()
+    public void UpdateStairsElements()
     {
-        StairsElements.ForEach(UpdatStairsElement);
+        StairsElements.ForEach(UpdateStairsElement);
     }
 
-    public void UpdatStairsElement(BaseStairsElement element)
+    public void UpdateStairsElement(IStairsElement element)
     {
         element.StairsHeight = StairsHeight.Value;
         element.StairsStepsCount = StepsCount;
@@ -81,6 +81,6 @@ public partial class Stairs : BaseObject
     {
         base.OnPropertyChanged(e);
         if (e.PropertyName == nameof(StairsElements))
-            UpdatStairsElements();
+            UpdateStairsElements();
     }
 }

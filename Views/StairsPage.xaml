@@ -12,7 +12,7 @@
     xmlns:model="clr-namespace:FireEscape.Models"
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
     xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"
-    xmlns:stairselmodel="clr-namespace:FireEscape.Models.StairsElements"
+    xmlns:stairselmodel="clr-namespace:FireEscape.Models.StairsElements.BaseStairsElements"
     xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
     xmlns:conv="clr-namespace:FireEscape.Views.Converters"
     x:Class="FireEscape.Views.StairsPage"
@@ -170,7 +170,7 @@
                 ItemSeparatorThickness="0"
                 UseRippleEffect="true">
                 <dxcv:DXCollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="stairselmodel:BaseStairsElement">
+                    <DataTemplate x:DataType="stairselmodel:IStairsElement">
                         <dxcv:SwipeContainer>
                             <dxcv:SwipeContainer.EndSwipeItems>
                                 <dxcv:SwipeItem

@@ -7,6 +7,7 @@ global using FireEscape.Models;
 global using FireEscape.Models.Enums;
 global using FireEscape.Models.BaseModels;
 global using FireEscape.Models.StairsElements;
+global using FireEscape.Models.StairsElements.BaseStairsElements;
 global using FireEscape.Repositories;
 global using FireEscape.Repositories.Interfaces;
 global using FireEscape.Resources.Languages;

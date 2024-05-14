@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace FireEscape.Models.StairsElements;
+namespace FireEscape.Models.StairsElements.BaseStairsElements;
 
-public abstract partial class BaseStairsElement : ObservableObject
+public abstract partial class BaseStairsElement : ObservableObject, IStairsElement
 {
     public const float K1 = 2.5f;
     public const float K2 = 120f;
@@ -56,9 +56,6 @@ public abstract partial class BaseStairsElement : ObservableObject
     float withstandLoad;
 
     [ObservableProperty]
-    bool serviceability;
-
-    [ObservableProperty]
     ServiceabilityProperty<float> deformation = new();
 
     [ObservableProperty]
@@ -72,8 +69,6 @@ public abstract partial class BaseStairsElement : ObservableObject
     [ObservableProperty]
     float elementWidth;
 
-    [ObservableProperty]
-    int elementStepsCount;
 
     [JsonIgnore]
     public virtual string StepsCountCaption => string.Empty;

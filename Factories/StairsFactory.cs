@@ -1,4 +1,5 @@
 ﻿using FireEscape.Factories.Interfaces;
+using FireEscape.Models.StairsElements.BaseStairsElements;
 using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 
@@ -19,10 +20,10 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         StairsMountType =  StairsMountTypeEnum.BuildingMounted,
         WeldSeamServiceability = stairsSettings.WeldSeamServiceability,
         ProtectiveServiceability = stairsSettings.ProtectiveServiceability,
-        StairsElements = new ObservableCollection<BaseStairsElement>(GetDefaultStairsElements())
+        StairsElements = new ObservableCollection<IStairsElement>(GetDefaultStairsElements())
     };
 
-    public IEnumerable<BaseStairsElement> GetAvailableStairsElements(Stairs stairs)
+    public IEnumerable<IStairsElement> GetAvailableStairsElements(Stairs stairs)
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;
@@ -42,7 +43,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             yield return stairsElement;
         }
     }
-    BaseStairsElement? CreateElement(Type type, int elementNumber, StairsElementSettings elementSettings)
+    IStairsElement? CreateElement(Type type, int elementNumber, StairsElementSettings elementSettings)
     {
         var stairsElement = Activator.CreateInstance(type) as BaseStairsElement;
         if (stairsElement != null)
@@ -57,7 +58,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         return null;
     }
 
-    IEnumerable<BaseStairsElement> GetDefaultStairsElements()
+    IEnumerable<IStairsElement> GetDefaultStairsElements()
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;
