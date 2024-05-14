@@ -835,6 +835,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Длина марша ({0}).
+        /// </summary>
+        internal static string StairwayWidth {
+            get {
+                return ResourceManager.GetString("StairwayWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите длину марша в {0}..
+        /// </summary>
+        internal static string StairwayWidthHint {
+            get {
+                return ResourceManager.GetString("StairwayWidthHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Количество ступеней.
         /// </summary>
         internal static string StepsCount {
@@ -849,6 +867,42 @@ namespace FireEscape.Resources.Languages {
         internal static string StepsCountHint {
             get {
                 return ResourceManager.GetString("StepsCountHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Высота ступени ({0}).
+        /// </summary>
+        internal static string StepsHeight {
+            get {
+                return ResourceManager.GetString("StepsHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите высоту ступени ({0})..
+        /// </summary>
+        internal static string StepsHeightHint {
+            get {
+                return ResourceManager.GetString("StepsHeightHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ширина ступени ({0}).
+        /// </summary>
+        internal static string StepsWidth {
+            get {
+                return ResourceManager.GetString("StepsWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите ширину ступени ({0})..
+        /// </summary>
+        internal static string StepsWidthHint {
+            get {
+                return ResourceManager.GetString("StepsWidthHint", resourceCulture);
             }
         }
         

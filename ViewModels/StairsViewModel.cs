@@ -102,4 +102,13 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
     public  string StairsFenceHeight => string.Format(AppResources.StairsFenceHeight, StairsSettings.DefaultUnit);
     public  string StairsFenceHeightHint => string.Format(AppResources.StairsFenceHeightHint, StairsSettings.DefaultUnit);
+
+    public string StairwayWidth => string.Format(AppResources.StairwayWidth, StairsSettings.DefaultUnit);
+    public string StairwayWidthHint => string.Format(AppResources.StairwayWidthHint, StairsSettings.DefaultUnit);
+
+    public string StepsHeight => string.Format(AppResources.StepsHeight, StairsSettings.DefaultUnit);
+    public string StepsHeightHint => string.Format(AppResources.StepsHeightHint, StairsSettings.DefaultUnit);
+
+    public string StepsWidth => string.Format(AppResources.StepsWidth, StairsSettings.DefaultUnit);
+    public string StepsWidthHint => string.Format(AppResources.StepsWidthHint, StairsSettings.DefaultUnit);
 }

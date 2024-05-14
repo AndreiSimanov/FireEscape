@@ -292,16 +292,16 @@
     <value>Protective coating quality corresponds to GOST</value>
   </data>
   <data name="StairsHeight" xml:space="preserve">
-    <value>Stair height (m)</value>
+    <value>Stairs height (m)</value>
   </data>
   <data name="StairsHeightHint" xml:space="preserve">
-    <value>Specify stair height (m)</value>
+    <value>Specify stairs height (m)</value>
   </data>
   <data name="StairsWidth" xml:space="preserve">
-    <value>Stair width ({0})</value>
+    <value>Stairs width ({0})</value>
   </data>
   <data name="StairsWidthHint" xml:space="preserve">
-    <value>Specify stair width ({0})</value>
+    <value>Specify stairs width ({0})</value>
   </data>
   <data name="StepsCount" xml:space="preserve">
     <value>Steps count</value>
@@ -440,5 +440,23 @@
   </data>
   <data name="SupportBeamsPairsCountHint" xml:space="preserve">
     <value>Specify support beams count (in pairs)</value>
+  </data>
+  <data name="StairwayWidth" xml:space="preserve">
+    <value>Stairway width ({0})</value>
+  </data>
+  <data name="StairwayWidthHint" xml:space="preserve">
+    <value>Specify stairway width ({0})</value>
+  </data>
+  <data name="StepsHeight" xml:space="preserve">
+    <value>Steps height ({0})</value>
+  </data>
+  <data name="StepsHeightHint" xml:space="preserve">
+    <value>Specify steps height ({0})</value>
+  </data>
+  <data name="StepsWidth" xml:space="preserve">
+    <value>Steps width ({0})</value>
+  </data>
+  <data name="StepsWidthHint" xml:space="preserve">
+    <value>Specify steps width ({0})</value>
   </data>
 </root>

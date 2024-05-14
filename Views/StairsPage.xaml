@@ -255,7 +255,6 @@
                             Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight}"
                             LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsFenceHeight}"
                             PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsFenceHeightHint}"/>
-                        
                         <ctrl:ServiceabilityControl
                             MaxDecimalDigitCount="1"
                             Value="{Binding SelectedStairsElement.Deformation.Value}"
@@ -311,7 +310,12 @@
                             PlaceholderText="{x:Static lang:AppResources.SupportBeamsCountHint}"/>
                         <dxe:NumericEdit
                             Style="{StaticResource DefaultNumericEdit}"
-                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.ElementStepsCount}"
+                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayWidth}"
+                            LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairwayWidth}"
+                            PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairwayWidthHint}"/>
+                        <dxe:NumericEdit
+                            Style="{StaticResource DefaultNumericEdit}"
+                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsCount}"
                             ValueChangedCommand="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=UpdateStepsCountCommand}"
                             LabelText="{x:Static lang:AppResources.StepsCount}"
                             PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"/>
@@ -337,6 +341,20 @@
                     </StackLayout>
                     
                     <StackLayout IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}">
+                        <Grid  RowDefinitions="auto, *" ColumnDefinitions="*, *">
+                            <dxe:NumericEdit
+                                Style="{StaticResource DefaultNumericEdit}"
+                                Grid.Column="0"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsWidth}"
+                                LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StepsWidth}"
+                                PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StepsWidthHint}"/>
+                            <dxe:NumericEdit
+                                Style="{StaticResource DefaultNumericEdit}"
+                                Grid.Column="1"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsHeight}"
+                                LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StepsHeight}"
+                                PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StepsHeightHint}"/>
+                        </Grid>
                         <ctrl:ServiceabilityControl
                             MaxDecimalDigitCount="1"
                             Value="{Binding SelectedStairsElement.Deformation.Value}"
@@ -353,7 +371,6 @@
                             Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"
                             PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
                             LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"/>
-
                         <ctrl:ServiceabilityControl
                             MaxDecimalDigitCount="1"
                             Value="{Binding SelectedStairsElement.Deformation.Value}"

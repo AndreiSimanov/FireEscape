@@ -7,6 +7,9 @@ public abstract partial class BaseStairsElement : ObservableObject
     public const float K1 = 2.5f;
     public const float K2 = 120f;
     public const float K3 = 1.5f;
+    public const float K4 = .5f;
+    public const float COS_ALPHA = .7f;
+
     public const float FENCE_TEST_POINT_DIVIDER = 1.5f;
     public const float STEPS_TEST_POINT_DIVIDER = 5f;
 

@@ -441,4 +441,22 @@
   <data name="SupportBeamsPairsCountHint" xml:space="preserve">
     <value>Укажите количество балок (парами)</value>
   </data>
+  <data name="StairwayWidth" xml:space="preserve">
+    <value>Длина марша ({0})</value>
+  </data>
+  <data name="StairwayWidthHint" xml:space="preserve">
+    <value>Укажите длину марша в {0}.</value>
+  </data>
+  <data name="StepsHeight" xml:space="preserve">
+    <value>Высота ступени ({0})</value>
+  </data>
+  <data name="StepsHeightHint" xml:space="preserve">
+    <value>Укажите высоту ступени ({0}).</value>
+  </data>
+  <data name="StepsWidth" xml:space="preserve">
+    <value>Ширина ступени ({0})</value>
+  </data>
+  <data name="StepsWidthHint" xml:space="preserve">
+    <value>Укажите ширину ступени ({0}).</value>
+  </data>
 </root>
