@@ -164,9 +164,6 @@
             <dxcv:DXCollectionView 
                 x:Name="stairsElements"
                 ItemsSource="{Binding EditObject.StairsElements}"
-                SelectedItem="{Binding SelectedStairsElement}"
-                SelectionChanged="StairsElementsSelectionChanged"
-                Tap="StairsElementsTap"
                 Scrolled="StairsElementsScrolled"
                 AllowLiveDataShaping="True"
                 SelectionMode="Single"
@@ -185,7 +182,12 @@
                             </dxcv:SwipeContainer.EndSwipeItems>
                             <dxcv:SwipeContainer.ItemView>
                                 <Grid Padding="10" HorizontalOptions="Fill">
-                                    <Border Style="{StaticResource FrameBorder}" >
+                                    <Frame Style="{StaticResource CardView}" CornerRadius="8" Padding="0,0,0,10">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectStairsElementCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
                                         <StackLayout>
                                             <Grid RowDefinitions="Auto,*">
                                                 <Label Grid.Row ="0" Text="{Binding Caption}" Margin="10,5,0,0" />
@@ -221,7 +223,7 @@
                                             <dx:DXSeparator SideMargin="0"/>
 
                                         </StackLayout>
-                                    </Border>
+                                    </Frame>
                                 </Grid>
                             </dxcv:SwipeContainer.ItemView>
                         </dxcv:SwipeContainer>
@@ -231,10 +233,10 @@
             
             <dxco:BottomSheet
                 x:Name="bottomSheet"
-                HalfExpandedRatio="0.4">
+                State="{Binding BottomSheetState}"
+                HalfExpandedRatio="0.5">
                 <StackLayout>
                     <Label FontSize="Body" TextColor="{dx:ThemeColor OnSurfaceVariant}" Text="{Binding SelectedStairsElement.Caption}" Margin="10,5,0,0" />
-
 
                     <dxe:NumericEdit
                                                 Style="{StaticResource DefaultNumericEdit}"

@@ -1,4 +1,5 @@
-﻿using FireEscape.Factories.Interfaces;
+﻿using DevExpress.Maui.Controls;
+using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace FireEscape.ViewModels;
@@ -19,13 +20,24 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     }
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(BottomSheetState))]
     BaseStairsElement? selectedStairsElement;
+
+    [ObservableProperty]
+    BottomSheetState bottomSheetState;
 
     [RelayCommand]
     void UpdatStairsElements() => EditObject?.UpdatStairsElements();
 
     [RelayCommand]
     void UpdateStepsCount() => EditObject?.UpdateStepsCount();
+
+    [RelayCommand]
+    void SelectStairsElement(BaseStairsElement? element)
+    {
+        BottomSheetState = element == null ? BottomSheetState.Hidden : BottomSheetState.HalfExpanded;
+        SelectedStairsElement = element;
+    }
 
     [RelayCommand]
     async Task AddStairsElementAsync()
@@ -46,7 +58,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                     {
                         EditObject.UpdatStairsElement(element);
                         EditObject.StairsElements.Insert(0, element);
-                        SelectedStairsElement = element;
+                        SelectStairsElement(element);
                     }
                 }
             }
@@ -68,6 +80,8 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
             EditObject.StairsElements.Remove(element);
             EditObject.UpdateStepsCount();
+            if (SelectedStairsElement == element)
+                SelectStairsElement(null);
         },
         element,
         AppResources.DeleteStairsElementError);

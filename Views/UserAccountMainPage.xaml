@@ -17,7 +17,7 @@
     Title="{x:Static lang:AppResources.UserAccountMainPageTitle}"
     HideSoftInputOnTapped="True"             
     Shell.NavBarIsVisible="False"
-    Appearing="ContentPage_Appearing">
+    Appearing="ContentPageAppearing">
     <Grid RowDefinitions="Auto,*">
         <ctrl:SearchControl
             x:Name="searchControl"

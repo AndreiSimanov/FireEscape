@@ -16,7 +16,7 @@
     x:DataType="viewmodel:ProtocolMainViewModel"
     x:Class="FireEscape.Views.ProtocolMainPage"             
     HideSoftInputOnTapped="True"             
-    Appearing="ContentPage_Appearing">
+    Appearing="ContentPageAppearing">
     <Grid RowDefinitions="Auto,*">
         <ctrl:SearchControl
             x:Name="searchControl"

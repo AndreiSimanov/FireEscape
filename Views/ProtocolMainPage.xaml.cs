@@ -9,7 +9,7 @@ public partial class ProtocolMainPage : ContentPage
 
     ProtocolMainViewModel? ProtocolMainViewModel => BindingContext as ProtocolMainViewModel;
 
-    void ContentPage_Appearing(object sender, EventArgs e)
+    void ContentPageAppearing(object sender, EventArgs e)
     {
         protocols.PullToRefreshCommand.Execute(null);
     }
