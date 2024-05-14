@@ -1,12 +1,18 @@
+using DevExpress.Maui.CollectionView;
+
 namespace FireEscape.Views;
 
 public partial class StairsPage : BaseStairsPage
 {
+    const int STAIRS_ELEMENTS_HEADER_HEIGHT = 83;
     public StairsPage(StairsViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
-        stairsElements.HeightRequest = DeviceDisplay.Current.MainDisplayInfo.Height / DeviceDisplay.Current.MainDisplayInfo.Density - 200;
+        Content.SizeChanged += ContentSizeChanged;
     }
+
+    void ContentSizeChanged(object? sender, EventArgs e) => 
+        stairsElements.HeightRequest = Content.Height - STAIRS_ELEMENTS_HEADER_HEIGHT;
 
     void AddStairsElement(object sender, EventArgs e)
     {
@@ -33,7 +39,7 @@ public partial class StairsPage : BaseStairsPage
 
     void ScrollViewScrolled(object sender, ScrolledEventArgs e) => SetSelectedStairsElements();
 
-    void StairsElementsScrolled(object sender, DevExpress.Maui.CollectionView.DXCollectionViewScrolledEventArgs e) => SetSelectedStairsElements();
+    void StairsElementsScrolled(object sender, DXCollectionViewScrolledEventArgs e) => SetSelectedStairsElements();
 
     void SetSelectedStairsElements(BaseStairsElement? element = null)
     {
