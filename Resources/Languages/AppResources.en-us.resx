@@ -459,4 +459,19 @@
   <data name="StepsWidthHint" xml:space="preserve">
     <value>Specify steps width ({0})</value>
   </data>
+  <data name="PlatformLength" xml:space="preserve">
+    <value>Platform length ({0})</value>
+  </data>
+  <data name="PlatformLengthHint" xml:space="preserve">
+    <value>Specify platform length ({0})</value>
+  </data>
+  <data name="PlatformWidth" xml:space="preserve">
+    <value>Platform width ({0})</value>
+  </data>
+  <data name="PlatformWidthHint" xml:space="preserve">
+    <value>Specify platform width ({0})</value>
+  </data>
+  <data name="AdditionalPlatformSizes" xml:space="preserve">
+    <value>Additional platform sizes</value>
+  </data>
 </root>

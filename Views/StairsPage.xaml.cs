@@ -9,6 +9,8 @@ public partial class StairsPage : BaseStairsPage
     {
         InitializeComponent();
         Content.SizeChanged += ContentSizeChanged;
+        platformLengthColumn.Caption = ViewModel?.PlatformLength;
+        platformWidthColumn.Caption = ViewModel?.PlatformWidth;
     }
 
     void ContentSizeChanged(object? sender, EventArgs e) => 

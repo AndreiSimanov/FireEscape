@@ -459,4 +459,19 @@
   <data name="StepsWidthHint" xml:space="preserve">
     <value>Укажите ширину ступени ({0}).</value>
   </data>
+  <data name="PlatformLength" xml:space="preserve">
+    <value>Длина площадки ({0})</value>
+  </data>
+  <data name="PlatformLengthHint" xml:space="preserve">
+    <value>Укажите длину площадки ({0}).</value>
+  </data>
+  <data name="PlatformWidth" xml:space="preserve">
+    <value>Ширина площадки ({0})</value>
+  </data>
+  <data name="PlatformWidthHint" xml:space="preserve">
+    <value>Укажите ширину площадки ({0}).</value>
+  </data>
+  <data name="AdditionalPlatformSizes" xml:space="preserve">
+    <value>Дополнительные размеры площадки</value>
+  </data>
 </root>

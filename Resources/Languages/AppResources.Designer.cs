@@ -61,6 +61,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дополнительные размеры площадки.
+        /// </summary>
+        internal static string AdditionalPlatformSizes {
+            get {
+                return ResourceManager.GetString("AdditionalPlatformSizes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно добавить заказ.
         /// </summary>
         internal static string AddOrderError {
@@ -606,6 +615,42 @@ namespace FireEscape.Resources.Languages {
         internal static string OrdersSearch {
             get {
                 return ResourceManager.GetString("OrdersSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Длина площадки ({0}).
+        /// </summary>
+        internal static string PlatformLength {
+            get {
+                return ResourceManager.GetString("PlatformLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите длину площадки ({0})..
+        /// </summary>
+        internal static string PlatformLengthHint {
+            get {
+                return ResourceManager.GetString("PlatformLengthHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ширина площадки ({0}).
+        /// </summary>
+        internal static string PlatformWidth {
+            get {
+                return ResourceManager.GetString("PlatformWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите ширину площадки ({0})..
+        /// </summary>
+        internal static string PlatformWidthHint {
+            get {
+                return ResourceManager.GetString("PlatformWidthHint", resourceCulture);
             }
         }
         

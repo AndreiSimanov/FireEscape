@@ -6,6 +6,7 @@
     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
     xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+    xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
     xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:enums="clr-namespace:FireEscape.Models.Enums"
@@ -234,7 +235,7 @@
             <dxco:BottomSheet
                 x:Name="bottomSheet"
                 State="{Binding BottomSheetState}"
-                HalfExpandedRatio="0.5">
+                HalfExpandedRatio="0.4">
                 <StackLayout>
                     <Label FontSize="Body" TextColor="{dx:ThemeColor OnSurfaceVariant}" Text="{Binding SelectedStairsElement.Caption}" Margin="10,5,0,0" />
 
@@ -292,6 +293,22 @@
                             Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"
                             LabelText="{x:Static lang:AppResources.SupportBeamsCount}"
                             PlaceholderText="{x:Static lang:AppResources.SupportBeamsCountHint}"/>
+
+                        <Grid RowDefinitions="auto, *" ColumnDefinitions="*, *">
+                            <dxe:NumericEdit
+                                Style="{StaticResource DefaultNumericEdit}"
+                                Grid.Column="0"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSize.Length}"
+                                LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=PlatformLength}"
+                                PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=PlatformLengthHint}"/>
+                            <dxe:NumericEdit
+                                Style="{StaticResource DefaultNumericEdit}"
+                                Grid.Column="1"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSize.Width}"
+                                LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=PlatformWidth}"
+                                PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=PlatformWidthHint}"/>
+                        </Grid>
+
                         <ctrl:ServiceabilityControl
                             MaxDecimalDigitCount="1"
                             Value="{Binding SelectedStairsElement.Deformation.Value}"
@@ -300,6 +317,25 @@
                             RejectExplanationText ="{Binding SelectedStairsElement.Deformation.RejectExplanation}"
                             LabelText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=Deformation}"
                             PlaceholderText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=DeformationHint}"/>
+
+                        <Label 
+                            Text="{x:Static lang:AppResources.AdditionalPlatformSizes}"
+                            HorizontalTextAlignment="Center"
+                            IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
+                            Margin="0,20,0,0" />
+                        <dxg:DataGridView
+                            x:Name="platformSizesGridView"
+                            AllowSort="False"
+                            HeightRequest="200"
+                            EditorShowMode="Tap"
+                            Margin="10"
+                            IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
+                            ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSizes}">
+                            <dxg:DataGridView.Columns>
+                                <dxg:NumberColumn x:Name="platformLengthColumn" HeaderFontSize="12" FieldName="Length" MinValue="0" MaxValue="10000" HorizontalContentAlignment="Center" />
+                                <dxg:NumberColumn x:Name="platformWidthColumn" HeaderFontSize="12" FieldName="Width" MinValue="0" MaxValue="10000" HorizontalContentAlignment="Center"/>
+                            </dxg:DataGridView.Columns>
+                        </dxg:DataGridView>
                     </StackLayout>
 
                     <StackLayout IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StairwayP2}}">
@@ -341,7 +377,7 @@
                     </StackLayout>
                     
                     <StackLayout IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}">
-                        <Grid  RowDefinitions="auto, *" ColumnDefinitions="*, *">
+                        <Grid RowDefinitions="auto, *" ColumnDefinitions="*, *">
                             <dxe:NumericEdit
                                 Style="{StaticResource DefaultNumericEdit}"
                                 Grid.Column="0"

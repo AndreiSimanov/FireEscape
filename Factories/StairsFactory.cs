@@ -51,6 +51,8 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             stairsElement.ElementNumber = elementNumber;
             if (stairsElement is BaseSupportBeamsElement)
                 ((BaseSupportBeamsElement)stairsElement).SupportBeamsCount = elementSettings.SupportBeamsCount;
+            if (stairsElement is BasePlatformElement)
+                ((BasePlatformElement)stairsElement).PlatformSizes.Add(new PlatformSize());
             stairsElement.Deformation = new ServiceabilityProperty<float>() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
             return stairsElement;
         }

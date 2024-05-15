@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.Models.StairsElements;
 
-public class PlatformP2 : BaseSupportBeamsElement
+public class PlatformP2 : BasePlatformElement
 {
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.PlatformP2;
     public override BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P2;
