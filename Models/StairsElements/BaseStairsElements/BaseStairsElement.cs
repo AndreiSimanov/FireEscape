@@ -80,4 +80,6 @@ public abstract partial class BaseStairsElement : ObservableObject
             return 1;
         return (int)Math.Floor(count);
     }
+
+    static protected float ConvertToMeter(int? val) => val.HasValue ? val.Value * DefaultUnitMultiplier / 1000f : 0f;
 }

@@ -14,8 +14,7 @@ public partial class StairwayP2 : BaseSupportBeamsElement
         {
             if (StairwayWidth == 0 || SupportBeamsCount == 0)
                 return base.CalcWithstandLoad;
-            float widthMeters = StairwayWidth * DefaultUnitMultiplier / 1000f;
-            return (float) Math.Round( widthMeters * K2 / (K4 * SupportBeamsCount) * K3 * COS_ALPHA) ;
+            return (float) Math.Round(ConvertToMeter(StairwayWidth) * K2 / (K4 * SupportBeamsCount) * K3 * COS_ALPHA) ;
         }
     }
 

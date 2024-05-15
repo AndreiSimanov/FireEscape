@@ -285,13 +285,13 @@
                             <dxe:NumericEdit
                                 Style="{StaticResource DefaultNumericEdit}"
                                 Grid.Column="0"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSize.Length}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Length}"
                                 LabelText="{Binding PlatformLength}"
                                 PlaceholderText ="{Binding PlatformLengthHint}"/>
                             <dxe:NumericEdit
                                 Style="{StaticResource DefaultNumericEdit}"
                                 Grid.Column="1"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSize.Width}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Width}"
                                 LabelText="{Binding PlatformWidth}"
                                 PlaceholderText ="{Binding PlatformWidthHint}"/>
                         </Grid>
@@ -329,13 +329,13 @@
                             <dxe:NumericEdit
                                 Style="{StaticResource DefaultNumericEdit}"
                                 Grid.Column="0"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSize.Length}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Length}"
                                 LabelText="{Binding PlatformLength}"
                                 PlaceholderText ="{Binding PlatformLengthHint}"/>
                             <dxe:NumericEdit
                                 Style="{StaticResource DefaultNumericEdit}"
                                 Grid.Column="1"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSize.Width}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Width}"
                                 LabelText="{Binding PlatformWidth}"
                                 PlaceholderText ="{Binding PlatformWidthHint}"/>
                         </Grid>
