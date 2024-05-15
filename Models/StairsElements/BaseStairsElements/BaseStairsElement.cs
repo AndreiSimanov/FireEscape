@@ -38,7 +38,6 @@ public abstract partial class BaseStairsElement : ObservableObject
     [JsonIgnore]
     public abstract int PrintOrder { get; }
 
-
     [JsonIgnore]
     public virtual string Name => EnumDescriptionTypeConverter.GetEnumDescription(StairsElementType);
 
