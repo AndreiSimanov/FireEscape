@@ -1,4 +1,5 @@
-﻿using DevExpress.Maui.Controls;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using DevExpress.Maui.Controls;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 
@@ -6,6 +7,7 @@ namespace FireEscape.ViewModels;
 
 public partial class StairsViewModel : BaseEditViewModel<Stairs>
 {
+    const int MAX_EXPAND_PLATFORM_SIZES = 30;
     readonly StairsService stairsService;
     readonly IStairsFactory stairsFactory;
     public StairsSettings StairsSettings { get; private set; }
@@ -35,8 +37,28 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     [RelayCommand]
     void SelectStairsElement(BaseStairsElement? element)
     {
+        UpdatePlatformSizes(SelectedStairsElement, false);
         BottomSheetState = element == null ? BottomSheetState.Hidden : BottomSheetState.HalfExpanded;
         SelectedStairsElement = element;
+        UpdatePlatformSizes(SelectedStairsElement, true);
+    }
+
+    void UpdatePlatformSizes(BaseStairsElement? element, bool expand)
+    {
+        var platformElement = element as BasePlatformElement;
+        if (platformElement == null)
+            return;
+
+        if (expand)
+        {
+            var platformSizeStubs = Enumerable.Range(1, MAX_EXPAND_PLATFORM_SIZES - platformElement.PlatformSizes.Count).Select(o => new PlatformSize());
+            platformElement.PlatformSizes = platformElement.PlatformSizes.Concat(platformSizeStubs).ToObservableCollection();
+        }
+        else
+        {
+            platformElement.PlatformSizes = platformElement.PlatformSizes
+                .Where(platformSize => platformSize.Length > 0 || platformSize.Width > 0).ToObservableCollection();
+        }
     }
 
     [RelayCommand]
