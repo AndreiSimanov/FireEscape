@@ -2,6 +2,7 @@
 using DevExpress.Maui.Controls;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
+using System.ComponentModel;
 
 namespace FireEscape.ViewModels;
 
@@ -27,6 +28,13 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
     [ObservableProperty]
     BottomSheetState bottomSheetState;
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        if (e.PropertyName == nameof(BottomSheetState) && BottomSheetState != BottomSheetState.FullExpanded)
+            SelectedStairsElement?.UpdateCalcWithstandLoad();
+    }
 
     [RelayCommand]
     void UpdatStairsElements() => EditObject?.UpdateStairsElements();

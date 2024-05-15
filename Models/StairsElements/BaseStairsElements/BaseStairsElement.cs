@@ -71,6 +71,8 @@ public abstract partial class BaseStairsElement : ObservableObject
     [ObservableProperty]
     ServiceabilityProperty<float> deformation = new();
 
+    public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(CalcWithstandLoad));
+
     public override string ToString() => Caption;
 
     static protected int CalcTestPointCount(float measure, float divider )
