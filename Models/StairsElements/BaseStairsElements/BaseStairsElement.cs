@@ -2,6 +2,16 @@
 
 namespace FireEscape.Models.StairsElements.BaseStairsElements;
 
+// JsonDerivedType need for properly saving a stairs (checking original and edit object using System.Text.Json.Serialization)
+[System.Text.Json.Serialization.JsonDerivedType(typeof(StepsP1), typeDiscriminator: nameof(StepsP1))]
+[System.Text.Json.Serialization.JsonDerivedType(typeof(StepsP2), typeDiscriminator: nameof(StepsP2))]
+[System.Text.Json.Serialization.JsonDerivedType(typeof(FenceP1), typeDiscriminator: nameof(FenceP1))]
+[System.Text.Json.Serialization.JsonDerivedType(typeof(FenceP2), typeDiscriminator: nameof(FenceP2))]
+[System.Text.Json.Serialization.JsonDerivedType(typeof(PlatformP1), typeDiscriminator: nameof(PlatformP1))]
+[System.Text.Json.Serialization.JsonDerivedType(typeof(PlatformP2), typeDiscriminator: nameof(PlatformP2))]
+[System.Text.Json.Serialization.JsonDerivedType(typeof(StairwayP2), typeDiscriminator: nameof(StairwayP2))]
+[System.Text.Json.Serialization.JsonDerivedType(typeof(SupportBeamsP1), typeDiscriminator: nameof(SupportBeamsP1))]
+
 public abstract partial class BaseStairsElement : ObservableObject
 {
     public const float K1 = 2.5f;
