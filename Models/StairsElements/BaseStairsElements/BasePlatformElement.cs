@@ -9,5 +9,5 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
     ObservableCollection<PlatformSize> platformSizes = new();
 
     [ObservableProperty]
-    PlatformSize platformSize =new();
+    PlatformSize platformSize = new() { Length = 0, Width = 0 };
 }

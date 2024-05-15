@@ -331,8 +331,8 @@
                             IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
                             ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSizes}">
                             <dxg:DataGridView.Columns>
-                                <dxg:NumberColumn Caption="{Binding PlatformLength}" HeaderFontSize="12" FieldName="Length" MinValue="0" MaxValue="10000" HorizontalContentAlignment="Center" />
-                                <dxg:NumberColumn Caption="{Binding PlatformWidth}" HeaderFontSize="12" FieldName="Width" MinValue="0" MaxValue="10000" HorizontalContentAlignment="Center"/>
+                                <dxg:NumberColumn Caption="{Binding PlatformLength}" HeaderFontSize="12" FieldName="Length" AllowNullValue="True" MinValue="0" MaxValue="10000" HorizontalContentAlignment="Center" />
+                                <dxg:NumberColumn Caption="{Binding PlatformWidth}" HeaderFontSize="12" FieldName="Width" AllowNullValue="True" MinValue="0" MaxValue="10000" HorizontalContentAlignment="Center"/>
                             </dxg:DataGridView.Columns>
                         </dxg:DataGridView>
                     </StackLayout>
