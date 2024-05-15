@@ -7,10 +7,7 @@ public class EnumDescriptionTypeConverter : EnumConverter
 {
     protected Type type;
 
-    public EnumDescriptionTypeConverter(Type type) : base(type)
-    {
-        this.type = type;
-    }
+    public EnumDescriptionTypeConverter(Type type) : base(type) => this.type = type;
 
     public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
     {

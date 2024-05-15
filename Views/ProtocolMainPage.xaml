@@ -14,8 +14,8 @@
     ios:Page.UseSafeArea="True"
     Title="{x:Static lang:AppResources.ProtocolMainPageTitle}"
     x:DataType="viewmodel:ProtocolMainViewModel"
-    x:Class="FireEscape.Views.ProtocolMainPage"             
-    HideSoftInputOnTapped="True"             
+    x:Class="FireEscape.Views.ProtocolMainPage"
+    HideSoftInputOnTapped="True"
     Appearing="ContentPageAppearing">
     <Grid RowDefinitions="Auto,*">
         <ctrl:SearchControl
@@ -123,11 +123,11 @@
                                         </Image>
                                         <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
                                             <Label 
-                                                Style="{StaticResource Titleline}" 
+                                                Style="{StaticResource Titleline}"
                                                 IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Text="{Binding FireEscapeObject}"/>
                                             <Label 
-                                                Style="{StaticResource Titleline}"                                                 
+                                                Style="{StaticResource Titleline}"
                                                 IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
                                                 Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.FireEscapeObject}"/>
                                             <Label Style="{StaticResource SubTitleline}">
@@ -163,22 +163,22 @@
                                                 </Label.FormattedText>
                                             </Label>
                                             <Label 
-                                                Style="{StaticResource SubTitleline}" 
+                                                Style="{StaticResource SubTitleline}"
                                                 IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                                 Text="{Binding Address}"/>
                                             <Label 
-                                                Style="{StaticResource SubTitleline}" 
+                                                Style="{StaticResource SubTitleline}"
                                                 IsVisible="{Binding Address, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
                                                 Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Address}"/>
                                             <Label Style="{StaticResource SmallSubTitleline}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                        <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
-                                                        <Span Text="  (" />
-                                                        <Span Text="{x:Static lang:AppResources.Id}" />
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{x:Static lang:AppResources.ProtocolDate}"/>
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}"/>
+                                                        <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}"/>
+                                                        <Span Text="  ("/>
+                                                        <Span Text="{x:Static lang:AppResources.Id}"/>
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}"/>
                                                         <Span Text="{Binding Id}" />
                                                         <Span Text=")" />
                                                     </FormattedString>
@@ -200,7 +200,7 @@
             FontSize="28" CornerRadius="14" FontAttributes="None"
             Clicked="CreateProtocol">
             <dx:DXButton.Shadow>
-                <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
+                <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10"/>
             </dx:DXButton.Shadow>
         </dx:DXButton>
     </Grid>
