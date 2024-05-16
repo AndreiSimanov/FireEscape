@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
+using DevExpress.Data.Extensions;
 using DevExpress.Maui.Controls;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
@@ -76,20 +77,27 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         {
             if (EditObject == null)
                 return;
-            var availableStairsElements = stairsFactory.GetAvailableStairsElements(EditObject).ToList();
-            if (availableStairsElements != null)
+            var availableStairsElements = stairsFactory.GetAvailableStairsElements(EditObject);
+            if (EditObject.BaseStairsType == BaseStairsTypeEnum.P2)
             {
-                var elementNames = availableStairsElements.Select(item => item.ToString()).ToArray();
-                if (elementNames.Any())
+                var platformIndex = EditObject.StairsElements.FindIndex(element => element.StairsElementType == StairsElementTypeEnum.PlatformP2);
+                var stairwayIndex = EditObject.StairsElements.FindIndex(element => element.StairsElementType == StairsElementTypeEnum.StairwayP2);
+                if ((stairwayIndex > platformIndex || stairwayIndex == -1) && platformIndex != -1)
+                    availableStairsElements = availableStairsElements.OrderBy(item => item.Name);
+                else
+                    availableStairsElements = availableStairsElements.OrderByDescending(item => item.Name);
+            }
+
+            var elementNames = availableStairsElements.Select(item => item.ToString()).ToArray();
+            if (elementNames.Any())
+            {
+                var action = await Shell.Current.DisplayActionSheet(AppResources.SelectStairsElement, AppResources.Cancel, string.Empty, elementNames);
+                var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
+                if (element != null)
                 {
-                    var action = await Shell.Current.DisplayActionSheet(AppResources.SelectStairsElement, AppResources.Cancel, string.Empty, elementNames);
-                    var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
-                    if (element != null)
-                    {
-                        EditObject.UpdateStairsElement(element);
-                        EditObject.StairsElements.Insert(0, element);
-                        SelectStairsElement(element);
-                    }
+                    EditObject.UpdateStairsElement(element);
+                    EditObject.StairsElements.Insert(0, element);
+                    SelectStairsElement(element);
                 }
             }
         },
