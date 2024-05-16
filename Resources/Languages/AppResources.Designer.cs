@@ -646,6 +646,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sплощ.
+        /// </summary>
+        internal static string PlatformSize {
+            get {
+                return ResourceManager.GetString("PlatformSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to м2.
+        /// </summary>
+        internal static string PlatformSizeUnit {
+            get {
+                return ResourceManager.GetString("PlatformSizeUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ширина площадки ({0}).
         /// </summary>
         internal static string PlatformWidth {

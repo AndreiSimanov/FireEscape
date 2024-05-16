@@ -480,4 +480,10 @@
   <data name="RejectExplanationLabel" xml:space="preserve">
     <value>Reject</value>
   </data>
+  <data name="PlatformSize" xml:space="preserve">
+    <value>Platform size</value>
+  </data>
+  <data name="PlatformSizeUnit" xml:space="preserve">
+    <value>m2</value>
+  </data>
 </root>
