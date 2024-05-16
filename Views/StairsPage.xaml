@@ -233,8 +233,8 @@
                                         </Grid>
                                         <dx:DXSeparator SideMargin="0"/>
 
-                                        <Label IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
-                                            Style="{StaticResource SubLine}">
+                                        <Label Style="{StaticResource SubLine}"
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.StairsFenceHeight}" />
@@ -246,10 +246,9 @@
                                             </Label.FormattedText>
                                         </Label>
 
-                                        <Label 
+                                        <Label Style="{StaticResource SubLine}"
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
-                                            TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}}, Path=FenceHeight, Converter={StaticResource IntZeroToLableColorConverter}}"
-                                            Style="{StaticResource SubLine}">
+                                            TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}}, Path=FenceHeight, Converter={StaticResource IntZeroToLableColorConverter}}">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="{x:Static lang:AppResources.StairsFenceHeight}" />
@@ -261,20 +260,33 @@
                                             </Label.FormattedText>
                                         </Label>
 
-                                        <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}">
+                                        <Label Style="{StaticResource SubLine}"
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
+                                            TextColor = "{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}}, Path=SupportBeamsCount, Converter={StaticResource IntZeroToLableColorConverter}}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.SupportBeamsCount}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}},  Path=SupportBeamsCount}" />
+                                                    <Span Text="  " />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource SupportBeamsEnumConverter}}">
                                             <Label Style="{StaticResource SubLine}"
-                                               TextColor = "{Binding Source={RelativeSource AncestorType={x:Type baseelements:BasePlatformElement}}, Path=SupportBeamsCount, Converter={StaticResource IntZeroToLableColorConverter}}">
+                                               TextColor = "{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}}, Path=SupportBeamsCount, Converter={StaticResource IntZeroToLableColorConverter}}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.SupportBeamsCount}" />
                                                         <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BasePlatformElement}},  Path=SupportBeamsCount}" />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}},  Path=SupportBeamsCount}" />
                                                         <Span Text="  " />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-
                                             <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End"
+                                               IsVisible="{Binding StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}"
                                                TextColor = "{Binding Source={RelativeSource AncestorType={x:Type baseelements:BasePlatformElement}}, Path=Size, Converter={StaticResource FloatZeroToLableColorConverter}}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
@@ -283,6 +295,59 @@
                                                         <Span Text="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BasePlatformElement}},  Path=Size}" />
                                                         <Span Text=" " />
                                                         <Span Text="{x:Static lang:AppResources.PlatformSizeUnit}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
+
+                                        <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StairwayP2}}">
+                                            <Label Style="{StaticResource SubLine}"
+                                               TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:StairwayP2}}, Path=StairwayWidth, Converter={StaticResource IntZeroToLableColorConverter}}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.StairwayWidth}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type elements:StairwayP2}},  Path=StairwayWidth}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.DefaultUnit}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                            <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End"
+                                               TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:StairwayP2}}, Path=StepsCount, Converter={StaticResource IntZeroToLableColorConverter}}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.StepsCount}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type elements:StairwayP2}},  Path=StepsCount}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
+
+                                        <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}">
+                                            <Label Style="{StaticResource SubLine}"
+                                               TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}}, Path=StepsWidth, Converter={StaticResource IntZeroToLableColorConverter}}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.StepsWidth}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}},  Path=StepsWidth}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.DefaultUnit}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End"
+                                                TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}}, Path=StepsHeight, Converter={StaticResource IntZeroToLableColorConverter}}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.StepsHeight}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}},  Path=StepsHeight}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.DefaultUnit}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
@@ -365,8 +430,7 @@
                         PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
                         LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"/>
 
-                    <Grid 
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}"
+                    <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}"
                         RowDefinitions="auto, *" 
                         ColumnDefinitions="*, *">
                         <dxe:NumericEdit
@@ -383,26 +447,29 @@
                             PlaceholderText ="{Binding PlatformWidthHint}"/>
                     </Grid>
 
-                    <dxe:NumericEdit
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
+                    <dxe:NumericEdit IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
                         Style="{StaticResource DefaultNumericEdit}"
                         Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight}"
                         LabelText="{Binding StairsFenceHeight}"
                         PlaceholderText ="{Binding StairsFenceHeightHint}"/>
 
-                    <StackLayout IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StairwayP2}}">
+                    <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StairwayP2}}"
+                        RowDefinitions="auto, *" 
+                        ColumnDefinitions="*, *">
                         <dxe:NumericEdit
                             Style="{StaticResource DefaultNumericEdit}"
+                            Grid.Column="0"
                             Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayWidth}"
                             LabelText="{Binding StairwayWidth}"
                             PlaceholderText="{Binding StairwayWidthHint}"/>
                         <dxe:NumericEdit
                             Style="{StaticResource DefaultNumericEdit}"
+                            Grid.Column="1"
                             Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsCount}"
                             ValueChangedCommand="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=UpdateStepsCountCommand}"
                             LabelText="{x:Static lang:AppResources.StepsCount}"
                             PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"/>
-                    </StackLayout>
+                    </Grid>
 
                     <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
                         RowDefinitions="auto, *" ColumnDefinitions="*, *">
