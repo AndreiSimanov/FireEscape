@@ -250,6 +250,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Деформация.
+        /// </summary>
+        internal static string DeformationLabel {
+            get {
+                return ResourceManager.GetString("DeformationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Удалить.
         /// </summary>
         internal static string Delete {
@@ -723,6 +732,15 @@ namespace FireEscape.Resources.Languages {
         internal static string RejectExplanationHint {
             get {
                 return ResourceManager.GetString("RejectExplanationHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Несоотв.
+        /// </summary>
+        internal static string RejectExplanationLabel {
+            get {
+                return ResourceManager.GetString("RejectExplanationLabel", resourceCulture);
             }
         }
         

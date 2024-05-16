@@ -305,7 +305,7 @@
     </Style>
 
     <Style TargetType="Label" x:Key="BaseLabel">
-        <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
+        <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
@@ -315,7 +315,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
+                            <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.22}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -334,6 +334,12 @@
     <Style TargetType="Label" x:Key="SmallSubTitleline" BasedOn="{StaticResource Titleline}">
         <Setter Property="FontSize" Value="10" />
     </Style>
+
+    <Style TargetType="Label" x:Key="SubLine" BasedOn="{StaticResource Titleline}">
+        <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
     <Style TargetType="ListView">
         <Setter Property="SeparatorColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="RefreshControlColor" Value="{dx:ThemeColor OnSurfaceVariant}" />

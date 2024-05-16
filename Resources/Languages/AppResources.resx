@@ -474,4 +474,10 @@
   <data name="AdditionalPlatformSizes" xml:space="preserve">
     <value>Дополнительные размеры площадки</value>
   </data>
+  <data name="DeformationLabel" xml:space="preserve">
+    <value>Деформация</value>
+  </data>
+  <data name="RejectExplanationLabel" xml:space="preserve">
+    <value>Несоотв</value>
+  </data>
 </root>

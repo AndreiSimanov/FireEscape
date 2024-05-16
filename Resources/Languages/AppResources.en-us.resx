@@ -474,4 +474,10 @@
   <data name="AdditionalPlatformSizes" xml:space="preserve">
     <value>Additional platform sizes</value>
   </data>
+  <data name="DeformationLabel" xml:space="preserve">
+    <value>Deformation</value>
+  </data>
+  <data name="RejectExplanationLabel" xml:space="preserve">
+    <value>Reject</value>
+  </data>
 </root>

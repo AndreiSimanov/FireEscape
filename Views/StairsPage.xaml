@@ -182,21 +182,18 @@
                                     Image="delete"/>
                             </dxcv:SwipeContainer.EndSwipeItems>
                             <dxcv:SwipeContainer.ItemView>
-                                <Grid Padding="10" HorizontalOptions="Fill">
-                                    <Frame Style="{StaticResource CardView}" CornerRadius="8" Padding="0,0,0,10">
+
+                                    <Frame Style="{StaticResource CardView}" CornerRadius="8" Margin="0,0,0,10">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectStairsElementCommand}"
                                             CommandParameter="{Binding .}"/>
                                         </Frame.GestureRecognizers>
-                                        <StackLayout>
+                                        <VerticalStackLayout Margin="10,5,10,5" Padding="0">
                                             <Grid RowDefinitions="Auto,*">
-                                                <Label Style="{StaticResource Titleline}" Grid.Row ="0" Text="{Binding Caption}" Margin="10,5,0,0" />
-                                                <Label
-                                                    Grid.Row ="1" 
-                                                    FontSize="12"
-                                                    TextColor = "{Binding TestPointCount,  Converter={StaticResource IntZeroToObjectConverter}}"
-                                                    Margin="10,0,0,5">
+                                                <Label Style="{StaticResource Titleline}" Grid.Row ="0" Text="{Binding Caption}" />
+                                                <Label Grid.Row ="1"  FontSize="12"
+                                                       TextColor = "{Binding TestPointCount,  Converter={StaticResource IntZeroToObjectConverter}}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{x:Static lang:AppResources.TestPointCountTrim}" />
@@ -205,11 +202,8 @@
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
-                                                <Label
-                                                    Grid.Row ="1"
-                                                    FontSize="12"
-                                                    TextColor = "{Binding CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}"
-                                                    Margin="0,0,10,5" HorizontalTextAlignment="End">
+                                                <Label Grid.Row ="1" FontSize="12" HorizontalTextAlignment="End"
+                                                    TextColor = "{Binding CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
@@ -223,9 +217,44 @@
                                             </Grid>
                                             <dx:DXSeparator SideMargin="0"/>
 
-                                        </StackLayout>
+                                            <Grid>
+                                                <Label Style="{StaticResource SubLine}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{x:Static lang:AppResources.DeformationLabel}" />
+                                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                            <Span Text="{Binding Deformation.Value}" />
+                                                            <Span Text=" " />
+                                                            <Span Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.DefaultUnit}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{x:Static lang:AppResources.Serviceability}" />
+                                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                            <Span Text="{Binding  Deformation.ServiceabilityType, Converter={StaticResource EnumToStringConverter}}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+
+                                            <HorizontalStackLayout IsVisible="{Binding Deformation.RejectExplanation, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
+                                                <Label Style="{StaticResource SubLine}">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{x:Static lang:AppResources.RejectExplanationLabel}" />
+                                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                            <Span Text=" " />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label Style="{StaticResource SubLine}" LineBreakMode="WordWrap" MaxLines ="3"
+                                                    Text="{Binding Deformation.RejectExplanation}"/>
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
                                     </Frame>
-                                </Grid>
                             </dxcv:SwipeContainer.ItemView>
                         </dxcv:SwipeContainer>
                     </DataTemplate>
