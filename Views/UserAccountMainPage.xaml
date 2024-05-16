@@ -19,6 +19,11 @@
     Shell.NavBarIsVisible="False"
     Appearing="ContentPageAppearing">
     <Grid RowDefinitions="Auto,*">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="Green" FalseObject="Red" />
+            </ResourceDictionary>
+        </Grid.Resources>
         <ctrl:SearchControl
             x:Name="searchControl"
             Search="{Binding Search}"
@@ -73,84 +78,78 @@
                                 Image="delete"/>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
-                            <Grid Padding="10" HorizontalOptions="Fill">
-                                <Grid.Resources>
-                                    <ResourceDictionary>
-                                        <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="Green" FalseObject="Red" />
-                                    </ResourceDictionary>
-                                </Grid.Resources>
-                                <Frame Style="{StaticResource CardView}" HeightRequest="162" BorderColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
-                                    <VerticalStackLayout Spacing="2" >
-                                        <Label Style="{StaticResource Titleline}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.UserAccountId}" />
-                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                    <Span Text="{Binding Id}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Style="{StaticResource Titleline}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.UserAccountName}" />
-                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                    <Span Text="{Binding Name}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Style="{StaticResource SubTitleline}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.Signature}" />
-                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                    <Span Text="{Binding Signature}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Style="{StaticResource SubTitleline}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.Company}" />
-                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                    <Span Text="{Binding Company}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Style="{StaticResource SubTitleline}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.ExpirationDate}" />
-                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                    <Span Text="{Binding ExpirationDate, StringFormat='{0:dd.MM.yyyy}'}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
+                            <Frame Style="{StaticResource CardView}" HeightRequest="162" Margin="10,0,10,10" 
+                                   BorderColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout Spacing="2" >
+                                    <Label Style="{StaticResource Titleline}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.UserAccountId}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Id}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource Titleline}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.UserAccountName}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Name}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource SubTitleline}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.Signature}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Signature}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource SubTitleline}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.Company}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Company}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource SubTitleline}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.ExpirationDate}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding ExpirationDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 
-                                        <Label Style="{StaticResource SubTitleline}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.ExpirationCount}" />
-                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                    <Span Text="{Binding ExpirationCount}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
+                                    <Label Style="{StaticResource SubTitleline}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.ExpirationCount}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding ExpirationCount}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 
-                                        <dxe:CheckEdit
-                                            IsEnabled="False"
-                                            IsChecked="{Binding IsAdmin}"
-                                            Label="{x:Static lang:AppResources.Administrator}"
-                                            LabelColor="{dx:ThemeColor OnSurface}"
-                                            LabelFontSize="12"/>
-                                    </VerticalStackLayout>
-                                </Frame>
-                            </Grid>
+                                    <dxe:CheckEdit
+                                        IsEnabled="False"
+                                        IsChecked="{Binding IsAdmin}"
+                                        Label="{x:Static lang:AppResources.Administrator}"
+                                        LabelColor="{dx:ThemeColor OnSurface}"
+                                        LabelFontSize="12"/>
+                                </VerticalStackLayout>
+                            </Frame>
                         </dxcv:SwipeContainer.ItemView>
                     </dxcv:SwipeContainer>
                 </DataTemplate>

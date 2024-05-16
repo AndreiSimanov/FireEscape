@@ -87,107 +87,105 @@
                                 Image="delete"/>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
-                            <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame Style="{StaticResource CardView}" HeightRequest="140">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=GoToDetailsCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
-                                    <Grid ColumnDefinitions="125,*">
-                                        <Grid.Resources>
-                                            <ResourceDictionary>
-                                                <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
-                                                <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
-                                                <toolkit:IsStringNullOrWhiteSpaceConverter x:Key="IsStringNullOrWhiteSpaceConverter" />
-                                                <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
-                                            </ResourceDictionary>
-                                        </Grid.Resources>
-                                        <Image
-                                            IsVisible="{Binding HasImage, Converter={StaticResource InvertedBoolConverter}}"
-                                            HorizontalOptions="Center"
-                                            Aspect="AspectFill"
-                                            HeightRequest="80"
-                                            WidthRequest="80" 
-                                            Source="nophoto.svg"/>
-                                        <Image
-                                            IsVisible="{Binding HasImage}"
-                                            HorizontalOptions="End"
-                                            Aspect="AspectFill"
-                                            HeightRequest="110"
-                                            WidthRequest="110" 
-                                            Source="{Binding ImageFilePath}">
-                                            <Image.Clip>
-                                                <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
-                                            </Image.Clip>
-                                        </Image>
-                                        <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
-                                            <Label 
-                                                Style="{StaticResource Titleline}"
-                                                IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
-                                                Text="{Binding FireEscapeObject}"/>
-                                            <Label 
-                                                Style="{StaticResource Titleline}"
-                                                IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
-                                                Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.FireEscapeObject}"/>
-                                            <Label Style="{StaticResource SubTitleline}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.FireEscapeNum}" />
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                        <Span Text="{Binding FireEscapeNum}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Style="{StaticResource SubTitleline}" Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}"/>
-                                            <Label 
-                                                Style="{StaticResource SubTitleline}"
-                                                IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                        <Span Text="{Binding Location}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label 
-                                                Style="{StaticResource SubTitleline}"
-                                                IsVisible="{Binding Location, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Location}"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label 
-                                                Style="{StaticResource SubTitleline}"
-                                                IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
-                                                Text="{Binding Address}"/>
-                                            <Label 
-                                                Style="{StaticResource SubTitleline}"
-                                                IsVisible="{Binding Address, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
-                                                Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Address}"/>
-                                            <Label Style="{StaticResource SmallSubTitleline}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.ProtocolDate}"/>
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}"/>
-                                                        <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}"/>
-                                                        <Span Text="  ("/>
-                                                        <Span Text="{x:Static lang:AppResources.Id}"/>
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}"/>
-                                                        <Span Text="{Binding Id}" />
-                                                        <Span Text=")" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                        </VerticalStackLayout>
-                                    </Grid>
-                                </Frame>
-                            </Grid>
+                            <Frame Style="{StaticResource CardView}" HeightRequest="140" Margin="10,0,10,10">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=GoToDetailsCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid ColumnDefinitions="125,*">
+                                    <Grid.Resources>
+                                        <ResourceDictionary>
+                                            <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
+                                            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                                            <toolkit:IsStringNullOrWhiteSpaceConverter x:Key="IsStringNullOrWhiteSpaceConverter" />
+                                            <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
+                                        </ResourceDictionary>
+                                    </Grid.Resources>
+                                    <Image
+                                        IsVisible="{Binding HasImage, Converter={StaticResource InvertedBoolConverter}}"
+                                        HorizontalOptions="Center"
+                                        Aspect="AspectFill"
+                                        HeightRequest="80"
+                                        WidthRequest="80" 
+                                        Source="nophoto.svg"/>
+                                    <Image
+                                        IsVisible="{Binding HasImage}"
+                                        HorizontalOptions="End"
+                                        Aspect="AspectFill"
+                                        HeightRequest="110"
+                                        WidthRequest="110" 
+                                        Source="{Binding ImageFilePath}">
+                                        <Image.Clip>
+                                            <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
+                                        </Image.Clip>
+                                    </Image>
+                                    <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
+                                        <Label 
+                                            Style="{StaticResource Titleline}"
+                                            IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                            Text="{Binding FireEscapeObject}"/>
+                                        <Label 
+                                            Style="{StaticResource Titleline}"
+                                            IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
+                                            Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.FireEscapeObject}"/>
+                                        <Label Style="{StaticResource SubTitleline}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.FireEscapeNum}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding FireEscapeNum}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Style="{StaticResource SubTitleline}" Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}"/>
+                                        <Label 
+                                            Style="{StaticResource SubTitleline}"
+                                            IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding Location}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label 
+                                            Style="{StaticResource SubTitleline}"
+                                            IsVisible="{Binding Location, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Location}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label 
+                                            Style="{StaticResource SubTitleline}"
+                                            IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                            Text="{Binding Address}"/>
+                                        <Label 
+                                            Style="{StaticResource SubTitleline}"
+                                            IsVisible="{Binding Address, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
+                                            Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Address}"/>
+                                        <Label Style="{StaticResource SmallSubTitleline}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.ProtocolDate}"/>
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}"/>
+                                                    <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}"/>
+                                                    <Span Text="  ("/>
+                                                    <Span Text="{x:Static lang:AppResources.Id}"/>
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}"/>
+                                                    <Span Text="{Binding Id}" />
+                                                    <Span Text=")" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
                         </dxcv:SwipeContainer.ItemView>
                     </dxcv:SwipeContainer>
                 </DataTemplate>
