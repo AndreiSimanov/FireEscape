@@ -232,7 +232,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Деформация ({0}).
+        ///   Looks up a localized string similar to Деформация.
         /// </summary>
         internal static string Deformation {
             get {
@@ -241,20 +241,11 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите размер деформации в {0}..
+        ///   Looks up a localized string similar to Укажите размер деформации в.
         /// </summary>
         internal static string DeformationHint {
             get {
                 return ResourceManager.GetString("DeformationHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Деформация.
-        /// </summary>
-        internal static string DeformationLabel {
-            get {
-                return ResourceManager.GetString("DeformationLabel", resourceCulture);
             }
         }
         
@@ -628,7 +619,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Длина площадки ({0}).
+        ///   Looks up a localized string similar to Длина площадки.
         /// </summary>
         internal static string PlatformLength {
             get {
@@ -637,7 +628,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите длину площадки ({0})..
+        ///   Looks up a localized string similar to Укажите длину площадки.
         /// </summary>
         internal static string PlatformLengthHint {
             get {
@@ -664,7 +655,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ширина площадки ({0}).
+        ///   Looks up a localized string similar to Ширина площадки.
         /// </summary>
         internal static string PlatformWidth {
             get {
@@ -673,7 +664,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите ширину площадки ({0})..
+        ///   Looks up a localized string similar to Укажите ширину площадки.
         /// </summary>
         internal static string PlatformWidthHint {
             get {
@@ -835,7 +826,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Высота ограждения ({0}).
+        ///   Looks up a localized string similar to Высота ограждения.
         /// </summary>
         internal static string StairsFenceHeight {
             get {
@@ -844,7 +835,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите высоту ограждения в {0}..
+        ///   Looks up a localized string similar to Укажите высоту ограждения в.
         /// </summary>
         internal static string StairsFenceHeightHint {
             get {
@@ -898,7 +889,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ширина лестницы ({0}).
+        ///   Looks up a localized string similar to Ширина лестницы.
         /// </summary>
         internal static string StairsWidth {
             get {
@@ -907,7 +898,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите ширину лестницы в {0}..
+        ///   Looks up a localized string similar to Укажите ширину лестницы в.
         /// </summary>
         internal static string StairsWidthHint {
             get {
@@ -916,7 +907,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Длина марша ({0}).
+        ///   Looks up a localized string similar to Длина марша.
         /// </summary>
         internal static string StairwayWidth {
             get {
@@ -925,7 +916,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите длину марша в {0}..
+        ///   Looks up a localized string similar to Укажите длину марша в.
         /// </summary>
         internal static string StairwayWidthHint {
             get {
@@ -952,7 +943,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Высота ступени ({0}).
+        ///   Looks up a localized string similar to Высота ступени.
         /// </summary>
         internal static string StepsHeight {
             get {
@@ -961,7 +952,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите высоту ступени ({0})..
+        ///   Looks up a localized string similar to Укажите высоту ступени.
         /// </summary>
         internal static string StepsHeightHint {
             get {
@@ -970,7 +961,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ширина ступени ({0}).
+        ///   Looks up a localized string similar to Ширина ступени.
         /// </summary>
         internal static string StepsWidth {
             get {
@@ -979,7 +970,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите ширину ступени ({0})..
+        ///   Looks up a localized string similar to Укажите ширину ступени.
         /// </summary>
         internal static string StepsWidthHint {
             get {

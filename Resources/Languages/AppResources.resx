@@ -298,10 +298,10 @@
     <value>Укажите высоту лестницы в метрах</value>
   </data>
   <data name="StairsWidth" xml:space="preserve">
-    <value>Ширина лестницы ({0})</value>
+    <value>Ширина лестницы</value>
   </data>
   <data name="StairsWidthHint" xml:space="preserve">
-    <value>Укажите ширину лестницы в {0}.</value>
+    <value>Укажите ширину лестницы в</value>
   </data>
   <data name="StepsCount" xml:space="preserve">
     <value>Количество ступеней</value>
@@ -397,10 +397,10 @@
     <value>Невозможно сохранить учетную запись</value>
   </data>
   <data name="Deformation" xml:space="preserve">
-    <value>Деформация ({0})</value>
+    <value>Деформация</value>
   </data>
   <data name="DeformationHint" xml:space="preserve">
-    <value>Укажите размер деформации в {0}.</value>
+    <value>Укажите размер деформации в</value>
   </data>
   <data name="TestPointCount" xml:space="preserve">
     <value>Количество точек испытаний</value>
@@ -421,10 +421,10 @@
     <value>Нагрузка</value>
   </data>
   <data name="StairsFenceHeight" xml:space="preserve">
-    <value>Высота ограждения ({0})</value>
+    <value>Высота ограждения</value>
   </data>
   <data name="StairsFenceHeightHint" xml:space="preserve">
-    <value>Укажите высоту ограждения в {0}.</value>
+    <value>Укажите высоту ограждения в</value>
   </data>
   <data name="SupportBeamsCount" xml:space="preserve">
     <value>Количество балок</value>
@@ -442,40 +442,37 @@
     <value>Укажите количество балок (парами)</value>
   </data>
   <data name="StairwayWidth" xml:space="preserve">
-    <value>Длина марша ({0})</value>
+    <value>Длина марша</value>
   </data>
   <data name="StairwayWidthHint" xml:space="preserve">
-    <value>Укажите длину марша в {0}.</value>
+    <value>Укажите длину марша в</value>
   </data>
   <data name="StepsHeight" xml:space="preserve">
-    <value>Высота ступени ({0})</value>
+    <value>Высота ступени</value>
   </data>
   <data name="StepsHeightHint" xml:space="preserve">
-    <value>Укажите высоту ступени ({0}).</value>
+    <value>Укажите высоту ступени</value>
   </data>
   <data name="StepsWidth" xml:space="preserve">
-    <value>Ширина ступени ({0})</value>
+    <value>Ширина ступени</value>
   </data>
   <data name="StepsWidthHint" xml:space="preserve">
-    <value>Укажите ширину ступени ({0}).</value>
+    <value>Укажите ширину ступени</value>
   </data>
   <data name="PlatformLength" xml:space="preserve">
-    <value>Длина площадки ({0})</value>
+    <value>Длина площадки</value>
   </data>
   <data name="PlatformLengthHint" xml:space="preserve">
-    <value>Укажите длину площадки ({0}).</value>
+    <value>Укажите длину площадки</value>
   </data>
   <data name="PlatformWidth" xml:space="preserve">
-    <value>Ширина площадки ({0})</value>
+    <value>Ширина площадки</value>
   </data>
   <data name="PlatformWidthHint" xml:space="preserve">
-    <value>Укажите ширину площадки ({0}).</value>
+    <value>Укажите ширину площадки</value>
   </data>
   <data name="AdditionalPlatformSizes" xml:space="preserve">
     <value>Дополнительные размеры площадки</value>
-  </data>
-  <data name="DeformationLabel" xml:space="preserve">
-    <value>Деформация</value>
   </data>
   <data name="RejectExplanationLabel" xml:space="preserve">
     <value>Несоотв</value>

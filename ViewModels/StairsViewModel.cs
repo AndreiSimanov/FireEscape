@@ -132,27 +132,29 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
        EditObject,
        AppResources.SaveProtocolError);
 
-    public string StairsWidth => string.Format(AppResources.StairsWidth, StairsSettings.DefaultUnit);
-    public string StairsWidthHint => string.Format(AppResources.StairsWidthHint, StairsSettings.DefaultUnit);
+    public string StairsWidth => AddDefaultUnit(AppResources.StairsWidth);
+    public string StairsWidthHint => AddDefaultUnit(AppResources.StairsWidthHint);
 
-    public string Deformation => string.Format(AppResources.Deformation, StairsSettings.DefaultUnit);
-    public string DeformationHint => string.Format(AppResources.DeformationHint, StairsSettings.DefaultUnit);
+    public string Deformation => AddDefaultUnit(AppResources.Deformation);
+    public string DeformationHint => AddDefaultUnit(AppResources.DeformationHint);
 
-    public  string StairsFenceHeight => string.Format(AppResources.StairsFenceHeight, StairsSettings.DefaultUnit);
-    public  string StairsFenceHeightHint => string.Format(AppResources.StairsFenceHeightHint, StairsSettings.DefaultUnit);
+    public  string StairsFenceHeight => AddDefaultUnit(AppResources.StairsFenceHeight);
+    public  string StairsFenceHeightHint => AddDefaultUnit(AppResources.StairsFenceHeightHint);
 
-    public string StairwayWidth => string.Format(AppResources.StairwayWidth, StairsSettings.DefaultUnit);
-    public string StairwayWidthHint => string.Format(AppResources.StairwayWidthHint, StairsSettings.DefaultUnit);
+    public string StairwayWidth => AddDefaultUnit(AppResources.StairwayWidth);
+    public string StairwayWidthHint => AddDefaultUnit(AppResources.StairwayWidthHint);
 
-    public string StepsHeight => string.Format(AppResources.StepsHeight, StairsSettings.DefaultUnit);
-    public string StepsHeightHint => string.Format(AppResources.StepsHeightHint, StairsSettings.DefaultUnit);
+    public string StepsHeight => AddDefaultUnit(AppResources.StepsHeight);
+    public string StepsHeightHint => AddDefaultUnit(AppResources.StepsHeightHint);
 
-    public string StepsWidth => string.Format(AppResources.StepsWidth, StairsSettings.DefaultUnit);
-    public string StepsWidthHint => string.Format(AppResources.StepsWidthHint, StairsSettings.DefaultUnit);
+    public string StepsWidth => AddDefaultUnit(AppResources.StepsWidth);
+    public string StepsWidthHint => AddDefaultUnit(AppResources.StepsWidthHint);
 
-    public string PlatformLength => string.Format(AppResources.PlatformLength, StairsSettings.DefaultUnit);
-    public string PlatformLengthHint => string.Format(AppResources.PlatformLengthHint, StairsSettings.DefaultUnit);
+    public string PlatformLength => AddDefaultUnit(AppResources.PlatformLength);
+    public string PlatformLengthHint => AddDefaultUnit(AppResources.PlatformLengthHint);
 
-    public string PlatformWidth => string.Format(AppResources.PlatformWidth, StairsSettings.DefaultUnit);
-    public string PlatformWidthHint => string.Format(AppResources.PlatformWidthHint, StairsSettings.DefaultUnit);
+    public string PlatformWidth => AddDefaultUnit(AppResources.PlatformWidth);
+    public string PlatformWidthHint => AddDefaultUnit(AppResources.PlatformWidthHint);
+
+    string AddDefaultUnit(string val) => string.IsNullOrWhiteSpace(val) ? string.Empty : string.Format(val + " ({0})", StairsSettings.DefaultUnit);
 }
