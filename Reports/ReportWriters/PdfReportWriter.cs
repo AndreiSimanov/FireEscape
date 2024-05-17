@@ -1,6 +1,7 @@
 ﻿using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
+using static Dropbox.Api.TeamLog.SharedLinkAccessLevel;
 
 namespace FireEscape.Reports.ReportWriters;
 
@@ -17,9 +18,10 @@ public static class PdfReportWriter
         var fontFilePath = await AddFontIfNotExisitAsync(Path.GetDirectoryName(filePath)!, fontName);
         var pdf = new PdfDocument(new PdfWriter(filePath));
         var document = new Document(pdf);
-        var font = PdfFontFactory.CreateFont(fontFilePath, "Identity-H");
+        var font = PdfFontFactory.CreateFont(fontFilePath);
         document.SetFont(font);
         document.SetFontSize(forntSize);
+        document.SetCharacterSpacing(.2f);
         return document;
     }
 
