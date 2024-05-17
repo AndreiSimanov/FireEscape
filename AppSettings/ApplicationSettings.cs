@@ -8,6 +8,7 @@ public class ApplicationSettings
     public required string UserAccountsFolderName { get; set; }
     public int CheckUserAccountCounter { get; set; }
     public int MaxImageSize { get; set; }
+    public float ImageQuality { get; set; }
     public int PageSize { get; set; }
     public required string PrimaryThemeColor { get; set; }
     public required string DbName { get; set; }
