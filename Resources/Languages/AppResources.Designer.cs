@@ -241,7 +241,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите размер деформации в.
+        ///   Looks up a localized string similar to Укажите размер деформации.
         /// </summary>
         internal static string DeformationHint {
             get {
@@ -835,7 +835,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите высоту ограждения в.
+        ///   Looks up a localized string similar to Укажите высоту ограждения.
         /// </summary>
         internal static string StairsFenceHeightHint {
             get {
@@ -844,7 +844,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Высота лестницы (м).
+        ///   Looks up a localized string similar to Высота лестницы.
         /// </summary>
         internal static string StairsHeight {
             get {
@@ -853,7 +853,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите высоту лестницы в метрах.
+        ///   Looks up a localized string similar to Укажите высоту лестницы.
         /// </summary>
         internal static string StairsHeightHint {
             get {
@@ -898,7 +898,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите ширину лестницы в.
+        ///   Looks up a localized string similar to Укажите ширину лестницы.
         /// </summary>
         internal static string StairsWidthHint {
             get {
@@ -916,7 +916,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите длину марша в.
+        ///   Looks up a localized string similar to Укажите длину марша.
         /// </summary>
         internal static string StairwayWidthHint {
             get {

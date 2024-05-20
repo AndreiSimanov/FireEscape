@@ -88,6 +88,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to см.
+        /// </summary>
+        internal static string CM {
+            get {
+                return ResourceManager.GetString("CM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to дм.
+        /// </summary>
+        internal static string DM {
+            get {
+                return ResourceManager.GetString("DM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to установленная на перепаде высот здания.
         /// </summary>
         internal static string ElevationMounted {
@@ -102,6 +120,24 @@ namespace FireEscape.Resources.Languages {
         internal static string FenceP1 {
             get {
                 return ResourceManager.GetString("FenceP1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to м.
+        /// </summary>
+        internal static string M {
+            get {
+                return ResourceManager.GetString("M", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to мм.
+        /// </summary>
+        internal static string MM {
+            get {
+                return ResourceManager.GetString("MM", resourceCulture);
             }
         }
         

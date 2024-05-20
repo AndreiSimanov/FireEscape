@@ -292,16 +292,16 @@
     <value>Качество защитных покрытий соответствует ГОСТ</value>
   </data>
   <data name="StairsHeight" xml:space="preserve">
-    <value>Высота лестницы (м)</value>
+    <value>Высота лестницы</value>
   </data>
   <data name="StairsHeightHint" xml:space="preserve">
-    <value>Укажите высоту лестницы в метрах</value>
+    <value>Укажите высоту лестницы</value>
   </data>
   <data name="StairsWidth" xml:space="preserve">
     <value>Ширина лестницы</value>
   </data>
   <data name="StairsWidthHint" xml:space="preserve">
-    <value>Укажите ширину лестницы в</value>
+    <value>Укажите ширину лестницы</value>
   </data>
   <data name="StepsCount" xml:space="preserve">
     <value>Количество ступеней</value>
@@ -400,7 +400,7 @@
     <value>Деформация</value>
   </data>
   <data name="DeformationHint" xml:space="preserve">
-    <value>Укажите размер деформации в</value>
+    <value>Укажите размер деформации</value>
   </data>
   <data name="TestPointCount" xml:space="preserve">
     <value>Количество точек испытаний</value>
@@ -424,7 +424,7 @@
     <value>Высота ограждения</value>
   </data>
   <data name="StairsFenceHeightHint" xml:space="preserve">
-    <value>Укажите высоту ограждения в</value>
+    <value>Укажите высоту ограждения</value>
   </data>
   <data name="SupportBeamsCount" xml:space="preserve">
     <value>Количество балок</value>
@@ -445,7 +445,7 @@
     <value>Длина марша</value>
   </data>
   <data name="StairwayWidthHint" xml:space="preserve">
-    <value>Укажите длину марша в</value>
+    <value>Укажите длину марша</value>
   </data>
   <data name="StepsHeight" xml:space="preserve">
     <value>Высота ступени</value>

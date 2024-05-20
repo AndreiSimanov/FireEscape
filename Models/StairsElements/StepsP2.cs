@@ -9,7 +9,7 @@ public partial class StepsP2 : BaseStairsElement
     public override int TestPointCount => CalcTestPointCount(StairsStepsCount, STEPS_TEST_POINT_DIVIDER);
 
     [ObservableProperty]
-    int stepsWidth;
+    float stepsWidth;
     [ObservableProperty]
-    int stepsHeight;
+    float stepsHeight;
 }

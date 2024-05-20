@@ -22,6 +22,6 @@ public partial class StairwayP2 : BaseSupportBeamsElement
     int stepsCount;
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
-    int stairwayWidth;
+    float stairwayWidth;
 
 }

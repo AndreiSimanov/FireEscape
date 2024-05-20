@@ -292,10 +292,10 @@
     <value>Protective coating quality corresponds to GOST</value>
   </data>
   <data name="StairsHeight" xml:space="preserve">
-    <value>Stairs height (m)</value>
+    <value>Stairs height</value>
   </data>
   <data name="StairsHeightHint" xml:space="preserve">
-    <value>Specify stairs height (m)</value>
+    <value>Specify stairs height</value>
   </data>
   <data name="StairsWidth" xml:space="preserve">
     <value>Stairs width</value>

@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.AppSettings;
 
-public record ServiceabilityLimits(
+public readonly record struct ServiceabilityLimits(
     StairsTypeEnum StairsType,
     bool IsEvacuation,
     int MaxStairsHeight,

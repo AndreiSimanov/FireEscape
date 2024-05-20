@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.Models.StairsElements.BaseStairsElements;
 public class PlatformSize
 {
-    public int? Length { get; set; }
-    public int? Width { get; set; }
+    public float? Length { get; set; }
+    public float? Width { get; set; }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:control="clr-namespace:FireEscape.Views.Controls"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:enums="clr-namespace:FireEscape.Models.Enums"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:conv="clr-namespace:FireEscape.Views.Converters"
+    x:Name="this"
+    x:DataType="control:UnitOfMeasureEditControl"
+    x:Class="FireEscape.Views.Controls.UnitOfMeasureEditControl">
+
+    <dxe:NumericEdit
+        Style="{StaticResource DefaultNumericEdit}"
+        x:Name="numEdit"
+        LabelText="{Binding LabelText}"
+        PlaceholderText="{Binding PlaceholderText}"
+        Grid.Column="0"
+        Value="{Binding Value}"
+        ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"/>
+    
+</ContentView>

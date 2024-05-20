@@ -9,6 +9,7 @@ public partial class App : Application
     public App(UserAccountService userAccountService, IOptions<ApplicationSettings> applicationSettings )
     {
         SetPrimaryThemeColor(applicationSettings.Value);
+        SetUnitsOfMeasure(applicationSettings.Value);
         CultureInfo.CurrentCulture = SetNumberDecimalSeparator(CultureInfo.CurrentCulture);
         CultureInfo.CurrentUICulture = SetNumberDecimalSeparator(CultureInfo.CurrentUICulture);
         Localizer.StringLoader = new ResourceStringLoader(AppResources.ResourceManager);
@@ -22,6 +23,12 @@ public partial class App : Application
         CultureInfo result = (CultureInfo)cultureInfo.Clone();
         result.NumberFormat.NumberDecimalSeparator = ".";
         return result;
+    }
+
+    static void SetUnitsOfMeasure(ApplicationSettings applicationSettings)
+    {
+        UnitOfMeasureSettings.PrimaryUnitOfMeasure = applicationSettings.PrimaryUnitOfMeasure;
+        UnitOfMeasureSettings.SecondaryUnitOfMeasure = applicationSettings.SecondaryUnitOfMeasure;
     }
 
     static void SetPrimaryThemeColor(ApplicationSettings applicationSettings)

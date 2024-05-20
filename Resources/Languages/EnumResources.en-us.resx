@@ -126,11 +126,23 @@
   <data name="BuildingMounted" xml:space="preserve">
     <value>installed on the building</value>
   </data>
+  <data name="CM" xml:space="preserve">
+    <value>cm</value>
+  </data>
+  <data name="DM" xml:space="preserve">
+    <value>dm</value>
+  </data>
   <data name="ElevationMounted" xml:space="preserve">
     <value>escapes at level difference points on the building's roof</value>
   </data>
   <data name="FenceP1" xml:space="preserve">
     <value>Stairs fence</value>
+  </data>
+  <data name="M" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="MM" xml:space="preserve">
+    <value>mm</value>
   </data>
   <data name="P1_1" xml:space="preserve">
     <value>vertical stairs P1-1 type</value>

@@ -43,7 +43,7 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsWidthBlob))]
-    ServiceabilityProperty<int> stairsWidth = new();
+    ServiceabilityProperty<float> stairsWidth = new();
     public string? StairsWidthBlob { get; set; }
 
     [Ignore]

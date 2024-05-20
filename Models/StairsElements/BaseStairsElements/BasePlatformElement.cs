@@ -13,12 +13,12 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     [NotifyPropertyChangedFor(nameof(Size))]
-    int length;
+    float length;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     [NotifyPropertyChangedFor(nameof(Size))]
-    int width;
+    float width;
 
     public override float CalcWithstandLoad // Рплощ = ((S*К2)/(К4*Х))*К3,
     {

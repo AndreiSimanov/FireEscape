@@ -20,11 +20,8 @@ public abstract partial class BaseStairsElement : ObservableObject
     public const float K4 = .5f;
     public const float COS_ALPHA = .7f;
 
-    public const float FENCE_TEST_POINT_DIVIDER = 1.5f;
+    public const float FENCE_TEST_POINT_DIVIDER = 1500f;
     public const float STEPS_TEST_POINT_DIVIDER = 5f;
-
-    public static string DefaultUnit { get; set; } = string.Empty;
-    public static int DefaultUnitMultiplier { get; set; }
 
     [JsonIgnore]
     public abstract StairsElementTypeEnum StairsElementType { get; }
@@ -83,5 +80,5 @@ public abstract partial class BaseStairsElement : ObservableObject
         return (int)Math.Floor(count);
     }
 
-    static protected float ConvertToMeter(int? val) => val.HasValue ? val.Value * DefaultUnitMultiplier / 1000f : 0f;
+    static protected float ConvertToMeter(float? val) => val.HasValue ? val.Value / 1000f : 0f;
 }

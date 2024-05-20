@@ -7,5 +7,5 @@ public partial class PlatformP1 : BasePlatformElement
     public override int TestPointCount => 1;
 
     [ObservableProperty]
-    int platformFenceHeight;
+    float platformFenceHeight;
 }

@@ -9,5 +9,5 @@ public partial class FenceP2 : BaseStairsElement
     public override int TestPointCount => 1;
 
     [ObservableProperty]
-    int fenceHeight;
+    float fenceHeight;
 }

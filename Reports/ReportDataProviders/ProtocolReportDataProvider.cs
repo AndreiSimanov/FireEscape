@@ -6,7 +6,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 {
     public const string EMPTY_SIGNATURE = "___________________";
 
-    ServiceabilityLimits? serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
+    ServiceabilityLimits serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
            item.StairsType == stairs.StairsType &&
            item.IsEvacuation == stairs.IsEvacuation);
     public int ProtocolNum => protocol.ProtocolNum;
@@ -29,8 +29,8 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     public string FullAddress => Location + ", " + Address;
     public int FireEscapeNum => protocol.FireEscapeNum;
 
-    public float StairsHeight => stairs.StairsHeight.Value;
-    public int StairsWidth => stairs.StairsWidth.Value * stairsSettings.DefaultUnitMultiplier;
+    public float StairsHeight => stairs.StairsHeight.Value/1000;
+    public float StairsWidth => stairs.StairsWidth.Value;
 
     public int StepsCount => stairs.StepsCount;
 
@@ -67,12 +67,9 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
         if (!stairs.ProtectiveServiceability)
             summary.Add("конструкция не окрашена (ГОСТ 9.032)");
 
-        if (serviceabilityLimits == null)
-            return summary;
-
         CheckServiceability(summary, stairs.StairsHeight,
-            item => item > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
-            $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м" + " ({0}м)",
+            _ => StairsHeight > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
+            $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м ({StairsHeight}м)",
             "высота лестницы не соответствует ГОСТ");
 
         CheckServiceability(summary, stairs.StairsWidth,
@@ -83,7 +80,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     }
 
     static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
-        Predicate<T?> predicate, string rejectExplanation, string defaultExplanation)
+        Predicate<T> predicate, string rejectExplanation, string defaultExplanation) where T: struct
     {
         if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Approve)
             return;
@@ -96,7 +93,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
         if (predicate != null && predicate(serviceabilityProperty.Value))
         {
-            summary.Add(string.Format(rejectExplanation, serviceabilityProperty.Value == null ? "0" : serviceabilityProperty.Value));
+            summary.Add(string.Format(rejectExplanation, serviceabilityProperty.Value));
             return;
         }
 

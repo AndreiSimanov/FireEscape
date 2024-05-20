@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.AppSettings;
 
-public record StairsElementSettings(
+public readonly record struct StairsElementSettings(
     BaseStairsTypeEnum BaseStairsType,
     string TypeName,
     float WithstandLoad,

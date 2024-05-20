@@ -23,6 +23,9 @@ public class ApplicationSettings
         }
         set => contentFolder = value;
     }
+    public required UnitOfMeasure PrimaryUnitOfMeasure { get; set; }
+    public required UnitOfMeasure SecondaryUnitOfMeasure { get; set; }
+
     public string ImagesFolder => CreateFolderIfNotExist(ContentFolder, IMAGES_FOLDER);
     public string DocumentsFolder => CreateFolderIfNotExist(ContentFolder, DOCUMENTS_FOLDER);
 
