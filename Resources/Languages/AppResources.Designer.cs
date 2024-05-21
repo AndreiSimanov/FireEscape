@@ -376,6 +376,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Номер элемента.
+        /// </summary>
+        internal static string ElementNumber {
+            get {
+                return ResourceManager.GetString("ElementNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите номер элемента.
+        /// </summary>
+        internal static string ElementNumberHint {
+            get {
+                return ResourceManager.GetString("ElementNumberHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ошибка.
         /// </summary>
         internal static string Error {

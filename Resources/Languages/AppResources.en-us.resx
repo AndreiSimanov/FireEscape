@@ -483,4 +483,10 @@
   <data name="PlatformSizeUnit" xml:space="preserve">
     <value>m2</value>
   </data>
+  <data name="ElementNumber" xml:space="preserve">
+    <value>Element number</value>
+  </data>
+  <data name="ElementNumberHint" xml:space="preserve">
+    <value>Specify element number</value>
+  </data>
 </root>

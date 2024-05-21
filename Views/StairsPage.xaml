@@ -27,6 +27,12 @@
         BackgroundColor="{dx:ThemeColor Surface}">
         <ScrollView.Resources>
             <ResourceDictionary>
+                <toolkit:EnumToBoolConverter x:Key="ElementNumberEnumConverter">
+                    <toolkit:EnumToBoolConverter.TrueValues>
+                        <enums:StairsElementTypeEnum>StairwayP2</enums:StairsElementTypeEnum>
+                        <enums:StairsElementTypeEnum>PlatformP2</enums:StairsElementTypeEnum>
+                    </toolkit:EnumToBoolConverter.TrueValues>
+                </toolkit:EnumToBoolConverter>
                 <toolkit:EnumToBoolConverter x:Key="PlatformElementEnumConverter">
                     <toolkit:EnumToBoolConverter.TrueValues>
                         <enums:StairsElementTypeEnum>PlatformP1</enums:StairsElementTypeEnum>
@@ -409,6 +415,13 @@
                         HorizontalTextAlignment="Center"
                         FontSize="Body" 
                         Text="{Binding SelectedStairsElement.Caption}" Margin="10,5,0,0" />
+
+                    <dxe:NumericEdit
+                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource ElementNumberEnumConverter}}"
+                        Style="{StaticResource DefaultNumericEdit}"
+                        Value="{Binding SelectedStairsElement.ElementNumber}"
+                        LabelText="{x:Static lang:AppResources.ElementNumber}"
+                        PlaceholderText="{x:Static lang:AppResources.ElementNumberHint}"/>
 
                     <ctrl:UnitOfMeasureEditControl
                         IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"

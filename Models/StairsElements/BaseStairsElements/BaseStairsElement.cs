@@ -59,7 +59,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     int stairsStepsCount;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(Name))]
+    [NotifyPropertyChangedFor(nameof(Caption))]
     int elementNumber;
 
     [ObservableProperty]
