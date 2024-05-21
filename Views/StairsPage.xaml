@@ -497,7 +497,7 @@
                         LabelText="{x:Static lang:AppResources.Deformation}"
                         PlaceholderText="{x:Static lang:AppResources.DeformationHint}"/>
 
-                    <StackLayout IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}" >
+                    <StackLayout x:Name="platformSizesStackLayout" IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}" >
                         <Label
                             TextColor="{dx:ThemeColor OnSurfaceVariant}"
                             Text="{x:Static lang:AppResources.AdditionalPlatformSizes}"
@@ -524,7 +524,6 @@
                             </dxg:DataGridView.Columns>
                         </dxg:DataGridView>
                     </StackLayout>
-
                 </StackLayout>
             </dxco:BottomSheet>
         </VerticalStackLayout>

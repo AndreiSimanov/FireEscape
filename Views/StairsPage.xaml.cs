@@ -49,12 +49,17 @@ public partial class StairsPage : BaseStairsPage
 
     private void PlatformSizesPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(platformSizes.ItemsSource) && platformSizes != null)
+        if (platformSizes == null)
+            return;
+        if (e.PropertyName == nameof(platformSizes.ItemsSource))
         {
             var itemsSource = platformSizes.ItemsSource as PlatformSize[];
             if (itemsSource != null && itemsSource.Any())
                 platformSizes.ScrollToRow(0);
-        }    
+        }
+
+        if (e.PropertyName == nameof(platformSizes.Y) && platformSizes.IsVisible)
+            platformSizes.HeightRequest = Height - platformSizes.Y - platformSizesStackLayout.Y;
     }
 
     /*
