@@ -110,7 +110,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
             if (UserAccountService.IsValidUserAccount(userAccount))
             {
                 userAccountService.UpdateExpirationCount(userAccount!);
-                await protocolService.CreateReportAsync(Order, protocol, userAccount!);
+                await protocolService.CreateReportAsync(Order, protocol);
             }
             else
             {

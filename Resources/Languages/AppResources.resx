@@ -489,4 +489,13 @@
   <data name="ElementNumberHint" xml:space="preserve">
     <value>Укажите номер элемента</value>
   </data>
+  <data name="ExecutorSignHint" xml:space="preserve">
+    <value>Укажите подпись исполнителя</value>
+  </data>
+  <data name="PrimaryExecutorSign" xml:space="preserve">
+    <value>Исполнитель №1</value>
+  </data>
+  <data name="SecondaryExecutorSign" xml:space="preserve">
+    <value>Исполнитель №2</value>
+  </data>
 </root>

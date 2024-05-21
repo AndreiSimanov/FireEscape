@@ -19,4 +19,14 @@ public partial class BaseDocument : BaseObject
     [property: Indexed]
     [property: MaxLength(128)]
     string fireEscapeObject = string.Empty;
+
+    [ObservableProperty]
+    [property: Column(nameof(PrimaryExecutorSign))]
+    [property: MaxLength(128)]
+    string primaryExecutorSign = string.Empty;
+
+    [ObservableProperty]
+    [property: Column(nameof(SecondaryExecutorSign))]
+    [property: MaxLength(128)]
+    string secondaryExecutorSign = string.Empty;
 }

@@ -430,6 +430,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Укажите подпись исполнителя.
+        /// </summary>
+        internal static string ExecutorSignHint {
+            get {
+                return ResourceManager.GetString("ExecutorSignHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Счетчик окончания учетной записи.
         /// </summary>
         internal static string ExpirationCount {
@@ -691,6 +700,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Исполнитель №1.
+        /// </summary>
+        internal static string PrimaryExecutorSign {
+            get {
+                return ResourceManager.GetString("PrimaryExecutorSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Качество защитных покрытий соответствует ГОСТ.
         /// </summary>
         internal static string ProtectiveServiceability {
@@ -795,6 +813,15 @@ namespace FireEscape.Resources.Languages {
         internal static string SaveUserAccountError {
             get {
                 return ResourceManager.GetString("SaveUserAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Исполнитель №2.
+        /// </summary>
+        internal static string SecondaryExecutorSign {
+            get {
+                return ResourceManager.GetString("SecondaryExecutorSign", resourceCulture);
             }
         }
         

@@ -224,8 +224,8 @@ namespace FireEscape.Reports.ReportMakers
                     new Text("Испытания проводили: инженер "),
                     new Text(protocolRdp.ExecutiveCompany).SetBold()}));
             document.Add(new Paragraph("М.П.").SetFixedLeading(8));
-            document.Add(new Paragraph("_______________ / " + protocolRdp.UserAccountSignature + " /").SetTextAlignment(TextAlignment.RIGHT));
-            document.Add(new Paragraph("_______________ / " + ProtocolReportDataProvider.EMPTY_SIGNATURE + " /").SetTextAlignment(TextAlignment.RIGHT));
+            document.Add(new Paragraph("_______________ / " + protocolRdp.PrimaryExecutorSign + " /").SetTextAlignment(TextAlignment.RIGHT));
+            document.Add(new Paragraph("_______________ / " + protocolRdp.SecondaryExecutorSign + " /").SetTextAlignment(TextAlignment.RIGHT));
 
             if (!string.IsNullOrWhiteSpace(protocolRdp.Customer))
             {

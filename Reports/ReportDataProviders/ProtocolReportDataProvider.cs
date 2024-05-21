@@ -2,9 +2,11 @@
 
 namespace FireEscape.Reports.ReportDataProviders;
 
-public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs stairs, IStairsFactory stairsFactory, StairsSettings stairsSettings, UserAccount userAccount)
+public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs stairs, IStairsFactory stairsFactory, StairsSettings stairsSettings)
 {
-    public const string EMPTY_SIGNATURE = "___________________";
+    const string EMPTY_SIGNATURE = "___________________";
+
+    List<StairsElementResult>? stairsElementResults;
 
     ServiceabilityLimits serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
            item.StairsType == stairs.StairsType &&
@@ -25,7 +27,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(stairs.StairsMountType);
 
-    public string FireEscapeObject => protocol.FireEscapeObject;
+    public string FireEscapeObject => string.IsNullOrWhiteSpace(protocol.FireEscapeObject) ? order.FireEscapeObject : protocol.FireEscapeObject;
     public string FullAddress => Location + ", " + Address;
     public int FireEscapeNum => protocol.FireEscapeNum;
 
@@ -46,18 +48,11 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public string Customer => order.Customer;
 
-    public string ExecutiveCompany => string.IsNullOrWhiteSpace(order.ExecutiveCompany) ? string.Empty : order.ExecutiveCompany;
+    public string ExecutiveCompany => order.ExecutiveCompany;
 
-    public string UserAccountSignature
-    {
-        get
-        {
-            if (string.IsNullOrWhiteSpace(userAccount.Signature))
-                return EMPTY_SIGNATURE;
-            var empty =  new string(' ', (EMPTY_SIGNATURE.Length - userAccount.Signature.Length));
-            return  empty +  userAccount.Signature + empty;
-        }
-    }
+    public string PrimaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.PrimaryExecutorSign) ? order.PrimaryExecutorSign : protocol.PrimaryExecutorSign);
+
+    public string SecondaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.SecondaryExecutorSign) ? order.SecondaryExecutorSign : protocol.SecondaryExecutorSign);
 
     public List<string> GetSummary()
     {
@@ -79,8 +74,26 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
         return summary;
     }
 
+
+
+    public List<StairsElementResult> GetStairsElements() // todo: group elements by StairsElementType & WithstandLoad
+    {
+        if (stairsElementResults != null)
+            return stairsElementResults;
+        stairsElementResults = stairs.StairsElements
+            .Where(stairsElement => stairsElement.BaseStairsType == stairs.BaseStairsType)
+            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, element.TestPointCount, element.CalcWithstandLoad, []))
+            .ToList();
+
+        stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(stairs)
+            .Where(element => !stairsElementResults.Any(item => string.Equals(item.StairsElementType, element.StairsElementType)))
+            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, 0, 0, [])));
+
+        return stairsElementResults = stairsElementResults.OrderBy(stairsElement => stairsElement.PrintOrder).ThenBy(stairsElement => stairsElement.Name).ToList();
+    }
+
     static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
-        Predicate<T> predicate, string rejectExplanation, string defaultExplanation) where T: struct
+        Predicate<T> predicate, string rejectExplanation, string defaultExplanation) where T : struct
     {
         if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Approve)
             return;
@@ -101,21 +114,11 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             summary.Add(defaultExplanation);
     }
 
-    List<StairsElementResult>? stairsElementResults;
-
-    public List<StairsElementResult> GetStairsElements() // todo: group elements by StairsElementType & WithstandLoad
+    static string GetExecutorSign(string executorSign)
     {
-        if (stairsElementResults != null)
-            return stairsElementResults;
-        stairsElementResults = stairs.StairsElements
-            .Where(stairsElement => stairsElement.BaseStairsType == stairs.BaseStairsType)
-            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, element.TestPointCount, element.CalcWithstandLoad, []))
-            .ToList();
-
-        stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(stairs)
-            .Where(element => !stairsElementResults.Any(item => string.Equals(item.StairsElementType, element.StairsElementType)))
-            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, 0, 0, [])));
-
-        return stairsElementResults = stairsElementResults.OrderBy(stairsElement => stairsElement.PrintOrder).ThenBy(stairsElement => stairsElement.Name).ToList();
+            if (string.IsNullOrWhiteSpace(executorSign))
+                return EMPTY_SIGNATURE;
+            var empty = new string(' ', (EMPTY_SIGNATURE.Length - executorSign.Length));
+            return empty + executorSign + empty;
     }
 }

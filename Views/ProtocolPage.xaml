@@ -113,6 +113,16 @@
                     Value="{Binding EditObject.FireEscapeNum}"
                     PlaceholderText="{x:Static lang:AppResources.FireEscapeNum}"
                     LabelText="{x:Static lang:AppResources.FireEscapeNum}"/>
+                <dxe:TextEdit
+                    Style="{StaticResource NextTextEdit}"
+                    Text="{Binding EditObject.PrimaryExecutorSign}"
+                    LabelText="{x:Static lang:AppResources.PrimaryExecutorSign}"
+                    PlaceholderText="{x:Static lang:AppResources.ExecutorSignHint}"/>
+                <dxe:TextEdit
+                    Style="{StaticResource NextTextEdit}"
+                    Text="{Binding EditObject.SecondaryExecutorSign}"
+                    LabelText="{x:Static lang:AppResources.SecondaryExecutorSign}"
+                    PlaceholderText="{x:Static lang:AppResources.ExecutorSignHint}"/>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>
