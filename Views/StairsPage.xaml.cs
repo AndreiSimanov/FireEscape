@@ -47,6 +47,16 @@ public partial class StairsPage : BaseStairsPage
             ViewModel.SelectStairsElementCommand.Execute(element);
     }
 
+    private void PlatformSizesPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(platformSizes.ItemsSource) && platformSizes != null)
+        {
+            var itemsSource = platformSizes.ItemsSource as PlatformSize[];
+            if (itemsSource != null && itemsSource.Any())
+                platformSizes.ScrollToRow(0);
+        }    
+    }
+
     /*
         void EditorFocused(object sender, FocusEventArgs e) // avoid set focus on invisible controls
         {

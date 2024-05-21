@@ -504,7 +504,10 @@
                             HorizontalTextAlignment="Center"
                             IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
                             Margin="0,20,0,0" />
-                        <dxg:DataGridView AllowSort="False" EditorShowMode="Tap" Margin="10"
+                        <dxg:DataGridView
+                            x:Name="platformSizes"
+                            AllowSort="False" EditorShowMode="Tap" Margin="10"
+                            PropertyChanged="PlatformSizesPropertyChanged"
                             IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
                             ItemsSource="{Binding SelectedPlatformSizes}">
                             <dxg:DataGridView.Columns>
