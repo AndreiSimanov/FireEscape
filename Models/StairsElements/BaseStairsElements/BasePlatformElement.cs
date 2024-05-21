@@ -8,7 +8,7 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
     [NotifyPropertyChangedFor(nameof(Size))]
-    ObservableCollection<PlatformSize> platformSizes = new();
+    PlatformSize[] platformSizes = [];
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
@@ -24,6 +24,7 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
     {
         get
         {
+            OnPropertyChanged(nameof(Size));
             var s = Size;
             if (SupportBeamsCount == 0 || s == 0)
                 return base.CalcWithstandLoad;

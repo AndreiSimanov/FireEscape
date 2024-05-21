@@ -1,9 +1,9 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
-using DevExpress.Data.Extensions;
+﻿using DevExpress.Data.Extensions;
 using DevExpress.Maui.Controls;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 using System.ComponentModel;
+using System.Linq;
 
 namespace FireEscape.ViewModels;
 
@@ -26,13 +26,26 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     BaseStairsElement? selectedStairsElement;
 
     [ObservableProperty]
+    PlatformSize[] selectedPlatformSizes = [];
+
+    [ObservableProperty]
     BottomSheetState bottomSheetState;
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
-        if (e.PropertyName == nameof(BottomSheetState) && BottomSheetState != BottomSheetState.FullExpanded)
-            SelectedStairsElement?.UpdateCalcWithstandLoad();
+        if (e.PropertyName == nameof(BottomSheetState))
+        {
+            if (BottomSheetState == BottomSheetState.FullExpanded)
+            {
+                SetPlatformSizes(SelectedStairsElement, true);
+            }
+            else
+            {
+                SetPlatformSizes(SelectedStairsElement, false);
+                SelectedStairsElement?.UpdateCalcWithstandLoad();
+            }
+        }
     }
 
     [RelayCommand]
@@ -44,27 +57,43 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     [RelayCommand]
     void SelectStairsElement(BaseStairsElement? element)
     {
-        UpdatePlatformSizes(SelectedStairsElement, false);
         BottomSheetState = element == null ? BottomSheetState.Hidden : BottomSheetState.HalfExpanded;
         SelectedStairsElement = element;
-        UpdatePlatformSizes(SelectedStairsElement, true);
     }
 
-    void UpdatePlatformSizes(BaseStairsElement? element, bool expand)
+    bool expanded = false;
+
+    void SetPlatformSizes(BaseStairsElement? element, bool expand)
     {
         var platformElement = element as BasePlatformElement;
-        if (platformElement == null)
+        if (platformElement == null || expanded == expand)
             return;
 
-        if (expand)
+        expanded = expand;
+
+        if (expanded)
         {
-            var platformSizeStubs = Enumerable.Range(1, MAX_EXPAND_PLATFORM_SIZES - platformElement.PlatformSizes.Count).Select(o => new PlatformSize());
-            platformElement.PlatformSizes = platformElement.PlatformSizes.Concat(platformSizeStubs).ToObservableCollection();
+            var platformSizeStubs = Enumerable.Range(1, MAX_EXPAND_PLATFORM_SIZES - platformElement.PlatformSizes.Length).Select(o => new PlatformSize());
+            SelectedPlatformSizes = platformElement.PlatformSizes.
+                Select(item => new PlatformSize
+                {
+                    Length = item.Length / UnitOfMeasureSettings.PrimaryUnitOfMeasure.Multiplier,
+                    Width = item.Width / UnitOfMeasureSettings.PrimaryUnitOfMeasure.Multiplier
+                }).
+                Concat(platformSizeStubs).
+                ToArray();
         }
         else
         {
-            platformElement.PlatformSizes = platformElement.PlatformSizes
-                .Where(platformSize => platformSize.Length > 0 || platformSize.Width > 0).ToObservableCollection();
+            platformElement.PlatformSizes = SelectedPlatformSizes.
+                Where(platformSize => platformSize.Length > 0 || platformSize.Width > 0).
+                Select(item => new PlatformSize
+                {
+                    Length = item.Length * UnitOfMeasureSettings.PrimaryUnitOfMeasure.Multiplier,
+                    Width = item.Width * UnitOfMeasureSettings.PrimaryUnitOfMeasure.Multiplier
+                }).
+                ToArray();
+            SelectedPlatformSizes = [];
         }
     }
 
@@ -132,7 +161,5 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
     public string PlatformLength => AddUnitOfMeasure(AppResources.PlatformLength, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
     public string PlatformWidth => AddUnitOfMeasure(AppResources.PlatformWidth, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
-
-
     string AddUnitOfMeasure(string val, UnitOfMeasure unitOfMeasure ) => string.IsNullOrWhiteSpace(val) ? string.Empty : string.Format(val + " ({0})", unitOfMeasure.Symbol);
 }

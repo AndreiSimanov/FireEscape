@@ -506,10 +506,18 @@
                             Margin="0,20,0,0" />
                         <dxg:DataGridView AllowSort="False" EditorShowMode="Tap" Margin="10"
                             IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
-                            ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformSizes}">
+                            ItemsSource="{Binding SelectedPlatformSizes}">
                             <dxg:DataGridView.Columns>
-                                <dxg:NumberColumn Caption="{Binding PlatformLength}" HeaderFontSize="12" FieldName="Length" AllowNullValue="True" MinValue="0" MaxValue="10000" HorizontalContentAlignment="Center" />
-                                <dxg:NumberColumn Caption="{Binding PlatformWidth}" HeaderFontSize="12" FieldName="Width" AllowNullValue="True" MinValue="0" MaxValue="10000" HorizontalContentAlignment="Center"/>
+                                <dxg:NumberColumn 
+                                    MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
+                                    MinValue="0" 
+                                    MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
+                                    Caption="{Binding PlatformLength}" HeaderFontSize="12" FieldName="Length" AllowNullValue="True" HorizontalContentAlignment="Center" />
+                                <dxg:NumberColumn 
+                                    MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
+                                    MinValue="0" 
+                                    MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
+                                    Caption="{Binding PlatformWidth}" HeaderFontSize="12" FieldName="Width" AllowNullValue="True" HorizontalContentAlignment="Center"/>
                             </dxg:DataGridView.Columns>
                         </dxg:DataGridView>
                     </StackLayout>
