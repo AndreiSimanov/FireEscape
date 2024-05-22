@@ -498,4 +498,7 @@
   <data name="SecondaryExecutorSign" xml:space="preserve">
     <value>Secondary executor</value>
   </data>
+  <data name="OrderReport" xml:space="preserve">
+    <value>Prtotocol files of order</value>
+  </data>
 </root>

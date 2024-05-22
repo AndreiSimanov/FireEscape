@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Storage;
-using System.Text;
+﻿using System.Text;
 
 namespace FireEscape.Services;
 

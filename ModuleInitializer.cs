@@ -48,6 +48,9 @@ public static class ModuleInitializer
         services.AddTransient<UserAccountViewModel>();
         services.AddTransient<UserAccountPage>();
 
+        services.AddTransient<BatchReportModel>();
+        services.AddTransient<BatchReportPage>();
+
         return services;
     }
 }

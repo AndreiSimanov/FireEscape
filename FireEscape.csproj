@@ -80,6 +80,7 @@
 		<PackageReference Include="DevExpress.Maui.Core" Version="23.2.6" />
 		<PackageReference Include="DevExpress.Maui.DataGrid" Version="23.2.6" />
 		<PackageReference Include="DevExpress.Maui.Editors" Version="23.2.6" />
+		<PackageReference Include="DevExpress.Maui.Gauges" Version="23.2.6" />
 		<PackageReference Include="Dropbox.Api" Version="6.37.0" />
 		<PackageReference Include="ExifLibNet" Version="2.1.4" />
 		<PackageReference Include="itext7" Version="8.0.4" />
@@ -115,6 +116,9 @@
 	  </Compile>
 	  <Compile Update="Views\Controls\ServiceabilityControl.xaml.cs">
 	    <DependentUpon>ServiceabilityControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\BatchReportPage.xaml.cs">
+	    <DependentUpon>BatchReportPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\StairsPage.xaml.cs">
 	    <DependentUpon>StairsPage.xaml</DependentUpon>
@@ -156,6 +160,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\OrderMainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\BatchReportPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\OrderPage.xaml">

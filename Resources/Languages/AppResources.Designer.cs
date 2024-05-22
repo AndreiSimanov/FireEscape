@@ -637,6 +637,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Файлы протоколов заказа.
+        /// </summary>
+        internal static string OrderReport {
+            get {
+                return ResourceManager.GetString("OrderReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поиск заказов....
         /// </summary>
         internal static string OrdersSearch {

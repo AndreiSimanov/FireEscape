@@ -126,8 +126,15 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
                 return;
             var protocols = await protocolService.GetProtocolsAsync(order.Id);
             if (!protocols.Any())
+                return; // add message "Protocols doesn't exist"
+            if (protocols.Length == 1)
+            {
+                await reportService.CreateSingleReportAsync(order, protocols[0]);
                 return;
-             await reportService.CreateBatchReportAsync(order, protocols);
+            }
+
+            await Shell.Current.GoToAsync(nameof(BatchReportPage), true, new Dictionary<string, object> { { nameof(Order), order }, { nameof(Protocol), protocols } });
+            //await reportService.CreateBatchReportAsync(order, protocols);
         },
         order,
         AppResources.CreateReportError);

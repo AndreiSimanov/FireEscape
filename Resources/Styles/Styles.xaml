@@ -4,7 +4,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
                     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
-                    xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls">
+                    xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+                    xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges">
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{dx:ThemeColor Primary}" />
@@ -550,6 +551,28 @@
         <Setter Property="Padding" Value="5" />
         <Setter Property="Spacing" Value="5" />
         <Setter Property="Margin" Value="10" />
+    </Style>
+
+    <Style TargetType="dxga:RadialProgressBar" x:Key="RadialProgressBar">
+        <Setter Property="AllowAnimation" Value="True" />
+        <Setter Property="StartAngle" Value="-90" />
+        <Setter Property="SweepAngle" Value="360" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Thickness" Value="8" />
+        <Setter Property="ValueIndicatorThickness" Value="8" />
+        <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=250, ExtraSmall=220}" />
+        <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=250, ExtraSmall=220}" />
+    </Style>
+
+    <Style TargetType="dx:DXButton" x:Key="RadialProgressBarButton">
+        <Setter Property="TextHorizontalAlignment" Value="Center" />
+        <Setter Property="BackgroundColor" Value="{dx:ThemeColor Primary}" />
+        <Setter Property="FontSize" Value="{dx:OnDisplaySize ExtraSmall=25, Medium=30 }" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=200, ExtraSmall=180}" />
+        <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=200, ExtraSmall=180}" />
+        <Setter Property="CornerRadius" Value="1000" />
+        <Setter Property="ZIndex" Value="1" />
     </Style>
 
 </ResourceDictionary>

@@ -498,4 +498,7 @@
   <data name="SecondaryExecutorSign" xml:space="preserve">
     <value>Исполнитель №2</value>
   </data>
+  <data name="OrderReport" xml:space="preserve">
+    <value>Файлы протоколов заказа</value>
+  </data>
 </root>
