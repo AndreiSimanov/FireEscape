@@ -240,7 +240,7 @@
   <data name="ProtocolNum" xml:space="preserve">
     <value>Protocol number</value>
   </data>
-  <data name="ProtocolPageTitle" xml:space="preserve">
+  <data name="Protocol" xml:space="preserve">
     <value>Protocol</value>
   </data>
   <data name="ProtocolMainPageTitle" xml:space="preserve">
@@ -258,7 +258,7 @@
   <data name="UserAccountName" xml:space="preserve">
     <value>User name</value>
   </data>
-  <data name="UserAccountPageTitle" xml:space="preserve">
+  <data name="UserAccount" xml:space="preserve">
     <value>User account</value>
   </data>
   <data name="UserAccountMainPageTitle" xml:space="preserve">
@@ -375,7 +375,7 @@
   <data name="OrdersSearch" xml:space="preserve">
     <value>Search orders...</value>
   </data>
-  <data name="OrderPageTitle" xml:space="preserve">
+  <data name="Order" xml:space="preserve">
     <value>Order</value>
   </data>
   <data name="SaveOrderError" xml:space="preserve">
@@ -385,7 +385,7 @@
     <value>Specify executive company</value>
   </data>
   <data name="OrderNameHint" xml:space="preserve">
-    <value>Specify order nane</value>
+    <value>Specify order name</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>

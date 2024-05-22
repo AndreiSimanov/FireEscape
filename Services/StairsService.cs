@@ -1,7 +1,4 @@
-﻿
-namespace FireEscape.Services;
-
-
+﻿namespace FireEscape.Services;
 
 public class StairsService(IStairsRepository stairsRepository)
 {

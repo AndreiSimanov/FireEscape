@@ -1,5 +1,4 @@
-﻿using DevExpress.Maui.Core.Internal;
-using FireEscape.DBContext;
+﻿using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
 using System.Linq.Expressions;
 
@@ -20,7 +19,7 @@ public class OrderRepository(SqliteContext context, IOrderFactory factory) : Bas
 
         var imageFileMask = $"{order.Id}_*.{ImageUtils.IMAGE_FILE_EXTENSION}";
         var dir = new DirectoryInfo(ApplicationSettings.ImagesFolder);
-        dir.EnumerateFiles(imageFileMask).ForEach(file => file.Delete());
+        dir.EnumerateFiles(imageFileMask).ToList().ForEach(file => file.Delete());
     }
 
     public async Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams)

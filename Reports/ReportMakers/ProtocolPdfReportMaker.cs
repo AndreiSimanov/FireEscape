@@ -13,9 +13,11 @@ namespace FireEscape.Reports.ReportMakers;
 public static class ProtocolPdfReportMaker
 {
     const string DEFAULT_FLOAT_FORMAT = "0.0";
-    public static async Task<string> MakeReportAsync(ProtocolReportDataProvider protocolRdp, string filePath)
+    public static async Task MakeReportAsync(ProtocolReportDataProvider protocolRdp, string outputPath)
     {
-        var document = await PdfReportWriter.GetPdfDocumentAsync(filePath);
+        if (string.IsNullOrWhiteSpace(outputPath))
+            return;
+        var document = await PdfReportWriter.GetPdfDocumentAsync(outputPath);
         try
         {
             MakeHeader(document, protocolRdp);
@@ -28,7 +30,6 @@ public static class ProtocolPdfReportMaker
         {
             document.Close();
         }
-        return filePath;
     }
 
     static void MakeHeader(Document document, ProtocolReportDataProvider protocolRdp)

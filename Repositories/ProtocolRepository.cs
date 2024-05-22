@@ -1,5 +1,4 @@
-﻿using DevExpress.Maui.Core.Internal;
-using FireEscape.DBContext;
+﻿using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 using SQLiteNetExtensionsAsync.Extensions;
@@ -28,8 +27,8 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
     public async Task<Protocol[]> GetProtocolsAsync(int orderId)
     {
         var protocols = await (await connection).GetAllWithChildrenAsync<Protocol>(protocol => protocol.OrderId == orderId, true);
-        protocols.Where(protocol => !string.IsNullOrWhiteSpace(protocol.Image))
-            .ForEach(protocol => protocol.ImageFilePath = Path.Combine(ApplicationSettings.ImagesFolder, protocol.Image!));
+        protocols.Where(protocol => !string.IsNullOrWhiteSpace(protocol.Image)).ToList().
+            ForEach(protocol => protocol.ImageFilePath = Path.Combine(ApplicationSettings.ImagesFolder, protocol.Image!));
         return protocols.OrderByDescending(item => item.Id).ToArray();
     }
 

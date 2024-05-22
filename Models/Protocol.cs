@@ -31,7 +31,7 @@ public partial class Protocol : BaseDocument, ICloneable
     [ObservableProperty]
     [property: OneToOne(CascadeOperations = CascadeOperation.CascadeDelete)]
     [property: JsonIgnore]
-    Stairs? stairs;
+    Stairs stairs = new();
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasImage))]

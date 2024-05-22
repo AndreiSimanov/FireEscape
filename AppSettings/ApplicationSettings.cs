@@ -1,10 +1,13 @@
-﻿namespace FireEscape.AppSettings;
+﻿using CommunityToolkit.Maui.Storage;
+
+namespace FireEscape.AppSettings;
 
 public class ApplicationSettings
 {
     const string IMAGES_FOLDER = "/Images";
     const string DOCUMENTS_FOLDER = "/Documents";
     const string LOG_FOLDER = "/Log";
+    const string OUTPUT_FOLDER = "OutputFolder";
 
     public required string UserAccountsFolderName { get; set; }
     public int CheckUserAccountCounter { get; set; }
@@ -16,16 +19,22 @@ public class ApplicationSettings
     public required UnitOfMeasure PrimaryUnitOfMeasure { get; set; }
     public required UnitOfMeasure SecondaryUnitOfMeasure { get; set; }
 
-    public static string ImagesFolder => CreateFolderIfNotExist(AppUtils.DefaultContentFolder, IMAGES_FOLDER);
-    public static string DocumentsFolder => CreateFolderIfNotExist(AppUtils.DefaultContentFolder, DOCUMENTS_FOLDER);
-    public static string LogFolder => CreateFolderIfNotExist(AppUtils.DefaultContentFolder, LOG_FOLDER);
+    public static string ImagesFolder => AppUtils.CreateFolderIfNotExist(AppUtils.DefaultContentFolder, IMAGES_FOLDER);
+    public static string DocumentsFolder => AppUtils.CreateFolderIfNotExist(AppUtils.DefaultContentFolder, DOCUMENTS_FOLDER);
+    public static string LogFolder => AppUtils.CreateFolderIfNotExist(AppUtils.DefaultContentFolder, LOG_FOLDER);
 
-    static string CreateFolderIfNotExist(string path, string folderName = "" )
+    public static async Task<string> GetOutputPath()
     {
-        path = Path.Combine(Path.Join(path, folderName));
-        if (Directory.Exists(path))
-            return path;
-        var directoryInfo = Directory.CreateDirectory(path);
-        return directoryInfo.FullName;
+        var path =  Preferences.Get(OUTPUT_FOLDER, string.Empty);
+        if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
+        {
+            var folderPickerResult = await FolderPicker.PickAsync(default);
+            path = folderPickerResult.IsSuccessful ? folderPickerResult.Folder.Path : string.Empty;
+            if (!string.IsNullOrWhiteSpace(path))
+                Preferences.Set(OUTPUT_FOLDER, path);
+        }
+        return path;
     }
+
+    public static void ClearOutputPathPreferences() => Preferences.Remove(OUTPUT_FOLDER);
 }

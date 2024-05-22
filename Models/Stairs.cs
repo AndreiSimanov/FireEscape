@@ -1,5 +1,4 @@
-﻿using DevExpress.Maui.Core.Internal;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 
@@ -68,7 +67,7 @@ public partial class Stairs : BaseObject
 
     public void UpdateStairsElements()
     {
-        StairsElements.ForEach(UpdateStairsElement);
+        StairsElements.ToList().ForEach(UpdateStairsElement);
     }
 
     public void UpdateStairsElement(BaseStairsElement element)

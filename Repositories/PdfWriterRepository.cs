@@ -9,13 +9,9 @@ public class PdfWriterRepository(IStairsFactory stairsFactory, IOptions<StairsSe
 {
     readonly StairsSettings stairsSettings = stairsSettings.Value;
 
-    public async Task<string> CreateReportAsync(Order order, Protocol protocol, string fileName)
+    public async Task CreateReportAsync(Order order, Protocol protocol, string outputPath)
     {
-        if (string.IsNullOrWhiteSpace(fileName))
-            throw new ArgumentNullException(nameof(fileName));
-        fileName = fileName + ".pdf";
-        var protocolRdp = new ProtocolReportDataProvider(order, protocol, protocol.Stairs!, stairsFactory, stairsSettings);
-        var filePath = Path.Combine(ApplicationSettings.DocumentsFolder, fileName);
-        return await ProtocolPdfReportMaker.MakeReportAsync(protocolRdp, filePath);
+        var protocolRdp = new ProtocolReportDataProvider(order, protocol, protocol.Stairs, stairsFactory, stairsSettings);
+        await ProtocolPdfReportMaker.MakeReportAsync(protocolRdp, outputPath);
     }
 }

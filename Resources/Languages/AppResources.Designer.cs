@@ -592,6 +592,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Заказ.
+        /// </summary>
+        internal static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата заказа.
         /// </summary>
         internal static string OrderDate {
@@ -624,15 +633,6 @@ namespace FireEscape.Resources.Languages {
         internal static string OrderNameHint {
             get {
                 return ResourceManager.GetString("OrderNameHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Заказ.
-        /// </summary>
-        internal static string OrderPageTitle {
-            get {
-                return ResourceManager.GetString("OrderPageTitle", resourceCulture);
             }
         }
         
@@ -718,6 +718,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Протокол.
+        /// </summary>
+        internal static string Protocol {
+            get {
+                return ResourceManager.GetString("Protocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата протокола.
         /// </summary>
         internal static string ProtocolDate {
@@ -741,15 +750,6 @@ namespace FireEscape.Resources.Languages {
         internal static string ProtocolNum {
             get {
                 return ResourceManager.GetString("ProtocolNum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Протокол.
-        /// </summary>
-        internal static string ProtocolPageTitle {
-            get {
-                return ResourceManager.GetString("ProtocolPageTitle", resourceCulture);
             }
         }
         
@@ -1096,6 +1096,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Учетная запись пользователя.
+        /// </summary>
+        internal static string UserAccount {
+            get {
+                return ResourceManager.GetString("UserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Укажите компанию учетной записи.
         /// </summary>
         internal static string UserAccountCompanyHint {
@@ -1146,15 +1155,6 @@ namespace FireEscape.Resources.Languages {
         internal static string UserAccountNameHint {
             get {
                 return ResourceManager.GetString("UserAccountNameHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Учетная запись пользователя.
-        /// </summary>
-        internal static string UserAccountPageTitle {
-            get {
-                return ResourceManager.GetString("UserAccountPageTitle", resourceCulture);
             }
         }
         

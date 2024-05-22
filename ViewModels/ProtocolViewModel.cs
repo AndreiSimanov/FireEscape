@@ -25,7 +25,7 @@ public partial class ProtocolViewModel(ProtocolService protocolService, ILogger<
         await DoCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(StairsPage), true,
-                new Dictionary<string, object> { { nameof(StairsViewModel.EditObject), EditObject!.Stairs! } });
+                new Dictionary<string, object> { { nameof(StairsViewModel.EditObject), EditObject!.Stairs } });
         },
         EditObject,
         AppResources.EditStairsError);

@@ -21,6 +21,7 @@ public static class ModuleInitializer
         services.AddSingleton<IReportRepository, PdfWriterRepository>();
         services.AddSingleton<IFileHostingRepository, DropboxRepository>();
 
+        services.AddSingleton<ReportService>();
         services.AddSingleton<OrderService>();
         services.AddSingleton<ProtocolService>();
         services.AddSingleton<StairsService>();

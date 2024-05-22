@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.Services;
 
-public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepository stairsRepository, ISearchDataRepository searchDataRepository, IReportRepository reportRepository)
+public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepository stairsRepository, ISearchDataRepository searchDataRepository)
 {
     public async Task<Protocol> CreateAsync(Order order)
     {
@@ -43,16 +43,4 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
 
     public async Task SelectPhotoAsync(Protocol protocol) =>
         await protocolRepository.AddImageAsync(protocol, await MediaPicker.PickPhotoAsync());
-
-    public async Task CreateReportAsync(Order order, Protocol protocol)
-    {
-        var fileName = "protocol"; //todo: change file name to some protocol attribute 
-        if (protocol.Stairs == null)
-            return;
-        var filePath = await reportRepository.CreateReportAsync(order, protocol, fileName);
-        await Launcher.OpenAsync(new OpenFileRequest
-        {
-            File = new ReadOnlyFile(filePath)
-        });
-    }
 }

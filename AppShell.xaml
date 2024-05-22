@@ -9,10 +9,10 @@
     Title= "{x:Static lang:AppResources.AppTitle}">
 
     <ShellContent  Title="{x:Static lang:AppResources.OrderMainPageTitle}" ContentTemplate="{DataTemplate local:OrderMainPage}" Route="OrderMainPage" />
-    <ShellContent Title="{x:Static lang:AppResources.OrderPageTitle}" ContentTemplate="{DataTemplate local:OrderPage}" Route="OrderPage" />
+    <ShellContent Title="{x:Static lang:AppResources.Order}" ContentTemplate="{DataTemplate local:OrderPage}" Route="OrderPage" />
     <ShellContent  Title="{x:Static lang:AppResources.ProtocolMainPageTitle}" ContentTemplate="{DataTemplate local:ProtocolMainPage}" Route="ProtocolMainPage" />
-    <ShellContent Title="{x:Static lang:AppResources.ProtocolPageTitle}" ContentTemplate="{DataTemplate local:ProtocolPage}" Route="ProtocolPage" />
+    <ShellContent Title="{x:Static lang:AppResources.Protocol}" ContentTemplate="{DataTemplate local:ProtocolPage}" Route="ProtocolPage" />
     <ShellContent Title="{x:Static lang:AppResources.StairsPageTitle}" ContentTemplate="{DataTemplate local:StairsPage}" Route="StairsPage" />
     <ShellContent Title="{x:Static lang:AppResources.UserAccountMainPageTitle}" ContentTemplate="{DataTemplate local:UserAccountMainPage}" Route="UserAccountMainPage" />
-    <ShellContent Title="{x:Static lang:AppResources.UserAccountPageTitle}" ContentTemplate="{DataTemplate local:UserAccountPage}" Route="UserAccountPage" />
+    <ShellContent Title="{x:Static lang:AppResources.UserAccount}" ContentTemplate="{DataTemplate local:UserAccountPage}" Route="UserAccountPage" />
 </Shell>

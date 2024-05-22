@@ -1,7 +1,6 @@
 ﻿using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
-using static Dropbox.Api.TeamLog.SharedLinkAccessLevel;
 
 namespace FireEscape.Reports.ReportWriters;
 
@@ -15,7 +14,7 @@ public static class PdfReportWriter
         if (string.IsNullOrWhiteSpace(filePath))
             throw new ArgumentNullException(nameof(filePath));
 
-        var fontFilePath = await AddFontIfNotExisitAsync(Path.GetDirectoryName(filePath)!, fontName);
+        var fontFilePath = await AddFontIfNotExisitAsync(AppUtils.DefaultContentFolder, fontName);
         var pdf = new PdfDocument(new PdfWriter(filePath));
         var document = new Document(pdf);
         var font = PdfFontFactory.CreateFont(fontFilePath);

@@ -240,7 +240,7 @@
   <data name="ProtocolNum" xml:space="preserve">
     <value>Номер протокола</value>
   </data>
-  <data name="ProtocolPageTitle" xml:space="preserve">
+  <data name="Protocol" xml:space="preserve">
     <value>Протокол</value>
   </data>
   <data name="ProtocolMainPageTitle" xml:space="preserve">
@@ -258,7 +258,7 @@
   <data name="UserAccountName" xml:space="preserve">
     <value>Имя пользователя</value>
   </data>
-  <data name="UserAccountPageTitle" xml:space="preserve">
+  <data name="UserAccount" xml:space="preserve">
     <value>Учетная запись пользователя</value>
   </data>
   <data name="UserAccountMainPageTitle" xml:space="preserve">
@@ -375,7 +375,7 @@
   <data name="OrdersSearch" xml:space="preserve">
     <value>Поиск заказов...</value>
   </data>
-  <data name="OrderPageTitle" xml:space="preserve">
+  <data name="Order" xml:space="preserve">
     <value>Заказ</value>
   </data>
   <data name="SaveOrderError" xml:space="preserve">

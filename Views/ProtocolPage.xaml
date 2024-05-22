@@ -12,7 +12,7 @@
     x:Class="FireEscape.Views.ProtocolPage"
     x:DataType="viewmodel:ProtocolViewModel"
     HideSoftInputOnTapped="True"    
-    Title="{x:Static lang:AppResources.ProtocolPageTitle}">
+    Title="{x:Static lang:AppResources.Protocol}">
     <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
         <Grid RowDefinitions="Auto,Auto,*">
             <VerticalStackLayout  Margin="0,0,0,0">

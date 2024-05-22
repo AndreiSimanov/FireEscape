@@ -2,5 +2,5 @@
 
 public interface IReportRepository
 {
-    Task<string> CreateReportAsync(Order order, Protocol protocol, string fileName);
+    Task CreateReportAsync(Order order, Protocol protocol, string outputPath);
 }

@@ -5,7 +5,8 @@ using Protocol = FireEscape.Models.Protocol;
 namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
-public partial class ProtocolMainViewModel(ProtocolService protocolService, UserAccountService userAccountService, ILogger<ProtocolMainViewModel> logger) : BaseViewModel(logger)
+public partial class ProtocolMainViewModel(ProtocolService protocolService, ReportService reportService, 
+    ILogger<ProtocolMainViewModel> logger) : BaseViewModel(logger)
 {
     [ObservableProperty]
     Order? order;
@@ -104,20 +105,9 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, User
     async Task CreateReportAsync(Protocol protocol) =>
         await DoCommandAsync(async () =>
         {
-            var userAccount = await userAccountService.GetCurrentUserAccountAsync();
-            if (userAccount == null || Order == null)
+            if (Order == null)
                 return;
-            if (UserAccountService.IsValidUserAccount(userAccount))
-            {
-                userAccountService.UpdateExpirationCount(userAccount!);
-                await protocolService.CreateReportAsync(Order, protocol);
-            }
-            else
-            {
-                await Shell.Current.DisplayAlert(string.Empty,
-                    string.Format(AppResources.UnregisteredApplicationMessage,
-                    userAccountService.CurrentUserAccountId), AppResources.OK);
-            }
+            await reportService.CreateSingleReportAsync(Order, protocol);
         },
         protocol,
         AppResources.CreateReportError);
