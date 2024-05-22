@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace FireEscape.Services;
 
-public class UserAccountService(IFileHostingRepository fileHostingRepository, IOptions<ApplicationSettings> applicationSettings)
+public class UserAccountService(IFileHostingRepository fileHostingRepository, ILogger<UserAccountService> logger, IOptions<ApplicationSettings> applicationSettings)
 {
     const string USER_ACCOUNT = "UserAccount";
     const string NEW_USER_NAME = "New User";
@@ -144,7 +144,10 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IO
                 return userAccount;
             }
         }
-        catch { }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, ex.Message);
+        }
         finally
         {
             semaphoreSlim.Release();

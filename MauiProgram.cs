@@ -1,5 +1,5 @@
 ﻿using DevExpress.Maui;
-using Microsoft.Extensions.Logging;
+using MetroLog.MicrosoftExtensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
@@ -40,6 +40,24 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
+
+        builder.Logging.
+            AddTraceLogger(options =>
+            {
+                options.MinLevel = LogLevel.Trace;
+                options.MaxLevel = LogLevel.Critical;
+            }).
+            AddInMemoryLogger(options =>
+            {
+                options.MaxLines = 1024;
+                options.MinLevel = LogLevel.Debug;
+                options.MaxLevel = LogLevel.Critical;
+             }).
+             AddStreamingFileLogger(options =>
+             {
+                 options.RetainDays = 2;
+                 options.FolderPath = ApplicationSettings.LogFolder;
+             });
 
         builder.Services.ConfigureServices();
         return builder.Build();

@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.ViewModels;
 
-public partial class ProtocolViewModel(ProtocolService protocolService) : BaseEditViewModel<Protocol>
+public partial class ProtocolViewModel(ProtocolService protocolService, ILogger<ProtocolViewModel> logger) : BaseEditViewModel<Protocol>(logger)
 {
     [RelayCommand]
     async Task AddPhotoAsync() =>

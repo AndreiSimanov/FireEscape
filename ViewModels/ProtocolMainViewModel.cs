@@ -5,7 +5,7 @@ using Protocol = FireEscape.Models.Protocol;
 namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
-public partial class ProtocolMainViewModel(ProtocolService protocolService, UserAccountService userAccountService) : BaseViewModel
+public partial class ProtocolMainViewModel(ProtocolService protocolService, UserAccountService userAccountService, ILogger<ProtocolMainViewModel> logger) : BaseViewModel(logger)
 {
     [ObservableProperty]
     Order? order;

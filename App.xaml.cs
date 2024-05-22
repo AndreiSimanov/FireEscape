@@ -1,4 +1,5 @@
 ﻿using DevExpress.Maui.Core;
+using MetroLog.Maui;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 
@@ -6,7 +7,7 @@ namespace FireEscape;
 
 public partial class App : Application
 {
-    public App(UserAccountService userAccountService, IOptions<ApplicationSettings> applicationSettings )
+    public App(UserAccountService userAccountService, IOptions<ApplicationSettings> applicationSettings, ILogger<App> logger )
     {
         SetPrimaryThemeColor(applicationSettings.Value);
         SetUnitsOfMeasure(applicationSettings.Value);
@@ -17,7 +18,20 @@ public partial class App : Application
         Task.Run(() => userAccountService.GetCurrentUserAccountAsync());
         InitializeComponent();
         MainPage = new AppShell();
+
+        LogController.InitializeNavigation(page => MainPage!.Navigation.PushModalAsync(page), () => MainPage!.Navigation.PopModalAsync());
+        new LogController().IsShakeEnabled = true;
+
+        MauiExceptions.UnhandledException += (sender, args) =>
+        {
+            var exception = args.ExceptionObject as Exception;
+            if (exception == null)
+                return;
+            logger.LogCritical(exception, exception.Message);
+            throw exception;
+        };
     }
+
     static CultureInfo SetNumberDecimalSeparator(CultureInfo cultureInfo)
     {
         CultureInfo result = (CultureInfo)cultureInfo.Clone();

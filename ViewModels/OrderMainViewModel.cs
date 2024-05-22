@@ -4,7 +4,8 @@ using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels;
 
-public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicationSettings, OrderService orderService, UserAccountService userAccountService) : BaseViewModel
+public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicationSettings, OrderService orderService, 
+    UserAccountService userAccountService, ILogger<OrderMainViewModel> logger) : BaseViewModel(logger)
 {
     readonly ApplicationSettings applicationSettings = applicationSettings.Value;
     PagingParameters pageParams;

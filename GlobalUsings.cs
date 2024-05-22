@@ -19,3 +19,4 @@ global using FireEscape.Views.BaseViews;
 global using Microsoft.Extensions.Configuration;
 global using SQLite;
 global using SQLiteNetExtensions.Attributes;
+global using Microsoft.Extensions.Logging;

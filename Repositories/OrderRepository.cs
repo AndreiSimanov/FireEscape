@@ -1,17 +1,12 @@
 ﻿using DevExpress.Maui.Core.Internal;
 using FireEscape.DBContext;
 using FireEscape.Factories.Interfaces;
-using Microsoft.Extensions.Options;
 using System.Linq.Expressions;
 
 namespace FireEscape.Repositories;
 
-public class OrderRepository(SqliteContext context, IOrderFactory factory, IOptions<ApplicationSettings> applicationSettings)
-    : BaseObjectRepository<Order, BaseObject>(context, factory), IOrderRepository
+public class OrderRepository(SqliteContext context, IOrderFactory factory) : BaseObjectRepository<Order, BaseObject>(context, factory), IOrderRepository
 {
-
-    readonly ApplicationSettings applicationSettings = applicationSettings.Value;
-
     public override async Task DeleteAsync(Order order)
     {
         if (order.Id == 0)
@@ -24,7 +19,7 @@ public class OrderRepository(SqliteContext context, IOrderFactory factory, IOpti
         });
 
         var imageFileMask = $"{order.Id}_*.{ImageUtils.IMAGE_FILE_EXTENSION}";
-        var dir = new DirectoryInfo(applicationSettings.ImagesFolder);
+        var dir = new DirectoryInfo(ApplicationSettings.ImagesFolder);
         dir.EnumerateFiles(imageFileMask).ForEach(file => file.Delete());
     }
 

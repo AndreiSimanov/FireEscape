@@ -2,7 +2,7 @@
 
 namespace FireEscape.ViewModels;
 
-public partial class UserAccountMainViewModel(UserAccountService userAccountService) : BaseViewModel
+public partial class UserAccountMainViewModel(UserAccountService userAccountService, ILogger<UserAccountMainViewModel> logger) : BaseViewModel(logger)
 {
     [ObservableProperty]
     ObservableCollection<UserAccount> userAccounts = new();

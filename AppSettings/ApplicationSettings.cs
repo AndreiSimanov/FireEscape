@@ -4,6 +4,7 @@ public class ApplicationSettings
 {
     const string IMAGES_FOLDER = "/Images";
     const string DOCUMENTS_FOLDER = "/Documents";
+    const string LOG_FOLDER = "/Log";
 
     public required string UserAccountsFolderName { get; set; }
     public int CheckUserAccountCounter { get; set; }
@@ -12,22 +13,12 @@ public class ApplicationSettings
     public int PageSize { get; set; }
     public required string PrimaryThemeColor { get; set; }
     public required string DbName { get; set; }
-    string contentFolder = string.Empty;
-    public required string ContentFolder
-    {
-        get
-        {
-            if (string.IsNullOrWhiteSpace(contentFolder))
-                return AppUtils.DefaultContentFolder;
-            return CreateFolderIfNotExist(contentFolder);
-        }
-        set => contentFolder = value;
-    }
     public required UnitOfMeasure PrimaryUnitOfMeasure { get; set; }
     public required UnitOfMeasure SecondaryUnitOfMeasure { get; set; }
 
-    public string ImagesFolder => CreateFolderIfNotExist(ContentFolder, IMAGES_FOLDER);
-    public string DocumentsFolder => CreateFolderIfNotExist(ContentFolder, DOCUMENTS_FOLDER);
+    public static string ImagesFolder => CreateFolderIfNotExist(AppUtils.DefaultContentFolder, IMAGES_FOLDER);
+    public static string DocumentsFolder => CreateFolderIfNotExist(AppUtils.DefaultContentFolder, DOCUMENTS_FOLDER);
+    public static string LogFolder => CreateFolderIfNotExist(AppUtils.DefaultContentFolder, LOG_FOLDER);
 
     static string CreateFolderIfNotExist(string path, string folderName = "" )
     {

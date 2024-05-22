@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.ViewModels;
 
-public partial class OrderViewModel(OrderService orderService) : BaseEditViewModel<Order>
+public partial class OrderViewModel(OrderService orderService, ILogger<OrderViewModel> logger) : BaseEditViewModel<Order>(logger)
 {
     protected override async Task SaveEditObjectAsync() =>
        await DoCommandAsync(async () =>

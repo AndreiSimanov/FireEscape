@@ -29,7 +29,7 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
     {
         var protocols = await (await connection).GetAllWithChildrenAsync<Protocol>(protocol => protocol.OrderId == orderId, true);
         protocols.Where(protocol => !string.IsNullOrWhiteSpace(protocol.Image))
-            .ForEach(protocol => protocol.ImageFilePath = Path.Combine(applicationSettings.ImagesFolder, protocol.Image!));
+            .ForEach(protocol => protocol.ImageFilePath = Path.Combine(ApplicationSettings.ImagesFolder, protocol.Image!));
         return protocols.OrderByDescending(item => item.Id).ToArray();
     }
 
@@ -39,7 +39,7 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
             return;
 
         var imageFileName = $"{protocol.OrderId}_{Path.GetFileNameWithoutExtension(Path.GetRandomFileName())}.{ImageUtils.IMAGE_FILE_EXTENSION}";
-        var imageFilePath = Path.Combine(applicationSettings.ImagesFolder, imageFileName);
+        var imageFilePath = Path.Combine(ApplicationSettings.ImagesFolder, imageFileName);
 
         var orientation = ImageUtils.GetImageOrientation(imageFile.FullPath);
         await ImageUtils.TransformImageAsync(imageFile, imageFilePath, applicationSettings.MaxImageSize, applicationSettings.ImageQuality);

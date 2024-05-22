@@ -4,7 +4,7 @@ using System.Text.Json;
 namespace FireEscape.ViewModels.BaseViewModels;
 
 [QueryProperty(nameof(EditObject), nameof(EditObject))]
-public abstract partial class BaseEditViewModel<T> : BaseViewModel
+public abstract partial class BaseEditViewModel<T>(ILogger<BaseEditViewModel<T>> logger) : BaseViewModel(logger)
 {
     [ObservableProperty]
     T? editObject;

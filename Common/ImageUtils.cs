@@ -24,7 +24,7 @@ public static class ImageUtils
             var file = ImageFile.FromFile(filePath);
             return file.Properties.Get<ExifEnumProperty<Orientation>>(ExifTag.Orientation);
         }
-        catch (Exception)
+        catch
         {
             return null;
         }

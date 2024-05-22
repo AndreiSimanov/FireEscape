@@ -2,7 +2,7 @@
 
 namespace FireEscape.ViewModels.BaseViewModels;
 
-public partial class BaseViewModel : ObservableObject
+public partial class BaseViewModel(ILogger<BaseViewModel> logger) : ObservableObject
 {
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNotBusy))]
@@ -16,6 +16,7 @@ public partial class BaseViewModel : ObservableObject
     protected async Task ProcessExeptionAsync(string caption, Exception ex)
     {
         Debug.WriteLine($"{caption}: {ex.Message}");
+        logger.LogError(ex, ex.Message);
         await Shell.Current.DisplayAlert(AppResources.Error, ex.Message, AppResources.OK);
     }
 

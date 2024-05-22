@@ -3,7 +3,6 @@ using DevExpress.Maui.Controls;
 using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 using System.ComponentModel;
-using System.Linq;
 
 namespace FireEscape.ViewModels;
 
@@ -14,7 +13,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     readonly IStairsFactory stairsFactory;
     public StairsSettings StairsSettings { get; private set; }
 
-    public StairsViewModel(StairsService stairsService, IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory)
+    public StairsViewModel(StairsService stairsService, IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory, ILogger<StairsViewModel> logger) : base(logger)
     {
         this.stairsService = stairsService;
         this.stairsFactory = stairsFactory;
