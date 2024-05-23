@@ -29,7 +29,7 @@ public static class AppUtils
 
     public static string ToValidFileName(string fileName) => Path.GetInvalidFileNameChars().Aggregate(fileName, (f, c) => f.Replace(c, '_'));
 
-    public static string CreateFolderIfNotExist(string path, string folderName = "")
+    public static string CreateFolderIfNotExists(string path, string folderName = "")
     {
         path = Path.Combine(Path.Join(path, folderName));
         if (Directory.Exists(path))

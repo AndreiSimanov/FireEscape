@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.Models.Enums;
 
-public enum BatchReportStatusEnum
+public enum StartStopEnum
 {
     [LocalizedDescription(nameof(Start), typeof(EnumResources))]
     Start,

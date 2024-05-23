@@ -19,16 +19,16 @@ public class ApplicationSettings
     public required UnitOfMeasure PrimaryUnitOfMeasure { get; set; }
     public required UnitOfMeasure SecondaryUnitOfMeasure { get; set; }
 
-    public static string ImagesFolder => AppUtils.CreateFolderIfNotExist(AppUtils.DefaultContentFolder, IMAGES_FOLDER);
-    public static string DocumentsFolder => AppUtils.CreateFolderIfNotExist(AppUtils.DefaultContentFolder, DOCUMENTS_FOLDER);
-    public static string LogFolder => AppUtils.CreateFolderIfNotExist(AppUtils.DefaultContentFolder, LOG_FOLDER);
+    public static string ImagesFolder => AppUtils.CreateFolderIfNotExists(AppUtils.DefaultContentFolder, IMAGES_FOLDER);
+    public static string DocumentsFolder => AppUtils.CreateFolderIfNotExists(AppUtils.DefaultContentFolder, DOCUMENTS_FOLDER);
+    public static string LogFolder => AppUtils.CreateFolderIfNotExists(AppUtils.DefaultContentFolder, LOG_FOLDER);
 
     public static async Task<string> GetOutputPath()
     {
         var path =  Preferences.Get(OUTPUT_FOLDER, string.Empty);
         if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
         {
-            var folderPickerResult = await FolderPicker.PickAsync(default);
+            var folderPickerResult = await FolderPicker.PickAsync(default); // Permission request must be invoked on main thread.
             path = folderPickerResult.IsSuccessful ? folderPickerResult.Folder.Path : string.Empty;
             if (!string.IsNullOrWhiteSpace(path))
                 Preferences.Set(OUTPUT_FOLDER, path);

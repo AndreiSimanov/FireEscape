@@ -1,5 +1,3 @@
-using AndroidX.Lifecycle;
-
 namespace FireEscape.Views;
 
 public partial class BatchReportPage : ContentPage

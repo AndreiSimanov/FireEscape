@@ -6,7 +6,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
 {
     public async Task CreateSingleReportAsync(Order order, Protocol protocol )
     {
-        var folderPath = await GetOutputFolderPath(order);
+        var folderPath = GetOutputFolderPath(order);
         if (string.IsNullOrWhiteSpace(folderPath))
             return;
 
@@ -20,13 +20,12 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
 
     public async Task CreateBatchReportAsync(Order order, Protocol[] protocols, IProgress<(double progress, string outputPath)>? progress, CancellationToken ct)
     {
-        var folderPath = await GetOutputFolderPath(order);
+        var folderPath = GetOutputFolderPath(order);
         if (string.IsNullOrWhiteSpace(folderPath))
             return;
         var userAccount = await userAccountService.GetCurrentUserAccountAsync();
         CheckUserAccount(userAccount);
         AppUtils.DeleteFolderContent(folderPath);
-
         double count = 0;
         foreach (var protocol in protocols)
         {
@@ -46,9 +45,9 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
             throw new Exception(string.Format(AppResources.UnregisteredApplicationMessage, userAccountService.CurrentUserAccountId));
     }
 
-    static async Task<string> GetOutputFolderPath(Order order)
+    static string GetOutputFolderPath(Order order)
     {
-        var outputPath = await ApplicationSettings.GetOutputPath();
+        var outputPath = ApplicationSettings.DocumentsFolder;
         if (string.IsNullOrWhiteSpace(outputPath))
             return string.Empty;
 
@@ -56,7 +55,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         if (!string.IsNullOrWhiteSpace(order.Name))
             orderFolderName = orderFolderName + "_" + AppUtils.ToValidFileName(order.Name.Trim());
 
-        return AppUtils.CreateFolderIfNotExist(outputPath, orderFolderName);
+        return AppUtils.CreateFolderIfNotExists(outputPath, orderFolderName);
     }
 
     static string GetFileName(Order order, Protocol protocol)

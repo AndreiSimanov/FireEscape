@@ -6,9 +6,11 @@
     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
     xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges"
     xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:conv="clr-namespace:FireEscape.Views.Converters"
+    xmlns:enums="clr-namespace:FireEscape.Models.Enums"    
     xmlns:model="clr-namespace:FireEscape.Models"
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
-    xmlns:conv="clr-namespace:FireEscape.Views.Converters"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Class="FireEscape.Views.BatchReportPage"
     x:DataType="viewmodel:BatchReportModel"
     HideSoftInputOnTapped="True"    
@@ -18,6 +20,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
+            <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -26,10 +29,18 @@
             Style="{StaticResource RadialProgressBar}"
             Value="{Binding Progress}">
             <dxga:RadialProgressBar.Content>
-                <dx:DXButton
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <dx:DXButton
+                    IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Start}}"
                     Style="{StaticResource RadialProgressBarButton}"
-                    Content="{Binding BatchReportStatusEnum, Converter={StaticResource EnumToStringConverter}}"
+                    Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
                     Command="{Binding CreateReportCommand}"/>
+                    <dx:DXButton
+                    IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Stop}}"                    
+                    Style="{StaticResource RadialProgressBarButton}"
+                    Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
+                    Command="{Binding CancelOperationCommand}"/>
+                </StackLayout>
             </dxga:RadialProgressBar.Content>
         </dxga:RadialProgressBar>
     </StackLayout>
