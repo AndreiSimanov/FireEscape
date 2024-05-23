@@ -43,8 +43,7 @@ public partial class StairsPage : BaseStairsPage
 
     void SetSelectedStairsElements(BaseStairsElement? element = null)
     {
-        if (ViewModel != null)
-            ViewModel.SelectStairsElementCommand.Execute(element);
+        ViewModel?.SelectStairsElementCommand.Execute(element);
     }
 
     private void PlatformSizesPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

@@ -165,8 +165,14 @@
   <data name="StairwayP2" xml:space="preserve">
     <value>Stairway</value>
   </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="StepsP1" xml:space="preserve">
     <value>Stairs steps</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
   </data>
   <data name="SupportBeamsP1" xml:space="preserve">
     <value>Support beams</value>

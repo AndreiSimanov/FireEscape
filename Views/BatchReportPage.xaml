@@ -4,14 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges"
     xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
     xmlns:model="clr-namespace:FireEscape.Models"
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
-    xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges"
+    xmlns:conv="clr-namespace:FireEscape.Views.Converters"
     x:Class="FireEscape.Views.BatchReportPage"
     x:DataType="viewmodel:BatchReportModel"
     HideSoftInputOnTapped="True"    
-    Title="{x:Static lang:AppResources.OrderReport}">
+    Title="{x:Static lang:AppResources.OrderReport}"
+    Disappearing="ContentPageDisappearing">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <StackLayout>
         <dxga:RadialProgressBar 
             Style="{StaticResource RadialProgressBar}"
@@ -19,10 +28,9 @@
             <dxga:RadialProgressBar.Content>
                 <dx:DXButton
                     Style="{StaticResource RadialProgressBarButton}"
-                    Content="{Binding ProgressBarButtonContent}"
+                    Content="{Binding BatchReportStatusEnum, Converter={StaticResource EnumToStringConverter}}"
                     Command="{Binding CreateReportCommand}"/>
             </dxga:RadialProgressBar.Content>
         </dxga:RadialProgressBar>
     </StackLayout>
-
 </ContentPage>

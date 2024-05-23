@@ -18,7 +18,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(outputPath) });
     }
 
-    public async Task CreateBatchReportAsync(Order order, Protocol[] protocols)
+    public async Task CreateBatchReportAsync(Order order, Protocol[] protocols, IProgress<(double progress, string outputPath)>? progress, CancellationToken ct)
     {
         var folderPath = await GetOutputFolderPath(order);
         if (string.IsNullOrWhiteSpace(folderPath))
@@ -27,11 +27,16 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         CheckUserAccount(userAccount);
         AppUtils.DeleteFolderContent(folderPath);
 
+        double count = 0;
         foreach (var protocol in protocols)
         {
             var outputPath = Path.Combine(folderPath, GetFileName(order, protocol));
             await reportRepository.CreateReportAsync(order, protocol, outputPath);
             userAccountService.UpdateExpirationCount(userAccount!);
+            await Task.Delay(1000);
+            progress?.Report((++count / protocols.Length, outputPath));
+            if (ct.IsCancellationRequested)
+                break;
         }
     }
 
