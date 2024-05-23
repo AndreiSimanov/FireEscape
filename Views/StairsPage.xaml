@@ -23,8 +23,7 @@
     HideSoftInputOnTapped="True"
     Title="{x:Static lang:AppResources.StairsPageTitle}">
     <ScrollView
-        Scrolled="ScrollViewScrolled" 
-        BackgroundColor="{dx:ThemeColor Surface}">
+        Scrolled="ScrollViewScrolled">
         <ScrollView.Resources>
             <ResourceDictionary>
                 <toolkit:EnumToBoolConverter x:Key="ElementNumberEnumConverter">

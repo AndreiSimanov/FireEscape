@@ -32,10 +32,10 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
             var outputPath = Path.Combine(folderPath, GetFileName(order, protocol));
             await reportRepository.CreateReportAsync(order, protocol, outputPath);
             userAccountService.UpdateExpirationCount(userAccount!);
-            await Task.Delay(1000);
             progress?.Report((++count / protocols.Length, outputPath));
             if (ct.IsCancellationRequested)
                 break;
+            await Task.Yield();
         }
     }
 

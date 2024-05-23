@@ -560,17 +560,17 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Thickness" Value="8" />
         <Setter Property="ValueIndicatorThickness" Value="8" />
-        <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=250, ExtraSmall=220}" />
-        <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=250, ExtraSmall=220}" />
+        <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=150, ExtraSmall=120}" />
+        <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=150, ExtraSmall=120}" />
     </Style>
 
     <Style TargetType="dx:DXButton" x:Key="RadialProgressBarButton">
         <Setter Property="TextHorizontalAlignment" Value="Center" />
         <Setter Property="BackgroundColor" Value="{dx:ThemeColor Primary}" />
-        <Setter Property="FontSize" Value="{dx:OnDisplaySize ExtraSmall=25, Medium=30 }" />
+        <Setter Property="FontSize" Value="{dx:OnDisplaySize ExtraSmall=15, Medium=20 }" />
         <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=200, ExtraSmall=180}" />
-        <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=200, ExtraSmall=180}" />
+        <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=120, ExtraSmall=100}" />
+        <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=120, ExtraSmall=100}" />
         <Setter Property="CornerRadius" Value="1000" />
         <Setter Property="ZIndex" Value="1" />
     </Style>

@@ -1,4 +1,6 @@
-﻿namespace FireEscape.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
 [QueryProperty(nameof(Protocols), nameof(Protocol))]
@@ -11,6 +13,10 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
     Protocol[]? protocols;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HeaderVisible))]
+    ObservableCollection<OutpuFile> outputFiles = new();
+
+    [ObservableProperty]
     StartStopEnum startStopStatus = StartStopEnum.Start;
 
     [ObservableProperty]
@@ -20,15 +26,20 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
     bool disposed;
     CancellationTokenSource? cts;
 
+    [ObservableProperty]
+    bool headerVisible;
+
     [RelayCommand]
-    void CancelOperation()
-    {
-        if (StartStopStatus == StartStopEnum.Stop)
+    void CancelOperation() =>
+        DoCommand(() =>
         {
-            cts?.Cancel();
-            StartStopStatus = StartStopEnum.Start;
-        }
-    }
+            if (StartStopStatus == StartStopEnum.Stop)
+            {
+                cts?.Cancel();
+                StartStopStatus = StartStopEnum.Start;
+            }
+        },
+        AppResources.CreateReportError);
 
     [RelayCommand]
     async Task CreateReportAsync(Order order) =>
@@ -41,10 +52,14 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
                 return; // add message "Protocols doesn't exist"
 
             StartStopStatus = StartStopEnum.Stop;
+            HeaderVisible = false;
+            OutputFiles.Clear();
+
             var progressIndicator = new Progress<(double progress, string outputPath)>(progress =>
             {
-                if (StartStopStatus == StartStopEnum.Stop)
-                    Progress = progress.progress;
+                OutputFiles.Add(new OutpuFile() { FilePath = progress.outputPath });
+                HeaderVisible = true;
+                Progress = progress.progress;
             });
 
             try
@@ -62,6 +77,14 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
         Order,
         AppResources.CreateReportError);
 
+    [RelayCommand]
+    async Task OpenFileAsync(OutpuFile outpuFile) =>
+        await DoCommandAsync(async () =>
+        {
+            await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(outpuFile.FilePath) });
+        },
+        outpuFile,
+        AppResources.CreateReportError);
 
     public void Dispose()
     {

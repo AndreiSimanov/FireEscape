@@ -21,7 +21,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
 
     [RelayCommand]
     async Task GetUserAccountsAsync() =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             try
             {
@@ -41,7 +41,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
 
     [RelayCommand]
     async Task GoToDetailsAsync(UserAccount userAccount) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(UserAccountPage), true,
                 new Dictionary<string, object> { { nameof(UserAccountViewModel.EditObject), userAccount } });
@@ -51,7 +51,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
 
     [RelayCommand]
     async Task DeleteUserAccountAsync(UserAccount userAccount) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteUserAccount,
                 AppResources.Cancel,

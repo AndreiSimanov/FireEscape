@@ -3,7 +3,7 @@
 public partial class OrderViewModel(OrderService orderService, ILogger<OrderViewModel> logger) : BaseEditViewModel<Order>(logger)
 {
     protected override async Task SaveEditObjectAsync() =>
-       await DoCommandAsync(async () =>
+       await DoBusyCommandAsync(async () =>
        {
            await orderService.SaveAsync(EditObject!);
        },

@@ -5,6 +5,7 @@
     xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
     xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
     xmlns:conv="clr-namespace:FireEscape.Views.Converters"
     xmlns:enums="clr-namespace:FireEscape.Models.Enums"    
@@ -24,24 +25,67 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <StackLayout>
-        <dxga:RadialProgressBar 
-            Style="{StaticResource RadialProgressBar}"
-            Value="{Binding Progress}">
-            <dxga:RadialProgressBar.Content>
-                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                    <dx:DXButton
-                    IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Start}}"
-                    Style="{StaticResource RadialProgressBarButton}"
-                    Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
-                    Command="{Binding CreateReportCommand}"/>
-                    <dx:DXButton
-                    IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Stop}}"                    
-                    Style="{StaticResource RadialProgressBarButton}"
-                    Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
-                    Command="{Binding CancelOperationCommand}"/>
-                </StackLayout>
-            </dxga:RadialProgressBar.Content>
-        </dxga:RadialProgressBar>
-    </StackLayout>
+    <Grid RowDefinitions="Auto,*">
+        <StackLayout>
+            <dxga:RadialProgressBar 
+                Style="{StaticResource RadialProgressBar}"
+                Value="{Binding Progress}">
+                <dxga:RadialProgressBar.Content>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <dx:DXButton
+                        IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Start}}"
+                        Style="{StaticResource RadialProgressBarButton}"
+                        Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
+                        Command="{Binding CreateReportCommand}"/>
+                        <dx:DXButton
+                        IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Stop}}"                    
+                        Style="{StaticResource RadialProgressBarButton}"
+                        Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
+                        Command="{Binding CancelOperationCommand}"/>
+                    </StackLayout>
+                </dxga:RadialProgressBar.Content>
+            </dxga:RadialProgressBar>
+            <dxe:FormGroupItem  IsVisible="{Binding HeaderVisible}" Header="{x:Static lang:AppResources.Files}" HeightRequest="40" Margin="10, 0, 10, 0" />
+        </StackLayout>
+        <dxcv:DXCollectionView 
+            ItemsSource="{Binding OutputFiles}"
+            AllowLiveDataShaping="True"
+            SelectionMode="Single" 
+            ItemSeparatorThickness="1"
+            Margin="10,0,10,0"
+            Grid.Row="1"
+            UseRippleEffect="true">
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:OutpuFile">
+                    <StackLayout>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BatchReportModel}}, Path=OpenFileCommand}"
+                                    CommandParameter="{Binding .}"/>
+                        </StackLayout.GestureRecognizers>
+                        <VerticalStackLayout Spacing="2" Margin="0">
+                            <Label Style="{StaticResource Titleline}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static lang:AppResources.File}" />
+                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                        <Span Text="{Binding FileName}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Style="{StaticResource SubLine}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static lang:AppResources.Path}" />
+                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                        <Span Text="{Binding FolderPath}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+    </Grid>
 </ContentPage>

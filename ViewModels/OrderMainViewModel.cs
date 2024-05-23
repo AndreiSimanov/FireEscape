@@ -27,7 +27,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand]
     async Task GetOrdersAsync() =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             try
             {
@@ -47,7 +47,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand]
     async Task LoadMoreAsync() =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             if (!IsLoadMore)
                 return;
@@ -71,7 +71,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task AddOrderAsync()
     {
         Order? newOrder = null;
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             newOrder = await orderService.CreateAsync();
             Orders.Insert(0, newOrder);
@@ -85,7 +85,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand]
     async Task DeleteOrderAsync(Order order) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteOrder, AppResources.Cancel, AppResources.Delete);
 
@@ -100,7 +100,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand]
     async Task GoToDetailsAsync(Order order) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(OrderPage), true,
                 new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
@@ -111,7 +111,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand]
     async Task GoToProtocolsAsync(Order order) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(ProtocolMainPage), true, new Dictionary<string, object> { { nameof(Order), order } });
         },
@@ -120,7 +120,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand]
     async Task CreateReportAsync(Order order) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             if (order == null)
                 return;
@@ -141,7 +141,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand]
     async Task OpenUserAccountMainPageAsync() =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             var userAccount = await userAccountService.GetCurrentUserAccountAsync(true);
             if (UserAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
@@ -153,7 +153,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand] //For test only 
     async Task AddOrdersAsync() =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             for (var i = 0; i < 10000; i++)
             {

@@ -20,13 +20,13 @@ public partial class BaseViewModel(ILogger<BaseViewModel> logger) : ObservableOb
         await Shell.Current.DisplayAlert(AppResources.Error, ex.Message, AppResources.OK);
     }
 
-    protected async Task DoCommandAsync(Func<Task> func, object? item, string exceptionCaption)
+    protected async Task DoBusyCommandAsync(Func<Task> func, object? item, string exceptionCaption)
     {
         if (item != null)
-            await DoCommandAsync(func, exceptionCaption);
+            await DoBusyCommandAsync(func, exceptionCaption);
     }
 
-    protected async Task DoCommandAsync(Func<Task> func, string exceptionCaption)
+    protected async Task DoBusyCommandAsync(Func<Task> func, string exceptionCaption)
     {
         if (IsBusy)
             return;
@@ -45,7 +45,25 @@ public partial class BaseViewModel(ILogger<BaseViewModel> logger) : ObservableOb
         }
     }
 
-    protected void DoCommand(Action action, string exceptionCaption)
+    protected async Task DoCommandAsync(Func<Task> func, object? item, string exceptionCaption)
+    {
+        if (item != null)
+            await DoCommandAsync(func, exceptionCaption);
+    }
+
+    protected async Task DoCommandAsync(Func<Task> func, string exceptionCaption)
+    {
+        try
+        {
+            await func();
+        }
+        catch (Exception ex)
+        {
+            await ProcessExeptionAsync(exceptionCaption, ex);
+        }
+    }
+
+    protected void DoBusyCommand(Action action, string exceptionCaption)
     {
         if (IsBusy)
             return;
@@ -61,6 +79,17 @@ public partial class BaseViewModel(ILogger<BaseViewModel> logger) : ObservableOb
         finally
         {
             IsBusy = false;
+        }
+    }
+    protected void DoCommand(Action action, string exceptionCaption)
+    {
+        try
+        {
+            action();
+        }
+        catch (Exception ex)
+        {
+            ProcessExeptionAsync(exceptionCaption, ex).Wait();
         }
     }
 }

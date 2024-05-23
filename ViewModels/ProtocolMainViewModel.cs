@@ -28,7 +28,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
 
     [RelayCommand]
     async Task GetProtocolsAsync() =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             try
             {
@@ -58,7 +58,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     async Task CreateProtocolAsync()
     {
         Protocol? newProtocol = null;
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             if (Order == null)
                 return;
@@ -75,7 +75,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     async Task CopyProtocolAsync(Protocol protocol)
     {
         Protocol? newProtocol = null;
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             newProtocol = await protocolService.CopyAsync(protocol);
             Protocols.Insert(0, newProtocol);
@@ -88,7 +88,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
 
     [RelayCommand]
     async Task DeleteProtocolAsync(Protocol protocol) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, AppResources.Cancel, AppResources.Delete);
 
@@ -103,7 +103,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
 
     [RelayCommand]
     async Task CreateReportAsync(Protocol protocol) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             if (Order == null)
                 return;
@@ -114,7 +114,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
 
     [RelayCommand]
     async Task GoToDetailsAsync(Protocol protocol) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(ProtocolPage), true,
                 new Dictionary<string, object> { { nameof(ProtocolViewModel.EditObject), protocol } });

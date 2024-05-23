@@ -99,7 +99,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     [RelayCommand]
     async Task AddStairsElementAsync()
     {
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             if (EditObject == null)
                 return;
@@ -132,7 +132,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
     [RelayCommand]
     async Task DeleteElementAsync(BaseStairsElement element) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             if (EditObject == null || element.Required)
                 return;
@@ -151,7 +151,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         AppResources.DeleteStairsElementError);
 
     protected override async Task SaveEditObjectAsync() =>
-       await DoCommandAsync(async () =>
+       await DoBusyCommandAsync(async () =>
        {
            await stairsService.SaveAsync(EditObject!);
        },
