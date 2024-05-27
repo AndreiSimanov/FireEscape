@@ -65,15 +65,7 @@
                                     CommandParameter="{Binding .}"/>
                         </StackLayout.GestureRecognizers>
                         <VerticalStackLayout Spacing="2" Margin="0">
-                            <Label Style="{StaticResource Titleline}">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{x:Static lang:AppResources.File}" />
-                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                        <Span Text="{Binding Name}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
+                            <Label Style="{StaticResource Titleline}" Text="{Binding Name}" />
                             <Grid>
                                 <Label Style="{StaticResource SubLine}">
                                     <Label.FormattedText>

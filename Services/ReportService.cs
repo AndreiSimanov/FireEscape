@@ -70,7 +70,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
             fireEscapeObject = string.IsNullOrWhiteSpace(protocol.Address) ? order.Address : protocol.Address;
 
         var sb = new StringBuilder();
-        sb.Append(protocol.StairsId);
+        sb.Append(protocol.FireEscapeNum);
         sb.Append('.');
         sb.Append(protocol.Stairs.BaseStairsType == BaseStairsTypeEnum.P1 ? "Верт" : "Марш");
         sb.Append(' ');
@@ -83,7 +83,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         sb.Append(' ');
         sb.Append(protocol.Stairs.StairsMountType == StairsMountTypeEnum.BuildingMounted ? "на здание" : "на перепаде");
         sb.Append(" №");
-        sb.Append(protocol.StairsId);
+        sb.Append(protocol.FireEscapeNum);
         sb.Append('.');
         if (!string.IsNullOrWhiteSpace(fireEscapeObject))
         {
