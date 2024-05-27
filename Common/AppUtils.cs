@@ -31,7 +31,7 @@ public static class AppUtils
 
     public static string CreateFolderIfNotExists(string path, string folderName = "")
     {
-        path = Path.Combine(Path.Join(path, folderName));
+        path = Path.Join(path, folderName);
         if (Directory.Exists(path))
             return path;
         var directoryInfo = Directory.CreateDirectory(path);

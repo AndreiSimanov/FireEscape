@@ -6,7 +6,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
 {
     public async Task CreateSingleReportAsync(Order order, Protocol protocol )
     {
-        var folderPath = GetOutputFolderPath(order);
+        var folderPath = PrepareOutputFolder(order);
         if (string.IsNullOrWhiteSpace(folderPath))
             return;
 
@@ -20,7 +20,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
 
     public async Task CreateBatchReportAsync(Order order, Protocol[] protocols, IProgress<(double progress, string outputPath)>? progress, CancellationToken ct)
     {
-        var folderPath = GetOutputFolderPath(order);
+        var folderPath = PrepareOutputFolder(order);
         if (string.IsNullOrWhiteSpace(folderPath))
             return;
         var userAccount = await userAccountService.GetCurrentUserAccountAsync();
@@ -45,17 +45,22 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
             throw new Exception(string.Format(AppResources.UnregisteredApplicationMessage, userAccountService.CurrentUserAccountId));
     }
 
-    static string GetOutputFolderPath(Order order)
+    static string PrepareOutputFolder(Order order)
     {
         var outputPath = ApplicationSettings.DocumentsFolder;
-        if (string.IsNullOrWhiteSpace(outputPath))
-            return string.Empty;
+        var defaultOrderFolderName = $"{AppResources.Order}_{order.Id}.";
+        var orderFolderName = defaultOrderFolderName + (string.IsNullOrWhiteSpace(order.Name) ? string.Empty : AppUtils.ToValidFileName(order.Name.Trim()));
+        var fullPath = Path.Combine(outputPath, orderFolderName);
 
-        var orderFolderName = AppResources.Order + "_" + order.Id;
-        if (!string.IsNullOrWhiteSpace(order.Name))
-            orderFolderName = orderFolderName + "_" + AppUtils.ToValidFileName(order.Name.Trim());
-
-        return AppUtils.CreateFolderIfNotExists(outputPath, orderFolderName);
+        var folders = Directory.GetDirectories(outputPath, defaultOrderFolderName + '*');
+        if (folders.Length > 0)
+        {
+            if (string.Equals(folders[0], fullPath))
+                return fullPath;
+            Directory.Move(folders[0], fullPath);
+            return fullPath;
+        }
+        return AppUtils.CreateFolderIfNotExists(fullPath);
     }
 
     static string GetFileName(Order order, Protocol protocol)
