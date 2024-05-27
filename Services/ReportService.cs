@@ -13,6 +13,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         var userAccount = await userAccountService.GetCurrentUserAccountAsync();
         CheckUserAccount(userAccount);
         var outputPath = Path.Combine(folderPath, GetFileName(order, protocol));
+        outputPath = IncrementFileNameIfExists(outputPath);
         await reportRepository.CreateReportAsync(order, protocol, outputPath);
         userAccountService.UpdateExpirationCount(userAccount!);
         await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(outputPath) });
@@ -30,6 +31,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         foreach (var protocol in protocols)
         {
             var outputPath = Path.Combine(folderPath, GetFileName(order, protocol));
+            outputPath = IncrementFileNameIfExists(outputPath);
             await reportRepository.CreateReportAsync(order, protocol, outputPath);
             userAccountService.UpdateExpirationCount(userAccount!);
             progress?.Report((++count / protocols.Length, outputPath));
@@ -93,5 +95,22 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         }
         sb.Append("pdf");
         return sb.ToString();
+    }
+
+    static string IncrementFileNameIfExists(string filePath)
+    {
+        if (!File.Exists(filePath))
+            return filePath;
+        
+        var path = Path.GetDirectoryName(filePath);
+        var fileName = Path.GetFileNameWithoutExtension(filePath);
+        var fileExt = Path.GetExtension(filePath);
+        var counter = 2;
+
+        while (File.Exists(filePath))
+        {
+            filePath = Path.Combine(path!, $"{fileName}({counter++}){fileExt}");
+        }
+        return filePath;
     }
 }
