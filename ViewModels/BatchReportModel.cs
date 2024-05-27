@@ -14,7 +14,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HeaderVisible))]
-    ObservableCollection<OutpuFile> outputFiles = new();
+    ObservableCollection<FileInfo> files = new();
 
     [ObservableProperty]
     StartStopEnum startStopStatus = StartStopEnum.Start;
@@ -53,11 +53,11 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
 
             StartStopStatus = StartStopEnum.Stop;
             HeaderVisible = false;
-            OutputFiles.Clear();
+            Files.Clear();
 
             var progressIndicator = new Progress<(double progress, string outputPath)>(progress =>
             {
-                OutputFiles.Add(new OutpuFile() { FilePath = progress.outputPath });
+                Files.Add(new FileInfo(progress.outputPath));
                 HeaderVisible = true;
                 Progress = progress.progress;
             });
@@ -78,12 +78,12 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
         AppResources.CreateReportError);
 
     [RelayCommand]
-    async Task OpenFileAsync(OutpuFile outpuFile) =>
+    async Task OpenFileAsync(FileInfo fileInfo) =>
         await DoCommandAsync(async () =>
         {
-            await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(outpuFile.FilePath) });
+            await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(fileInfo.FullName) });
         },
-        outpuFile,
+        fileInfo,
         AppResources.CreateReportError);
 
     public void Dispose()
