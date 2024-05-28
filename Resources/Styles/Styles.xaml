@@ -567,7 +567,7 @@
     <Style TargetType="dx:DXButton" x:Key="RadialProgressBarButton">
         <Setter Property="TextHorizontalAlignment" Value="Center" />
         <Setter Property="BackgroundColor" Value="{dx:ThemeColor Primary}" />
-        <Setter Property="FontSize" Value="{dx:OnDisplaySize ExtraSmall=20, Medium=26 }" />
+        <Setter Property="FontSize" Value="{dx:OnDisplaySize Medium=24, ExtraSmall=18}" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=120, ExtraSmall=100}" />
         <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=120, ExtraSmall=100}" />

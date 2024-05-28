@@ -37,20 +37,28 @@ public static class MauiProgram
         DevExpress.Maui.Controls.Initializer.Init();
         DevExpress.Maui.Editors.Initializer.Init();
 
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
-
         builder.Logging.
+            AddFilter("Microsoft.Maui.Controls.Xaml.Diagnostics.BindingDiagnostics", LogLevel.Error). // Disable BindingDiagnostics warnings
+#if DEBUG
+            AddDebug().
+#endif
             AddTraceLogger(options =>
             {
+#if DEBUG
                 options.MinLevel = LogLevel.Trace;
+#else
+                options.MinLevel = LogLevel.Error;
+#endif
                 options.MaxLevel = LogLevel.Critical;
             }).
             AddInMemoryLogger(options =>
             {
                 options.MaxLines = 1024;
+#if DEBUG
                 options.MinLevel = LogLevel.Debug;
+#else
+                options.MinLevel = LogLevel.Error;
+#endif
                 options.MaxLevel = LogLevel.Critical;
              }).
              AddStreamingFileLogger(options =>
@@ -58,7 +66,6 @@ public static class MauiProgram
                  options.RetainDays = 2;
                  options.FolderPath = ApplicationSettings.LogFolder;
              });
-
         builder.Services.ConfigureServices();
         return builder.Build();
     }
