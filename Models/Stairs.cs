@@ -41,6 +41,11 @@ public partial class Stairs : BaseObject
     public string? StairsHeightBlob { get; set; }
 
     [ObservableProperty]
+    [property: TextBlob(nameof(GroundDistanceBlob))]
+    ServiceabilityProperty<float> groundDistance = new() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
+    public string? GroundDistanceBlob { get; set; }
+
+    [ObservableProperty]
     [property: TextBlob(nameof(StairsWidthBlob))]
     ServiceabilityProperty<float> stairsWidth = new() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
     public string? StairsWidthBlob { get; set; }
