@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
+﻿using Android.Telephony.Data;
+using CommunityToolkit.Maui.Core.Extensions;
 using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 
@@ -125,8 +126,13 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             if (order == null)
                 return;
             var protocols = await protocolService.GetProtocolsAsync(order.Id);
-            if (protocols.Length == 0)
-                return; // add message "Protocols doesn't exist"
+
+            if (protocols == null || protocols.Length == 0)
+            {
+                await Shell.Current.DisplayAlert(AppResources.Error, AppResources.OrderIsEmpty, AppResources.OK);
+                return;
+            }
+
             if (protocols.Length == 1)
             {
                 await reportService.CreateSingleReportAsync(order, protocols[0]);

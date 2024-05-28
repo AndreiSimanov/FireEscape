@@ -53,11 +53,11 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
     async Task CreateReportAsync(Order order) =>
         await DoBusyCommandAsync(async () =>
         {
-            if (Order == null || Protocols == null)
+            if (Protocols == null || Protocols.Length == 0)
+            {
+                await Shell.Current.DisplayAlert(AppResources.Error, AppResources.OrderIsEmpty, AppResources.OK);
                 return;
-
-            if (Protocols.Length == 0)
-                return; // add message "Protocols doesn't exist"
+            }    
 
             StartStopStatus = StartStopEnum.Stop;
             FilesExists = false;
@@ -73,7 +73,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
             try
             {
                 cts = new CancellationTokenSource();
-                await reportService.CreateBatchReportAsync(Order, Protocols, cts.Token, progressIndicator);
+                await reportService.CreateBatchReportAsync(Order!, Protocols, cts.Token, progressIndicator);
             }
             finally
             {

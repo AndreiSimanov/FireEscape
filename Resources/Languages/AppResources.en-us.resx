@@ -516,6 +516,9 @@
   <data name="Size" xml:space="preserve">
     <value>Size</value>
   </data>
+  <data name="OrderIsEmpty" xml:space="preserve">
+    <value>The order doesn't contain protocols</value>
+  </data>
   <data name="SharingOrderZip" xml:space="preserve">
     <value>Sharing order zip</value>
   </data>

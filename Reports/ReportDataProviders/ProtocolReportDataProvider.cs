@@ -74,8 +74,6 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
         return summary;
     }
 
-
-
     public List<StairsElementResult> GetStairsElements() // todo: group elements by StairsElementType & WithstandLoad
     {
         if (stairsElementResults != null)
