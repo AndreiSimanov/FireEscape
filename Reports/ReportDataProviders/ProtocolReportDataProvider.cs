@@ -98,7 +98,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
         if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Reject && !string.IsNullOrWhiteSpace(serviceabilityProperty.RejectExplanation))
         {
-            summary.Add(serviceabilityProperty.RejectExplanation.Replace(Environment.NewLine, " "));
+            summary.AddRange(serviceabilityProperty.RejectExplanation.Split(Environment.NewLine));
             return;
         }
 
