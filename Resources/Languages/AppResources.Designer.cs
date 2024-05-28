@@ -547,6 +547,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Расст. от земли.
+        /// </summary>
+        internal static string GroundDistance {
+            get {
+                return ResourceManager.GetString("GroundDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите расстояние от земли.
+        /// </summary>
+        internal static string GroundDistanceHint {
+            get {
+                return ResourceManager.GetString("GroundDistanceHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Id.
         /// </summary>
         internal static string Id {

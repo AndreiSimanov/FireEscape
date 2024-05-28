@@ -528,4 +528,10 @@
   <data name="WallDistanceHint" xml:space="preserve">
     <value>Specify the distance to the wall</value>
   </data>
+  <data name="GroundDistance" xml:space="preserve">
+    <value>Dist. to the ground</value>
+  </data>
+  <data name="GroundDistanceHint" xml:space="preserve">
+    <value>Specify distance to the ground</value>
+  </data>
 </root>

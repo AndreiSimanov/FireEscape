@@ -528,4 +528,10 @@
   <data name="WallDistanceHint" xml:space="preserve">
     <value>Укажите расстояние до стены</value>
   </data>
+  <data name="GroundDistance" xml:space="preserve">
+    <value>Расст. от земли</value>
+  </data>
+  <data name="GroundDistanceHint" xml:space="preserve">
+    <value>Укажите расстояние от земли</value>
+  </data>
 </root>
