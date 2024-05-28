@@ -1,5 +1,4 @@
-﻿using Android.Telephony.Data;
-using CommunityToolkit.Maui.Core.Extensions;
+﻿using CommunityToolkit.Maui.Core.Extensions;
 using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
 
