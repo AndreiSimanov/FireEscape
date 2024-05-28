@@ -1078,6 +1078,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Расст. между ступенями.
+        /// </summary>
+        internal static string StepsDistance {
+            get {
+                return ResourceManager.GetString("StepsDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите расстояние между ступенями.
+        /// </summary>
+        internal static string StepsDistanceHint {
+            get {
+                return ResourceManager.GetString("StepsDistanceHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Высота ступени.
         /// </summary>
         internal static string StepsHeight {

@@ -1,7 +1,10 @@
 ﻿namespace FireEscape.Models.StairsElements;
 
-public class StepsP1 : BaseStairsElement
+public partial class StepsP1 : BaseStairsElement
 {
+    [ObservableProperty]
+    ServiceabilityProperty<float> stepsDistance = new() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
+
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.StepsP1;
     public override bool Required => true;
     public override int PrintOrder => 10;

@@ -534,4 +534,10 @@
   <data name="GroundDistanceHint" xml:space="preserve">
     <value>Укажите расстояние от земли</value>
   </data>
+  <data name="StepsDistance" xml:space="preserve">
+    <value>Расст. между ступенями</value>
+  </data>
+  <data name="StepsDistanceHint" xml:space="preserve">
+    <value>Укажите расстояние между ступенями</value>
+  </data>
 </root>

@@ -534,4 +534,10 @@
   <data name="GroundDistanceHint" xml:space="preserve">
     <value>Specify distance to the ground</value>
   </data>
+  <data name="StepsDistance" xml:space="preserve">
+    <value>Steps distance</value>
+  </data>
+  <data name="StepsDistanceHint" xml:space="preserve">
+    <value>Specify steps distance</value>
+  </data>
 </root>
