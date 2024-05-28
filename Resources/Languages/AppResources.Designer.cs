@@ -1249,6 +1249,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Расст. до стены.
+        /// </summary>
+        internal static string WallDistance {
+            get {
+                return ResourceManager.GetString("WallDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите расстояние до стены.
+        /// </summary>
+        internal static string WallDistanceHint {
+            get {
+                return ResourceManager.GetString("WallDistanceHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Качество сварных швов соответствует ГОСТ.
         /// </summary>
         internal static string WeldSeamServiceability {

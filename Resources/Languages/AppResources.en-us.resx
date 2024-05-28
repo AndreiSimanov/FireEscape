@@ -522,4 +522,10 @@
   <data name="SharingOrderZip" xml:space="preserve">
     <value>Sharing order zip</value>
   </data>
+  <data name="WallDistance" xml:space="preserve">
+    <value>Distance to the wall</value>
+  </data>
+  <data name="WallDistanceHint" xml:space="preserve">
+    <value>Specify the distance to the wall</value>
+  </data>
 </root>

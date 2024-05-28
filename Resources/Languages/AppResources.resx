@@ -522,4 +522,10 @@
   <data name="SharingOrderZip" xml:space="preserve">
     <value>Отправка архива заказа</value>
   </data>
+  <data name="WallDistance" xml:space="preserve">
+    <value>Расст. до стены</value>
+  </data>
+  <data name="WallDistanceHint" xml:space="preserve">
+    <value>Укажите расстояние до стены</value>
+  </data>
 </root>

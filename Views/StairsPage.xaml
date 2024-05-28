@@ -140,6 +140,17 @@
                         Value="{Binding EditObject.SupportBeams.SupportBeamsCount}"
                         PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
                         LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"/>
+
+                    <ctrl:ServiceabilityControl
+                        EditorFocused="EditorFocused"
+                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                        Value="{Binding EditObject.SupportBeams.WallDistance.Value}"
+                        ServiceabilityType ="{Binding EditObject.SupportBeams.WallDistance.ServiceabilityType}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
+                        RejectExplanationText ="{Binding EditObject.SupportBeams.WallDistance.RejectExplanation}"
+                        LabelText="{x:Static lang:AppResources.WallDistance}"
+                        PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"/>
+
                     <ctrl:ServiceabilityControl
                         EditorFocused="EditorFocused"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
@@ -278,6 +289,43 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
+
+                                        <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}">
+                                            <Label Style="{StaticResource SubLine}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.WallDistance}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}}, Path=WallDistance.Value, Converter={StaticResource PrimaryUnitOfMeasureConverter}}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=Symbol}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.Serviceability}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}}, Path=WallDistance.ServiceabilityType, Converter={StaticResource EnumToStringConverter}}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
+
+                                        <HorizontalStackLayout IsVisible="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}}, Path=WallDistance.RejectExplanationText, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
+                                            <Label Style="{StaticResource SubLine}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static lang:AppResources.RejectExplanationLabel}" />
+                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                        <Span Text=" " />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Style="{StaticResource SubLine}" LineBreakMode="WordWrap" MaxLines ="3"
+                                                   Text="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}}, Path=WallDistance.RejectExplanationText}"/>
+                                        </HorizontalStackLayout>
 
                                         <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource SupportBeamsEnumConverter}}">
                                             <Label Style="{StaticResource SubLine}"
@@ -469,6 +517,16 @@
                         Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"
                         PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
                         LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"/>
+
+                    <ctrl:ServiceabilityControl
+                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
+                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance.Value}"
+                        ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance.ServiceabilityType}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
+                        RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance.RejectExplanation}"
+                        LabelText="{x:Static lang:AppResources.WallDistance}"
+                        PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"/>
 
                     <ctrl:UnitOfMeasureEditControl IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
