@@ -151,6 +151,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to на здание.
+        /// </summary>
+        internal static string BuildingMountedTrim {
+            get {
+                return ResourceManager.GetString("BuildingMountedTrim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отмена.
         /// </summary>
         internal static string Cancel {
@@ -403,6 +412,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to на перепаде.
+        /// </summary>
+        internal static string ElevationMountedTrim {
+            get {
+                return ResourceManager.GetString("ElevationMountedTrim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ошибка.
         /// </summary>
         internal static string Error {
@@ -417,6 +435,15 @@ namespace FireEscape.Resources.Languages {
         internal static string EscapeStairs {
             get {
                 return ResourceManager.GetString("EscapeStairs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to эвакуац.
+        /// </summary>
+        internal static string EscapeStairsTrim {
+            get {
+                return ResourceManager.GetString("EscapeStairsTrim", resourceCulture);
             }
         }
         
@@ -705,6 +732,24 @@ namespace FireEscape.Resources.Languages {
         internal static string OrdersSearch {
             get {
                 return ResourceManager.GetString("OrdersSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Верт.
+        /// </summary>
+        internal static string P1Trim {
+            get {
+                return ResourceManager.GetString("P1Trim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Марш.
+        /// </summary>
+        internal static string P2Trim {
+            get {
+                return ResourceManager.GetString("P2Trim", resourceCulture);
             }
         }
         
@@ -1011,6 +1056,15 @@ namespace FireEscape.Resources.Languages {
         internal static string StairsPageTitle {
             get {
                 return ResourceManager.GetString("StairsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to лест.
+        /// </summary>
+        internal static string StairsTrim {
+            get {
+                return ResourceManager.GetString("StairsTrim", resourceCulture);
             }
         }
         

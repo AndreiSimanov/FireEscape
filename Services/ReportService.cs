@@ -126,16 +126,16 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         var sb = new StringBuilder();
         sb.Append(protocol.FireEscapeNum);
         sb.Append('.');
-        sb.Append(protocol.Stairs.BaseStairsType == BaseStairsTypeEnum.P1 ? "Верт" : "Марш");
+        sb.Append(protocol.Stairs.BaseStairsType == BaseStairsTypeEnum.P1 ? AppResources.P1Trim : AppResources.P2Trim);
         sb.Append(' ');
         if (protocol.Stairs.IsEvacuation)
         {
-            sb.Append("эвакуац");
+            sb.Append(AppResources.EscapeStairsTrim);
             sb.Append(' ');
         }
-        sb.Append("лес");
+        sb.Append(AppResources.StairsTrim);
         sb.Append(' ');
-        sb.Append(protocol.Stairs.StairsMountType == StairsMountTypeEnum.BuildingMounted ? "на здание" : "на перепаде");
+        sb.Append(protocol.Stairs.StairsMountType == StairsMountTypeEnum.BuildingMounted ? AppResources.BuildingMountedTrim : AppResources.ElevationMountedTrim);
         sb.Append(" №");
         sb.Append(protocol.FireEscapeNum);
         sb.Append('.');

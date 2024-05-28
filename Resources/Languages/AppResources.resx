@@ -540,4 +540,22 @@
   <data name="StepsDistanceHint" xml:space="preserve">
     <value>Укажите расстояние между ступенями</value>
   </data>
+  <data name="BuildingMountedTrim" xml:space="preserve">
+    <value>на здание</value>
+  </data>
+  <data name="ElevationMountedTrim" xml:space="preserve">
+    <value>на перепаде</value>
+  </data>
+  <data name="EscapeStairsTrim" xml:space="preserve">
+    <value>эвакуац</value>
+  </data>
+  <data name="P1Trim" xml:space="preserve">
+    <value>Верт</value>
+  </data>
+  <data name="P2Trim" xml:space="preserve">
+    <value>Марш</value>
+  </data>
+  <data name="StairsTrim" xml:space="preserve">
+    <value>лест</value>
+  </data>
 </root>

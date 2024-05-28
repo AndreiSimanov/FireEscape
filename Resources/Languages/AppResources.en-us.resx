@@ -540,4 +540,22 @@
   <data name="StepsDistanceHint" xml:space="preserve">
     <value>Specify steps distance</value>
   </data>
+  <data name="BuildingMountedTrim" xml:space="preserve">
+    <value>build mount</value>
+  </data>
+  <data name="ElevationMountedTrim" xml:space="preserve">
+    <value>elev mount</value>
+  </data>
+  <data name="EscapeStairsTrim" xml:space="preserve">
+    <value>escape</value>
+  </data>
+  <data name="P1Trim" xml:space="preserve">
+    <value>Vert</value>
+  </data>
+  <data name="P2Trim" xml:space="preserve">
+    <value>March</value>
+  </data>
+  <data name="StairsTrim" xml:space="preserve">
+    <value>stairs</value>
+  </data>
 </root>
