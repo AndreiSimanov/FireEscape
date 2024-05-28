@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO.Compression;
+using System.Text;
 
 namespace FireEscape.Services;
 
@@ -19,7 +20,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(outputPath) });
     }
 
-    public async Task CreateBatchReportAsync(Order order, Protocol[] protocols, IProgress<(double progress, string outputPath)>? progress, CancellationToken ct)
+    public async Task CreateBatchReportAsync(Order order, Protocol[] protocols, CancellationToken ct, IProgress<(double progress, string outputPath)>? progress = null)
     {
         var folderPath = PrepareOutputFolder(order);
         if (string.IsNullOrWhiteSpace(folderPath))
@@ -41,6 +42,57 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
         }
     }
 
+    public IEnumerable<FileInfo> GetReports(Order order) => new DirectoryInfo(PrepareOutputFolder(order)).EnumerateFiles();
+
+    public async Task MakeReportArchiveAsync(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null )
+    {
+        if (!files.Any())
+            return;
+
+        using var archiveStream = await GetArchiveStream(files, ct, progress);
+
+        if (ct.IsCancellationRequested)
+            return;
+
+        var archiveFileName = files.FirstOrDefault()!.Directory!.Name;
+        if (string.IsNullOrWhiteSpace(archiveFileName))
+            archiveFileName = AppResources.Order;
+
+        archiveFileName += archiveFileName.EndsWith('.') ? "zip" : ".zip";
+
+        var archiveFilePath = Path.Combine(ApplicationSettings.CacheFolder, archiveFileName);
+
+        await using (var fileStream = new FileStream(archiveFilePath, FileMode.OpenOrCreate))
+        {
+            await archiveStream.CopyToAsync(fileStream);
+        }
+
+        await Share.RequestAsync(new ShareFileRequest
+        {
+            Title = AppResources.SharingOrderZip,
+            File = new ShareFile(archiveFilePath)
+        });
+    }
+
+    async Task<MemoryStream> GetArchiveStream(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
+    {
+        var ms = new MemoryStream();
+        double count = 0;
+        using (var a = new ZipArchive(ms, ZipArchiveMode.Create, true))
+        {
+            foreach (var fileInfo in files)
+            {
+                a.CreateEntryFromFile(fileInfo.FullName, fileInfo.Name);
+                progress?.Report(++count / files.Count);
+                if (ct.IsCancellationRequested)
+                    break;
+                await Task.Yield();
+            }
+        }
+        ms.Position = 0;
+        return ms;
+    }
+
     void CheckUserAccount(UserAccount? userAccount)
     {
         if (!UserAccountService.IsValidUserAccount(userAccount))
@@ -50,7 +102,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
     static string PrepareOutputFolder(Order order)
     {
         var outputPath = ApplicationSettings.DocumentsFolder;
-        var defaultOrderFolderName = $"{AppResources.Order}_{order.Id}.";
+        var defaultOrderFolderName = $"{AppResources.Order}_{order.Id}_";
         var orderFolderName = defaultOrderFolderName + (string.IsNullOrWhiteSpace(order.Name) ? string.Empty : AppUtils.ToValidFileName(order.Name.Trim()));
         var fullPath = Path.Combine(outputPath, orderFolderName);
 

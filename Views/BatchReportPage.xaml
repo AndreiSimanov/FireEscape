@@ -16,6 +16,7 @@
     x:DataType="viewmodel:BatchReportModel"
     HideSoftInputOnTapped="True"    
     Title="{x:Static lang:AppResources.OrderReport}"
+    Appearing="ContentPageAppearing"
     Disappearing="ContentPageDisappearing">
 
     <ContentPage.Resources>
@@ -23,30 +24,53 @@
             <conv:FileSizeToStringConverter x:Key="FileSizeToStringConverter" />
             <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
             <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
         <StackLayout>
-            <dxga:RadialProgressBar 
+            <dxga:RadialProgressBar
                 Style="{StaticResource RadialProgressBar}"
                 Value="{Binding Progress}">
                 <dxga:RadialProgressBar.Content>
                     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                         <dx:DXButton
-                        IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Start}}"
-                        Style="{StaticResource RadialProgressBarButton}"
-                        Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
-                        Command="{Binding CreateReportCommand}"/>
+                            IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Start}}"
+                            Style="{StaticResource RadialProgressBarButton}"
+                            Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
+                            Command="{Binding CreateReportCommand}"/>
                         <dx:DXButton
-                        IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Stop}}"                    
-                        Style="{StaticResource RadialProgressBarButton}"
-                        Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
-                        Command="{Binding CancelOperationCommand}"/>
+                            IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Stop}}"                    
+                            Style="{StaticResource RadialProgressBarButton}"
+                            Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
+                            Command="{Binding CancelOperationCommand}"/>
                     </StackLayout>
                 </dxga:RadialProgressBar.Content>
             </dxga:RadialProgressBar>
-            <dxe:FormGroupItem  IsVisible="{Binding HeaderVisible}" Header="{x:Static lang:AppResources.Files}" HeightRequest="40" Margin="10, 0, 10, 0" />
+            
+            <dxe:FormGroupItem Header="{x:Static lang:AppResources.Files}" HeightRequest="38" Margin="10,0,95,0" />
+            
+            <dxga:RadialProgressBar
+                Style="{StaticResource SmallRadialProgressBar}"
+                VerticalOptions="End" HorizontalOptions="End" Margin="0,-45,5,0"
+                Value="{Binding ArchiveProgress}">
+                <dxga:RadialProgressBar.Content>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <dx:DXButton
+                            
+                            IsVisible="{Binding IsMakingReportArchive, Converter={StaticResource InvertedBoolConverter} }"
+                            Style="{StaticResource SmallRadialProgressBarButton}"
+                            Content="ZIP"
+                            Command="{Binding MakeReportArchiveCommand}"/>
+                        <dx:DXButton
+                            IsVisible="{Binding IsMakingReportArchive }"
+                            Style="{StaticResource SmallRadialProgressBarButton}"
+                            Content="{x:Static lang:EnumResources.Stop}"
+                            Command="{Binding CancelOperationCommand}"/>
+                    </StackLayout>
+                </dxga:RadialProgressBar.Content>
+            </dxga:RadialProgressBar>
         </StackLayout>
         <dxcv:DXCollectionView 
             ItemsSource="{Binding Files}"

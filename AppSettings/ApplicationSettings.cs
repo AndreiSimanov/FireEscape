@@ -22,6 +22,7 @@ public class ApplicationSettings
     public static string ImagesFolder => AppUtils.CreateFolderIfNotExists(AppUtils.DefaultContentFolder, IMAGES_FOLDER);
     public static string DocumentsFolder => AppUtils.CreateFolderIfNotExists(AppUtils.DefaultContentFolder, DOCUMENTS_FOLDER);
     public static string LogFolder => AppUtils.CreateFolderIfNotExists(AppUtils.DefaultContentFolder, LOG_FOLDER);
+    public static string CacheFolder => FileSystem.CacheDirectory;
 
     public static async Task<string> GetOutputPath()
     {

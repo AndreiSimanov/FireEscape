@@ -560,19 +560,32 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Thickness" Value="8" />
         <Setter Property="ValueIndicatorThickness" Value="8" />
-        <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=150, ExtraSmall=120}" />
-        <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=150, ExtraSmall=120}" />
+        <Setter Property="WidthRequest" Value="140" />
+        <Setter Property="HeightRequest" Value="140" />
+        <Setter Property="Padding" Value="1" />
     </Style>
 
     <Style TargetType="dx:DXButton" x:Key="RadialProgressBarButton">
         <Setter Property="TextHorizontalAlignment" Value="Center" />
         <Setter Property="BackgroundColor" Value="{dx:ThemeColor Primary}" />
-        <Setter Property="FontSize" Value="{dx:OnDisplaySize Medium=24, ExtraSmall=18}" />
-        <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=120, ExtraSmall=100}" />
-        <Setter Property="HeightRequest" Value="{dx:OnDisplaySize Medium=120, ExtraSmall=100}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="WidthRequest" Value="115" />
+        <Setter Property="HeightRequest" Value="115" />
         <Setter Property="CornerRadius" Value="1000" />
         <Setter Property="ZIndex" Value="1" />
+    </Style>
+
+    <Style TargetType="dxga:RadialProgressBar" x:Key="SmallRadialProgressBar" BasedOn="{StaticResource RadialProgressBar}">
+        <Setter Property="Thickness" Value="4" />
+        <Setter Property="ValueIndicatorThickness" Value="3" />
+        <Setter Property="WidthRequest" Value="88" />
+        <Setter Property="HeightRequest" Value="88" />
+    </Style>
+
+    <Style TargetType="dx:DXButton" x:Key="SmallRadialProgressBarButton" BasedOn="{StaticResource RadialProgressBarButton}">
+        <Setter Property="WidthRequest" Value="76" />
+        <Setter Property="HeightRequest" Value="76" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
 </ResourceDictionary>

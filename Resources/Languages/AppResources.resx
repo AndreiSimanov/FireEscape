@@ -516,4 +516,7 @@
   <data name="Size" xml:space="preserve">
     <value>Размер</value>
   </data>
+  <data name="SharingOrderZip" xml:space="preserve">
+    <value>Отправка архива заказа</value>
+  </data>
 </root>

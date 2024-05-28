@@ -42,12 +42,13 @@ public static class AppUtils
     {
         if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
             return;
-
         var di = new DirectoryInfo(path);
 
-        di.EnumerateFiles().ToList().ForEach(file => file.Delete());
+        foreach (var file in di.EnumerateFiles())
+            file.Delete();
 
         if (recursive)
-            di.EnumerateDirectories().ToList().ForEach(dir => dir.Delete(true));
+            foreach (var dir in di.EnumerateDirectories())
+                dir.Delete(true);
     }
 }

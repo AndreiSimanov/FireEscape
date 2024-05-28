@@ -898,6 +898,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отправка архива заказа.
+        /// </summary>
+        internal static string SharingOrderZip {
+            get {
+                return ResourceManager.GetString("SharingOrderZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Подпись.
         /// </summary>
         internal static string Signature {

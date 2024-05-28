@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels;
 
@@ -13,37 +14,44 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
     Protocol[]? protocols;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(HeaderVisible))]
+    [NotifyPropertyChangedFor(nameof(FilesExists))]
     ObservableCollection<FileInfo> files = new();
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(MakeReportArchiveCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CreateReportCommand))]
     StartStopEnum startStopStatus = StartStopEnum.Start;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(MakeReportArchiveCommand))]
+    bool filesExists;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(CreateReportCommand))]
+    bool isMakingReportArchive;
+
+    [ObservableProperty]
     double progress;
+
+    [ObservableProperty]
+    double archiveProgress;
 
     object syncObject = new();
     bool disposed;
     CancellationTokenSource? cts;
 
-    [ObservableProperty]
-    bool headerVisible;
-
     [RelayCommand]
     void CancelOperation() =>
         DoCommand(() =>
         {
-            if (StartStopStatus == StartStopEnum.Stop)
-            {
-                cts?.Cancel();
-                StartStopStatus = StartStopEnum.Start;
-            }
+            cts?.Cancel();
+            StartStopStatus = StartStopEnum.Start;
         },
         AppResources.CreateReportError);
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanCreateReport))]
     async Task CreateReportAsync(Order order) =>
-        await DoCommandAsync(async () =>
+        await DoBusyCommandAsync(async () =>
         {
             if (Order == null || Protocols == null)
                 return;
@@ -52,20 +60,20 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
                 return; // add message "Protocols doesn't exist"
 
             StartStopStatus = StartStopEnum.Stop;
-            HeaderVisible = false;
+            FilesExists = false;
             Files.Clear();
 
             var progressIndicator = new Progress<(double progress, string outputPath)>(progress =>
             {
                 Files.Add(new FileInfo(progress.outputPath));
-                HeaderVisible = true;
+                FilesExists = true;
                 Progress = progress.progress;
             });
 
             try
             {
                 cts = new CancellationTokenSource();
-                await reportService.CreateBatchReportAsync(Order, Protocols, progressIndicator, cts.Token);
+                await reportService.CreateBatchReportAsync(Order, Protocols, cts.Token, progressIndicator);
             }
             finally
             {
@@ -75,6 +83,42 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
             }
         },
         Order,
+        AppResources.CreateReportError);
+
+    [RelayCommand(CanExecute = nameof(CanMakeReportArchive))]
+    async Task MakeReportArchiveAsync() =>
+        await DoBusyCommandAsync(async () =>
+        {
+            if (!Files.Any())
+                return;
+            try
+            {
+                IsMakingReportArchive = true;
+                var progressIndicator = new Progress<double>(progress => ArchiveProgress = progress);
+                cts = new CancellationTokenSource();
+                await reportService.MakeReportArchiveAsync(Files, cts.Token, progressIndicator);
+            }
+            finally
+            {
+                cts?.Dispose();
+                cts = null;
+                IsMakingReportArchive = false;
+            }
+        },
+        Files,
+        AppResources.CreateReportError);
+
+    [RelayCommand]
+    void GetReports() =>
+        DoBusyCommand(() =>
+        {
+            if (Order == null)
+                return;
+            Files.Clear();
+            FilesExists = false;
+            Files = reportService.GetReports(Order).ToObservableCollection();
+            FilesExists = Files.Any();
+        },
         AppResources.CreateReportError);
 
     [RelayCommand]
@@ -100,4 +144,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
             disposed = true;
         }
     }
+
+    bool CanMakeReportArchive() => FilesExists && StartStopStatus == StartStopEnum.Start;
+    bool CanCreateReport() => !IsMakingReportArchive;
 }
