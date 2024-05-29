@@ -194,17 +194,14 @@
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                 RejectExplanationText ="{Binding EditObject.GroundDistance.RejectExplanation}"/>
 
-            <dxe:FormGroupItem Header="{x:Static lang:AppResources.StairsElements}" HeightRequest="38" Margin="0,0,80,0" />
-            <dx:DXButton 
+            <dxe:FormGroupItem Header="{x:Static lang:AppResources.StairsElements}" HeightRequest="40" Margin="0,0,80,0" />
+
+            <dx:DXButton
                 x:Name="addButton"
                 IsEnabled="{Binding IsNotBusy}"
-                VerticalOptions="End" HorizontalOptions="End" Margin="0,-40,5,0" Content="+"
-                WidthRequest="56" HeightRequest="56" Padding="0"
-                FontSize="28" CornerRadius="14" FontAttributes="None"
+                Style="{StaticResource RadialButton}"
+                VerticalOptions="End" HorizontalOptions="End" Margin="0,-45,0,0" Content="+"
                 Clicked="AddStairsElement">
-                <dx:DXButton.Shadow>
-                    <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
-                </dx:DXButton.Shadow>
             </dx:DXButton>
 
             <dxcv:DXCollectionView 

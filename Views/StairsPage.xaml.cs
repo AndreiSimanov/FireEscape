@@ -4,7 +4,7 @@ namespace FireEscape.Views;
 
 public partial class StairsPage : BaseStairsPage
 {
-    const int STAIRS_ELEMENTS_HEADER_HEIGHT = 83;
+    const int STAIRS_ELEMENTS_HEADER_HEIGHT = 103;
     public StairsPage(StairsViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();

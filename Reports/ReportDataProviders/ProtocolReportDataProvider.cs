@@ -84,10 +84,10 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             .ToList();
 
         stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(stairs)
-            .Where(element => !stairsElementResults.Any(item => string.Equals(item.StairsElementType, element.StairsElementType)))
+            .Where(element => !stairsElementResults.Any(item => item.StairsElementType == element.StairsElementType))
             .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, 0, 0, [])));
 
-        return stairsElementResults = stairsElementResults.OrderBy(stairsElement => stairsElement.PrintOrder).ThenBy(stairsElement => stairsElement.Name).ToList();
+        return stairsElementResults = [.. stairsElementResults.OrderBy(stairsElement => stairsElement.PrintOrder).ThenBy(stairsElement => stairsElement.Name)];
     }
 
     static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
@@ -116,7 +116,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     {
             if (string.IsNullOrWhiteSpace(executorSign))
                 return EMPTY_SIGNATURE;
-            var empty = new string(' ', (EMPTY_SIGNATURE.Length - executorSign.Length));
+            var empty = new string(' ', EMPTY_SIGNATURE.Length - executorSign.Length);
             return empty + executorSign + empty;
     }
 }

@@ -174,27 +174,21 @@
             x:Name="addButton"
             IsEnabled="{Binding IsNotBusy}"
             VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
-            WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
-            FontSize="28" CornerRadius="14" FontAttributes="None"
+            Grid.RowSpan="2"
+            Style="{StaticResource RadialButton}"
             Clicked="CreateOrder">
             <dx:DXButton.Behaviors>
                 <toolkit:TouchBehavior LongPressCommand="{Binding OpenUserAccountMainPageCommand}" LongPressDuration="6000"/>
             </dx:DXButton.Behaviors>
-            <dx:DXButton.Shadow>
-                <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
-            </dx:DXButton.Shadow>
         </dx:DXButton>
 <!--
         <dx:DXButton
             x:Name="addBatchButton"
             IsEnabled="{Binding IsNotBusy}"
             VerticalOptions="End" HorizontalOptions="End" Margin="74" Content="++"
-            WidthRequest="56" HeightRequest="56" Padding="0" Grid.RowSpan="2"
-            FontSize="28" CornerRadius="14" FontAttributes="None"
+            Grid.RowSpan="2"
             Command="{Binding AddOrdersCommand}">
-            <dx:DXButton.Shadow>
-                <Shadow Brush="{dx:ThemeColor Shadow, Alpha=0.3}" Offset="1,2" Radius="10" />
-            </dx:DXButton.Shadow>
+            Style="{StaticResource RadialButton}">
         </dx:DXButton>
 -->        
     </Grid>

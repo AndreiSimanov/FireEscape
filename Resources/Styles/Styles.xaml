@@ -565,7 +565,7 @@
         <Setter Property="Padding" Value="1" />
     </Style>
 
-    <Style TargetType="dx:DXButton" x:Key="RadialProgressBarButton">
+    <Style TargetType="dx:DXButton" x:Key="RadialProgressButton">
         <Setter Property="TextHorizontalAlignment" Value="Center" />
         <Setter Property="BackgroundColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="FontSize" Value="18" />
@@ -582,10 +582,20 @@
         <Setter Property="HeightRequest" Value="88" />
     </Style>
 
-    <Style TargetType="dx:DXButton" x:Key="SmallRadialProgressBarButton" BasedOn="{StaticResource RadialProgressBarButton}">
+    <Style TargetType="dx:DXButton" x:Key="SmallRadialProgressButton" BasedOn="{StaticResource RadialProgressButton}">
         <Setter Property="WidthRequest" Value="76" />
         <Setter Property="HeightRequest" Value="76" />
         <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style TargetType="dx:DXButton" x:Key="RadialButton" BasedOn="{StaticResource SmallRadialProgressButton}">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="Shadow">
+            <Shadow 
+                Brush="{dx:ThemeColor Shadow, Alpha=0.5}"
+                Radius="10"
+                Offset="5,5" />
+        </Setter>
     </Style>
 
 </ResourceDictionary>
