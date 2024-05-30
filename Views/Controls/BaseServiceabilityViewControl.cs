@@ -2,7 +2,7 @@
 
 public abstract class BaseServiceabilityViewControl<T> : ContentView where T : struct
 {
-    public static readonly BindableProperty LabelProperty = BindableProperty.Create(nameof(Label), typeof(string), typeof(ServiceabilityViewControl), defaultBindingMode: BindingMode.OneWay);
+    public static readonly BindableProperty LabelProperty = BindableProperty.Create(nameof(Label), typeof(string), typeof(BaseServiceabilityViewControl<T>), defaultBindingMode: BindingMode.OneWay);
     public string Label
     {
         get => (string)GetValue(LabelProperty);
@@ -14,6 +14,13 @@ public abstract class BaseServiceabilityViewControl<T> : ContentView where T : s
     {
         get => (ServiceabilityProperty<T>)GetValue(ServiceabilityValueProperty);
         set => SetValue(ServiceabilityValueProperty, value);
+    }
+
+    public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BaseServiceabilityViewControl<T>), defaultBindingMode: BindingMode.OneWay);
+    public Color TextColor
+    {
+        get => (Color)GetValue(TextColorProperty);
+        set => SetValue(TextColorProperty, value);
     }
 
     IValueConverter? valueConverter;

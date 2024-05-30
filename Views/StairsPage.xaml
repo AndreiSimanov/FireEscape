@@ -298,11 +298,10 @@
                                             </Label>
                                         </Grid>
 
-                                        <!-- TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}}, Path=FenceHeight, Converter={StaticResource FloatZeroToLableColorConverter}}"-->
-
                                         <ctrl:ServiceabilityViewControl
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
                                             Label="{x:Static lang:AppResources.StairsFenceHeight}"
+                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}}, Path=FenceHeight.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
                                             ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}}, Path=FenceHeight}"
                                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 

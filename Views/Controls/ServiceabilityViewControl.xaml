@@ -22,7 +22,7 @@
                 <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
             </ResourceDictionary>
         </Grid.Resources>
-        <Label Style="{StaticResource SubLine}">
+        <Label TextColor="{Binding TextColor}" Style="{StaticResource SubLine}">
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text="{Binding Label}" />
