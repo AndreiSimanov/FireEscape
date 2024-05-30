@@ -7,7 +7,7 @@ public partial class ServiceabilityProperty<T> : ObservableObject where T : stru
     T value;
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(RejectExplanationText))]
-    ServiceabilityTypeEnum serviceabilityType;
+    ServiceabilityTypeEnum serviceabilityType = ServiceabilityTypeEnum.Auto;
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(RejectExplanationText))]
     string rejectExplanation = string.Empty;

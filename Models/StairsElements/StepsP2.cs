@@ -2,14 +2,15 @@
 
 public partial class StepsP2 : BaseStairsElement
 {
+    [ObservableProperty]
+    ServiceabilityProperty<float> stepsWidth = new();
+
+    [ObservableProperty]
+    ServiceabilityProperty<float> stepsHeight = new();
+
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.StepsP2;
     public override BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P2;
     public override bool Required => true;
     public override int PrintOrder => 10;
     public override int TestPointCount => CalcTestPointCount(StairsStepsCount, STEPS_TEST_POINT_DIVIDER);
-
-    [ObservableProperty]
-    float stepsWidth;
-    [ObservableProperty]
-    float stepsHeight;
 }

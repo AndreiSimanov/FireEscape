@@ -3,7 +3,7 @@
 public partial class PlatformP1 : BasePlatformElement
 {
     [ObservableProperty]
-    ServiceabilityProperty<float> platformFenceHeight = new() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
+    ServiceabilityProperty<float> platformFenceHeight = new();
 
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.PlatformP1;
     public override int PrintOrder => 40;

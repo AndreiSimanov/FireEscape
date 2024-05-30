@@ -304,6 +304,7 @@
                                         <ctrl:ServiceabilityViewControl
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
                                             Label="{x:Static lang:AppResources.WallDistance}"
+                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:SupportBeamsP1}}, Path=WallDistance.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
                                             ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:SupportBeamsP1}}, Path=WallDistance}"
                                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 
@@ -316,7 +317,22 @@
                                         <ctrl:ServiceabilityViewControl
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP1}}"
                                             Label="{x:Static lang:AppResources.StepsDistance}"
+                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP1}}, Path=StepsDistance.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
                                             ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP1}}, Path=StepsDistance}"
+                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
+
+                                        <ctrl:ServiceabilityViewControl
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
+                                            Label="{x:Static lang:AppResources.StepsWidth}"
+                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}}, Path=StepsWidth.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}}, Path=StepsWidth}"
+                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
+
+                                        <ctrl:ServiceabilityViewControl
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
+                                            Label="{x:Static lang:AppResources.StepsHeight}"
+                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}}, Path=StepsHeight.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}}, Path=StepsHeight}"
                                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 
                                         <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StairwayP2}}">
@@ -337,33 +353,6 @@
                                                         <Span Text="{x:Static lang:AppResources.StairwayWidth}" />
                                                         <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
                                                         <Span Text="{Binding Source={RelativeSource AncestorType={x:Type elements:StairwayP2}},  Path=StairwayWidth, Converter={StaticResource PrimaryUnitOfMeasureConverter}}" />
-                                                        <Span Text=" " />
-                                                        <Span Text="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=Symbol}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                        </Grid>
-
-                                        <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}">
-                                            <Label Style="{StaticResource SubLine}"
-                                               TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}}, Path=StepsWidth, Converter={StaticResource FloatZeroToLableColorConverter}}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.StepsWidth}" />
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}},  Path=StepsWidth, Converter={StaticResource PrimaryUnitOfMeasureConverter}}" />
-                                                        <Span Text=" " />
-                                                        <Span Text="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=Symbol}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End"
-                                                TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}}, Path=StepsHeight, Converter={StaticResource FloatZeroToLableColorConverter}}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{x:Static lang:AppResources.StepsHeight}" />
-                                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                        <Span Text="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP2}},  Path=StepsHeight, Converter={StaticResource PrimaryUnitOfMeasureConverter}}" />
                                                         <Span Text=" " />
                                                         <Span Text="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=Symbol}" />
                                                     </FormattedString>
@@ -484,21 +473,21 @@
                         ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance}"
                         ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
-                    <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
-                        RowDefinitions="auto, *" ColumnDefinitions="*, *">
-                        <ctrl:UnitOfMeasureEditControl
-                            Grid.Column="0"
-                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsWidth}"
-                            LabelText="{x:Static lang:AppResources.StepsWidth}"
-                            PlaceholderText ="{x:Static lang:AppResources.StepsWidthHint}"/>
-                        <ctrl:UnitOfMeasureEditControl
-                            Grid.Column="1"
-                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsHeight}"
-                            LabelText="{x:Static lang:AppResources.StepsHeight}"
-                            PlaceholderText ="{x:Static lang:AppResources.StepsHeightHint}"/>
-                    </Grid>
+                    <ctrl:ServiceabilityEditControl
+                        LabelText="{x:Static lang:AppResources.StepsWidth}"
+                        PlaceholderText="{x:Static lang:AppResources.StepsWidthHint}"
+                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
+                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsWidth}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
+
+                    <ctrl:ServiceabilityEditControl
+                        LabelText="{x:Static lang:AppResources.StepsHeight}"
+                        PlaceholderText="{x:Static lang:AppResources.StepsHeightHint}"
+                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
+                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsHeight}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
                     <dxe:NumericEdit
                         IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource ElementNumberEnumConverter}}"

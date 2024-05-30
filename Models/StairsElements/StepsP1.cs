@@ -3,7 +3,7 @@
 public partial class StepsP1 : BaseStairsElement
 {
     [ObservableProperty]
-    ServiceabilityProperty<float> stepsDistance = new() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
+    ServiceabilityProperty<float> stepsDistance = new();
 
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.StepsP1;
     public override bool Required => true;

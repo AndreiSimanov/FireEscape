@@ -3,7 +3,7 @@
 public partial class FenceP1 : BaseStairsElement
 {
     [ObservableProperty]
-    ServiceabilityProperty<float> groundDistance = new() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
+    ServiceabilityProperty<float> groundDistance = new();
 
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.FenceP1;
     public override int PrintOrder => 30;

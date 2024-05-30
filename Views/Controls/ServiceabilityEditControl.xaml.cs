@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -61,7 +60,7 @@ public partial class ServiceabilityEditControl : ContentView
         grid.BindingContext = this;
     }
 
-    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
         if (propertyName == nameof(LabelText)) 

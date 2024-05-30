@@ -3,7 +3,7 @@
 public partial class SupportBeamsP1 : BaseSupportBeamsElement
 {
     [ObservableProperty]
-    ServiceabilityProperty<float> wallDistance = new() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
+    ServiceabilityProperty<float> wallDistance = new();
 
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.SupportBeamsP1;
     public override bool Required => true;

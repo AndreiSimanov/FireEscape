@@ -66,7 +66,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     float withstandLoad;
 
     [ObservableProperty]
-    ServiceabilityProperty<float> deformation = new() { ServiceabilityType = ServiceabilityTypeEnum.Auto };
+    ServiceabilityProperty<float> deformation = new();
 
     public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(CalcWithstandLoad));
 
