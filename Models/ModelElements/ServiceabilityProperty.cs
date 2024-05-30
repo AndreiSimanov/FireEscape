@@ -14,4 +14,6 @@ public partial class ServiceabilityProperty<T> : ObservableObject where T : stru
 
     [JsonIgnore]
     public string RejectExplanationText => ServiceabilityType == ServiceabilityTypeEnum.Reject? RejectExplanation : string.Empty;
+
+    public override string ToString() => Value.ToString() ?? string.Empty;
 }

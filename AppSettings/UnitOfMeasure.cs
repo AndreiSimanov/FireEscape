@@ -25,4 +25,6 @@ public readonly record struct UnitOfMeasure
     public string Symbol => EnumDescriptionTypeConverter.GetEnumDescription(UnitOfMeasureType);
     public decimal MaxValue => (decimal)(1000000 / Multiplier);
     public int MaxDecimalDigitCount => (int)Math.Log10(Multiplier);
+
+    public override string ToString() => Symbol;
 }

@@ -111,11 +111,17 @@
 	  <Compile Update="Views\Controls\SearchControl.xaml.cs">
 	    <DependentUpon>SearchControl.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Controls\ServiceabilityViewControl.xaml.cs">
+	    <DependentUpon>ServiceabilityViewControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\ServiceabilityEditControl.xaml.cs">
+	    <DependentUpon>ServiceabilityEditControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Controls\UnitOfMeasureEditControl.xaml.cs">
 	    <DependentUpon>UnitOfMeasureEditControl.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Controls\ServiceabilityControl.xaml.cs">
-	    <DependentUpon>ServiceabilityControl.xaml</DependentUpon>
+	  <Compile Update="Views\Controls\ServiceabilityEditControl.xaml.cs">
+	    <DependentUpon>ServiceabilityEditControl.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\BatchReportPage.xaml.cs">
 	    <DependentUpon>BatchReportPage.xaml</DependentUpon>
@@ -153,10 +159,13 @@
 	  <MauiXaml Update="Views\Controls\SearchControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\ServiceabilityViewControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\UnitOfMeasureEditControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\ServiceabilityControl.xaml">
+	  <MauiXaml Update="Views\Controls\ServiceabilityEditControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\OrderMainPage.xaml">
