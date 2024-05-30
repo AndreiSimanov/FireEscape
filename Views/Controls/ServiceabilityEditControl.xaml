@@ -41,6 +41,6 @@
             Grid.Row="1" Grid.ColumnSpan="2"
             Text="{Binding ServiceabilityValue.RejectExplanation}"
             PlaceholderText="{x:Static lang:AppResources.RejectExplanationHint}"
-            LabelText="{x:Static lang:AppResources.RejectExplanation}"/>
+            LabelText="{Binding RejectExplanationLabel}"/>
     </Grid>
 </ContentView>

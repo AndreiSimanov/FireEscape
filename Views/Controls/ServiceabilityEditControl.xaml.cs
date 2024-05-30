@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace FireEscape.Views.Controls;
@@ -51,9 +53,20 @@ public partial class ServiceabilityEditControl : ContentView
         set => numEdit.ValueConverter = value;
     }
 
+    public string RejectExplanationLabel => $"{AppResources.RejectExplanation} ({LabelText?.ToLower()})";
+
     public ServiceabilityEditControl()
     {
         InitializeComponent();
         grid.BindingContext = this;
+    }
+
+    protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+        if (propertyName == nameof(LabelText)) 
+        {
+            OnPropertyChanged(nameof(RejectExplanationLabel));
+        }
     }
 }

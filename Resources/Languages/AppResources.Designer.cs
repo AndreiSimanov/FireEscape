@@ -880,7 +880,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Несоответствие ГОСТ.
+        ///   Looks up a localized string similar to Несоотв. ГОСТ.
         /// </summary>
         internal static string RejectExplanation {
             get {
