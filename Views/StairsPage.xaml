@@ -259,33 +259,6 @@
                                         <dx:DXSeparator SideMargin="0"/>
 
                                         <Label Style="{StaticResource SubLine}"
-                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.StairsFenceHeight}" />
-                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                    <Span Text="{Binding Source={RelativeSource AncestorType={x:Type baseelements:BasePlatformElement}}, Path=PlatformFenceHeight, Converter={StaticResource PrimaryUnitOfMeasureConverter}}" />
-                                                    <Span Text=" " />
-                                                    <Span Text="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=Symbol}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-
-                                        <Label Style="{StaticResource SubLine}"
-                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
-                                            TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}}, Path=FenceHeight, Converter={StaticResource FloatZeroToLableColorConverter}}">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{x:Static lang:AppResources.StairsFenceHeight}" />
-                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                    <Span Text="{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}},  Path=FenceHeight, Converter={StaticResource PrimaryUnitOfMeasureConverter}}" />
-                                                    <Span Text=" " />
-                                                    <Span Text="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=Symbol}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-
-                                        <Label Style="{StaticResource SubLine}"
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
                                             TextColor = "{Binding Source={RelativeSource AncestorType={x:Type baseelements:BaseSupportBeamsElement}}, Path=SupportBeamsCount, Converter={StaticResource IntZeroToLableColorConverter}}">
                                             <Label.FormattedText>
@@ -297,24 +270,6 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-
-                                        <ctrl:ServiceabilityViewControl
-                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
-                                            Label="{x:Static lang:AppResources.WallDistance}"
-                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:SupportBeamsP1}}, Path=WallDistance}"
-                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
-                                        
-                                        <ctrl:ServiceabilityViewControl
-                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP1}}"
-                                            Label="{x:Static lang:AppResources.GroundDistance}"
-                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP1}}, Path=GroundDistance}"
-                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
-
-                                        <ctrl:ServiceabilityViewControl
-                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP1}}"
-                                            Label="{x:Static lang:AppResources.StepsDistance}"
-                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP1}}, Path=StepsDistance}"
-                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 
                                         <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource SupportBeamsEnumConverter}}">
                                             <Label Style="{StaticResource SubLine}"
@@ -342,6 +297,38 @@
                                                 </Label.FormattedText>
                                             </Label>
                                         </Grid>
+
+                                        <!-- TextColor = "{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}}, Path=FenceHeight, Converter={StaticResource FloatZeroToLableColorConverter}}"-->
+
+                                        <ctrl:ServiceabilityViewControl
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
+                                            Label="{x:Static lang:AppResources.StairsFenceHeight}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP2}}, Path=FenceHeight}"
+                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
+
+                                        <ctrl:ServiceabilityViewControl
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
+                                            Label="{x:Static lang:AppResources.StairsFenceHeight}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=PlatformFenceHeight}"
+                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
+
+                                        <ctrl:ServiceabilityViewControl
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
+                                            Label="{x:Static lang:AppResources.WallDistance}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:SupportBeamsP1}}, Path=WallDistance}"
+                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
+
+                                        <ctrl:ServiceabilityViewControl
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP1}}"
+                                            Label="{x:Static lang:AppResources.GroundDistance}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP1}}, Path=GroundDistance}"
+                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
+
+                                        <ctrl:ServiceabilityViewControl
+                                            IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP1}}"
+                                            Label="{x:Static lang:AppResources.StepsDistance}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:StepsP1}}, Path=StepsDistance}"
+                                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 
                                         <Grid IsVisible="{Binding StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StairwayP2}}">
                                             <Label Style="{StaticResource SubLine}" 
@@ -454,12 +441,22 @@
                             PlaceholderText ="{x:Static lang:AppResources.PlatformWidthHint}"/>
                     </Grid>
 
-                    <ctrl:UnitOfMeasureEditControl
+                    <dxe:NumericEdit
+                        PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
+                        LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"
+                        Style="{StaticResource DefaultNumericEdit}"
+                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
+                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"/>
+
+                    <ctrl:ServiceabilityEditControl
                         LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
-                        PlaceholderText ="{x:Static lang:AppResources.StairsFenceHeightHint}"
+                        PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight}"/>
+                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
+                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight.Value}"
+                        ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight.ServiceabilityType}"
+                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"
+                        RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight.RejectExplanation}"/>
 
                     <dxe:NumericEdit
                         LabelText="{x:Static lang:AppResources.SupportBeamsCount}"
@@ -468,12 +465,15 @@
                         IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource SupportBeamsEnumConverter}}"
                         Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"/>
 
-                    <dxe:NumericEdit
-                        PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
-                        LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"
-                        Style="{StaticResource DefaultNumericEdit}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"/>
+                    <ctrl:ServiceabilityEditControl
+                        LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
+                        PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
+                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
+                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight.Value}"
+                        ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight.ServiceabilityType}"
+                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"
+                        RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight.RejectExplanation}"/>
 
                     <ctrl:ServiceabilityEditControl
                         LabelText="{x:Static lang:AppResources.WallDistance}"
@@ -504,13 +504,6 @@
                         ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance.ServiceabilityType}"
                         ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
                         RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance.RejectExplanation}"/>
-
-                    <ctrl:UnitOfMeasureEditControl 
-                        LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
-                        PlaceholderText ="{x:Static lang:AppResources.StairsFenceHeightHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight}"/>
 
                     <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
                         RowDefinitions="auto, *" ColumnDefinitions="*, *">
