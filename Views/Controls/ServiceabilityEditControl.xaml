@@ -26,20 +26,20 @@
             LabelText="{Binding LabelText}"
             PlaceholderText="{Binding PlaceholderText}"
             Grid.Column="0"
-            Value="{Binding Value}"
+            Value="{Binding ServiceabilityValue.Value}"
             ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"/>
 
         <dxe:ComboBoxEdit
             Style="{StaticResource DefaultComboBoxEdit}"
             Grid.Column="2"
             LabelText="{x:Static lang:AppResources.Serviceability}"
-            SelectedItem="{Binding ServiceabilityType, Converter={StaticResource EnumToStringConverter}}"
+            SelectedItem="{Binding ServiceabilityValue.ServiceabilityType, Converter={StaticResource EnumToStringConverter}}"
             ItemsSource="{Binding ServiceabilityTypes}"/>
 
         <dxe:MultilineEdit
-            IsVisible="{Binding ServiceabilityType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:ServiceabilityTypeEnum.Reject}}"
+            IsVisible="{Binding ServiceabilityValue.ServiceabilityType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:ServiceabilityTypeEnum.Reject}}"
             Grid.Row="1" Grid.ColumnSpan="2"
-            Text="{Binding RejectExplanationText}"
+            Text="{Binding ServiceabilityValue.RejectExplanation}"
             PlaceholderText="{x:Static lang:AppResources.RejectExplanationHint}"
             LabelText="{x:Static lang:AppResources.RejectExplanation}"/>
     </Grid>

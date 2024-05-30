@@ -4,18 +4,11 @@ namespace FireEscape.Views.Controls;
 
 public partial class ServiceabilityEditControl : ContentView
 {
-    public static readonly BindableProperty ValueProperty = BindableProperty.Create(nameof(Value), typeof(float), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.TwoWay);
-    public float Value
+    public static readonly BindableProperty ServiceabilityValueProperty = BindableProperty.Create(nameof(ServiceabilityValue), typeof(ServiceabilityProperty<float>), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.TwoWay);
+    public ServiceabilityProperty<float> ServiceabilityValue
     {
-        get => (float)GetValue(ValueProperty);
-        set => SetValue(ValueProperty, value);
-    }
-
-    public static readonly BindableProperty ServiceabilityTypeProperty = BindableProperty.Create(nameof(ServiceabilityType), typeof(ServiceabilityTypeEnum), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.TwoWay);
-    public ServiceabilityTypeEnum ServiceabilityType
-    {
-        get => (ServiceabilityTypeEnum)GetValue(ServiceabilityTypeProperty);
-        set => SetValue(ServiceabilityTypeProperty, value);
+        get => (ServiceabilityProperty<float>)GetValue(ServiceabilityValueProperty);
+        set => SetValue(ServiceabilityValueProperty, value);
     }
 
     public static readonly BindableProperty ServiceabilityTypesProperty = BindableProperty.Create(nameof(ServiceabilityTypes), typeof(string[]), typeof(ServiceabilityEditControl));
@@ -23,13 +16,6 @@ public partial class ServiceabilityEditControl : ContentView
     {
         get => (string[])GetValue(ServiceabilityTypesProperty);
         set => SetValue(ServiceabilityTypesProperty, value);
-    }
-
-    public static readonly BindableProperty RejectExplanationTextProperty = BindableProperty.Create(nameof(RejectExplanationText), typeof(string), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.TwoWay);
-    public string RejectExplanationText
-    {
-        get => (string)GetValue(RejectExplanationTextProperty);
-        set => SetValue(RejectExplanationTextProperty, value);
     }
 
     public static readonly BindableProperty LabelTextProperty = BindableProperty.Create(nameof(LabelText), typeof(string), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.OneWay);

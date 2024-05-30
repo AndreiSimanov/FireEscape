@@ -92,10 +92,8 @@
                 LabelText ="{x:Static lang:AppResources.StairsWidth}"
                 PlaceholderText ="{x:Static lang:AppResources.StairsWidthHint}"
                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                Value="{Binding EditObject.StairsWidth.Value}"
-                ServiceabilityType ="{Binding EditObject.StairsWidth.ServiceabilityType}"
-                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding EditObject.StairsWidth.RejectExplanation}"/>
+                ServiceabilityValue="{Binding EditObject.StairsWidth}"
+                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
             <Border
                 Style="{StaticResource FrameBorder}" 
@@ -146,20 +144,16 @@
                         LabelText="{x:Static lang:AppResources.WallDistance}"
                         PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        Value="{Binding EditObject.SupportBeams.WallDistance.Value}"
-                        ServiceabilityType ="{Binding EditObject.SupportBeams.WallDistance.ServiceabilityType}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText ="{Binding EditObject.SupportBeams.WallDistance.RejectExplanation}"/>
+                        ServiceabilityValue="{Binding EditObject.SupportBeams.WallDistance}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
                     <ctrl:ServiceabilityEditControl
                         EditorFocused="EditorFocused"
                         LabelText="{x:Static lang:AppResources.Deformation}"
                         PlaceholderText="{x:Static lang:AppResources.DeformationHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        Value="{Binding EditObject.SupportBeams.Deformation.Value}"
-                        ServiceabilityType ="{Binding EditObject.SupportBeams.Deformation.ServiceabilityType}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText ="{Binding EditObject.SupportBeams.Deformation.RejectExplanation}"/>
+                        ServiceabilityValue="{Binding EditObject.SupportBeams.Deformation}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
                 </StackLayout>
             </Border>
 
@@ -177,22 +171,18 @@
                 LabelText ="{x:Static lang:AppResources.StairsHeight}"
                 PlaceholderText ="{x:Static lang:AppResources.StairsHeightHint}"
                 ValueConverter="{StaticResource SecondaryUnitOfMeasureConverter}"
-                Value="{Binding EditObject.StairsHeight.Value}"
+                ServiceabilityValue="{Binding EditObject.StairsHeight}"
                 ValueChangedCommand="{Binding UpdatStairsElementsCommand}"
-                ServiceabilityType ="{Binding EditObject.StairsHeight.ServiceabilityType}"
-                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding EditObject.StairsHeight.RejectExplanation}"/>
+                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
             <ctrl:ServiceabilityEditControl
                 EditorFocused="EditorFocused"
                 LabelText ="{x:Static lang:AppResources.GroundDistance}"
                 PlaceholderText ="{x:Static lang:AppResources.GroundDistanceHint}"
                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                Value="{Binding EditObject.GroundDistance.Value}"
+                ServiceabilityValue="{Binding EditObject.GroundDistance}"
                 IsVisible="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
-                ServiceabilityType ="{Binding EditObject.GroundDistance.ServiceabilityType}"
-                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                RejectExplanationText ="{Binding EditObject.GroundDistance.RejectExplanation}"/>
+                ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
             <dxe:FormGroupItem Header="{x:Static lang:AppResources.StairsElements}" HeightRequest="40" Margin="0,0,80,0" />
 
@@ -452,10 +442,8 @@
                         PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                         IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight.Value}"
-                        ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight.ServiceabilityType}"
-                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight.RejectExplanation}"/>
+                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight}"
+                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
 
                     <dxe:NumericEdit
                         LabelText="{x:Static lang:AppResources.SupportBeamsCount}"
@@ -469,40 +457,32 @@
                         PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                         IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight.Value}"
-                        ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight.ServiceabilityType}"
-                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight.RejectExplanation}"/>
+                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight}"
+                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
 
                     <ctrl:ServiceabilityEditControl
                         LabelText="{x:Static lang:AppResources.WallDistance}"
                         PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                         IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance.Value}"
-                        ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance.ServiceabilityType}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance.RejectExplanation}"/>
+                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
                     <ctrl:ServiceabilityEditControl
                         LabelText="{x:Static lang:AppResources.GroundDistance}"
                         PlaceholderText="{x:Static lang:AppResources.GroundDistanceHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                         IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP1}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.GroundDistance.Value}"
-                        ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.GroundDistance.ServiceabilityType}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.GroundDistance.RejectExplanation}"/>
+                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.GroundDistance}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
                     <ctrl:ServiceabilityEditControl
                         LabelText="{x:Static lang:AppResources.StepsDistance}"
                         PlaceholderText="{x:Static lang:AppResources.StepsDistanceHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                         IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP1}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance.Value}"
-                        ServiceabilityType ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance.ServiceabilityType}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText ="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance.RejectExplanation}"/>
+                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance}"
+                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
                     <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
                         RowDefinitions="auto, *" ColumnDefinitions="*, *">
@@ -531,10 +511,8 @@
                         LabelText="{x:Static lang:AppResources.Deformation}"
                         PlaceholderText="{x:Static lang:AppResources.DeformationHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        Value="{Binding SelectedStairsElement.Deformation.Value}"
-                        ServiceabilityType="{Binding SelectedStairsElement.Deformation.ServiceabilityType}"
-                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"
-                        RejectExplanationText="{Binding SelectedStairsElement.Deformation.RejectExplanation}"/>
+                        ServiceabilityValue="{Binding SelectedStairsElement.Deformation}"
+                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
 
                     <StackLayout x:Name="platformSizesStackLayout" IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}" >
                         <Label
