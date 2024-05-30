@@ -65,12 +65,14 @@
                         </Image>
                     </Border>
                     <HorizontalStackLayout Grid.Row="2" Margin="0,10,0,0">
-                        <dx:DXButton 
+                        <dx:DXButton
+                            Style="{StaticResource DefaultButton}"
                             Content="{x:Static lang:AppResources.SelectPhotoHint}" 
                             Command="{Binding SelectPhotoCommand}" 
                             WidthRequest="160"
                             Icon="image" IconHeight="22" IconWidth="22"/>
                         <dx:DXButton
+                            Style="{StaticResource DefaultButton}"
                             Content="{x:Static lang:AppResources.MakePhotoHint}"
                             Command="{Binding AddPhotoCommand}" 
                             WidthRequest="160"
@@ -80,7 +82,8 @@
                 </Grid>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" >
-                <dx:DXButton 
+                <dx:DXButton
+                    Style="{StaticResource DefaultButton}"
                     Content="{x:Static lang:AppResources.StairsPageTitle}" 
                     Command="{Binding GoToDetailsCommand}"
                     IsEnabled="{Binding IsNotBusy}"
