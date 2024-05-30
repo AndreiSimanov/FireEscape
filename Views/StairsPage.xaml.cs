@@ -12,7 +12,7 @@ public partial class StairsPage : BaseStairsPage
     }
 
     void ContentSizeChanged(object? sender, EventArgs e) =>
-        stairsElements.HeightRequest = Content.Height - STAIRS_ELEMENTS_HEADER_HEIGHT;
+        stairsElements.HeightRequest = Height - STAIRS_ELEMENTS_HEADER_HEIGHT;
 
     void AddStairsElement(object sender, EventArgs e)
     {
@@ -58,7 +58,7 @@ public partial class StairsPage : BaseStairsPage
         }
 
         if (e.PropertyName == nameof(platformSizes.Y) && platformSizes.IsVisible)
-            platformSizes.HeightRequest = Height - platformSizes.Y - platformSizesStackLayout.Y;
+            platformSizes.HeightRequest = Height - bottomSheet.GrabberOffset;
     }
 
     /*

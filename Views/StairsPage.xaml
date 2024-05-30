@@ -377,160 +377,164 @@
                 x:Name="bottomSheet"
                 State="{Binding BottomSheetState}"
                 HalfExpandedRatio=".55">
-                <StackLayout>
-                    <Label 
-                        Style="{StaticResource Titleline}" 
-                        HorizontalTextAlignment="Center"
-                        FontSize="Body" 
-                        Text="{Binding SelectedStairsElement.Caption}" Margin="10,5,0,0" />
-
-                    <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StairwayP2}}"
-                        RowDefinitions="auto, *" 
-                        ColumnDefinitions="*, *">
-                        <dxe:NumericEdit
-                            Style="{StaticResource DefaultNumericEdit}"
-                            Grid.Column="0"
-                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsCount}"
-                            ValueChangedCommand="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=UpdateStepsCountCommand}"
-                            LabelText="{x:Static lang:AppResources.StepsCount}"
-                            PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"/>
-                        <ctrl:UnitOfMeasureEditControl
-                            Grid.Column="1"
-                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayWidth}"
-                            LabelText="{x:Static lang:AppResources.StairwayWidth}"
-                            PlaceholderText="{x:Static lang:AppResources.StairwayWidthHint}"/>
-                    </Grid>
-
-                    <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}"
-                        RowDefinitions="auto, *" 
-                        ColumnDefinitions="*, *">
-                        <ctrl:UnitOfMeasureEditControl
-                            Grid.Column="0"
-                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Length}"
-                            LabelText="{x:Static lang:AppResources.PlatformLength}"
-                            PlaceholderText ="{x:Static lang:AppResources.PlatformLengthHint}"/>
-                        <ctrl:UnitOfMeasureEditControl
-                            Grid.Column="1"
-                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Width}"
-                            LabelText="{x:Static lang:AppResources.PlatformWidth}"
-                            PlaceholderText ="{x:Static lang:AppResources.PlatformWidthHint}"/>
-                    </Grid>
-
-                    <dxe:NumericEdit
-                        PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
-                        LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"
-                        Style="{StaticResource DefaultNumericEdit}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"/>
-
-                    <ctrl:ServiceabilityEditControl
-                        LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
-                        PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
-                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight}"
-                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
-
-                    <dxe:NumericEdit
-                        LabelText="{x:Static lang:AppResources.SupportBeamsCount}"
-                        PlaceholderText="{x:Static lang:AppResources.SupportBeamsCountHint}"
-                        Style="{StaticResource DefaultNumericEdit}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource SupportBeamsEnumConverter}}"
-                        Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"/>
-
-                    <ctrl:ServiceabilityEditControl
-                        LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
-                        PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
-                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight}"
-                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
-
-                    <ctrl:ServiceabilityEditControl
-                        LabelText="{x:Static lang:AppResources.WallDistance}"
-                        PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
-                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
-
-                    <ctrl:ServiceabilityEditControl
-                        LabelText="{x:Static lang:AppResources.GroundDistance}"
-                        PlaceholderText="{x:Static lang:AppResources.GroundDistanceHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP1}}"
-                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.GroundDistance}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
-
-                    <ctrl:ServiceabilityEditControl
-                        LabelText="{x:Static lang:AppResources.StepsDistance}"
-                        PlaceholderText="{x:Static lang:AppResources.StepsDistanceHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP1}}"
-                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
-
-                    <ctrl:ServiceabilityEditControl
-                        LabelText="{x:Static lang:AppResources.StepsWidth}"
-                        PlaceholderText="{x:Static lang:AppResources.StepsWidthHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
-                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsWidth}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
-
-                    <ctrl:ServiceabilityEditControl
-                        LabelText="{x:Static lang:AppResources.StepsHeight}"
-                        PlaceholderText="{x:Static lang:AppResources.StepsHeightHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
-                        ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsHeight}"
-                        ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
-
-                    <dxe:NumericEdit
-                        IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource ElementNumberEnumConverter}}"
-                        Style="{StaticResource DefaultNumericEdit}"
-                        Value="{Binding SelectedStairsElement.ElementNumber}"
-                        LabelText="{x:Static lang:AppResources.ElementNumber}"
-                        PlaceholderText="{x:Static lang:AppResources.ElementNumberHint}"/>
-
-                    <ctrl:ServiceabilityEditControl
-                        LabelText="{x:Static lang:AppResources.Deformation}"
-                        PlaceholderText="{x:Static lang:AppResources.DeformationHint}"
-                        ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        ServiceabilityValue="{Binding SelectedStairsElement.Deformation}"
-                        ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
-
-                    <StackLayout x:Name="platformSizesStackLayout" IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}" >
-                        <Label
-                            TextColor="{dx:ThemeColor OnSurfaceVariant}"
-                            Text="{x:Static lang:AppResources.AdditionalPlatformSizes}"
+                <ScrollView>
+                    <StackLayout>
+                        
+                        <Label 
+                            Style="{StaticResource Titleline}" 
                             HorizontalTextAlignment="Center"
-                            IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
-                            Margin="0,20,0,0" />
-                        <dxg:DataGridView
-                            x:Name="platformSizes"
-                            AllowSort="False" EditorShowMode="Tap" Margin="10"
-                            PropertyChanged="PlatformSizesPropertyChanged"
-                            IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
-                            ItemsSource="{Binding SelectedPlatformSizes}">
-                            <dxg:DataGridView.Columns>
-                                <dxg:NumberColumn 
-                                    MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
-                                    MinValue="0" 
-                                    MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
-                                    Caption="{Binding PlatformLength}" HeaderFontSize="12" FieldName="Length" AllowNullValue="True" HorizontalContentAlignment="Center" />
-                                <dxg:NumberColumn 
-                                    MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
-                                    MinValue="0" 
-                                    MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
-                                    Caption="{Binding PlatformWidth}" HeaderFontSize="12" FieldName="Width" AllowNullValue="True" HorizontalContentAlignment="Center"/>
-                            </dxg:DataGridView.Columns>
-                        </dxg:DataGridView>
+                            FontSize="Body" 
+                            Text="{Binding SelectedStairsElement.Caption}" Margin="10,5,0,0" />
+
+                        <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StairwayP2}}"
+                            RowDefinitions="auto, *" 
+                            ColumnDefinitions="*, *">
+                            <dxe:NumericEdit
+                                Style="{StaticResource DefaultNumericEdit}"
+                                Grid.Column="0"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsCount}"
+                                ValueChangedCommand="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=UpdateStepsCountCommand}"
+                                LabelText="{x:Static lang:AppResources.StepsCount}"
+                                PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"/>
+                            <ctrl:UnitOfMeasureEditControl
+                                Grid.Column="1"
+                                ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayWidth}"
+                                LabelText="{x:Static lang:AppResources.StairwayWidth}"
+                                PlaceholderText="{x:Static lang:AppResources.StairwayWidthHint}"/>
+                        </Grid>
+
+                        <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}"
+                            RowDefinitions="auto, *" 
+                            ColumnDefinitions="*, *">
+                            <ctrl:UnitOfMeasureEditControl
+                                Grid.Column="0"
+                                ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Length}"
+                                LabelText="{x:Static lang:AppResources.PlatformLength}"
+                                PlaceholderText ="{x:Static lang:AppResources.PlatformLengthHint}"/>
+                            <ctrl:UnitOfMeasureEditControl
+                                Grid.Column="1"
+                                ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Width}"
+                                LabelText="{x:Static lang:AppResources.PlatformWidth}"
+                                PlaceholderText ="{x:Static lang:AppResources.PlatformWidthHint}"/>
+                        </Grid>
+
+                        <dxe:NumericEdit
+                            PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
+                            LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"
+                            Style="{StaticResource DefaultNumericEdit}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
+                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"/>
+
+                        <ctrl:ServiceabilityEditControl
+                            LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
+                            PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
+                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.PlatformP1}}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight}"
+                            ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
+
+                        <dxe:NumericEdit
+                            LabelText="{x:Static lang:AppResources.SupportBeamsCount}"
+                            PlaceholderText="{x:Static lang:AppResources.SupportBeamsCountHint}"
+                            Style="{StaticResource DefaultNumericEdit}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource SupportBeamsEnumConverter}}"
+                            Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"/>
+
+                        <ctrl:ServiceabilityEditControl
+                            LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
+                            PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
+                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP2}}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight}"
+                            ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
+
+                        <ctrl:ServiceabilityEditControl
+                            LabelText="{x:Static lang:AppResources.WallDistance}"
+                            PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"
+                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.SupportBeamsP1}}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance}"
+                            ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
+
+                        <ctrl:ServiceabilityEditControl
+                            LabelText="{x:Static lang:AppResources.GroundDistance}"
+                            PlaceholderText="{x:Static lang:AppResources.GroundDistanceHint}"
+                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.FenceP1}}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.GroundDistance}"
+                            ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
+
+                        <ctrl:ServiceabilityEditControl
+                            LabelText="{x:Static lang:AppResources.StepsDistance}"
+                            PlaceholderText="{x:Static lang:AppResources.StepsDistanceHint}"
+                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP1}}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance}"
+                            ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
+
+                        <ctrl:ServiceabilityEditControl
+                            LabelText="{x:Static lang:AppResources.StepsWidth}"
+                            PlaceholderText="{x:Static lang:AppResources.StepsWidthHint}"
+                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsWidth}"
+                            ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
+
+                        <ctrl:ServiceabilityEditControl
+                            LabelText="{x:Static lang:AppResources.StepsHeight}"
+                            PlaceholderText="{x:Static lang:AppResources.StepsHeightHint}"
+                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StairsElementTypeEnum.StepsP2}}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsHeight}"
+                            ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
+
+                        <dxe:NumericEdit
+                            IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource ElementNumberEnumConverter}}"
+                            Style="{StaticResource DefaultNumericEdit}"
+                            Value="{Binding SelectedStairsElement.ElementNumber}"
+                            LabelText="{x:Static lang:AppResources.ElementNumber}"
+                            PlaceholderText="{x:Static lang:AppResources.ElementNumberHint}"/>
+
+                        <ctrl:ServiceabilityEditControl
+                            LabelText="{x:Static lang:AppResources.Deformation}"
+                            PlaceholderText="{x:Static lang:AppResources.DeformationHint}"
+                            ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                            ServiceabilityValue="{Binding SelectedStairsElement.Deformation}"
+                            ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
+
+                        <StackLayout IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource PlatformElementEnumConverter}}" >
+                            <Label
+                                TextColor="{dx:ThemeColor OnSurfaceVariant}"
+                                Text="{x:Static lang:AppResources.AdditionalPlatformSizes}"
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
+                                Margin="0,20,0,0" />
+                            <dxg:DataGridView
+                                x:Name="platformSizes"
+                                AllowSort="False" EditorShowMode="Tap" Margin="10"
+                                PropertyChanged="PlatformSizesPropertyChanged"
+                                IsVisible="{Binding BottomSheetState, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static dxco:BottomSheetState.FullExpanded}}"
+                                ItemsSource="{Binding SelectedPlatformSizes}">
+                                <dxg:DataGridView.Columns>
+                                    <dxg:NumberColumn 
+                                        MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
+                                        MinValue="0" 
+                                        MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
+                                        Caption="{Binding PlatformLength}" HeaderFontSize="12" FieldName="Length" AllowNullValue="True" HorizontalContentAlignment="Center" />
+                                    <dxg:NumberColumn 
+                                        MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
+                                        MinValue="0" 
+                                        MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
+                                        Caption="{Binding PlatformWidth}" HeaderFontSize="12" FieldName="Width" AllowNullValue="True" HorizontalContentAlignment="Center"/>
+                                </dxg:DataGridView.Columns>
+                            </dxg:DataGridView>
+                        </StackLayout>
+
                     </StackLayout>
-                </StackLayout>
+                </ScrollView>
             </dxco:BottomSheet>
         </VerticalStackLayout>
     </ScrollView>
