@@ -21,8 +21,7 @@
             </ResourceDictionary>
         </Grid.Resources>
 
-        <dxe:NumericEdit
-            Style="{StaticResource DefaultNumericEdit}"
+        <control:UnitOfMeasureEditControl
             x:Name="numEdit"
             LabelText="{Binding LabelText}"
             PlaceholderText="{Binding PlaceholderText}"

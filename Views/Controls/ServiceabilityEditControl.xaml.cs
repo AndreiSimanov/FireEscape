@@ -1,5 +1,3 @@
-using DevExpress.Maui.Editors;
-using FireEscape.Views.Converters;
 using System.Windows.Input;
 
 namespace FireEscape.Views.Controls;
@@ -37,14 +35,14 @@ public partial class ServiceabilityEditControl : ContentView
     public static readonly BindableProperty LabelTextProperty = BindableProperty.Create(nameof(LabelText), typeof(string), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.OneWay);
     public string LabelText
     {
-        get => (string)GetValue(LabelTextProperty) + UnitOfMeasureSymbol;
+        get => (string)GetValue(LabelTextProperty);
         set => SetValue(LabelTextProperty, value);
     }
 
     public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText), typeof(string), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.OneWay);
     public string PlaceholderText
     {
-        get => (string)GetValue(PlaceholderTextProperty) + UnitOfMeasureSymbol;
+        get => (string)GetValue(PlaceholderTextProperty);
         set => SetValue(PlaceholderTextProperty, value);
     }
 
@@ -57,45 +55,16 @@ public partial class ServiceabilityEditControl : ContentView
 
     public event EventHandler<FocusEventArgs> EditorFocused
     {
-        add { numEdit.Focused += value; }
-        remove { numEdit.Focused -= value; }
+        add { numEdit.EditorFocused += value; }
+        remove { numEdit.EditorFocused -= value; }
     }
-
-    public string? UnitOfMeasureSymbol { get; set; }
-
-    public decimal MinValue { get => numEdit.MinValue; set => numEdit.MinValue = value; }
-    public decimal MaxValue { get => numEdit.MaxValue; set => numEdit.MaxValue = value; }
-    public int MaxDecimalDigitCount { get => numEdit.MaxDecimalDigitCount; set => numEdit.MaxDecimalDigitCount = value; }
-
-    IValueConverter? valueConverter;
 
     public IValueConverter? ValueConverter
     {
-        get => valueConverter;
+        get => numEdit.ValueConverter;
         set
         {
-            if (valueConverter != value)
-            {
-                valueConverter = value;
-                numEdit.RemoveBinding(NumericEdit.ValueProperty);
-                numEdit.SetBinding(
-                    NumericEdit.ValueProperty,
-                    new Binding( nameof(Value),converter: valueConverter));
-
-                var unitOfMeasureConverter = valueConverter as UnitOfMeasureConverter;
-                if (unitOfMeasureConverter != null)
-                {
-                    MaxValue = unitOfMeasureConverter.UnitOfMeasure.MaxValue;
-                    MaxDecimalDigitCount = unitOfMeasureConverter.UnitOfMeasure.MaxDecimalDigitCount;
-                    UnitOfMeasureSymbol = $" ({unitOfMeasureConverter.UnitOfMeasure.Symbol})";
-                }
-                else
-                    UnitOfMeasureSymbol = string.Empty;
-
-                OnPropertyChanged(nameof(UnitOfMeasureSymbol));
-                OnPropertyChanged(nameof(LabelText));
-                OnPropertyChanged(nameof(PlaceholderText));
-            }
+            numEdit.ValueConverter = value;
         }
     }
 
