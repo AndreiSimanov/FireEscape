@@ -3,9 +3,9 @@ using System.Text;
 
 namespace FireEscape.Services;
 
-public class ReportService(UserAccountService userAccountService,  IReportRepository reportRepository)
+public class ReportService(UserAccountService userAccountService, IReportRepository reportRepository)
 {
-    public async Task CreateSingleReportAsync(Order order, Protocol protocol )
+    public async Task CreateSingleReportAsync(Order order, Protocol protocol)
     {
         var folderPath = PrepareOutputFolder(order);
         if (string.IsNullOrWhiteSpace(folderPath))
@@ -44,7 +44,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
 
     public IEnumerable<FileInfo> GetReports(Order order) => new DirectoryInfo(PrepareOutputFolder(order)).EnumerateFiles();
 
-    public async Task MakeReportArchiveAsync(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null )
+    public async Task MakeReportArchiveAsync(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
     {
         if (!files.Any())
             return;
@@ -153,7 +153,7 @@ public class ReportService(UserAccountService userAccountService,  IReportReposi
     {
         if (!File.Exists(filePath))
             return filePath;
-        
+
         var path = Path.GetDirectoryName(filePath);
         var fileName = Path.GetFileNameWithoutExtension(filePath);
         var fileExt = Path.GetExtension(filePath);

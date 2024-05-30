@@ -160,5 +160,5 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
     public string PlatformLength => AddUnitOfMeasure(AppResources.PlatformLength, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
     public string PlatformWidth => AddUnitOfMeasure(AppResources.PlatformWidth, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
-    string AddUnitOfMeasure(string val, UnitOfMeasure unitOfMeasure ) => string.IsNullOrWhiteSpace(val) ? string.Empty : string.Format(val + " ({0})", unitOfMeasure.Symbol);
+    string AddUnitOfMeasure(string val, UnitOfMeasure unitOfMeasure) => string.IsNullOrWhiteSpace(val) ? string.Empty : string.Format(val + " ({0})", unitOfMeasure.Symbol);
 }

@@ -80,6 +80,6 @@ public class EnumDescriptionTypeConverter : EnumConverter
 
     public static IEnumerable<T> GetEnumValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
 
-    public static IEnumerable<string> GetEnumDescriptions<T>() where T : Enum => 
+    public static IEnumerable<string> GetEnumDescriptions<T>() where T : Enum =>
         Enum.GetValues(typeof(T)).Cast<T>().Select(enumVal => GetEnumDescription(enumVal));
 }

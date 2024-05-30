@@ -189,7 +189,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
     {
         if (userAccount.ExpirationCount > 0)
             return;
-         
+
         var checkCounter = Preferences.Default.Get(CHECK_COUNTER, 0);
         if (checkCounter == 0 || !IsValidUserAccount(userAccount) || string.Equals(userAccount.Name, NEW_USER_NAME))
             _ = Task.Run(TryToGetUserAccountAsync);

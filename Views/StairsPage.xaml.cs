@@ -11,7 +11,7 @@ public partial class StairsPage : BaseStairsPage
         Content.SizeChanged += ContentSizeChanged;
     }
 
-    void ContentSizeChanged(object? sender, EventArgs e) => 
+    void ContentSizeChanged(object? sender, EventArgs e) =>
         stairsElements.HeightRequest = Content.Height - STAIRS_ELEMENTS_HEADER_HEIGHT;
 
     void AddStairsElement(object sender, EventArgs e)

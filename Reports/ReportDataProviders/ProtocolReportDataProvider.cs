@@ -31,7 +31,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     public string FullAddress => Location + ", " + Address;
     public int FireEscapeNum => protocol.FireEscapeNum;
 
-    public float StairsHeight => stairs.StairsHeight.Value/1000;
+    public float StairsHeight => stairs.StairsHeight.Value / 1000;
     public float StairsWidth => stairs.StairsWidth.Value;
 
     public int StepsCount => stairs.StepsCount;
@@ -114,9 +114,9 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     static string GetExecutorSign(string executorSign)
     {
-            if (string.IsNullOrWhiteSpace(executorSign))
-                return EMPTY_SIGNATURE;
-            var empty = new string(' ', EMPTY_SIGNATURE.Length - executorSign.Length);
-            return empty + executorSign + empty;
+        if (string.IsNullOrWhiteSpace(executorSign))
+            return EMPTY_SIGNATURE;
+        var empty = new string(' ', EMPTY_SIGNATURE.Length - executorSign.Length);
+        return empty + executorSign + empty;
     }
 }

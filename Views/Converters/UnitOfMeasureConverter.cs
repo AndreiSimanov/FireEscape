@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace FireEscape.Views.Converters;
 
-public class UnitOfMeasureConverter : BaseConverter<float, decimal> 
+public class UnitOfMeasureConverter : BaseConverter<float, decimal>
 {
     public override decimal DefaultConvertReturnValue { get; set; } = default;
     public override float DefaultConvertBackReturnValue { get; set; } = default;

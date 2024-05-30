@@ -5,7 +5,7 @@ namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
 [QueryProperty(nameof(Protocols), nameof(Protocol))]
-public partial class BatchReportModel(ReportService reportService, ILogger<BatchReportModel> logger) : BaseViewModel(logger) , IDisposable
+public partial class BatchReportModel(ReportService reportService, ILogger<BatchReportModel> logger) : BaseViewModel(logger), IDisposable
 {
     [ObservableProperty]
     Order? order;
@@ -57,7 +57,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
             {
                 await Shell.Current.DisplayAlert(AppResources.Error, AppResources.OrderIsEmpty, AppResources.OK);
                 return;
-            }    
+            }
 
             StartStopStatus = StartStopEnum.Stop;
             FilesExists = false;

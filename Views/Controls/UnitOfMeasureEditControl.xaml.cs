@@ -13,7 +13,6 @@ public partial class UnitOfMeasureEditControl : ContentView
         set => SetValue(ValueProperty, value);
     }
 
-
     public static readonly BindableProperty LabelTextProperty = BindableProperty.Create(nameof(LabelText), typeof(string), typeof(UnitOfMeasureEditControl), defaultBindingMode: BindingMode.OneWay);
     public string LabelText
     {
@@ -42,7 +41,6 @@ public partial class UnitOfMeasureEditControl : ContentView
     }
 
     public string? UnitOfMeasureSymbol { get; private set; }
-    
 
     public decimal MinValue { get => numEdit.MinValue; set => numEdit.MinValue = value; }
     public decimal MaxValue { get => numEdit.MaxValue; set => numEdit.MaxValue = value; }

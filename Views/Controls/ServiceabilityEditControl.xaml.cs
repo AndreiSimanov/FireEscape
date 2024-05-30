@@ -62,10 +62,7 @@ public partial class ServiceabilityEditControl : ContentView
     public IValueConverter? ValueConverter
     {
         get => numEdit.ValueConverter;
-        set
-        {
-            numEdit.ValueConverter = value;
-        }
+        set => numEdit.ValueConverter = value;
     }
 
     public ServiceabilityEditControl()

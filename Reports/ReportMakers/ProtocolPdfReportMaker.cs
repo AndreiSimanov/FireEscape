@@ -161,7 +161,7 @@ public static class ProtocolPdfReportMaker
         var testPointCount = stairsElementResult.TestPointCount == 0 ? "-" : stairsElementResult.TestPointCount.ToString();
         table.AddCell(MakeCell(testPointCount, true, TextAlignment.CENTER));
 
-        var calcWithstandLoad = stairsElementResult.TestPointCount == 0 ? "-" :  stairsElementResult.CalcWithstandLoad.ToString(DEFAULT_FLOAT_FORMAT);
+        var calcWithstandLoad = stairsElementResult.TestPointCount == 0 ? "-" : stairsElementResult.CalcWithstandLoad.ToString(DEFAULT_FLOAT_FORMAT);
         table.AddCell(MakeCell(calcWithstandLoad, true, TextAlignment.CENTER));
 
         var serviceability = stairsElementResult.TestPointCount == 0 ?
@@ -173,7 +173,7 @@ public static class ProtocolPdfReportMaker
         table.AddCell(MakeCell(serviceability, alignment: TextAlignment.CENTER));
     }
 
-    static Cell MakeCell(string text, bool bold = false, TextAlignment? alignment = null )
+    static Cell MakeCell(string text, bool bold = false, TextAlignment? alignment = null)
     {
         var paragraph = new Paragraph(text).SetFixedLeading(12);
         if (alignment != null)

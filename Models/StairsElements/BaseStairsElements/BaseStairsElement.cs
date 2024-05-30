@@ -72,7 +72,7 @@ public abstract partial class BaseStairsElement : ObservableObject
 
     public override string ToString() => Caption;
 
-    static protected int CalcTestPointCount(float measure, float divider )
+    static protected int CalcTestPointCount(float measure, float divider)
     {
         var count = measure / divider;
         if (count > 0 && count < 1)

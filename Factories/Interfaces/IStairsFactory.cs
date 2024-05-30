@@ -1,6 +1,4 @@
-﻿using FireEscape.Models.StairsElements.BaseStairsElements;
-
-namespace FireEscape.Factories.Interfaces;
+﻿namespace FireEscape.Factories.Interfaces;
 
 public interface IStairsFactory : IBaseObjectFactory<Stairs, Protocol>
 {

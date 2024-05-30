@@ -26,7 +26,7 @@ public class ApplicationSettings
 
     public static async Task<string> GetOutputPath()
     {
-        var path =  Preferences.Get(OUTPUT_FOLDER, string.Empty);
+        var path = Preferences.Get(OUTPUT_FOLDER, string.Empty);
         if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
         {
             var folderPickerResult = await FolderPicker.PickAsync(default); // Permission request must be invoked on main thread.

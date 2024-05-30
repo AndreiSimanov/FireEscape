@@ -2,7 +2,7 @@
 
 public enum StairsMountTypeEnum
 {
-    [LocalizedDescription(nameof(BuildingMounted), typeof(EnumResources))] 
+    [LocalizedDescription(nameof(BuildingMounted), typeof(EnumResources))]
     BuildingMounted,
     [LocalizedDescription(nameof(ElevationMounted), typeof(EnumResources))]
     ElevationMounted

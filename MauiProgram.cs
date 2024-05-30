@@ -60,7 +60,7 @@ public static class MauiProgram
                 options.MinLevel = LogLevel.Error;
 #endif
                 options.MaxLevel = LogLevel.Critical;
-             }).
+            }).
              AddStreamingFileLogger(options =>
              {
                  options.RetainDays = 2;

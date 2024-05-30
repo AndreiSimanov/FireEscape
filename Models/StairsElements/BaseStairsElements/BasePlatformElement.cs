@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace FireEscape.Models.StairsElements.BaseStairsElements;
 
