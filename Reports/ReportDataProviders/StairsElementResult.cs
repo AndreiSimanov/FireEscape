@@ -24,10 +24,10 @@ public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbs
     {
         var sb = new StringBuilder();
         int distance = 0;
-        int currentNum = int.MinValue;
+        int? currentNum = null;
         foreach (var num in nums.OrderBy(num => num))
         {
-            if (currentNum == int.MinValue)
+            if (currentNum == null)
             {
                 sb.Append(num);
                 currentNum = num;
