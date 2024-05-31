@@ -781,6 +781,24 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Длина выхода.
+        /// </summary>
+        internal static string PlatformP1Length {
+            get {
+                return ResourceManager.GetString("PlatformP1Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите длину выхода.
+        /// </summary>
+        internal static string PlatformP1LengthHint {
+            get {
+                return ResourceManager.GetString("PlatformP1LengthHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sплощ.
         /// </summary>
         internal static string PlatformSize {

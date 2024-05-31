@@ -3,6 +3,9 @@
 public partial class PlatformP1 : BasePlatformElement
 {
     [ObservableProperty]
+    ServiceabilityProperty<float> platformLength = new();
+
+    [ObservableProperty]
     ServiceabilityProperty<float> platformFenceHeight = new();
 
     public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.PlatformP1;
