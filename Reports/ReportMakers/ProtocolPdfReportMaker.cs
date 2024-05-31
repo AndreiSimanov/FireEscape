@@ -158,13 +158,13 @@ public static class ProtocolPdfReportMaker
         table.AddCell(MakeCell(table.GetNumberOfRows().ToString(), alignment: TextAlignment.CENTER));
         table.AddCell(MakeCell(stairsElementResult.Name));
 
-        var testPointCount = stairsElementResult.TestPointCount == 0 ? "-" : stairsElementResult.TestPointCount.ToString();
+        var testPointCount = stairsElementResult.IsAbsent ? "-" : stairsElementResult.TestPointCount.ToString();
         table.AddCell(MakeCell(testPointCount, true, TextAlignment.CENTER));
 
-        var calcWithstandLoad = stairsElementResult.TestPointCount == 0 ? "-" : stairsElementResult.CalcWithstandLoad.ToString(DEFAULT_FLOAT_FORMAT);
+        var calcWithstandLoad = stairsElementResult.IsAbsent ? "-" : stairsElementResult.WithstandLoadCalcResult.ToString(DEFAULT_FLOAT_FORMAT);
         table.AddCell(MakeCell(calcWithstandLoad, true, TextAlignment.CENTER));
 
-        var serviceability = stairsElementResult.TestPointCount == 0 ?
+        var serviceability = stairsElementResult.IsAbsent ?
             "-" :
             stairsElementResult.Summary.Any() ?
                 "Не соответствует требованиям\r\nГОСТ Р. 53254-2009\r\n" :

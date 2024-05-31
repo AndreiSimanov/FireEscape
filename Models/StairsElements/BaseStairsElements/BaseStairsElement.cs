@@ -42,14 +42,17 @@ public abstract partial class BaseStairsElement : ObservableObject
     public virtual string Caption => Name;
 
     [JsonIgnore]
-    public virtual float CalcWithstandLoad => WithstandLoad;
+    public virtual float WithstandLoadCalcResult => WithstandLoad;
+
+    [JsonIgnore]
+    public virtual string WithstandLoadCalc => string.Empty;
 
     [JsonIgnore]
     public virtual int TestPointCount => 0;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TestPointCount))]
-    [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
+    [NotifyPropertyChangedFor(nameof(WithstandLoadCalcResult))]
     [property: JsonIgnore]
     float stairsHeight;
 
@@ -68,7 +71,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     [ObservableProperty]
     ServiceabilityProperty<float> deformation = new();
 
-    public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(CalcWithstandLoad));
+    public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(WithstandLoadCalcResult));
 
     public override string ToString() => Caption;
 

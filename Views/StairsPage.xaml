@@ -118,13 +118,13 @@
                         <Label
                             Grid.Row ="1"
                             FontSize="12"
-                            TextColor = "{Binding EditObject.SupportBeams.CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}"
+                            TextColor = "{Binding EditObject.SupportBeams.WithstandLoadCalcResult,  Converter={StaticResource FloatZeroToObjectConverter}}"
                             Margin="0,0,10,5" HorizontalTextAlignment="End">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
                                     <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                    <Span Text="{Binding EditObject.SupportBeams.CalcWithstandLoad}" />
+                                    <Span Text="{Binding EditObject.SupportBeams.WithstandLoadCalcResult}" />
                                     <Span Text=" " />
                                     <Span Text="{x:Static lang:AppResources.WithstandLoadUnit}" />
                                 </FormattedString>
@@ -234,12 +234,12 @@
                                                 </Label.FormattedText>
                                             </Label>
                                             <Label Grid.Row ="1" FontSize="12" HorizontalTextAlignment="End"
-                                                   TextColor = "{Binding CalcWithstandLoad,  Converter={StaticResource FloatZeroToObjectConverter}}">
+                                                   TextColor = "{Binding WithstandLoadCalcResult,  Converter={StaticResource FloatZeroToObjectConverter}}">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
                                                         <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                        <Span Text="{Binding CalcWithstandLoad}" />
+                                                        <Span Text="{Binding WithstandLoadCalcResult}" />
                                                         <Span Text=" " />
                                                         <Span Text="{x:Static lang:AppResources.WithstandLoadUnit}" />
                                                     </FormattedString>

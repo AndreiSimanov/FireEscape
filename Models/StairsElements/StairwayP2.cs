@@ -8,20 +8,22 @@ public partial class StairwayP2 : BaseSupportBeamsElement
     public override string Caption => Name + " " + ElementNumber;
     public override int TestPointCount => 1;
 
-    public override float CalcWithstandLoad // Рмарш = ((L*К2)/(К4*Х))*К3*cos a,
+    public override float WithstandLoadCalcResult // Рмарш = ((L*К2)/(К4*Х))*К3*cos a,
     {
         get
         {
             if (StairwayWidth == 0 || SupportBeamsCount == 0)
-                return base.CalcWithstandLoad;
+                return base.WithstandLoadCalcResult;
             return (float)Math.Round(ConvertToMeter(StairwayWidth) * K2 / (K4 * SupportBeamsCount) * K3 * COS_ALPHA);
         }
     }
 
+    public override string WithstandLoadCalc => $"(({ConvertToMeter(StairwayWidth)}*{K2})/({K4}*{SupportBeamsCount}))*{K3}*{COS_ALPHA} = {WithstandLoadCalcResult}";
+
     [ObservableProperty]
     int stepsCount;
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(CalcWithstandLoad))]
+    [NotifyPropertyChangedFor(nameof(WithstandLoadCalcResult))]
     float stairwayWidth;
 
 }

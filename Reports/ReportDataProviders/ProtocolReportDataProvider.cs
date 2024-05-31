@@ -78,16 +78,17 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     {
         if (stairsElementResults != null)
             return stairsElementResults;
-        stairsElementResults = stairs.StairsElements
-            .Where(stairsElement => stairsElement.BaseStairsType == stairs.BaseStairsType)
-            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, element.TestPointCount, element.CalcWithstandLoad, []))
-            .ToList();
+
+        stairsElementResults = stairs.StairsElements.
+            Where(stairsElement => stairsElement.BaseStairsType == stairs.BaseStairsType).
+            GroupBy(stairsElement => new { stairsElement.StairsElementType, stairsElement.WithstandLoadCalc }, (key, group) =>
+                new StairsElementResult(group.ToArray(), false, [])).ToList();
 
         stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(stairs)
             .Where(element => !stairsElementResults.Any(item => item.StairsElementType == element.StairsElementType))
-            .Select(element => new StairsElementResult(element.Name, element.ElementNumber, element.StairsElementType, element.PrintOrder, 0, 0, [])));
+            .Select(element => new StairsElementResult([element], true, [])));
 
-        return stairsElementResults = [.. stairsElementResults.OrderBy(stairsElement => stairsElement.PrintOrder).ThenBy(stairsElement => stairsElement.Name)];
+        return stairsElementResults = [.. stairsElementResults.OrderBy(element => element.PrintOrder).ThenBy(element => element.Name)];
     }
 
     static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
