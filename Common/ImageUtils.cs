@@ -9,6 +9,12 @@ public static class ImageUtils
 
     public static async Task TransformImageAsync(FileResult imageFile, string destinationFilePath, int maxImageSize = 0, float imageQuality = 1)
     {
+        var fileInfo = new FileInfo(imageFile.FullPath);
+        if (fileInfo.Length < 1024 * 1024) // save image file direct if size less 1 mB
+        {
+            fileInfo.CopyTo(destinationFilePath);
+            return;
+        }
         using var imageStream = await imageFile.OpenReadAsync();
         using var image = PlatformImage.FromStream(imageStream);
         var scale = maxImageSize == 0 ? 1 : (image.Height > image.Width ? image.Height : image.Width) / maxImageSize;
