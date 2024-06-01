@@ -6,10 +6,7 @@ namespace FireEscape.Reports.ReportWriters;
 
 public static class PdfReportWriter
 {
-    const string DEFAULT_FONT_NAME = "times.ttf";
-    const float DEFAULT_FONT_SIZE = 12f;
-
-    public static async Task<Document> GetPdfDocumentAsync(string filePath, string fontName = DEFAULT_FONT_NAME, float forntSize = DEFAULT_FONT_SIZE)
+    public static async Task<Document> GetPdfDocumentAsync(string filePath, string fontName, float fontSize)
     {
         if (string.IsNullOrWhiteSpace(filePath))
             throw new ArgumentNullException(nameof(filePath));
@@ -19,7 +16,7 @@ public static class PdfReportWriter
         var document = new Document(pdf);
         var font = PdfFontFactory.CreateFont(fontFilePath);
         document.SetFont(font);
-        document.SetFontSize(forntSize);
+        document.SetFontSize(fontSize);
         document.SetCharacterSpacing(.2f);
         return document;
     }

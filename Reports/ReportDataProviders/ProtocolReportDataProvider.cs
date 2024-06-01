@@ -2,19 +2,21 @@
 
 namespace FireEscape.Reports.ReportDataProviders;
 
-public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs stairs, IStairsFactory stairsFactory, StairsSettings stairsSettings)
+public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSettings reportSettings, IStairsFactory stairsFactory, ServiceabilityLimits[] serviceabilityLimits)
 {
-    const string EMPTY_SIGNATURE = "___________________";
-
     List<StairsElementResult>? stairsElementResults;
 
-    ServiceabilityLimits serviceabilityLimits = stairsSettings.ServiceabilityLimits!.FirstOrDefault(item =>
-           item.StairsType == stairs.StairsType &&
-           item.IsEvacuation == stairs.IsEvacuation);
+    ServiceabilityLimits serviceabilityLimits = serviceabilityLimits.FirstOrDefault(item =>
+           item.StairsType == protocol.Stairs.StairsType &&
+           item.IsEvacuation == protocol.Stairs.IsEvacuation);
+
+    Stairs Stairs => protocol.Stairs;
+
     public int ProtocolNum => protocol.ProtocolNum;
-    public string StairsTypeDescription => stairs.IsEvacuation
+
+    public string StairsTypeDescription => Stairs.IsEvacuation
         ? "испытания пожарной эвакуационной лестницы"
-        : stairs.StairsType == StairsTypeEnum.P2
+        : Stairs.StairsType == StairsTypeEnum.P2
             ? "испытания пожарной маршевой лестницы"
             : "испытания пожарной лестницы";
 
@@ -23,25 +25,25 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
 
     public string ProtocolDate => string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate);
 
-    public string StairsType => EnumDescriptionTypeConverter.GetEnumDescription(stairs.StairsType);
+    public string StairsType => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsType);
 
-    public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(stairs.StairsMountType);
+    public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsMountType);
 
     public string FireEscapeObject => string.IsNullOrWhiteSpace(protocol.FireEscapeObject) ? order.FireEscapeObject : protocol.FireEscapeObject;
     public string FullAddress => Location + ", " + Address;
     public int FireEscapeNum => protocol.FireEscapeNum;
 
-    public float StairsHeight => stairs.StairsHeight.Value / 1000;
-    public float StairsWidth => stairs.StairsWidth.Value;
+    public float StairsHeight => Stairs.StairsHeight.Value / 1000;
+    public float StairsWidth => Stairs.StairsWidth.Value;
 
-    public int StepsCount => stairs.StepsCount;
+    public int StepsCount => Stairs.StepsCount;
 
-    public string TestEquipment => stairs.StairsType == StairsTypeEnum.P2
+    public string TestEquipment => Stairs.StairsType == StairsTypeEnum.P2
         ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
         : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.";
 
-    public string WeldSeamServiceability => stairs.WeldSeamServiceability ? "соответствует" : "не соответствует";
-    public string ProtectiveServiceability => stairs.ProtectiveServiceability ? "соответствует" : "не соответствует";
+    public string WeldSeamServiceability => Stairs.WeldSeamServiceability ? "соответствует" : "не соответствует";
+    public string ProtectiveServiceability => Stairs.ProtectiveServiceability ? "соответствует" : "не соответствует";
 
     public bool HasImage => protocol.HasImage;
     public string ImageFilePath => HasImage ? protocol.ImageFilePath! : string.Empty;
@@ -57,17 +59,17 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
     public List<string> GetSummary()
     {
         var summary = new List<string>();
-        if (!stairs.WeldSeamServiceability)
+        if (!Stairs.WeldSeamServiceability)
             summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
-        if (!stairs.ProtectiveServiceability)
+        if (!Stairs.ProtectiveServiceability)
             summary.Add("конструкция не окрашена (ГОСТ 9.032)");
 
-        CheckServiceability(summary, stairs.StairsHeight,
+        CheckServiceability(summary, Stairs.StairsHeight,
             _ => StairsHeight > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
             $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м ({StairsHeight}м)",
             "высота лестницы не соответствует ГОСТ");
 
-        CheckServiceability(summary, stairs.StairsWidth,
+        CheckServiceability(summary, Stairs.StairsWidth,
             _ => StairsWidth < serviceabilityLimits.MinStairsWidth,
             $"ширина лестницы не менее {serviceabilityLimits.MinStairsWidth}мм ({StairsWidth}мм)",
             "ширина лестницы не соответствует ГОСТ");
@@ -79,12 +81,12 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
         if (stairsElementResults != null)
             return stairsElementResults;
 
-        stairsElementResults = stairs.StairsElements.
-            Where(stairsElement => stairsElement.BaseStairsType == stairs.BaseStairsType).
+        stairsElementResults = Stairs.StairsElements.
+            Where(stairsElement => stairsElement.BaseStairsType == Stairs.BaseStairsType).
             GroupBy(stairsElement => new { stairsElement.StairsElementType, stairsElement.WithstandLoadCalc }, (key, group) =>
                 new StairsElementResult(group.ToArray(), false, [])).ToList();
 
-        stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(stairs)
+        stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(Stairs)
             .Where(element => !stairsElementResults.Any(item => item.StairsElementType == element.StairsElementType))
             .Select(element => new StairsElementResult([element], true, [])));
 
@@ -113,11 +115,11 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, Stairs s
             summary.Add(defaultExplanation);
     }
 
-    static string GetExecutorSign(string executorSign)
+    string GetExecutorSign(string executorSign)
     {
         if (string.IsNullOrWhiteSpace(executorSign))
-            return EMPTY_SIGNATURE;
-        var empty = new string(' ', EMPTY_SIGNATURE.Length - executorSign.Length);
+            return reportSettings.EmptySignature;
+        var empty = new string(' ', reportSettings.EmptySignature.Length - executorSign.Length);
         return empty + executorSign + empty;
     }
 }

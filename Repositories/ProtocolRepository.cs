@@ -41,7 +41,7 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
         var imageFilePath = Path.Combine(ApplicationSettings.ImagesFolder, imageFileName);
 
         var orientation = ImageUtils.GetImageOrientation(imageFile.FullPath);
-        await ImageUtils.TransformImageAsync(imageFile, imageFilePath, applicationSettings.MaxImageSize, applicationSettings.ImageQuality);
+        await ImageUtils.TransformImageAsync(imageFile, imageFilePath, applicationSettings.MaxImageSize, applicationSettings.ImageQuality / 100f);
         ImageUtils.SetImageOrientation(imageFilePath, orientation);
 
         if (protocol.HasImage)

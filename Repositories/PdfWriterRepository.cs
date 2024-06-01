@@ -5,13 +5,12 @@ using Microsoft.Extensions.Options;
 
 namespace FireEscape.Repositories;
 
-public class PdfWriterRepository(IStairsFactory stairsFactory, IOptions<StairsSettings> stairsSettings) : IReportRepository
+public class PdfWriterRepository(IStairsFactory stairsFactory, IOptions<StairsSettings> stairsSettings, IOptions<ReportSettings> reportSettings) : IReportRepository
 {
-    readonly StairsSettings stairsSettings = stairsSettings.Value;
-
     public async Task CreateReportAsync(Order order, Protocol protocol, string outputPath)
     {
-        var protocolRdp = new ProtocolReportDataProvider(order, protocol, protocol.Stairs, stairsFactory, stairsSettings);
-        await ProtocolPdfReportMaker.MakeReportAsync(protocolRdp, outputPath);
+        var protocolRdp = new ProtocolReportDataProvider(order, protocol, reportSettings.Value, stairsFactory, stairsSettings.Value.ServiceabilityLimits ?? []);
+        var pdfReportMaker = new ProtocolPdfReportMaker(protocolRdp, reportSettings.Value, outputPath);
+        await pdfReportMaker.MakeReportAsync();
     }
 }

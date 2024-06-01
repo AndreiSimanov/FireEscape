@@ -10,21 +10,20 @@ using TextAlignment = iText.Layout.Properties.TextAlignment;
 
 namespace FireEscape.Reports.ReportMakers;
 
-public static class ProtocolPdfReportMaker
+public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, ReportSettings reportSettings, string outputPath)
 {
-    const string DEFAULT_FLOAT_FORMAT = "0.0";
-    public static async Task MakeReportAsync(ProtocolReportDataProvider protocolRdp, string outputPath)
+    public async Task MakeReportAsync()
     {
         if (string.IsNullOrWhiteSpace(outputPath))
             return;
-        var document = await PdfReportWriter.GetPdfDocumentAsync(outputPath);
+        var document = await PdfReportWriter.GetPdfDocumentAsync(outputPath, reportSettings.FontName, reportSettings.FontSize);
         try
         {
-            MakeHeader(document, protocolRdp);
-            MakeOverview(document, protocolRdp);
-            MakeTestResultsTable(document, protocolRdp);
-            MakeImage(document, protocolRdp);
-            MakeFooter(document, protocolRdp);
+            MakeHeader(document);
+            MakeOverview(document);
+            MakeTestResultsTable(document);
+            MakeImage(document);
+            MakeFooter(document);
         }
         finally
         {
@@ -32,7 +31,7 @@ public static class ProtocolPdfReportMaker
         }
     }
 
-    static void MakeHeader(Document document, ProtocolReportDataProvider protocolRdp)
+    void MakeHeader(Document document)
     {
         document.Add(new Paragraph("ПРОТОКОЛ № " + protocolRdp.ProtocolNum)
             .SetFixedLeading(5)
@@ -68,7 +67,7 @@ public static class ProtocolPdfReportMaker
 
         document.Add(new Paragraph(" "));
     }
-    static void MakeOverview(Document document, ProtocolReportDataProvider protocolRdp)
+    void MakeOverview(Document document)
     {
         document.Add(new Paragraph()
             .SetFixedLeading(12)
@@ -93,7 +92,7 @@ public static class ProtocolPdfReportMaker
             .SetFixedLeading(8)
             .AddAll(new[] {
                 new Text("Высота лестницы: ").SetBold(),
-                new Text(protocolRdp.StairsHeight.ToString(DEFAULT_FLOAT_FORMAT)).SetBold().SetUnderline(),
+                new Text(protocolRdp.StairsHeight.ToString(reportSettings.FloatFormat)).SetBold().SetUnderline(),
                 new Text(" м.")}));
 
         document.Add(new Paragraph()
@@ -135,7 +134,7 @@ public static class ProtocolPdfReportMaker
         document.Add(new Paragraph(" "));
     }
 
-    static void MakeTestResultsTable(Document document, ProtocolReportDataProvider protocolRdp)
+    void MakeTestResultsTable(Document document)
     {
         document.Add(new Paragraph("РЕЗУЛЬТАТЫ ИСПЫТАНИЙ")
             .SetTextAlignment(TextAlignment.CENTER)
@@ -152,7 +151,7 @@ public static class ProtocolPdfReportMaker
         document.Add(table);
     }
 
-    static void MakeTestResultsRow(Table table, StairsElementResult stairsElementResult)
+    void MakeTestResultsRow(Table table, StairsElementResult stairsElementResult)
     {
         table.StartNewRow();
         table.AddCell(MakeCell(table.GetNumberOfRows().ToString(), alignment: TextAlignment.CENTER));
@@ -161,7 +160,7 @@ public static class ProtocolPdfReportMaker
         var testPointCount = stairsElementResult.IsAbsent ? "-" : stairsElementResult.TestPointCount.ToString();
         table.AddCell(MakeCell(testPointCount, true, TextAlignment.CENTER));
 
-        var calcWithstandLoad = stairsElementResult.IsAbsent ? "-" : stairsElementResult.WithstandLoadCalcResult.ToString(DEFAULT_FLOAT_FORMAT);
+        var calcWithstandLoad = stairsElementResult.IsAbsent ? "-" : stairsElementResult.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat);
         table.AddCell(MakeCell(calcWithstandLoad, true, TextAlignment.CENTER));
 
         var serviceability = stairsElementResult.IsAbsent ?
@@ -184,7 +183,7 @@ public static class ProtocolPdfReportMaker
     }
 
 
-    static void MakeImage(Document document, ProtocolReportDataProvider protocolRdp)
+    void MakeImage(Document document)
     {
         if (!protocolRdp.HasImage)
             return;
@@ -193,14 +192,14 @@ public static class ProtocolPdfReportMaker
 
         var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocolRdp.ImageFilePath))
             .SetHorizontalAlignment(HorizontalAlignment.CENTER)
-            .SetMaxWidth(pageSize.GetWidth() / 1.5f)
-            .SetMaxHeight(pageSize.GetHeight() / 1.5f)
+            .SetMaxWidth(pageSize.GetWidth() / (100f / reportSettings.ImageScale))
+            .SetMaxHeight(pageSize.GetHeight() / (100f / reportSettings.ImageScale))
             .SetRotationAngle(ImageUtils.GetRotation(protocolRdp.ImageFilePath));
         document.Add(pdfImage);
         document.Add(new Paragraph(" "));
     }
 
-    static void MakeFooter(Document document, ProtocolReportDataProvider protocolRdp)
+    void MakeFooter(Document document)
     {
         document.SetFontSize(10);
 
