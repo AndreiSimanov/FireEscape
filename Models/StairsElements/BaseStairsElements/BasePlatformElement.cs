@@ -10,14 +10,25 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
     PlatformSize[] platformSizes = [];
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(WithstandLoadCalcResult))]
-    [NotifyPropertyChangedFor(nameof(Size))]
-    float length;
+    ServiceabilityProperty<float> length = new();
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(WithstandLoadCalcResult))]
-    [NotifyPropertyChangedFor(nameof(Size))]
-    float width;
+    ServiceabilityProperty<float> width = new();
+
+    protected BasePlatformElement()
+    {
+        length.PropertyChanged += SizePropertyChanged;
+        width.PropertyChanged += SizePropertyChanged;
+    }
+
+    private void SizePropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ServiceabilityProperty<float>.Value))
+        {
+            OnPropertyChanged(nameof(WithstandLoadCalcResult));
+            OnPropertyChanged(nameof(Size));
+        }
+    }
 
     public override float WithstandLoadCalcResult // Рплощ = ((S*К2)/(К4*Х))*К3,
     {
@@ -38,7 +49,7 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
 
     IEnumerable<PlatformSize> GetAllPlatformSizes()
     {
-        yield return new() { Length = Length, Width = Width };
+        yield return new() { Length = Length.Value, Width = Width.Value };
         foreach (var platformSize in PlatformSizes)
             yield return platformSize;
     }

@@ -14,8 +14,6 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 {
     public async Task MakeReportAsync()
     {
-        if (string.IsNullOrWhiteSpace(outputPath))
-            return;
         var document = await PdfReportWriter.GetPdfDocumentAsync(outputPath, reportSettings.FontName, reportSettings.FontSize);
         try
         {

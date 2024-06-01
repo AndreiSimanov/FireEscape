@@ -558,10 +558,4 @@
   <data name="StairsTrim" xml:space="preserve">
     <value>лест</value>
   </data>
-  <data name="PlatformP1Length" xml:space="preserve">
-    <value>Длина выхода</value>
-  </data>
-  <data name="PlatformP1LengthHint" xml:space="preserve">
-    <value>Укажите длину выхода</value>
-  </data>
 </root>

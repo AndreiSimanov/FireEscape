@@ -558,10 +558,4 @@
   <data name="StairsTrim" xml:space="preserve">
     <value>stairs</value>
   </data>
-  <data name="PlatformP1Length" xml:space="preserve">
-    <value>Exit length</value>
-  </data>
-  <data name="PlatformP1LengthHint" xml:space="preserve">
-    <value>Specify exit length</value>
-  </data>
 </root>
