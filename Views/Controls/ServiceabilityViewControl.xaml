@@ -8,7 +8,7 @@
     xmlns:control="clr-namespace:FireEscape.Views.Controls"
     xmlns:model="clr-namespace:FireEscape.Models"
     xmlns:enums="clr-namespace:FireEscape.Models.Enums"
-    xmlns:conv="clr-namespace:FireEscape.Views.Converters"
+    xmlns:conv="clr-namespace:FireEscape.Converters"
     xmlns:appSettings="clr-namespace:FireEscape.AppSettings"
     x:Name="this"
     x:TypeArguments="x:Single"

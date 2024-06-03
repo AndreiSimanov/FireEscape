@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 
-namespace FireEscape.Common;
+namespace FireEscape.Converters;
 
 public class EnumDescriptionTypeConverter : EnumConverter
 {

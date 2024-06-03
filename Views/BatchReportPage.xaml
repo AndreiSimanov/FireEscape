@@ -7,7 +7,7 @@
     xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges"
     xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
-    xmlns:conv="clr-namespace:FireEscape.Views.Converters"
+    xmlns:conv="clr-namespace:FireEscape.Converters"
     xmlns:enums="clr-namespace:FireEscape.Models.Enums"    
     xmlns:sysio="clr-namespace:System.IO;assembly=mscorlib"
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"

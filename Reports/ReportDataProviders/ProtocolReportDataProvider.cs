@@ -1,4 +1,5 @@
-﻿using FireEscape.Factories.Interfaces;
+﻿using FireEscape.Converters;
+using FireEscape.Factories.Interfaces;
 
 namespace FireEscape.Reports.ReportDataProviders;
 

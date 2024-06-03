@@ -1,4 +1,6 @@
-﻿namespace FireEscape.AppSettings;
+﻿using FireEscape.Converters;
+
+namespace FireEscape.AppSettings;
 
 public record StairsSettings
 {

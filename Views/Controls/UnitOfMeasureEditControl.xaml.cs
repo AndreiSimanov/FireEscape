@@ -1,5 +1,5 @@
 using DevExpress.Maui.Editors;
-using FireEscape.Views.Converters;
+using FireEscape.Converters;
 using System.Windows.Input;
 
 namespace FireEscape.Views.Controls;

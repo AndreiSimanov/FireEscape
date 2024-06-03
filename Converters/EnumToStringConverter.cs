@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace FireEscape.Views.Converters;
+namespace FireEscape.Converters;
 
 public class EnumToStringConverter : IValueConverter
 {

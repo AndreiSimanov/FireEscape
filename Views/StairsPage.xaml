@@ -17,7 +17,7 @@
     xmlns:baseelements="clr-namespace:FireEscape.Models.StairsElements.BaseStairsElements"
     xmlns:elements="clr-namespace:FireEscape.Models.StairsElements"
     xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
-    xmlns:conv="clr-namespace:FireEscape.Views.Converters"
+    xmlns:conv="clr-namespace:FireEscape.Converters"
     x:Class="FireEscape.Views.StairsPage"
     x:DataType="viewmodel:StairsViewModel"
     HideSoftInputOnTapped="True"
