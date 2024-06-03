@@ -24,9 +24,6 @@ public abstract partial class BaseStairsElement : ObservableObject
     public const float STEPS_TEST_POINT_DIVIDER = 5f;
 
     [JsonIgnore]
-    public abstract StairsElementTypeEnum StairsElementType { get; }
-
-    [JsonIgnore]
     public virtual BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P1;
 
     [JsonIgnore]
@@ -36,7 +33,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     public abstract int PrintOrder { get; }
 
     [JsonIgnore]
-    public virtual string Name => EnumDescriptionTypeConverter.GetEnumDescription(StairsElementType);
+    public abstract string Name { get; }
 
     [JsonIgnore]
     public virtual string Caption => Name;
@@ -72,6 +69,10 @@ public abstract partial class BaseStairsElement : ObservableObject
     ServiceabilityProperty<float> deformation = new();
 
     public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(WithstandLoadCalcResult));
+
+    [JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
+    public Type StairsElementType => GetType();
 
     public override string ToString() => Caption;
 

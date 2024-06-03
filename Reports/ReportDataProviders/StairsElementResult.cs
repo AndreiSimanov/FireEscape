@@ -9,13 +9,13 @@ public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbs
         get
         {
             var elementNumber = string.Empty;
-            if (StairsElementType == StairsElementTypeEnum.PlatformP2 || StairsElementType == StairsElementTypeEnum.StairwayP2)
+            if (StairsElementType == typeof (PlatformP2) || StairsElementType == typeof(StairwayP2))
                 elementNumber = ToRangeString(StairsElements.Select(element => element.ElementNumber));
             return $"{StairsElements.First().Name} {elementNumber}";
         }
     }
 
-    public StairsElementTypeEnum StairsElementType => StairsElements.First().StairsElementType;
+    public Type StairsElementType => StairsElements.First().StairsElementType;
     public int TestPointCount => StairsElements.First().TestPointCount;
     public float WithstandLoadCalcResult => StairsElements.First().WithstandLoadCalcResult;
     public int PrintOrder => StairsElements.First().PrintOrder;
@@ -60,4 +60,3 @@ public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbs
         return sb.ToString();
     }
 }
-

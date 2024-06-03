@@ -106,8 +106,8 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
             var availableStairsElements = stairsFactory.GetAvailableStairsElements(EditObject);
             if (EditObject.BaseStairsType == BaseStairsTypeEnum.P2)
             {
-                var platformIndex = EditObject.StairsElements.FindIndex(element => element.StairsElementType == StairsElementTypeEnum.PlatformP2);
-                var stairwayIndex = EditObject.StairsElements.FindIndex(element => element.StairsElementType == StairsElementTypeEnum.StairwayP2);
+                var platformIndex = EditObject.StairsElements.FindIndex(element => element.StairsElementType == typeof(PlatformP2));
+                var stairwayIndex = EditObject.StairsElements.FindIndex(element => element.StairsElementType == typeof(StairwayP2));
                 if ((stairwayIndex > platformIndex || stairwayIndex == -1) && platformIndex != -1)
                     availableStairsElements = availableStairsElements.OrderBy(item => item.Name);
                 else

@@ -558,4 +558,22 @@
   <data name="StairsTrim" xml:space="preserve">
     <value>лест</value>
   </data>
+  <data name="RoofPlatform" xml:space="preserve">
+    <value>Площадка выхода на кровлю</value>
+  </data>
+  <data name="StairsFence" xml:space="preserve">
+    <value>Ограждение лестниц</value>
+  </data>
+  <data name="StairsPlatform" xml:space="preserve">
+    <value>Площадка</value>
+  </data>
+  <data name="StairsSteps" xml:space="preserve">
+    <value>Ступени лестниц</value>
+  </data>
+  <data name="Stairway" xml:space="preserve">
+    <value>Марш</value>
+  </data>
+  <data name="SupportBeams" xml:space="preserve">
+    <value>Балки крепления лестниц</value>
+  </data>
 </root>

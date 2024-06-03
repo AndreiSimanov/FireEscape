@@ -5,7 +5,7 @@ public partial class SupportBeamsP1 : BaseSupportBeamsElement
     [ObservableProperty]
     ServiceabilityProperty<float> wallDistance = new();
 
-    public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.SupportBeamsP1;
+    public override string Name => AppResources.SupportBeams;
     public override bool Required => true;
     public override int PrintOrder => 20;
     public override float WithstandLoadCalcResult => (float)((TestPointCount > 0)

@@ -29,7 +29,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             var elementType = Type.GetType(elementSettings.TypeName);
             if (elementType == null)
                 continue;
-            var stairsElements = stairs.StairsElements.Where(item => item.GetType() == elementType).ToList();
+            var stairsElements = stairs.StairsElements.Where(item => item.StairsElementType == elementType).ToList();
             var elementsCount = stairsElements.Count();
             if (elementsCount >= elementSettings.MaxCount)
                 continue;

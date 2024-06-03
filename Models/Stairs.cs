@@ -52,7 +52,7 @@ public partial class Stairs : BaseObject
 
     [Ignore]
     [JsonIgnore]
-    public SupportBeamsP1? SupportBeams => StairsElements.FirstOrDefault(element => element.StairsElementType == StairsElementTypeEnum.SupportBeamsP1) as SupportBeamsP1;
+    public SupportBeamsP1? SupportBeams => StairsElements.FirstOrDefault(element => element.StairsElementType == typeof(SupportBeamsP1)) as SupportBeamsP1;
 
     [Ignore]
     [JsonIgnore]
@@ -67,7 +67,7 @@ public partial class Stairs : BaseObject
     public void UpdateStepsCount()
     {
         if (BaseStairsType == BaseStairsTypeEnum.P2)
-            StepsCount = StairsElements.Where(element => element.GetType() == typeof(StairwayP2)).Sum(item => ((StairwayP2)item).StepsCount);
+            StepsCount = StairsElements.Where(element => element.StairsElementType == typeof(StairwayP2)).Sum(item => ((StairwayP2)item).StepsCount);
     }
 
     public void UpdateStairsElements()

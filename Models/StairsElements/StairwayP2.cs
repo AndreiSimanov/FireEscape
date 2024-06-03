@@ -2,7 +2,7 @@
 
 public partial class StairwayP2 : BaseSupportBeamsElement
 {
-    public override StairsElementTypeEnum StairsElementType => StairsElementTypeEnum.StairwayP2;
+    public override string Name => AppResources.Stairway;
     public override BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P2;
     public override int PrintOrder => 30;
     public override string Caption => Name + " " + ElementNumber;
@@ -25,5 +25,4 @@ public partial class StairwayP2 : BaseSupportBeamsElement
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(WithstandLoadCalcResult))]
     float stairwayWidth;
-
 }

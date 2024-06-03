@@ -558,4 +558,22 @@
   <data name="StairsTrim" xml:space="preserve">
     <value>stairs</value>
   </data>
+  <data name="StairsFence" xml:space="preserve">
+    <value>Stairs fence</value>
+  </data>
+  <data name="RoofPlatform" xml:space="preserve">
+    <value>Stairs roof platform</value>
+  </data>
+  <data name="StairsPlatform" xml:space="preserve">
+    <value>Stairs platform</value>
+  </data>
+  <data name="Stairway" xml:space="preserve">
+    <value>Stairway</value>
+  </data>
+  <data name="StairsSteps" xml:space="preserve">
+    <value>Stairs steps</value>
+  </data>
+  <data name="SupportBeams" xml:space="preserve">
+    <value>Support beams</value>
+  </data>
 </root>
