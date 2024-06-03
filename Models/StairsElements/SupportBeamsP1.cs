@@ -1,8 +1,11 @@
-﻿namespace FireEscape.Models.StairsElements;
+﻿using FireEscape.Models.Attributes;
+
+namespace FireEscape.Models.StairsElements;
 
 public partial class SupportBeamsP1 : BaseSupportBeamsElement
 {
     [ObservableProperty]
+    [property: Serviceability]
     ServiceabilityProperty<float> wallDistance = new();
 
     public override string Name => AppResources.SupportBeams;

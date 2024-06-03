@@ -1,8 +1,11 @@
-﻿namespace FireEscape.Models.StairsElements;
+﻿using FireEscape.Models.Attributes;
+
+namespace FireEscape.Models.StairsElements;
 
 public partial class PlatformP1 : BasePlatformElement
 {
     [ObservableProperty]
+    [property: Serviceability]
     ServiceabilityProperty<float> platformFenceHeight = new();
 
     public override string Name => AppResources.RoofPlatform;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Resources;
 
-namespace FireEscape.Common;
+namespace FireEscape.Models.Attributes;
 
 public class LocalizedDescriptionAttribute(string resourceKey, Type resourceType) : DescriptionAttribute
 {

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using FireEscape.Models.Attributes;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 
@@ -37,16 +38,19 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsHeightBlob))]
+    [property: Serviceability]
     ServiceabilityProperty<float> stairsHeight = new();
     public string? StairsHeightBlob { get; set; }
 
     [ObservableProperty]
     [property: TextBlob(nameof(GroundDistanceBlob))]
+    [property: Serviceability]
     ServiceabilityProperty<float> groundDistance = new();
     public string? GroundDistanceBlob { get; set; }
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsWidthBlob))]
+    [property: Serviceability]
     ServiceabilityProperty<float> stairsWidth = new();
     public string? StairsWidthBlob { get; set; }
 

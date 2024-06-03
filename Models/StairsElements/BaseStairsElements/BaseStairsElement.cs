@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using FireEscape.Models.Attributes;
 
 namespace FireEscape.Models.StairsElements.BaseStairsElements;
 
@@ -66,6 +67,7 @@ public abstract partial class BaseStairsElement : ObservableObject
     float withstandLoad;
 
     [ObservableProperty]
+    [property: Serviceability]
     ServiceabilityProperty<float> deformation = new();
 
     public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(WithstandLoadCalcResult));

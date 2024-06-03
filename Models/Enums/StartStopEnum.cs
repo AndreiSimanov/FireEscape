@@ -1,4 +1,6 @@
-﻿namespace FireEscape.Models.Enums;
+﻿using FireEscape.Models.Attributes;
+
+namespace FireEscape.Models.Enums;
 
 public enum StartStopEnum
 {

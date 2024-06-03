@@ -292,15 +292,15 @@
                                         <ctrl:ServiceabilityViewControl
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP1}}"
                                             Label="{x:Static lang:AppResources.PlatformLength}"
-                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=Length.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
-                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=Length}"
+                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=PlatformLength.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=PlatformLength}"
                                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 
                                         <ctrl:ServiceabilityViewControl
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP1}}"
                                             Label="{x:Static lang:AppResources.PlatformWidth}"
-                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=Width.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
-                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=Width}"
+                                            TextColor="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=PlatformWidth.Value, Converter={StaticResource FloatZeroToLableColorConverter}}"
+                                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=PlatformWidth}"
                                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 
                                         <ctrl:ServiceabilityViewControl
@@ -425,13 +425,13 @@
                             <ctrl:UnitOfMeasureEditControl
                                 Grid.Column="0"
                                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Length.Value}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformLength.Value}"
                                 LabelText="{x:Static lang:AppResources.PlatformLength}"
                                 PlaceholderText ="{x:Static lang:AppResources.PlatformLengthHint}"/>
                             <ctrl:UnitOfMeasureEditControl
                                 Grid.Column="1"
                                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Width.Value}"
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformWidth.Value}"
                                 LabelText="{x:Static lang:AppResources.PlatformWidth}"
                                 PlaceholderText ="{x:Static lang:AppResources.PlatformWidthHint}"/>
                         </Grid>
@@ -448,7 +448,7 @@
                             PlaceholderText="{x:Static lang:AppResources.PlatformLengthHint}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP1}}"
-                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Length}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformLength}"
                             ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
 
                         <ctrl:ServiceabilityEditControl
@@ -456,7 +456,7 @@
                             PlaceholderText="{x:Static lang:AppResources.PlatformWidthHint}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP1}}"
-                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.Width}"
+                            ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformWidth}"
                             ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
                         
                         <ctrl:ServiceabilityEditControl

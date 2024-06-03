@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using FireEscape.Models.Attributes;
 
 namespace FireEscape.Models.StairsElements.BaseStairsElements;
 
@@ -10,15 +11,17 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
     PlatformSize[] platformSizes = [];
 
     [ObservableProperty]
-    ServiceabilityProperty<float> length = new();
+    [property: Serviceability]
+    ServiceabilityProperty<float> platformLength = new();
 
     [ObservableProperty]
-    ServiceabilityProperty<float> width = new();
+    [property: Serviceability]
+    ServiceabilityProperty<float> platformWidth = new();
 
     protected BasePlatformElement()
     {
-        length.PropertyChanged += SizePropertyChanged;
-        width.PropertyChanged += SizePropertyChanged;
+        PlatformLength.PropertyChanged += SizePropertyChanged;
+        PlatformWidth.PropertyChanged += SizePropertyChanged;
     }
 
     private void SizePropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -49,7 +52,7 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
 
     IEnumerable<PlatformSize> GetAllPlatformSizes()
     {
-        yield return new() { Length = Length.Value, Width = Width.Value };
+        yield return new() { Length = PlatformLength.Value, Width = PlatformWidth.Value };
         foreach (var platformSize in PlatformSizes)
             yield return platformSize;
     }

@@ -1,8 +1,12 @@
-﻿namespace FireEscape.Models.StairsElements;
+﻿using FireEscape.Models.Attributes;
+
+namespace FireEscape.Models.StairsElements;
 
 public partial class FenceP2 : BaseStairsElement
 {
+    
     [ObservableProperty]
+    [property: Serviceability]
     ServiceabilityProperty<float> fenceHeight = new();
 
     public override string Name => AppResources.StairsFence;

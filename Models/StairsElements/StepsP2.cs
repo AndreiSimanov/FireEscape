@@ -1,11 +1,15 @@
-﻿namespace FireEscape.Models.StairsElements;
+﻿using FireEscape.Models.Attributes;
+
+namespace FireEscape.Models.StairsElements;
 
 public partial class StepsP2 : BaseStairsElement
 {
     [ObservableProperty]
+    [property: Serviceability]
     ServiceabilityProperty<float> stepsWidth = new();
 
     [ObservableProperty]
+    [property: Serviceability]
     ServiceabilityProperty<float> stepsHeight = new();
 
     public override string Name => AppResources.StairsSteps;
