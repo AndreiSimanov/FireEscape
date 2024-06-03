@@ -30,9 +30,10 @@
                         WidthRequest="172"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
-                        <Image
+                        <dx:DXImage
                             IsVisible="{Binding EditObject.HasImage, Converter={StaticResource InvertedBoolConverter}}"
-                            Source="nophoto.svg"
+                            TintColor="{dx:ThemeColor Primary}"
+                            Source="nophoto"
                             Aspect="AspectFill"
                             WidthRequest="100"
                             HeightRequest="100"
@@ -41,7 +42,7 @@
                             <Image.GestureRecognizers>                            
                                 <TapGestureRecognizer Command="{Binding AddPhotoCommand}"/>
                             </Image.GestureRecognizers>
-                        </Image>
+                        </dx:DXImage>
                     </Border>
                     <Border
                         IsVisible="{Binding  EditObject.HasImage}"
@@ -52,7 +53,7 @@
                         WidthRequest="172"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
-                        <Image
+                        <dx:DXImage
                             Source="{Binding  EditObject.ImageFilePath}"
                             Aspect="AspectFill"
                             WidthRequest="180"
@@ -62,7 +63,7 @@
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding AddPhotoCommand}"/>
                             </Image.GestureRecognizers>
-                        </Image>
+                        </dx:DXImage>
                     </Border>
                     <HorizontalStackLayout Grid.Row="2" Margin="0,10,0,0">
                         <dx:DXButton

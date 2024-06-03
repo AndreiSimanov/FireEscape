@@ -7,9 +7,11 @@ namespace FireEscape;
 
 public partial class App : Application
 {
+    readonly ApplicationSettings applicationSettings;
     public App(UserAccountService userAccountService, IOptions<ApplicationSettings> applicationSettings, ILogger<App> logger)
     {
-        SetPrimaryThemeColor(applicationSettings.Value);
+        this.applicationSettings = applicationSettings.Value;
+        SetThemeColor();
         SetUnitsOfMeasure(applicationSettings.Value);
         CultureInfo.CurrentCulture = SetNumberDecimalSeparator(CultureInfo.CurrentCulture);
         CultureInfo.CurrentUICulture = SetNumberDecimalSeparator(CultureInfo.CurrentUICulture);
@@ -45,11 +47,19 @@ public partial class App : Application
         UnitOfMeasureSettings.SecondaryUnitOfMeasure = applicationSettings.SecondaryUnitOfMeasure;
     }
 
-    static void SetPrimaryThemeColor(ApplicationSettings applicationSettings)
+    void SetThemeColor()
     {
         ThemeManager.UseAndroidSystemColor = false;
         ThemeManager.ApplyThemeToSystemBars = true;
-        ThemeManager.Theme = new Theme(Color.FromArgb(applicationSettings.PrimaryThemeColor));
+        ThemeManager.ThemeChanged += ThemeChanged;
+        ThemeManager.Theme = new Theme(Color.FromArgb(ThemeManager.IsLightTheme ? applicationSettings.LightThemeColor : applicationSettings.DarkThemeColor));
+    }
+
+    void ThemeChanged(object? sender, EventArgs e)
+    {
+        ThemeManager.ThemeChanged -= ThemeChanged;
+        ThemeManager.Theme = new Theme(Color.FromArgb(ThemeManager.IsLightTheme ? applicationSettings.LightThemeColor : applicationSettings.DarkThemeColor));
+        ThemeManager.ThemeChanged += ThemeChanged;
     }
 
     public static void RemoveBorders()

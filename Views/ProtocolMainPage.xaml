@@ -34,13 +34,14 @@
             WidthRequest="172"
             Margin="0,8,0,0"
             HorizontalOptions="Center">
-            <Image 
+            <dx:DXImage 
                 BackgroundColor="Transparent"
+                TintColor="{dx:ThemeColor Primary}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 HeightRequest="80"
                 WidthRequest="80"
-                Source="nodata.svg"/>
+                Source="nodata"/>
         </Border>
         <dxcv:DXCollectionView 
             x:Name="protocols"
@@ -64,7 +65,6 @@
                     <dxcv:SwipeContainer>
                         <dxcv:SwipeContainer.StartSwipeItems>
                             <dxcv:SwipeItem
-                                BackgroundColor="{dx:ThemeColor Primary}"
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel } }, Path=IsNotBusy}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=CreateReportCommand}"
                                 CommandParameter="{Binding .}"
@@ -102,14 +102,15 @@
                                             <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
                                         </ResourceDictionary>
                                     </Grid.Resources>
-                                    <Image
+                                    <dx:DXImage
                                         IsVisible="{Binding HasImage, Converter={StaticResource InvertedBoolConverter}}"
+                                        TintColor="{dx:ThemeColor Primary}"
                                         HorizontalOptions="Center"
                                         Aspect="AspectFill"
                                         HeightRequest="80"
                                         WidthRequest="80" 
-                                        Source="nophoto.svg"/>
-                                    <Image
+                                        Source="nophoto"/>
+                                    <dx:DXImage
                                         IsVisible="{Binding HasImage}"
                                         HorizontalOptions="End"
                                         Aspect="AspectFill"
@@ -119,7 +120,7 @@
                                         <Image.Clip>
                                             <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
                                         </Image.Clip>
-                                    </Image>
+                                    </dx:DXImage>
                                     <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
                                         <Label 
                                             Style="{StaticResource Titleline}"

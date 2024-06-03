@@ -5,6 +5,7 @@
                     xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
                     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
                     xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+                    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
                     xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges">
 
     <Style TargetType="ActivityIndicator">
@@ -442,8 +443,9 @@
         <Setter Property="Offset" Value="10,10" />
     </Style>
 
-    <Style TargetType="SwipeItem">
-        <Setter Property="BackgroundColor" Value="{dx:ThemeColor Surface}" />
+    <Style TargetType="dxcv:SwipeItem">
+        <Setter Property="FontColor" Value="White" />
+        <Setter Property="BackgroundColor" Value="{dx:ThemeColor Primary}" />
     </Style>
 
     <Style TargetType="TimePicker">

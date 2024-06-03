@@ -40,13 +40,14 @@
             WidthRequest="172"
             Margin="0,8,0,0"
             HorizontalOptions="Center">
-            <Image 
+            <dx:DXImage 
                 BackgroundColor="Transparent"
+                TintColor="{dx:ThemeColor Primary}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 HeightRequest="80"
                 WidthRequest="80"
-                Source="nodata.svg"/>
+                Source="nodata"/>
         </Border>
         <dxcv:DXCollectionView 
             x:Name="userAccounts"
