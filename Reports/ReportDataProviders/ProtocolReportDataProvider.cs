@@ -56,27 +56,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
 
     public string SecondaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.SecondaryExecutorSign) ? order.SecondaryExecutorSign : protocol.SecondaryExecutorSign);
 
-    public List<string> GetSummary()
-    {
-        var summary = new List<string>();
-        if (!Stairs.WeldSeamServiceability)
-            summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
-        if (!Stairs.ProtectiveServiceability)
-            summary.Add("конструкция не окрашена (ГОСТ 9.032)");
-
-        CheckServiceability(summary, Stairs.StairsHeight,
-            _ => StairsHeight > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight > 0,
-            $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м ({StairsHeight}м)",
-            "высота лестницы не соответствует ГОСТ");
-
-        CheckServiceability(summary, Stairs.StairsWidth,
-            _ => StairsWidth < serviceabilityLimits.MinStairsWidth,
-            $"ширина лестницы не менее {serviceabilityLimits.MinStairsWidth}мм ({StairsWidth}мм)",
-            "ширина лестницы не соответствует ГОСТ");
-        return summary;
-    }
-
-    public List<StairsElementResult> GetStairsElements() // todo: group elements by StairsElementType & WithstandLoad
+    public List<StairsElementResult> GetStairsElements()
     {
         if (stairsElementResults != null)
             return stairsElementResults;
@@ -93,26 +73,49 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         return stairsElementResults = [.. stairsElementResults.OrderBy(element => element.PrintOrder).ThenBy(element => element.Name)];
     }
 
+    public List<string> GetSummary()
+    {
+        var summary = new List<string>();
+        if (!Stairs.WeldSeamServiceability)
+            summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
+        if (!Stairs.ProtectiveServiceability)
+            summary.Add("конструкция не окрашена (ГОСТ 9.032)");
+
+        CheckServiceability(summary, Stairs.StairsHeight,
+            _ => StairsHeight > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight.HasValue,
+            $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м ({StairsHeight}м)",
+            "высота лестницы не соответствует ГОСТ");
+
+        CheckServiceability(summary, Stairs.StairsWidth,
+            _ => StairsWidth < serviceabilityLimits.MinStairsWidth,
+            $"ширина лестницы не менее {serviceabilityLimits.MinStairsWidth}мм ({StairsWidth}мм)",
+            "ширина лестницы не соответствует ГОСТ");
+
+        CheckServiceability(summary, Stairs.GroundDistance,
+            _ => Stairs.GroundDistance.Value > serviceabilityLimits.MaxGroundDistance && serviceabilityLimits.MaxGroundDistance.HasValue,
+            $"расстояние до лестницы от уровня земли не более {serviceabilityLimits.MaxGroundDistance}мм ({Stairs.GroundDistance.Value}мм)",
+            "расстояние до лестницы от уровня земли не соответствует ГОСТ");
+
+
+        return summary;
+    }
+
     static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
         Predicate<T> predicate, string rejectExplanation, string defaultExplanation) where T : struct
     {
         if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Approve)
             return;
 
-        if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Reject && !string.IsNullOrWhiteSpace(serviceabilityProperty.RejectExplanation))
-        {
-            summary.AddRange(serviceabilityProperty.RejectExplanation.Split(Environment.NewLine));
-            return;
-        }
-
         if (predicate != null && predicate(serviceabilityProperty.Value))
-        {
             summary.Add(string.Format(rejectExplanation, serviceabilityProperty.Value));
-            return;
-        }
 
         if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Reject)
-            summary.Add(defaultExplanation);
+        {
+            if (string.IsNullOrWhiteSpace(serviceabilityProperty.RejectExplanation))
+                summary.Add(defaultExplanation);
+            else
+                summary.AddRange(serviceabilityProperty.RejectExplanation.Split(Environment.NewLine));
+        }
     }
 
     string GetExecutorSign(string executorSign)
