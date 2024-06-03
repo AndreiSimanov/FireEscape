@@ -1,23 +1,17 @@
 ﻿using CommunityToolkit.Maui.Converters;
 using System.Globalization;
+using System.Numerics;
 
 namespace FireEscape.Converters;
 
-public class FloatZeroToObjectConverter : ZeroToObjectConverter<float, object>
-{
-    public override object? ConvertFrom(float value, CultureInfo? culture = null) => value == 0 ? TrueObject : FalseObject;
-}
+public class FloatZeroToObjectConverter : ZeroToObjectConverter<float, object>;
 
-public class IntZeroToObjectConverter : ZeroToObjectConverter<int, object>
-{
-    public override object? ConvertFrom(int value, CultureInfo? culture = null) => value == 0 ? TrueObject : FalseObject;
-}
+public class IntZeroToObjectConverter : ZeroToObjectConverter<int, object>;
 
-public abstract class ZeroToObjectConverter<TFrom, TTo> : BaseConverter<TFrom, TTo?> where TFrom : struct
+public class ZeroToObjectConverter<TFrom, TTo> : BaseConverterOneWay<TFrom, TTo?> where TFrom : INumberBase<TFrom>
 {
     public override TTo? DefaultConvertReturnValue { get; set; } = default;
-    public override TFrom DefaultConvertBackReturnValue { get; set; } = default;
     public TTo? TrueObject { get; set; }
     public TTo? FalseObject { get; set; }
-    public override TFrom ConvertBackTo(TTo? value, CultureInfo? culture = null) => throw new NotImplementedException();
+    public override TTo? ConvertFrom(TFrom value, CultureInfo? culture) => TFrom.IsZero(value) ? TrueObject : FalseObject;
 }
