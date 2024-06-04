@@ -201,7 +201,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
     {
         document.SetFontSize(10);
 
-        var summary = protocolRdp.GetReportSummary();
+        var summary = protocolRdp.GetReportSummary().ToList();
 
         document.Add(new Paragraph()
             .SetFixedLeading(12)
@@ -210,7 +210,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("В соответствии с "),
                 new Text("ГОСТ Р. 53254 - 2009 ").SetBold(),
                 new Text("«Техника пожарная. Лестницы пожарные наружные стационарные. Ограждения кровли. Общие технические требования. Методы испытаний» пожарная стационарная лестница, к эксплуатации "),
-                new Text(summary.Any()? "не пригодна." : "пригодна.").SetBold()
+                new Text(summary.Count() > 0 ? "не пригодна." : "пригодна.").SetBold()
             }));
         foreach (var item in summary)
             document.Add(new Paragraph("- " + item).SetFixedLeading(8));

@@ -97,7 +97,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         return stairsElementResults = [.. stairsElementResults.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)];
     }
 
-    public List<string> GetReportSummary()
+    public IEnumerable<string> GetReportSummary()
     {
         var summary = new List<string>();
         if (!Stairs.WeldSeamServiceability)
@@ -112,7 +112,9 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
 
         GetStairsElementsResult().ForEach(elementResult => summary.AddRange(elementResult.Summary));
 
-        return summary;
+        summary.RemoveAll(string.IsNullOrWhiteSpace);
+
+        return summary.Distinct();
     }
 
     IEnumerable<ServiceabilityRecord> GetServiceabilityRecords(object obj)
