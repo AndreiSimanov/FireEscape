@@ -12,11 +12,11 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
 
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> platformLength = new();
+    ServiceabilityProperty platformLength = new();
 
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> platformWidth = new();
+    ServiceabilityProperty platformWidth = new();
 
     protected BasePlatformElement()
     {
@@ -26,7 +26,7 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
 
     private void SizePropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(ServiceabilityProperty<float>.Value))
+        if (e.PropertyName == nameof(ServiceabilityProperty.Value))
         {
             OnPropertyChanged(nameof(WithstandLoadCalcResult));
             OnPropertyChanged(nameof(Size));

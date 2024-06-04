@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 namespace FireEscape.Models;
 
-public partial class ServiceabilityProperty<T> : ObservableObject where T : struct
+public partial class ServiceabilityProperty : ObservableObject
 {
     [ObservableProperty]
-    T value;
+    float value;
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(RejectExplanationText))]
     ServiceabilityTypeEnum serviceabilityType = ServiceabilityTypeEnum.Auto;

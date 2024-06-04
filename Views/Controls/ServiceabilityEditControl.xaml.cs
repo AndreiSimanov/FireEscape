@@ -5,10 +5,10 @@ namespace FireEscape.Views.Controls;
 
 public partial class ServiceabilityEditControl : ContentView
 {
-    public static readonly BindableProperty ServiceabilityValueProperty = BindableProperty.Create(nameof(ServiceabilityValue), typeof(ServiceabilityProperty<float>), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.TwoWay);
-    public ServiceabilityProperty<float> ServiceabilityValue
+    public static readonly BindableProperty ServiceabilityValueProperty = BindableProperty.Create(nameof(ServiceabilityValue), typeof(ServiceabilityProperty), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.TwoWay);
+    public ServiceabilityProperty ServiceabilityValue
     {
-        get => (ServiceabilityProperty<float>)GetValue(ServiceabilityValueProperty);
+        get => (ServiceabilityProperty)GetValue(ServiceabilityValueProperty);
         set => SetValue(ServiceabilityValueProperty, value);
     }
 

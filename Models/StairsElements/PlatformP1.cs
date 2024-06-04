@@ -6,7 +6,7 @@ public partial class PlatformP1 : BasePlatformElement
 {
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> platformFenceHeight = new();
+    ServiceabilityProperty platformFenceHeight = new();
 
     public override string Name => AppResources.RoofPlatform;
     public override int PrintOrder => 40;

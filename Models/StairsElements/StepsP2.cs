@@ -6,11 +6,11 @@ public partial class StepsP2 : BaseStairsElement
 {
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> stepsWidth = new();
+    ServiceabilityProperty stepsWidth = new();
 
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> stepsHeight = new();
+    ServiceabilityProperty stepsHeight = new();
 
     public override string Name => AppResources.StairsSteps;
     public override BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P2;

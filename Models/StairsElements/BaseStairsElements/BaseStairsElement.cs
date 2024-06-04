@@ -68,7 +68,7 @@ public abstract partial class BaseStairsElement : ObservableObject
 
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> deformation = new();
+    ServiceabilityProperty deformation = new();
 
     public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(WithstandLoadCalcResult));
 

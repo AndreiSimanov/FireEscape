@@ -1,15 +1,27 @@
 ﻿using FireEscape.Converters;
 using FireEscape.Factories.Interfaces;
+using FireEscape.Models.Attributes;
+using System.Reflection;
 
 namespace FireEscape.Reports.ReportDataProviders;
 
-public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSettings reportSettings, IStairsFactory stairsFactory, ServiceabilityLimits[] serviceabilityLimits)
+public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSettings reportSettings, IStairsFactory stairsFactory, ServiceabilityLimit[] allServiceabilityLimits)
 {
     List<StairsElementResult>? stairsElementResults;
 
-    ServiceabilityLimits serviceabilityLimits = serviceabilityLimits.FirstOrDefault(item =>
-           item.StairsType == protocol.Stairs.StairsType &&
-           item.IsEvacuation == protocol.Stairs.IsEvacuation);
+    ServiceabilityLimit[]? serviceabilityLimits;
+
+    ServiceabilityLimit[] ServiceabilityLimits 
+    {
+        get 
+        { 
+            if (serviceabilityLimits == null )
+                serviceabilityLimits = allServiceabilityLimits.Where(item =>
+                    item.StairsType == protocol.Stairs.StairsType &&
+                    (!item.IsEvacuation.HasValue || item.IsEvacuation == protocol.Stairs.IsEvacuation)).ToArray();
+            return serviceabilityLimits;
+        }
+    }
 
     Stairs Stairs => protocol.Stairs;
 
@@ -82,40 +94,58 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         if (!Stairs.ProtectiveServiceability)
             summary.Add("конструкция не окрашена (ГОСТ 9.032)");
 
-        CheckServiceability(summary, Stairs.StairsHeight,
-            _ => StairsHeight > serviceabilityLimits.MaxStairsHeight && serviceabilityLimits.MaxStairsHeight.HasValue,
-            $"высота лестницы не более {serviceabilityLimits.MaxStairsHeight}м ({StairsHeight}м)",
-            "высота лестницы не соответствует ГОСТ");
-
-        CheckServiceability(summary, Stairs.StairsWidth,
-            _ => StairsWidth < serviceabilityLimits.MinStairsWidth,
-            $"ширина лестницы не менее {serviceabilityLimits.MinStairsWidth}мм ({StairsWidth}мм)",
-            "ширина лестницы не соответствует ГОСТ");
-
-        CheckServiceability(summary, Stairs.GroundDistance,
-            _ => Stairs.GroundDistance.Value > serviceabilityLimits.MaxGroundDistance && serviceabilityLimits.MaxGroundDistance.HasValue,
-            $"расстояние до лестницы от уровня земли не более {serviceabilityLimits.MaxGroundDistance}мм ({Stairs.GroundDistance.Value}мм)",
-            "расстояние до лестницы от уровня земли не соответствует ГОСТ");
-
-
+        GetServiceabilityRecords(Stairs).
+            OrderBy(item => item.ServiceabilityLimit.PrintOrder).
+            ToList().
+            ForEach(serviceabilityRecord => CheckServiceability(summary, serviceabilityRecord));
         return summary;
     }
 
-    static void CheckServiceability<T>(List<string> summary, ServiceabilityProperty<T> serviceabilityProperty,
-        Predicate<T> predicate, string rejectExplanation, string defaultExplanation) where T : struct
+    IEnumerable<ServiceabilityRecord> GetServiceabilityRecords(object obj)
     {
-        if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Approve)
-            return;
-
-        if (predicate != null && predicate(serviceabilityProperty.Value))
-            summary.Add(string.Format(rejectExplanation, serviceabilityProperty.Value));
-
-        if (serviceabilityProperty.ServiceabilityType == ServiceabilityTypeEnum.Reject)
+        foreach (var prop in obj.GetType().GetProperties())
         {
-            if (string.IsNullOrWhiteSpace(serviceabilityProperty.RejectExplanation))
-                summary.Add(defaultExplanation);
+            var attr = prop.GetCustomAttribute(typeof(ServiceabilityAttribute)) as ServiceabilityAttribute;
+            if (attr != null)
+            {
+                var serviceabilityName = $"{obj.GetType().Name}.{
+                    (string.IsNullOrWhiteSpace(attr.ServiceabilityName) ? prop.Name : attr.ServiceabilityName)}";
+                var serviceabilityProperty = prop.GetValue(obj, null) as ServiceabilityProperty;
+                if (serviceabilityProperty != null)
+                {
+                    if (ServiceabilityLimits.Any(serviceabilityLimit => serviceabilityLimit.ServiceabilityName == serviceabilityName))
+                    {
+                        yield return new ServiceabilityRecord(serviceabilityProperty, 
+                            ServiceabilityLimits.First(serviceabilityLimit => serviceabilityLimit.ServiceabilityName == serviceabilityName));
+                    }   
+                }
+            }
+        }
+    }
+
+    static void CheckServiceability(List<string> summary, ServiceabilityRecord serviceabilityRecord)
+    {
+        if (serviceabilityRecord.ServiceabilityType == ServiceabilityTypeEnum.Approve)
+            return;
+    
+        if (serviceabilityRecord.MaxValue.HasValue && serviceabilityRecord.Value > serviceabilityRecord.MaxValue)
+        {
+            summary.Add(string.Format(serviceabilityRecord.LimitRejectExplanation,
+                serviceabilityRecord.MaxValue / serviceabilityRecord.Multiplier, serviceabilityRecord.Value / serviceabilityRecord.Multiplier));
+        }
+
+        if (serviceabilityRecord.MinValue.HasValue && serviceabilityRecord.Value < serviceabilityRecord.MinValue)
+        {
+            summary.Add(string.Format(serviceabilityRecord.LimitRejectExplanation,
+                serviceabilityRecord.MinValue / serviceabilityRecord.Multiplier, serviceabilityRecord.Value / serviceabilityRecord.Multiplier));
+        }
+
+        if (serviceabilityRecord.ServiceabilityType == ServiceabilityTypeEnum.Reject)
+        {
+            if (string.IsNullOrWhiteSpace(serviceabilityRecord.RejectExplanationText))
+                summary.Add(serviceabilityRecord.DefaultRejectExplanation);
             else
-                summary.AddRange(serviceabilityProperty.RejectExplanation.Split(Environment.NewLine));
+                summary.AddRange(serviceabilityRecord.RejectExplanationText.Split(Environment.NewLine));
         }
     }
 

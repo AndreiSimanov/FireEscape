@@ -1,22 +1,22 @@
 ﻿namespace FireEscape.Views.Controls;
 
-public abstract class BaseServiceabilityViewControl<T> : ContentView where T : struct
+public abstract class BaseServiceabilityViewControl : ContentView
 {
-    public static readonly BindableProperty LabelProperty = BindableProperty.Create(nameof(Label), typeof(string), typeof(BaseServiceabilityViewControl<T>), defaultBindingMode: BindingMode.OneWay);
+    public static readonly BindableProperty LabelProperty = BindableProperty.Create(nameof(Label), typeof(string), typeof(BaseServiceabilityViewControl), defaultBindingMode: BindingMode.OneWay);
     public string Label
     {
         get => (string)GetValue(LabelProperty);
         set => SetValue(LabelProperty, value);
     }
 
-    public static readonly BindableProperty ServiceabilityValueProperty = BindableProperty.Create(nameof(ServiceabilityValue), typeof(ServiceabilityProperty<T>), typeof(BaseServiceabilityViewControl<T>), defaultBindingMode: BindingMode.OneWay);
-    public ServiceabilityProperty<T> ServiceabilityValue
+    public static readonly BindableProperty ServiceabilityValueProperty = BindableProperty.Create(nameof(ServiceabilityValue), typeof(ServiceabilityProperty), typeof(BaseServiceabilityViewControl), defaultBindingMode: BindingMode.OneWay);
+    public ServiceabilityProperty ServiceabilityValue
     {
-        get => (ServiceabilityProperty<T>)GetValue(ServiceabilityValueProperty);
+        get => (ServiceabilityProperty)GetValue(ServiceabilityValueProperty);
         set => SetValue(ServiceabilityValueProperty, value);
     }
 
-    public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BaseServiceabilityViewControl<T>), defaultBindingMode: BindingMode.OneWay);
+    public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BaseServiceabilityViewControl), defaultBindingMode: BindingMode.OneWay);
     public Color TextColor
     {
         get => (Color)GetValue(TextColorProperty);

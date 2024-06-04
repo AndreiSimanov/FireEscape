@@ -6,7 +6,7 @@ public partial class StepsP1 : BaseStairsElement
 {
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> stepsDistance = new();
+    ServiceabilityProperty stepsDistance = new();
 
     public override string Name => AppResources.StairsSteps;
     public override bool Required => true;

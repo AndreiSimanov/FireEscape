@@ -6,7 +6,7 @@ public partial class SupportBeamsP1 : BaseSupportBeamsElement
 {
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> wallDistance = new();
+    ServiceabilityProperty wallDistance = new();
 
     public override string Name => AppResources.SupportBeams;
     public override bool Required => true;

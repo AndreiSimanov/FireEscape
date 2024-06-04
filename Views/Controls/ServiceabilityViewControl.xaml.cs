@@ -2,7 +2,7 @@ using FireEscape.Converters;
 
 namespace FireEscape.Views.Controls;
 
-public partial class ServiceabilityViewControl : BaseServiceabilityViewControl<float>
+public partial class ServiceabilityViewControl : BaseServiceabilityViewControl
 {
     public ServiceabilityViewControl()
     {

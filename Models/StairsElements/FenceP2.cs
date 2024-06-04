@@ -7,7 +7,7 @@ public partial class FenceP2 : BaseStairsElement
     
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> fenceHeight = new();
+    ServiceabilityProperty fenceHeight = new();
 
     public override string Name => AppResources.StairsFence;
     public override BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P2;

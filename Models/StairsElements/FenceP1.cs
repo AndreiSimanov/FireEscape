@@ -6,7 +6,7 @@ public partial class FenceP1 : BaseStairsElement
 {
     [ObservableProperty]
     [property: Serviceability]
-    ServiceabilityProperty<float> groundDistance = new();
+    ServiceabilityProperty groundDistance = new();
 
     public override string Name => AppResources.StairsFence;
     public override int PrintOrder => 30;
