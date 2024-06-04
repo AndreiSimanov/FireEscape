@@ -53,8 +53,8 @@
                 <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
                 <conv:FloatZeroToObjectConverter x:Key="FloatZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
                 <conv:IntZeroToObjectConverter x:Key="IntZeroToObjectConverter"  TrueObject="Red" FalseObject="Green" />
-                <conv:FloatZeroToObjectConverter x:Key="FloatZeroToLableColorConverter"  TrueObject="Red" FalseObject="{dx:ThemeColor OnSurface, Alpha=0.55}" />
-                <conv:IntZeroToObjectConverter x:Key="IntZeroToLableColorConverter"  TrueObject="Red" FalseObject="{dx:ThemeColor OnSurface, Alpha=0.55}" />
+                <conv:FloatZeroToObjectConverter x:Key="FloatZeroToLableColorConverter"  TrueObject="Red" FalseObject="{dx:ThemeColor OnSurface, Alpha=0.80}" />
+                <conv:IntZeroToObjectConverter x:Key="IntZeroToLableColorConverter"  TrueObject="Red" FalseObject="{dx:ThemeColor OnSurface, Alpha=0.80}" />
                 <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor SurfaceContainerHighest}" FalseObject="#D74F67" />
             </ResourceDictionary>
         </ScrollView.Resources>
@@ -306,7 +306,7 @@
                                         <ctrl:ServiceabilityViewControl
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP1}}"
                                             Label="{x:Static lang:AppResources.StairsFenceHeight}"
-                                            TextColor="{dx:ThemeColor OnSurface, Alpha=0.55}"
+                                            TextColor="{dx:ThemeColor OnSurface, Alpha=0.80}"
                                             ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:PlatformP1}}, Path=PlatformFenceHeight}"
                                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 
@@ -320,7 +320,7 @@
                                         <ctrl:ServiceabilityViewControl
                                             IsVisible="{Binding StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:FenceP1}}"
                                             Label="{x:Static lang:AppResources.GroundDistance}"
-                                            TextColor="{dx:ThemeColor OnSurface, Alpha=0.55}"
+                                            TextColor="{dx:ThemeColor OnSurface, Alpha=0.80}"
                                             ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type elements:FenceP1}}, Path=GroundDistance}"
                                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 
@@ -379,7 +379,7 @@
 
                                         <ctrl:ServiceabilityViewControl
                                             Label="{x:Static lang:AppResources.Deformation}"
-                                            TextColor="{dx:ThemeColor OnSurface, Alpha=0.55}"
+                                            TextColor="{dx:ThemeColor OnSurface, Alpha=0.80}"
                                             ServiceabilityValue="{Binding Deformation}"
                                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"/>
 

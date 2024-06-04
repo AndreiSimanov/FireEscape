@@ -20,10 +20,12 @@
                     <Grid.Resources>
                         <ResourceDictionary>
                             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                            <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor OnSurface, Alpha=0.60}" FalseObject="{dx:ThemeColor Primary}" />
                         </ResourceDictionary>
                     </Grid.Resources>
                     <Border
                         Style="{StaticResource BaseBorder}"
+                        Stroke="{Binding IsBusy, Converter={StaticResource BoolToObjectConverter}}"
                         StrokeShape="RoundRectangle 85"
                         StrokeThickness="8"
                         HeightRequest="172"
@@ -32,7 +34,8 @@
                         VerticalOptions="Center">
                         <dx:DXImage
                             IsVisible="{Binding EditObject.HasImage, Converter={StaticResource InvertedBoolConverter}}"
-                            TintColor="{dx:ThemeColor Primary}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            TintColor="{Binding IsBusy, Converter={StaticResource BoolToObjectConverter}}"
                             Source="nophoto"
                             Aspect="AspectFill"
                             WidthRequest="100"
@@ -48,7 +51,7 @@
                         IsVisible="{Binding  EditObject.HasImage}"
                         StrokeShape="RoundRectangle 85"
                         Stroke="White"
-                        StrokeThickness="8"
+                        StrokeThickness="4"
                         HeightRequest="172"
                         WidthRequest="172"
                         HorizontalOptions="Center"
