@@ -147,6 +147,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         foreach (var stairsElement in protocolRdp.GetStairsElementsResult())
             MakeTestResultsRow(table, stairsElement);
         document.Add(table);
+        document.Add(new Paragraph(" "));
     }
 
     void MakeTestResultsRow(Table table, StairsElementResult stairsElementResult)
@@ -180,7 +181,6 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         return new Cell().Add(paragraph).SetVerticalAlignment(iText.Layout.Properties.VerticalAlignment.MIDDLE);
     }
 
-
     void MakeImage(Document document)
     {
         if (!protocolRdp.HasImage)
@@ -212,8 +212,16 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("«Техника пожарная. Лестницы пожарные наружные стационарные. Ограждения кровли. Общие технические требования. Методы испытаний» пожарная стационарная лестница, к эксплуатации "),
                 new Text(summary.Count() > 0 ? "не пригодна." : "пригодна.").SetBold()
             }));
+
+        var summaryList = new List();
         foreach (var item in summary)
-            document.Add(new Paragraph("- " + item).SetFixedLeading(8));
+        {
+            var listItem = new ListItem();
+            listItem.Add(new Paragraph(item).SetFixedLeading(12));
+            summaryList.Add(listItem);
+        }
+        document.Add(summaryList);
+
         document.Add(new Paragraph(" "));
 
         document.Add(new Paragraph()
