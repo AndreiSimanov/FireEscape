@@ -4,14 +4,14 @@ namespace FireEscape.Reports.ReportDataProviders;
 
 public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbsent, List<string> Summary)
 {
+    string name = string.Empty;
     public string Name
     {
         get
         {
-            var elementNumber = string.Empty;
-            if (StairsElementType == typeof (PlatformP2) || StairsElementType == typeof(StairwayP2))
-                elementNumber = ToRangeString(StairsElements.Select(element => element.ElementNumber));
-            return $"{StairsElements.First().Name} {elementNumber}";
+            if (string.IsNullOrWhiteSpace(name))
+                name = GetStairsElementResultName();
+            return name;
         }
     }
 
@@ -19,6 +19,16 @@ public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbs
     public int TestPointCount => StairsElements.First().TestPointCount;
     public float WithstandLoadCalcResult => StairsElements.First().WithstandLoadCalcResult;
     public int PrintOrder => StairsElements.First().PrintOrder;
+    public int ElementNumber => StairsElements.Min(element => element.ElementNumber);
+
+
+    string GetStairsElementResultName()
+    {
+        var elementNumber = string.Empty;
+        if (StairsElementType == typeof(PlatformP2) || StairsElementType == typeof(StairwayP2))
+            elementNumber = ToRangeString(StairsElements.Select(element => element.ElementNumber));
+        return $"{StairsElements.First().Name} {elementNumber}";
+    }
 
     static string ToRangeString(IEnumerable<int> nums)
     {

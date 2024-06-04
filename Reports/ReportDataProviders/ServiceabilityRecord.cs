@@ -11,4 +11,5 @@ public record ServiceabilityRecord(ServiceabilityProperty ServiceabilityProperty
     public float Multiplier => ServiceabilityLimit.Multiplier;
     public string LimitRejectExplanation => ServiceabilityLimit.RejectExplanation;
     public string DefaultRejectExplanation => ServiceabilityLimit.DefaultRejectExplanation;
+    public float WithstandLoadCalcResult { get; set; }
 }

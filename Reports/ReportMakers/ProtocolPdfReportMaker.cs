@@ -144,7 +144,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         table.AddHeaderCell(MakeCell("Количество\r\nточек\r\nиспытаний", alignment: TextAlignment.CENTER));
         table.AddHeaderCell(MakeCell("Нагрузка\r\n(кгс.)", alignment: TextAlignment.CENTER));
         table.AddHeaderCell(MakeCell("Результаты\r\nиспытания", alignment: TextAlignment.CENTER));
-        foreach (var stairsElement in protocolRdp.GetStairsElements())
+        foreach (var stairsElement in protocolRdp.GetStairsElementsResult())
             MakeTestResultsRow(table, stairsElement);
         document.Add(table);
     }
@@ -201,7 +201,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
     {
         document.SetFontSize(10);
 
-        var summary = protocolRdp.GetSummary();
+        var summary = protocolRdp.GetReportSummary();
 
         document.Add(new Paragraph()
             .SetFixedLeading(12)

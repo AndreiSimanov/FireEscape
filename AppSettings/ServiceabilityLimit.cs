@@ -2,7 +2,8 @@
 
 public readonly record struct ServiceabilityLimit(
     string ServiceabilityName,
-    StairsTypeEnum StairsType,
+    BaseStairsTypeEnum BaseStairsType,
+    StairsTypeEnum? StairsType,
     bool? IsEvacuation,
     int PrintOrder,
     float? MaxValue,

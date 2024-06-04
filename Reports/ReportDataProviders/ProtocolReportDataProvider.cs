@@ -2,6 +2,7 @@
 using FireEscape.Factories.Interfaces;
 using FireEscape.Models.Attributes;
 using System.Reflection;
+using System.Linq;
 
 namespace FireEscape.Reports.ReportDataProviders;
 
@@ -17,7 +18,8 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         { 
             if (serviceabilityLimits == null )
                 serviceabilityLimits = allServiceabilityLimits.Where(item =>
-                    item.StairsType == protocol.Stairs.StairsType &&
+                    item.BaseStairsType == protocol.Stairs.BaseStairsType &&
+                    (!item.StairsType.HasValue ||  item.StairsType == protocol.Stairs.StairsType) &&
                     (!item.IsEvacuation.HasValue || item.IsEvacuation == protocol.Stairs.IsEvacuation)).ToArray();
             return serviceabilityLimits;
         }
@@ -69,7 +71,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
 
     public string SecondaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.SecondaryExecutorSign) ? order.SecondaryExecutorSign : protocol.SecondaryExecutorSign);
 
-    public List<StairsElementResult> GetStairsElements()
+    public List<StairsElementResult> GetStairsElementsResult()
     {
         if (stairsElementResults != null)
             return stairsElementResults;
@@ -77,16 +79,25 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         stairsElementResults = Stairs.StairsElements.
             Where(stairsElement => stairsElement.BaseStairsType == Stairs.BaseStairsType).
             GroupBy(stairsElement => new { stairsElement.StairsElementType, stairsElement.WithstandLoadCalc }, (key, group) =>
-                new StairsElementResult(group.ToArray(), false, [])).ToList();
+                new StairsElementResult(group.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber).ToArray(), false, [])).ToList();
+
+        foreach (var (elementResult, element) in stairsElementResults.SelectMany(elementResult => elementResult.StairsElements.Select(element => (elementResult, element))))
+        {
+            foreach (var serviceabilityRecord in GetServiceabilityRecords(element).OrderBy(item => item.ServiceabilityLimit.PrintOrder))
+            {
+                serviceabilityRecord.WithstandLoadCalcResult = element.WithstandLoadCalcResult;
+                elementResult.Summary.AddRange(GetServiceabilitySummary(serviceabilityRecord));
+            }
+        }
 
         stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(Stairs)
             .Where(element => !stairsElementResults.Any(item => item.StairsElementType == element.StairsElementType))
             .Select(element => new StairsElementResult([element], true, [])));
 
-        return stairsElementResults = [.. stairsElementResults.OrderBy(element => element.PrintOrder).ThenBy(element => element.Name)];
+        return stairsElementResults = [.. stairsElementResults.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)];
     }
 
-    public List<string> GetSummary()
+    public List<string> GetReportSummary()
     {
         var summary = new List<string>();
         if (!Stairs.WeldSeamServiceability)
@@ -97,7 +108,10 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         GetServiceabilityRecords(Stairs).
             OrderBy(item => item.ServiceabilityLimit.PrintOrder).
             ToList().
-            ForEach(serviceabilityRecord => CheckServiceability(summary, serviceabilityRecord));
+            ForEach(serviceabilityRecord => summary.AddRange(GetServiceabilitySummary(serviceabilityRecord)));
+
+        GetStairsElementsResult().ForEach(elementResult => summary.AddRange(elementResult.Summary));
+
         return summary;
     }
 
@@ -123,29 +137,36 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         }
     }
 
-    static void CheckServiceability(List<string> summary, ServiceabilityRecord serviceabilityRecord)
+    static IEnumerable<string> GetServiceabilitySummary(ServiceabilityRecord serviceabilityRecord)
     {
         if (serviceabilityRecord.ServiceabilityType == ServiceabilityTypeEnum.Approve)
-            return;
-    
+            yield break;
+
         if (serviceabilityRecord.MaxValue.HasValue && serviceabilityRecord.Value > serviceabilityRecord.MaxValue)
         {
-            summary.Add(string.Format(serviceabilityRecord.LimitRejectExplanation,
-                serviceabilityRecord.MaxValue / serviceabilityRecord.Multiplier, serviceabilityRecord.Value / serviceabilityRecord.Multiplier));
+            yield return string.Format(serviceabilityRecord.LimitRejectExplanation,
+                serviceabilityRecord.MaxValue / serviceabilityRecord.Multiplier, 
+                serviceabilityRecord.Value / serviceabilityRecord.Multiplier,
+                serviceabilityRecord.WithstandLoadCalcResult);
         }
 
         if (serviceabilityRecord.MinValue.HasValue && serviceabilityRecord.Value < serviceabilityRecord.MinValue)
         {
-            summary.Add(string.Format(serviceabilityRecord.LimitRejectExplanation,
-                serviceabilityRecord.MinValue / serviceabilityRecord.Multiplier, serviceabilityRecord.Value / serviceabilityRecord.Multiplier));
+            yield return string.Format(serviceabilityRecord.LimitRejectExplanation,
+                serviceabilityRecord.MinValue / serviceabilityRecord.Multiplier, 
+                serviceabilityRecord.Value / serviceabilityRecord.Multiplier,
+                serviceabilityRecord.WithstandLoadCalcResult);
         }
 
         if (serviceabilityRecord.ServiceabilityType == ServiceabilityTypeEnum.Reject)
         {
             if (string.IsNullOrWhiteSpace(serviceabilityRecord.RejectExplanationText))
-                summary.Add(serviceabilityRecord.DefaultRejectExplanation);
+                yield return serviceabilityRecord.DefaultRejectExplanation;
             else
-                summary.AddRange(serviceabilityRecord.RejectExplanationText.Split(Environment.NewLine));
+            {
+                foreach (var text in serviceabilityRecord.RejectExplanationText.Split(Environment.NewLine))
+                    yield return text;
+            }
         }
     }
 
