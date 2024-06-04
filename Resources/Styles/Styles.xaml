@@ -338,7 +338,7 @@
     </Style>
 
     <Style TargetType="Label" x:Key="SubLine" BasedOn="{StaticResource Titleline}">
-        <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.38}" />
+        <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.55}" />
         <Setter Property="FontSize" Value="12" />
     </Style>
 
