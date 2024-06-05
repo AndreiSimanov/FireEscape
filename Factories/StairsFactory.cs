@@ -23,10 +23,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
 
     public Stairs CopyStairs(Stairs stairs)
     {
-        var copy = JsonSerializer.Deserialize<Stairs>(JsonSerializer.Serialize(stairs));
-        if (copy == null)
-            throw new Exception("Unable to copy the stairs");
-
+        var copy = JsonSerializer.Deserialize<Stairs>(JsonSerializer.Serialize(stairs)) ?? throw new Exception("Unable to copy the stairs");
         copy.Id = 0;
         copy.Created = DateTime.Now;
         copy.Updated = DateTime.Now;
@@ -43,25 +40,25 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             if (elementType == null)
                 continue;
             var stairsElements = stairs.StairsElements.Where(item => item.StairsElementType == elementType).ToList();
-            var elementsCount = stairsElements.Count();
+            var elementsCount = stairsElements.Count;
             if (elementsCount >= elementSettings.MaxCount)
                 continue;
-            var elementNumber = stairsElements.Any() ? stairsElements.Max(element => element.ElementNumber) + 1 : 1;
+            var elementNumber = stairsElements.Count != 0 ? stairsElements.Max(element => element.ElementNumber) + 1 : 1;
             var stairsElement = CreateElement(elementType, elementNumber, elementSettings);
             if (stairsElement == null)
                 continue;
             yield return stairsElement;
         }
     }
-    BaseStairsElement? CreateElement(Type type, int elementNumber, StairsElementSettings elementSettings)
+
+    static BaseStairsElement? CreateElement(Type type, int elementNumber, StairsElementSettings elementSettings)
     {
-        var stairsElement = Activator.CreateInstance(type) as BaseStairsElement;
-        if (stairsElement != null)
+        if (Activator.CreateInstance(type) is BaseStairsElement stairsElement)
         {
             stairsElement.WithstandLoad = elementSettings.WithstandLoad;
             stairsElement.ElementNumber = elementNumber;
-            if (stairsElement is BaseSupportBeamsElement)
-                ((BaseSupportBeamsElement)stairsElement).SupportBeamsCount = elementSettings.SupportBeamsCount;
+            if (stairsElement is BaseSupportBeamsElement element)
+                element.SupportBeamsCount = elementSettings.SupportBeamsCount;
             return stairsElement;
         }
         return null;
@@ -76,7 +73,7 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
             var elementType = Type.GetType(elementSetting.TypeName);
             if (elementType == null)
                 continue;
-            var stairsElement = CreateElement(elementType, 1, elementSetting);
+            var stairsElement = StairsFactory.CreateElement(elementType, 1, elementSetting);
             if (stairsElement == null)
                 continue;
             yield return stairsElement;

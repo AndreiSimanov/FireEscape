@@ -28,7 +28,7 @@ public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings) 
         newProtocol.ImageFilePath = null;
         newProtocol.Stairs = new();
         newProtocol.StairsId = 0;
-        newProtocol.FireEscapeNum = newProtocol.FireEscapeNum + 1;
+        newProtocol.FireEscapeNum++;
         newProtocol.Created = DateTime.Now;
         newProtocol.Updated = DateTime.Now;
         return newProtocol;

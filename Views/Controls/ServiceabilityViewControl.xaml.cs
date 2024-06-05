@@ -18,10 +18,7 @@ public partial class ServiceabilityViewControl : BaseServiceabilityViewControl
         valueSpan.SetBinding(
             Span.TextProperty,
             new Binding("ServiceabilityValue.Value", converter: ValueConverter));
-
-        var unitOfMeasureConverter = ValueConverter as UnitOfMeasureConverter;
-
-        UnitOfMeasureSymbol = unitOfMeasureConverter == null ? string.Empty : unitOfMeasureConverter.UnitOfMeasure.Symbol;
+        UnitOfMeasureSymbol = ValueConverter is UnitOfMeasureConverter unitOfMeasureConverter ? unitOfMeasureConverter.UnitOfMeasure.Symbol : string.Empty;
         OnPropertyChanged(nameof(UnitOfMeasureSymbol));
     }
 }

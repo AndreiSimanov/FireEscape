@@ -16,8 +16,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     {
         get 
         { 
-            if (serviceabilityLimits == null )
-                serviceabilityLimits = allServiceabilityLimits.Where(item =>
+            serviceabilityLimits ??= allServiceabilityLimits.Where(item =>
                     item.BaseStairsType == protocol.Stairs.BaseStairsType &&
                     (!item.StairsType.HasValue ||  item.StairsType == protocol.Stairs.StairsType) &&
                     (!item.IsEvacuation.HasValue || item.IsEvacuation == protocol.Stairs.IsEvacuation)).ToArray();
@@ -79,7 +78,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         stairsElementResults = Stairs.StairsElements.
             Where(stairsElement => stairsElement.BaseStairsType == Stairs.BaseStairsType).
             GroupBy(stairsElement => new { stairsElement.StairsElementType, stairsElement.WithstandLoadCalc }, (key, group) =>
-                new StairsElementResult(group.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber).ToArray(), false, [])).ToList();
+                new StairsElementResult([.. group.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)], false, [])).ToList();
 
         foreach (var (elementResult, element) in stairsElementResults.SelectMany(elementResult => elementResult.StairsElements.Select(element => (elementResult, element))))
         {
@@ -122,19 +121,16 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     {
         foreach (var prop in obj.GetType().GetProperties())
         {
-            var attr = prop.GetCustomAttribute(typeof(ServiceabilityAttribute)) as ServiceabilityAttribute;
-            if (attr != null)
+            if (prop.GetCustomAttribute(typeof(ServiceabilityAttribute)) is ServiceabilityAttribute attr)
             {
-                var serviceabilityName = $"{obj.GetType().Name}.{
-                    (string.IsNullOrWhiteSpace(attr.ServiceabilityName) ? prop.Name : attr.ServiceabilityName)}";
-                var serviceabilityProperty = prop.GetValue(obj, null) as ServiceabilityProperty;
-                if (serviceabilityProperty != null)
+                var serviceabilityName = $"{obj.GetType().Name}.{(string.IsNullOrWhiteSpace(attr.ServiceabilityName) ? prop.Name : attr.ServiceabilityName)}";
+                if (prop.GetValue(obj, null) is ServiceabilityProperty serviceabilityProperty)
                 {
                     if (ServiceabilityLimits.Any(serviceabilityLimit => serviceabilityLimit.ServiceabilityName == serviceabilityName))
                     {
-                        yield return new ServiceabilityRecord(serviceabilityProperty, 
+                        yield return new ServiceabilityRecord(serviceabilityProperty,
                             ServiceabilityLimits.First(serviceabilityLimit => serviceabilityLimit.ServiceabilityName == serviceabilityName));
-                    }   
+                    }
                 }
             }
         }

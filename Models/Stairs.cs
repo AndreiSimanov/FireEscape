@@ -64,7 +64,7 @@ public partial class Stairs : BaseObject
 
     [ObservableProperty]
     [property: TextBlob(nameof(StairsElementsBlob))]
-    ObservableCollection<BaseStairsElement> stairsElements = new();
+    ObservableCollection<BaseStairsElement> stairsElements = [];
 
     public string? StairsElementsBlob { get; set; }
 

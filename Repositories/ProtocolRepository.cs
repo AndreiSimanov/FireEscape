@@ -29,7 +29,7 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
         var protocols = await (await connection).GetAllWithChildrenAsync<Protocol>(protocol => protocol.OrderId == orderId, true);
         protocols.Where(protocol => !string.IsNullOrWhiteSpace(protocol.Image)).ToList().
             ForEach(protocol => protocol.ImageFilePath = Path.Combine(ApplicationSettings.ImagesFolder, protocol.Image!));
-        return protocols.OrderByDescending(item => item.Id).ToArray();
+        return [.. protocols.OrderByDescending(item => item.Id)];
     }
 
     public async Task AddImageAsync(Protocol protocol, FileResult? imageFile)

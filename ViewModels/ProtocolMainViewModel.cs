@@ -12,7 +12,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     Order? order;
 
     [ObservableProperty]
-    ObservableCollection<Protocol> protocols = new();
+    ObservableCollection<Protocol> protocols = [];
 
     [ObservableProperty]
     bool isRefreshing;

@@ -20,10 +20,9 @@ public partial class ProtocolMainPage : ContentPage
         protocols.ScrollTo(0);
     }
 
-    void CopyProtocolWithStairs(object sender, DevExpress.Maui.CollectionView.SwipeItemTapEventArgs e)
+    public void CopyProtocolWithStairs(object sender, DevExpress.Maui.CollectionView.SwipeItemTapEventArgs e)
     {
-        var protocol = e.Item as Protocol;
-        if (protocol == null)
+        if (e.Item is not Protocol protocol)
             return;
         ProtocolMainViewModel?.CopyProtocolWithStairsCommand.Execute(protocol);
         protocols.ScrollTo(0);
