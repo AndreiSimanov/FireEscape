@@ -2,7 +2,6 @@
 using FireEscape.Factories.Interfaces;
 using FireEscape.Models.Attributes;
 using System.Reflection;
-using System.Linq;
 
 namespace FireEscape.Reports.ReportDataProviders;
 
@@ -12,13 +11,13 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
 
     ServiceabilityLimit[]? serviceabilityLimits;
 
-    ServiceabilityLimit[] ServiceabilityLimits 
+    ServiceabilityLimit[] ServiceabilityLimits
     {
-        get 
-        { 
+        get
+        {
             serviceabilityLimits ??= allServiceabilityLimits.Where(item =>
                     item.BaseStairsType == protocol.Stairs.BaseStairsType &&
-                    (!item.StairsType.HasValue ||  item.StairsType == protocol.Stairs.StairsType) &&
+                    (!item.StairsType.HasValue || item.StairsType == protocol.Stairs.StairsType) &&
                     (!item.IsEvacuation.HasValue || item.IsEvacuation == protocol.Stairs.IsEvacuation)).ToArray();
             return serviceabilityLimits;
         }
@@ -144,7 +143,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         if (serviceabilityRecord.MaxValue.HasValue && serviceabilityRecord.Value > serviceabilityRecord.MaxValue)
         {
             yield return string.Format(serviceabilityRecord.LimitRejectExplanation,
-                serviceabilityRecord.MaxValue / serviceabilityRecord.Multiplier, 
+                serviceabilityRecord.MaxValue / serviceabilityRecord.Multiplier,
                 serviceabilityRecord.Value / serviceabilityRecord.Multiplier,
                 serviceabilityRecord.WithstandLoadCalcResult,
                 serviceabilityRecord.ElementCaption);
@@ -153,7 +152,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         if (serviceabilityRecord.MinValue.HasValue && serviceabilityRecord.Value < serviceabilityRecord.MinValue)
         {
             yield return string.Format(serviceabilityRecord.LimitRejectExplanation,
-                serviceabilityRecord.MinValue / serviceabilityRecord.Multiplier, 
+                serviceabilityRecord.MinValue / serviceabilityRecord.Multiplier,
                 serviceabilityRecord.Value / serviceabilityRecord.Multiplier,
                 serviceabilityRecord.WithstandLoadCalcResult,
                 serviceabilityRecord.ElementCaption);

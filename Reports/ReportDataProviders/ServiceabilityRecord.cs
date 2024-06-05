@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.Reports.ReportDataProviders;
 
-public record ServiceabilityRecord(ServiceabilityProperty ServiceabilityProperty,  ServiceabilityLimit ServiceabilityLimit)
+public record ServiceabilityRecord(ServiceabilityProperty ServiceabilityProperty, ServiceabilityLimit ServiceabilityLimit)
 {
     public ServiceabilityTypeEnum ServiceabilityType => ServiceabilityProperty.ServiceabilityType;
     public float Value => ServiceabilityProperty.Value;

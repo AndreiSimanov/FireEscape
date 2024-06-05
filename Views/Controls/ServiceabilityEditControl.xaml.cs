@@ -63,7 +63,7 @@ public partial class ServiceabilityEditControl : ContentView
     protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
-        if (propertyName == nameof(LabelText)) 
+        if (propertyName == nameof(LabelText))
         {
             OnPropertyChanged(nameof(RejectExplanationLabel));
         }
