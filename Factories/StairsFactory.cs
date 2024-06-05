@@ -1,6 +1,7 @@
 ﻿using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace FireEscape.Factories;
 
@@ -19,6 +20,18 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         ProtectiveServiceability = stairsSettings.ProtectiveServiceability,
         StairsElements = new ObservableCollection<BaseStairsElement>(GetDefaultStairsElements())
     };
+
+    public Stairs CopyStairs(Stairs stairs)
+    {
+        var copy = JsonSerializer.Deserialize<Stairs>(JsonSerializer.Serialize(stairs));
+        if (copy == null)
+            throw new Exception("Unable to copy the stairs");
+
+        copy.Id = 0;
+        copy.Created = DateTime.Now;
+        copy.Updated = DateTime.Now;
+        return copy;
+    }
 
     public IEnumerable<BaseStairsElement> GetAvailableStairsElements(Stairs stairs)
     {

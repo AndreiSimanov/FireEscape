@@ -87,6 +87,21 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     }
 
     [RelayCommand]
+    async Task CopyProtocolWithStairsAsync(Protocol protocol)
+    {
+        Protocol? newProtocol = null;
+        await DoBusyCommandAsync(async () =>
+        {
+            newProtocol = await protocolService.CopyWithStairsAsync(protocol);
+            Protocols.Insert(0, newProtocol);
+        },
+        AppResources.CopyProtocolError);
+
+        if (newProtocol != null)
+            await GoToDetailsAsync(newProtocol);
+    }
+
+    [RelayCommand]
     async Task DeleteProtocolAsync(Protocol protocol) =>
         await DoBusyCommandAsync(async () =>
         {
