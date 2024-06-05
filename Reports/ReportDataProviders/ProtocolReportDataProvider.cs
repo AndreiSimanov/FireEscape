@@ -86,6 +86,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
             foreach (var serviceabilityRecord in GetServiceabilityRecords(element).OrderBy(item => item.ServiceabilityLimit.PrintOrder))
             {
                 serviceabilityRecord.WithstandLoadCalcResult = element.WithstandLoadCalcResult;
+                serviceabilityRecord.ElementCaption = element.Caption;
                 elementResult.Summary.AddRange(GetServiceabilitySummary(serviceabilityRecord));
             }
         }
@@ -149,7 +150,8 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
             yield return string.Format(serviceabilityRecord.LimitRejectExplanation,
                 serviceabilityRecord.MaxValue / serviceabilityRecord.Multiplier, 
                 serviceabilityRecord.Value / serviceabilityRecord.Multiplier,
-                serviceabilityRecord.WithstandLoadCalcResult);
+                serviceabilityRecord.WithstandLoadCalcResult,
+                serviceabilityRecord.ElementCaption);
         }
 
         if (serviceabilityRecord.MinValue.HasValue && serviceabilityRecord.Value < serviceabilityRecord.MinValue)
@@ -157,13 +159,14 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
             yield return string.Format(serviceabilityRecord.LimitRejectExplanation,
                 serviceabilityRecord.MinValue / serviceabilityRecord.Multiplier, 
                 serviceabilityRecord.Value / serviceabilityRecord.Multiplier,
-                serviceabilityRecord.WithstandLoadCalcResult);
+                serviceabilityRecord.WithstandLoadCalcResult,
+                serviceabilityRecord.ElementCaption);
         }
 
         if (serviceabilityRecord.ServiceabilityType == ServiceabilityTypeEnum.Reject)
         {
             if (string.IsNullOrWhiteSpace(serviceabilityRecord.RejectExplanationText))
-                yield return serviceabilityRecord.DefaultRejectExplanation;
+                yield return string.Format(serviceabilityRecord.DefaultRejectExplanation, serviceabilityRecord.ElementCaption);
             else
             {
                 foreach (var text in serviceabilityRecord.RejectExplanationText.Split(Environment.NewLine))

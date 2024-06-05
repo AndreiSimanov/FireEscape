@@ -12,4 +12,5 @@ public record ServiceabilityRecord(ServiceabilityProperty ServiceabilityProperty
     public string LimitRejectExplanation => ServiceabilityLimit.RejectExplanation;
     public string DefaultRejectExplanation => ServiceabilityLimit.DefaultRejectExplanation;
     public float WithstandLoadCalcResult { get; set; }
+    public string? ElementCaption { get; set; }
 }
