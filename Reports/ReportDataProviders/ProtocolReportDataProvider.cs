@@ -36,9 +36,11 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     public string Location => string.IsNullOrWhiteSpace(protocol.Location) ? order.Location : protocol.Location;
     public string Address => string.IsNullOrWhiteSpace(protocol.Address) ? order.Address : protocol.Address;
 
-    public string ProtocolDate => string.Format("{0:“dd” MMMM yyyy г.}", protocol.ProtocolDate);
+    public DateTime ProtocolDate => protocol.ProtocolDate;
 
-    public string StairsType => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsType);
+    public string StairsTypeStr => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsType);
+    
+    public StairsTypeEnum StairsType => Stairs.StairsType;
 
     public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsMountType);
 
@@ -51,12 +53,8 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
 
     public int StepsCount => Stairs.StepsCount;
 
-    public string TestEquipment => Stairs.StairsType == StairsTypeEnum.P2
-        ? "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство."
-        : "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.";
-
-    public string WeldSeamServiceability => Stairs.WeldSeamServiceability ? "соответствует" : "не соответствует";
-    public string ProtectiveServiceability => Stairs.ProtectiveServiceability ? "соответствует" : "не соответствует";
+    public bool WeldSeamServiceability => Stairs.WeldSeamServiceability;
+    public bool ProtectiveServiceability => Stairs.ProtectiveServiceability;
 
     public bool HasStairsFence
     {

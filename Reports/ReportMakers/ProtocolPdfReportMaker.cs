@@ -53,7 +53,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
             .SetBorder(Border.NO_BORDER);
 
         var dateCell = new Cell()
-            .Add(new Paragraph(protocolRdp.ProtocolDate)
+            .Add(new Paragraph(string.Format(reportSettings.DateFormat, protocolRdp.ProtocolDate))
             .SetTextAlignment(TextAlignment.RIGHT)
             .SetBold())
             .SetBorder(Border.NO_BORDER);
@@ -71,7 +71,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
             .SetFixedLeading(12)
             .AddAll(new[]{
                 new Text("Характеристика объекта: ").SetBold(),
-                new Text(protocolRdp.StairsType + ", "),
+                new Text(protocolRdp.StairsTypeStr + ", "),
                 new Text(protocolRdp.StairsMountType + " "),
                 new Text(protocolRdp.FireEscapeObject).SetBold()})
         );
@@ -117,20 +117,22 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("Условия проведения испытания: ").SetBold(),
                 new Text("скорость ветра до 10 м/с, время суток - дневное, в условиях визуальной видимости испытателей друг друга.")}));
 
-        document.Add(new Paragraph()
+         document.Add(new Paragraph()
             .SetFixedLeading(12)
             .AddAll(new[] {
                 new Text("Средства испытаний: ").SetBold(),
-                new Text(protocolRdp.TestEquipment)}));
+                new Text(protocolRdp.StairsType == StairsTypeEnum.P2 ?
+                    "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство.":
+                    "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.")}));
 
         document.Add(new Paragraph()
             .SetFixedLeading(12)
             .AddAll(new[] {
                 new Text("Визуальный осмотр ").SetBold(),
                 new Text("сварных швов лестниц и ограждений "),
-                new Text( protocolRdp.WeldSeamServiceability).SetBold(),
+                new Text( protocolRdp.WeldSeamServiceability? "соответствует" : "не соответствует").SetBold(),
                 new Text(" ГОСТ 5264 - 80. Качество защитных покрытий от коррозии  "),
-                new Text( protocolRdp.ProtectiveServiceability).SetBold(),
+                new Text( protocolRdp.ProtectiveServiceability? "соответствует" : "не соответствует").SetBold(),
                 new Text("  ГОСТ 9.302 - 88.")}));
 
         document.Add(new Paragraph(" "));
