@@ -68,6 +68,7 @@ public partial class Stairs : BaseObject
 
     public string? StairsElementsBlob { get; set; }
 
+    public IEnumerable<BaseStairsElement> GetBaseStairsTypeElements() => StairsElements.Where(element => element.BaseStairsType == BaseStairsType);
     public void UpdateStepsCount()
     {
         if (BaseStairsType == BaseStairsTypeEnum.P2)

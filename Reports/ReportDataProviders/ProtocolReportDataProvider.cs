@@ -16,9 +16,9 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         get
         {
             serviceabilityLimits ??= allServiceabilityLimits.Where(item =>
-                    item.BaseStairsType == protocol.Stairs.BaseStairsType &&
-                    (!item.StairsType.HasValue || item.StairsType == protocol.Stairs.StairsType) &&
-                    (!item.IsEvacuation.HasValue || item.IsEvacuation == protocol.Stairs.IsEvacuation)).ToArray();
+                    item.BaseStairsType == Stairs.BaseStairsType &&
+                    (!item.StairsType.HasValue || item.StairsType == Stairs.StairsType) &&
+                    (!item.IsEvacuation.HasValue || item.IsEvacuation == Stairs.IsEvacuation)).ToArray();
             return serviceabilityLimits;
         }
     }
@@ -58,6 +58,21 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     public string WeldSeamServiceability => Stairs.WeldSeamServiceability ? "соответствует" : "не соответствует";
     public string ProtectiveServiceability => Stairs.ProtectiveServiceability ? "соответствует" : "не соответствует";
 
+    public bool HasStairsFence
+    {
+        get
+        {
+            if (Stairs.BaseStairsType == BaseStairsTypeEnum.P1)
+                return Stairs.GetBaseStairsTypeElements().FirstOrDefault(element => element.StairsElementType == typeof(FenceP1)) != null;
+
+            var element = Stairs.GetBaseStairsTypeElements().FirstOrDefault(element => element.StairsElementType == typeof(FenceP2)) as FenceP2;
+            if (element != null)
+                return element.FenceHeight.Value > 0;
+
+            return false;
+        }
+    }
+
     public bool HasImage => protocol.HasImage;
     public string ImageFilePath => HasImage ? protocol.ImageFilePath! : string.Empty;
 
@@ -74,7 +89,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         if (stairsElementResults != null)
             return stairsElementResults;
 
-        stairsElementResults = Stairs.StairsElements.
+        stairsElementResults = Stairs.GetBaseStairsTypeElements().
             Where(stairsElement => stairsElement.BaseStairsType == Stairs.BaseStairsType).
             GroupBy(stairsElement => new { stairsElement.StairsElementType, stairsElement.WithstandLoadCalc }, (key, group) =>
                 new StairsElementResult([.. group.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)], false, [])).ToList();
@@ -109,10 +124,19 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
             ToList().
             ForEach(serviceabilityRecord => summary.AddRange(GetServiceabilitySummary(serviceabilityRecord)));
 
+        if (Stairs.StairsType == StairsTypeEnum.P1_2)
+        {
+            var stairsHeightlimit = allServiceabilityLimits.FirstOrDefault(limit => limit.StairsType == StairsTypeEnum.P1_1 && limit.ServiceabilityName == "Stairs.StairsHeight");
+            if (stairsHeightlimit.MaxValue.HasValue && Stairs.StairsHeight.Value > stairsHeightlimit.MaxValue && !HasStairsFence)
+                summary.Add($"Высота лестницы более {stairsHeightlimit.MaxValue / stairsHeightlimit.Multiplier} метров (нет ограждения лестницы)");
+        }
+
+        if (Stairs.StairsType == StairsTypeEnum.P2 && !HasStairsFence)
+           summary.Add($"Нет ограждения лестницы)");
+
         GetStairsElementsResult().ForEach(elementResult => summary.AddRange(elementResult.Summary));
 
         summary.RemoveAll(string.IsNullOrWhiteSpace);
-
         return summary.Distinct();
     }
 
@@ -135,16 +159,18 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         }
     }
 
-    static IEnumerable<string> GetServiceabilitySummary(ServiceabilityRecord serviceabilityRecord)
+    IEnumerable<string> GetServiceabilitySummary(ServiceabilityRecord serviceabilityRecord)
     {
         if (serviceabilityRecord.ServiceabilityType == ServiceabilityTypeEnum.Approve)
             yield break;
 
+        var floatFormat = serviceabilityRecord.Multiplier > 1? reportSettings.FloatFormat : string.Empty;
+
         if (serviceabilityRecord.MaxValue.HasValue && serviceabilityRecord.Value > serviceabilityRecord.MaxValue)
         {
             yield return string.Format(serviceabilityRecord.LimitRejectExplanation,
-                serviceabilityRecord.MaxValue / serviceabilityRecord.Multiplier,
-                serviceabilityRecord.Value / serviceabilityRecord.Multiplier,
+                (serviceabilityRecord.MaxValue.Value / serviceabilityRecord.Multiplier).ToString(floatFormat),
+                (serviceabilityRecord.Value / serviceabilityRecord.Multiplier).ToString(floatFormat),
                 serviceabilityRecord.WithstandLoadCalcResult,
                 serviceabilityRecord.ElementCaption);
         }
@@ -152,8 +178,8 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         if (serviceabilityRecord.MinValue.HasValue && serviceabilityRecord.Value < serviceabilityRecord.MinValue)
         {
             yield return string.Format(serviceabilityRecord.LimitRejectExplanation,
-                serviceabilityRecord.MinValue / serviceabilityRecord.Multiplier,
-                serviceabilityRecord.Value / serviceabilityRecord.Multiplier,
+                (serviceabilityRecord.MinValue.Value / serviceabilityRecord.Multiplier).ToString(floatFormat),
+                (serviceabilityRecord.Value / serviceabilityRecord.Multiplier).ToString(floatFormat),
                 serviceabilityRecord.WithstandLoadCalcResult,
                 serviceabilityRecord.ElementCaption);
         }

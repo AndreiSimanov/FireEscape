@@ -31,7 +31,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 
     void MakeHeader(Document document)
     {
-        document.Add(new Paragraph("ПРОТОКОЛ № " + protocolRdp.ProtocolNum)
+        document.Add(new Paragraph($"ПРОТОКОЛ № {protocolRdp.ProtocolNum}")
             .SetFixedLeading(5)
             .SetTextAlignment(TextAlignment.CENTER)
             .SetBold()
@@ -82,7 +82,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text(protocolRdp.FullAddress).SetBold()})
            );
 
-        document.Add(new Paragraph("Номер испытуемого объекта: № " + protocolRdp.FireEscapeNum)
+        document.Add(new Paragraph($"Номер испытуемого объекта: № {protocolRdp.FireEscapeNum}")
             .SetFixedLeading(8)
             .SetBold());
 
@@ -106,6 +106,10 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("Количество ступеней: ").SetBold(),
                 new Text(protocolRdp.StepsCount.ToString()).SetBold().SetUnderline(),
                 new Text(" шт.")}));
+
+        document.Add(new Paragraph($"Наличие ограждения лестницы: {(protocolRdp.HasStairsFence ? "имеется" : "не имеется")} ")
+                    .SetFixedLeading(8)
+                    .SetBold());
 
         document.Add(new Paragraph()
             .SetFixedLeading(12)
@@ -230,8 +234,8 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("Испытания проводили: инженер "),
                 new Text(protocolRdp.ExecutiveCompany).SetBold()}));
         document.Add(new Paragraph("М.П.").SetFixedLeading(8));
-        document.Add(new Paragraph("_______________ / " + protocolRdp.PrimaryExecutorSign + " /").SetTextAlignment(TextAlignment.RIGHT));
-        document.Add(new Paragraph("_______________ / " + protocolRdp.SecondaryExecutorSign + " /").SetTextAlignment(TextAlignment.RIGHT));
+        document.Add(new Paragraph($"_______________ / {protocolRdp.PrimaryExecutorSign} /").SetTextAlignment(TextAlignment.RIGHT));
+        document.Add(new Paragraph($"_______________ / {protocolRdp.SecondaryExecutorSign} /").SetTextAlignment(TextAlignment.RIGHT));
 
         if (!string.IsNullOrWhiteSpace(protocolRdp.Customer))
         {
