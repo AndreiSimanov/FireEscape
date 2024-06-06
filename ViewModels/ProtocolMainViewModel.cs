@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Protocol = FireEscape.Models.Protocol;
 
 namespace FireEscape.ViewModels;
@@ -149,5 +150,15 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         Filter = $"(Contains([Location], '{searchValue}') or (IsNullOrEmpty([Location]) and {isOrderLocation}))" +
             $" or (Contains([Address], '{searchValue}') or (IsNullOrEmpty([Address]) and {isOrderAddress}))" +
             $" or (Contains([FireEscapeObject], '{searchValue}') or (IsNullOrEmpty([FireEscapeObject]) and {isOrderFireEscapeObject}))";
+    }
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        if (e.PropertyName == nameof(Order))
+        {
+            Protocols = [];
+            Search = string.Empty;
+        }
     }
 }

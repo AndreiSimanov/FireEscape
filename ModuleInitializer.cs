@@ -31,25 +31,25 @@ public static class ModuleInitializer
         services.AddSingleton<OrderMainPage>();
 
         services.AddTransient<OrderViewModel>();
-        services.AddTransient<OrderPage>();
+        services.AddSingleton<OrderPage>();
 
         services.AddTransient<ProtocolMainViewModel>();
-        services.AddTransient<ProtocolMainPage>();
+        services.AddSingleton<ProtocolMainPage>();
 
         services.AddTransient<ProtocolViewModel>();
-        services.AddTransient<ProtocolPage>();
+        services.AddSingleton<ProtocolPage>();
 
         services.AddTransient<StairsViewModel>();
-        services.AddTransient<StairsPage>();
+        services.AddSingleton<StairsPage>();
 
         services.AddSingleton<UserAccountMainViewModel>();
         services.AddSingleton<UserAccountMainPage>();
 
         services.AddTransient<UserAccountViewModel>();
-        services.AddTransient<UserAccountPage>();
+        services.AddSingleton<UserAccountPage>();
 
         services.AddTransient<BatchReportModel>();
-        services.AddTransient<BatchReportPage>();
+        services.AddSingleton<BatchReportPage>();
 
         return services;
     }
