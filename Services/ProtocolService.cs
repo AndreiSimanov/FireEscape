@@ -50,5 +50,5 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
     }
 
     public async Task SelectPhotoAsync(Protocol protocol) =>
-        await protocolRepository.AddImageAsync(protocol, await MediaPicker.PickPhotoAsync());
+        await protocolRepository.AddImageAsync(protocol, await MediaPicker.Default.PickPhotoAsync());
 }

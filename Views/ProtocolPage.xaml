@@ -15,83 +15,83 @@
     Title="{x:Static lang:AppResources.Protocol}">
     <ScrollView>
         <Grid RowDefinitions="Auto,Auto,*">
-            <VerticalStackLayout  Margin="0,0,0,0">
-                <Grid IsEnabled="{Binding IsNotBusy}" HorizontalOptions="Center" RowDefinitions="Auto,Auto,Auto">
-                    <Grid.Resources>
-                        <ResourceDictionary>
-                            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
-                            <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor OnSurface, Alpha=0.60}" FalseObject="{dx:ThemeColor Primary}" />
-                        </ResourceDictionary>
-                    </Grid.Resources>
-                    <Border
-                        Style="{StaticResource BaseBorder}"
-                        Stroke="{Binding IsBusy, Converter={StaticResource BoolToObjectConverter}}"
-                        StrokeShape="RoundRectangle 85"
-                        StrokeThickness="8"
-                        HeightRequest="172"
-                        WidthRequest="172"
+            <Grid
+                HorizontalOptions="Fill"
+                IsEnabled="{Binding IsNotBusy}" 
+                Margin="20,0,20,0"
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto,Auto"
+                ColumnSpacing="10"
+                RowSpacing="10">
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                        <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor OnSurface, Alpha=0.60}" FalseObject="{dx:ThemeColor Primary}" />
+                    </ResourceDictionary>
+                </Grid.Resources>
+                <Border Grid.Row="0" Grid.ColumnSpan="2"
+                    Style="{StaticResource BaseBorder}"
+                    Stroke="{Binding IsBusy, Converter={StaticResource BoolToObjectConverter}}"
+                    StrokeShape="RoundRectangle 85"
+                    StrokeThickness="8"
+                    HeightRequest="172"
+                    WidthRequest="172"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <dx:DXImage
+                        IsVisible="{Binding EditObject.HasImage, Converter={StaticResource InvertedBoolConverter}}"
+                        IsEnabled="{Binding IsNotBusy}"
+                        TintColor="{Binding IsBusy, Converter={StaticResource BoolToObjectConverter}}"
+                        Source="nophoto"
+                        Aspect="AspectFill"
+                        WidthRequest="100"
+                        HeightRequest="100"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
-                        <dx:DXImage
-                            IsVisible="{Binding EditObject.HasImage, Converter={StaticResource InvertedBoolConverter}}"
-                            IsEnabled="{Binding IsNotBusy}"
-                            TintColor="{Binding IsBusy, Converter={StaticResource BoolToObjectConverter}}"
-                            Source="nophoto"
-                            Aspect="AspectFill"
-                            WidthRequest="100"
-                            HeightRequest="100"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-                            <Image.GestureRecognizers>                            
-                                <TapGestureRecognizer Command="{Binding AddPhotoCommand}"/>
-                            </Image.GestureRecognizers>
-                        </dx:DXImage>
-                    </Border>
-                    <Border
-                        IsVisible="{Binding  EditObject.HasImage}"
-                        StrokeShape="RoundRectangle 85"
-                        Stroke="White"
-                        StrokeThickness="4"
-                        HeightRequest="172"
-                        WidthRequest="172"
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddPhotoCommand}"/>
+                        </Image.GestureRecognizers>
+                    </dx:DXImage>
+                </Border>
+                <Border Grid.Row="0" Grid.ColumnSpan="2"
+                    IsVisible="{Binding  EditObject.HasImage}"
+                    StrokeShape="RoundRectangle 85"
+                    Stroke="White"
+                    StrokeThickness="4"
+                    HeightRequest="172"
+                    WidthRequest="172"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <dx:DXImage
+                        Source="{Binding  EditObject.ImageFilePath}"
+                        Aspect="AspectFill"
+                        WidthRequest="180"
+                        HeightRequest="180"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
-                        <dx:DXImage
-                            Source="{Binding  EditObject.ImageFilePath}"
-                            Aspect="AspectFill"
-                            WidthRequest="180"
-                            HeightRequest="180"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding AddPhotoCommand}"/>
-                            </Image.GestureRecognizers>
-                        </dx:DXImage>
-                    </Border>
-                    <HorizontalStackLayout Grid.Row="2" Margin="0,10,0,0">
-                        <dx:DXButton
-                            Style="{StaticResource DefaultButton}"
-                            Content="{x:Static lang:AppResources.SelectPhotoHint}" 
-                            Command="{Binding SelectPhotoCommand}" 
-                            WidthRequest="160"
-                            Icon="image" IconHeight="22" IconWidth="22"/>
-                        <dx:DXButton
-                            Style="{StaticResource DefaultButton}"
-                            Content="{x:Static lang:AppResources.MakePhotoHint}"
-                            Command="{Binding AddPhotoCommand}" 
-                            WidthRequest="160"
-                            Icon="photo" Margin="20,0,0,0" IconHeight="22" IconWidth="22">
-                        </dx:DXButton>
-                    </HorizontalStackLayout>
-                </Grid>
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="2" >
-                <dx:DXButton
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddPhotoCommand}"/>
+                        </Image.GestureRecognizers>
+                    </dx:DXImage>
+                </Border>
+                <dx:DXButton Grid.Row="1" Grid.Column="0"
+                    Style="{StaticResource DefaultButton}"
+                    Content="{x:Static lang:AppResources.SelectPhotoHint}" 
+                    Command="{Binding SelectPhotoCommand}" 
+                    Icon="image" IconHeight="22" IconWidth="22"/>
+                <dx:DXButton Grid.Row="1" Grid.Column="1"
+                    Style="{StaticResource DefaultButton}"
+                    Content="{x:Static lang:AppResources.MakePhotoHint}"
+                    Command="{Binding AddPhotoCommand}" 
+                    Icon="photo"  IconHeight="22" IconWidth="22"/>
+                <dx:DXButton  Grid.Row="2" Grid.ColumnSpan="2"
                     Style="{StaticResource DefaultButton}"
                     Content="{x:Static lang:AppResources.StairsPageTitle}" 
                     Command="{Binding GoToDetailsCommand}"
                     IsEnabled="{Binding IsNotBusy}"
-                    Icon="edit" Margin="10,0,10,0" IconHeight="22" IconWidth="22"/>
+                    Icon="edit" IconHeight="22" IconWidth="22"/>
+            </Grid>
+            <VerticalStackLayout Grid.Row="2" >
                 <dxe:DateEdit
                     Date="{Binding EditObject.ProtocolDate}"                    
                     LabelText="{x:Static lang:AppResources.ProtocolDate}"/>
