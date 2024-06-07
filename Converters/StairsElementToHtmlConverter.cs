@@ -23,14 +23,14 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
         if (value == null)
             return string.Empty;
         sb.Clear();
-        sb.AppendLine($"<table style='width:100%; font-size:12px; border-bottom: 1px solid {surfaceVariantColorStr}'>");
+        sb.AppendLine($"<table style='width:100%; font-size:14px; border-bottom: 1px solid {surfaceVariantColorStr}'>");
         AddRowColSpan(value.Caption, primaryColorStr);
 
         AddRow<int, float>(new ColumnData<int>(AppResources.TestPointCountTrim, string.Empty, value.TestPointCount, true, "Green"),
             new ColumnData<float>(AppResources.WithstandLoad, AppResources.WithstandLoadUnit, value.WithstandLoadCalcResult, true, "Green"));
 
         sb.AppendLine("</table>");
-        sb.AppendLine("<table style='width:100%; font-size:10px'>");
+        sb.AppendLine("<table style='width:100%; font-size:12px'>");
 
         if (value is SupportBeamsP1 supportBeams)
         {

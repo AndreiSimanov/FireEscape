@@ -46,6 +46,7 @@
                     </conv:TypeToBoolConverter.TrueValues>
                 </conv:TypeToBoolConverter>
                 <conv:TypeToBoolConverter x:Key="TypeToBoolConverter" />
+                <conv:StairsElementToHeightConverter x:Key="StairsElementToHeightConverter" />
                 <conv:StairsElementToHtmlConverter 
                     x:Key="StairsElementToHtmlConverter" 
                     UnitOfMeasure="{x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}"
@@ -218,7 +219,7 @@
                             <dxcv:SwipeContainer.ItemView>
                                 <Frame Style="{StaticResource CardView}" CornerRadius="8" Margin="0,5,0,5">
                                     <VerticalStackLayout Margin="0" Padding="0">
-                                        <WebView BackgroundColor="Transparent">
+                                        <WebView BackgroundColor="Transparent" HeightRequest="{Binding Self, Converter={StaticResource StairsElementToHeightConverter}}">
                                             <WebView.Source>
                                                 <HtmlWebViewSource Html="{Binding Self, Converter={StaticResource StairsElementToHtmlConverter}}" />
                                             </WebView.Source>
