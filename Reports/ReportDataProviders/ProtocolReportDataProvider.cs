@@ -24,35 +24,20 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     }
 
     Stairs Stairs => protocol.Stairs;
-
     public int ProtocolNum => protocol.ProtocolNum;
-
-    public string StairsTypeDescription => Stairs.IsEvacuation
-        ? "испытания пожарной эвакуационной лестницы"
-        : Stairs.StairsType == StairsTypeEnum.P2
-            ? "испытания пожарной маршевой лестницы"
-            : "испытания пожарной лестницы";
-
+    public bool IsEvacuation => Stairs.IsEvacuation;
     public string Location => string.IsNullOrWhiteSpace(protocol.Location) ? order.Location : protocol.Location;
     public string Address => string.IsNullOrWhiteSpace(protocol.Address) ? order.Address : protocol.Address;
-
     public DateTime ProtocolDate => protocol.ProtocolDate;
-
     public string StairsTypeStr => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsType);
-    
     public StairsTypeEnum StairsType => Stairs.StairsType;
-
     public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsMountType);
-
     public string FireEscapeObject => string.IsNullOrWhiteSpace(protocol.FireEscapeObject) ? order.FireEscapeObject : protocol.FireEscapeObject;
     public string FullAddress => Location + ", " + Address;
     public int FireEscapeNum => protocol.FireEscapeNum;
-
     public float StairsHeight => Stairs.StairsHeight.Value / 1000;
     public float StairsWidth => Stairs.StairsWidth.Value;
-
     public int StepsCount => Stairs.StepsCount;
-
     public bool WeldSeamServiceability => Stairs.WeldSeamServiceability;
     public bool ProtectiveServiceability => Stairs.ProtectiveServiceability;
 
@@ -130,7 +115,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         }
 
         if (Stairs.StairsType == StairsTypeEnum.P2 && !HasStairsFence)
-           summary.Add($"Нет ограждения лестницы)");
+           summary.Add($"Нет ограждения лестницы");
 
         GetStairsElementsResult().ForEach(elementResult => summary.AddRange(elementResult.Summary));
 

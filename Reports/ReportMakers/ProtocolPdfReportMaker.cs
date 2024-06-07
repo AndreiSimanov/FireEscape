@@ -37,7 +37,10 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
             .SetBold()
             .SetFirstLineIndent(0));
 
-        document.Add(new Paragraph(protocolRdp.StairsTypeDescription)
+        document.Add(new Paragraph(protocolRdp.IsEvacuation ? 
+            "испытания пожарной эвакуационной лестницы" : protocolRdp.StairsType == StairsTypeEnum.P2? 
+            "испытания пожарной маршевой лестницы": 
+            "испытания пожарной лестницы")
             .SetFixedLeading(5)
             .SetTextAlignment(TextAlignment.CENTER)
             .SetBold());

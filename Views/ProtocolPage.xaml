@@ -21,7 +21,7 @@
                 Margin="20,0,20,0"
                 ColumnDefinitions="*,*"
                 RowDefinitions="Auto,Auto,Auto"
-                ColumnSpacing="20">
+                ColumnSpacing="10">
                 <Grid.Resources>
                     <ResourceDictionary>
                         <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
