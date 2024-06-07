@@ -79,7 +79,7 @@
                                 Image="delete"/>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
-                            <Frame Style="{StaticResource CardView}" HeightRequest="162" Margin="10,0,10,10" 
+                            <Frame Style="{StaticResource CardView}" HeightRequest="162" Margin="10,5,10,5" 
                                    BorderColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer

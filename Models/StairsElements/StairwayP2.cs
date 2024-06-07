@@ -2,6 +2,13 @@
 
 public partial class StairwayP2 : BaseSupportBeamsElement
 {
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Self))]
+    int stepsCount;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Self))]
+    float stairwayWidth;
+
     public override string Name => AppResources.Stairway;
     public override BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P2;
     public override int PrintOrder => 30;
@@ -19,10 +26,4 @@ public partial class StairwayP2 : BaseSupportBeamsElement
     }
 
     public override string WithstandLoadCalc => $"(({ConvertToMeter(StairwayWidth)}*{K2})/({K4}*{SupportBeamsCount}))*{K3}*{COS_ALPHA} = {WithstandLoadCalcResult}";
-
-    [ObservableProperty]
-    int stepsCount;
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(WithstandLoadCalcResult))]
-    float stairwayWidth;
 }

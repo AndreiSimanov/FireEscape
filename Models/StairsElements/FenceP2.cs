@@ -14,4 +14,5 @@ public partial class FenceP2 : BaseStairsElement
     public override bool Required => true;
     public override int PrintOrder => 20;
     public override int TestPointCount => 1;
+    public FenceP2() : base() => FenceHeight.PropertyChanged += ServiceabilityPropertyChanged;
 }

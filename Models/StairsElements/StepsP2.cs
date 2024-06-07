@@ -17,4 +17,10 @@ public partial class StepsP2 : BaseStairsElement
     public override bool Required => true;
     public override int PrintOrder => 10;
     public override int TestPointCount => CalcTestPointCount(StairsStepsCount, STEPS_TEST_POINT_DIVIDER);
+
+    public StepsP2() : base()
+    {
+        StepsWidth.PropertyChanged += ServiceabilityPropertyChanged;
+        StepsHeight.PropertyChanged += ServiceabilityPropertyChanged;
+    }
 }

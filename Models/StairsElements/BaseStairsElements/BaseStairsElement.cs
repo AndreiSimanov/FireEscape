@@ -49,18 +49,20 @@ public abstract partial class BaseStairsElement : ObservableObject
     public virtual int TestPointCount => 0;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(TestPointCount))]
+
+    [NotifyPropertyChangedFor(nameof(Self))]
     [NotifyPropertyChangedFor(nameof(WithstandLoadCalcResult))]
     [property: JsonIgnore]
     float stairsHeight;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(TestPointCount))]
+    [NotifyPropertyChangedFor(nameof(Self))]
     [property: JsonIgnore]
     int stairsStepsCount;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Caption))]
+    [NotifyPropertyChangedFor(nameof(Self))]
     int elementNumber;
 
     [ObservableProperty]
@@ -70,11 +72,16 @@ public abstract partial class BaseStairsElement : ObservableObject
     [property: Serviceability]
     ServiceabilityProperty deformation = new();
 
-    public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(WithstandLoadCalcResult));
+    public void UpdateCalcWithstandLoad() => OnPropertyChanged(nameof(Self));
 
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
     public Type StairsElementType => GetType();
+
+
+    [JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
+    public BaseStairsElement Self => this;
 
     public override string ToString() => Caption;
 
@@ -85,6 +92,10 @@ public abstract partial class BaseStairsElement : ObservableObject
             return 1;
         return (int)Math.Floor(count);
     }
+
+    protected BaseStairsElement() : base() => Deformation.PropertyChanged += ServiceabilityPropertyChanged;
+
+    protected void ServiceabilityPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e) => OnPropertyChanged(nameof(Self));
 
     static protected float ConvertToMeter(float? val) => val.HasValue ? val.Value / 1000f : 0f;
 }

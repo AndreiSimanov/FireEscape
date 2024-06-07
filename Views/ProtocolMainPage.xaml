@@ -87,7 +87,7 @@
                                 Image="delete"/>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
-                            <Frame Style="{StaticResource CardView}" HeightRequest="140" Margin="10,0,10,10">
+                            <Frame Style="{StaticResource CardView}" HeightRequest="140" Margin="10,5,10,5">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=GoToDetailsCommand}"

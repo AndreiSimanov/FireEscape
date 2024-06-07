@@ -17,4 +17,5 @@ public partial class SupportBeamsP1 : BaseSupportBeamsElement
 
     public override string WithstandLoadCalc => $"(({ConvertToMeter(StairsHeight)}*{K2}/{K1}*{TestPointCount})*{K3}) = {WithstandLoadCalcResult}";
     public override int TestPointCount => SupportBeamsCount;
+    public SupportBeamsP1() : base() => WallDistance.PropertyChanged += ServiceabilityPropertyChanged;
 }

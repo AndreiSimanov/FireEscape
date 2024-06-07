@@ -6,8 +6,7 @@ namespace FireEscape.Models.StairsElements.BaseStairsElements;
 public abstract partial class BasePlatformElement : BaseSupportBeamsElement
 {
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(WithstandLoadCalcResult))]
-    [NotifyPropertyChangedFor(nameof(Size))]
+    [NotifyPropertyChangedFor(nameof(Self))]
     PlatformSize[] platformSizes = [];
 
     [ObservableProperty]
@@ -18,26 +17,10 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
     [property: Serviceability]
     ServiceabilityProperty platformWidth = new();
 
-    protected BasePlatformElement()
-    {
-        PlatformLength.PropertyChanged += SizePropertyChanged;
-        PlatformWidth.PropertyChanged += SizePropertyChanged;
-    }
-
-    private void SizePropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(ServiceabilityProperty.Value))
-        {
-            OnPropertyChanged(nameof(WithstandLoadCalcResult));
-            OnPropertyChanged(nameof(Size));
-        }
-    }
-
     public override float WithstandLoadCalcResult // Рплощ = ((S*К2)/(К4*Х))*К3,
     {
         get
         {
-            OnPropertyChanged(nameof(Size));
             var s = Size;
             if (SupportBeamsCount == 0 || s == 0)
                 return base.WithstandLoadCalcResult;
@@ -49,6 +32,12 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
 
     [JsonIgnore]
     public float Size => (float)Math.Round(GetAllPlatformSizes().Sum(item => ConvertToMeter(item.Length) * ConvertToMeter(item.Width)), 2);
+
+    protected BasePlatformElement() : base()
+    {
+        PlatformLength.PropertyChanged += ServiceabilityPropertyChanged;
+        PlatformWidth.PropertyChanged += ServiceabilityPropertyChanged;
+    }
 
     IEnumerable<PlatformSize> GetAllPlatformSizes()
     {

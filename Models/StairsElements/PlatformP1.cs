@@ -11,4 +11,6 @@ public partial class PlatformP1 : BasePlatformElement
     public override string Name => AppResources.RoofPlatform;
     public override int PrintOrder => 40;
     public override int TestPointCount => 1;
+
+    public PlatformP1() : base() => PlatformFenceHeight.PropertyChanged += ServiceabilityPropertyChanged;
 }
