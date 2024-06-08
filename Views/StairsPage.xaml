@@ -202,12 +202,14 @@
                 ItemsSource="{Binding EditObject.StairsElements}"
                 Scrolled="StairsElementsScrolled"
                 AllowLiveDataShaping="True"
+                IsScrollBarVisible="False"
                 SelectionMode="Single"
+                SelectedItem="{Binding SelectedStairsElement}"
                 ItemSeparatorThickness="0"
                 UseRippleEffect="true">
                 <dxcv:DXCollectionView.ItemTemplate>
                     <DataTemplate x:DataType="baseelements:BaseStairsElement">
-                        <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer Margin="5,5,5,5">
                             <dxcv:SwipeContainer.EndSwipeItems>
                                 <dxcv:SwipeItem
                                     BackgroundColor="{Binding Required, Converter={StaticResource BoolToObjectConverter}}"
@@ -217,20 +219,16 @@
                                     Image="delete"/>
                             </dxcv:SwipeContainer.EndSwipeItems>
                             <dxcv:SwipeContainer.ItemView>
-                                <Frame Style="{StaticResource CardView}" CornerRadius="8" Margin="0,5,0,5">
-                                    <VerticalStackLayout Margin="0" Padding="0">
-                                        <WebView BackgroundColor="Transparent" HeightRequest="{Binding Self, Converter={StaticResource StairsElementToHeightConverter}}">
-                                            <WebView.Source>
-                                                <HtmlWebViewSource Html="{Binding Self, Converter={StaticResource StairsElementToHtmlConverter}}" />
-                                            </WebView.Source>
-                                            <WebView.GestureRecognizers>
-                                                <TapGestureRecognizer
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectStairsElementCommand}"
-                                                    CommandParameter="{Binding .}"/>
-                                            </WebView.GestureRecognizers>
-                                        </WebView>
-                                    </VerticalStackLayout>
-                                </Frame>
+                                <WebView BackgroundColor="Transparent" HeightRequest="{Binding Self, Converter={StaticResource StairsElementToHeightConverter}}">
+                                    <WebView.Source>
+                                        <HtmlWebViewSource Html="{Binding Self, Converter={StaticResource StairsElementToHtmlConverter}}" />
+                                    </WebView.Source>
+                                    <WebView.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectStairsElementCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </WebView.GestureRecognizers>
+                                </WebView>
                             </dxcv:SwipeContainer.ItemView>
                         </dxcv:SwipeContainer>
                     </DataTemplate>

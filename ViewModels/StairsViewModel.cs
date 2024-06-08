@@ -60,6 +60,9 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         SelectedStairsElement = element;
     }
 
+    [RelayCommand]
+    void HideBottomSheet() => BottomSheetState = BottomSheetState.Hidden;
+
     bool expanded = false;
 
     void SetPlatformSizes(BaseStairsElement? element, bool expand)
@@ -134,6 +137,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     async Task DeleteElementAsync(BaseStairsElement element) =>
         await DoBusyCommandAsync(async () =>
         {
+            SelectedStairsElement = element;
             if (EditObject == null || element.Required)
                 return;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteStairsElement,
@@ -144,8 +148,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
             EditObject.StairsElements.Remove(element);
             EditObject.UpdateStepsCount();
-            if (SelectedStairsElement == element)
-                SelectStairsElement(null);
+            SelectStairsElement(null);
         },
         element,
         AppResources.DeleteStairsElementError);

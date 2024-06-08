@@ -15,7 +15,8 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     [ObservableProperty]
     ObservableCollection<Protocol> protocols = [];
 
-    BaseObject? SelectedObject = null;
+    [ObservableProperty]
+    object? selectedItem = null;
 
     [ObservableProperty]
     bool isRefreshing;
@@ -38,7 +39,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
                 if (Order == null || Protocols.Any())
                     return;
                 IsRefreshing = true;
-                ChangeSelectedObject(null);
+                SelectedItem = null;
                 var protocols = await protocolService.GetProtocolsAsync(Order.Id);
                 Protocols = protocols.ToObservableCollection();
             }
@@ -68,7 +69,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
                 return;
             newProtocol = await protocolService.CreateAsync(Order);
             Protocols.Insert(0, newProtocol);
-            ChangeSelectedObject(newProtocol);
+            SelectedItem = newProtocol;
         },
         AppResources.AddProtocolError);
 
@@ -84,7 +85,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         {
             newProtocol = await protocolService.CopyAsync(protocol);
             Protocols.Insert(0, newProtocol);
-            ChangeSelectedObject(newProtocol);
+            SelectedItem = newProtocol;
         },
         AppResources.CopyProtocolError);
 
@@ -100,7 +101,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         {
             newProtocol = await protocolService.CopyWithStairsAsync(protocol);
             Protocols.Insert(0, newProtocol);
-            ChangeSelectedObject(newProtocol);
+            SelectedItem = newProtocol;
         },
         AppResources.CopyProtocolError);
 
@@ -112,6 +113,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     async Task DeleteProtocolAsync(Protocol protocol) =>
         await DoBusyCommandAsync(async () =>
         {
+            SelectedItem = protocol;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, AppResources.Cancel, AppResources.Delete);
 
             if (string.Equals(action, AppResources.Cancel))
@@ -119,7 +121,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
 
             await protocolService.DeleteAsync(protocol);
             Protocols.Remove(protocol);
-            ChangeSelectedObject(null);
+            SelectedItem = null;
         },
         protocol,
         AppResources.DeleteProtocolError);
@@ -128,7 +130,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     async Task CreateReportAsync(Protocol protocol) =>
         await DoBusyCommandAsync(async () =>
         {
-            ChangeSelectedObject(protocol);
+            SelectedItem = protocol;
             if (Order == null)
                 return;
             await reportService.CreateSingleReportAsync(Order, protocol);
@@ -140,7 +142,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     async Task GoToDetailsAsync(Protocol protocol) =>
         await DoBusyCommandAsync(async () =>
         {
-            ChangeSelectedObject(protocol);
+            SelectedItem = protocol;
             await Shell.Current.GoToAsync(nameof(ProtocolPage), true,
                 new Dictionary<string, object> { { nameof(ProtocolViewModel.EditObject), protocol } });
             // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
@@ -168,17 +170,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         {
             Protocols = [];
             Search = string.Empty;
-            ChangeSelectedObject(null);
+            SelectedItem = null;
         }
     }
-
-    void ChangeSelectedObject(BaseObject? selectedObject)
-    {
-        if (SelectedObject != null)
-            SelectedObject.IsSelected = false;
-        SelectedObject = selectedObject;
-        if (SelectedObject != null)
-            SelectedObject.IsSelected = true;
-    }
-
 }

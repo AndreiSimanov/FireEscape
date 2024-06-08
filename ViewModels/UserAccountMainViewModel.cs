@@ -19,6 +19,9 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
     [ObservableProperty]
     string filter = string.Empty;
 
+    [ObservableProperty]
+    object? selectedItem = null;
+
     [RelayCommand]
     async Task GetUserAccountsAsync() =>
         await DoBusyCommandAsync(async () =>
@@ -43,6 +46,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
     async Task GoToDetailsAsync(UserAccount userAccount) =>
         await DoBusyCommandAsync(async () =>
         {
+            SelectedItem = userAccount;
             await Shell.Current.GoToAsync(nameof(UserAccountPage), true,
                 new Dictionary<string, object> { { nameof(UserAccountViewModel.EditObject), userAccount } });
         },
@@ -53,6 +57,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
     async Task DeleteUserAccountAsync(UserAccount userAccount) =>
         await DoBusyCommandAsync(async () =>
         {
+            SelectedItem = userAccount;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteUserAccount,
                 AppResources.Cancel,
                 AppResources.Delete);
@@ -61,6 +66,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
 
             await userAccountService.DeleteAsync(userAccount);
             UserAccounts.Remove(userAccount);
+            SelectedItem = null;
         },
         userAccount,
         AppResources.DeleteUserAccountError);

@@ -35,16 +35,15 @@ public partial class StairsPage : BaseStairsPage
         base.ContentPageDisappearing(sender, e);
     }
 
-    void EditorFocused(object sender, FocusEventArgs e) => SetSelectedStairsElements();
+    void EditorFocused(object sender, FocusEventArgs e) => HideBottomSheet();
 
-    void ScrollViewScrolled(object sender, ScrolledEventArgs e) => SetSelectedStairsElements();
+    void ScrollViewScrolled(object sender, ScrolledEventArgs e) => HideBottomSheet();
 
-    void StairsElementsScrolled(object sender, DXCollectionViewScrolledEventArgs e) => SetSelectedStairsElements();
+    void StairsElementsScrolled(object sender, DXCollectionViewScrolledEventArgs e) => HideBottomSheet();
 
-    void SetSelectedStairsElements(BaseStairsElement? element = null)
-    {
-        ViewModel?.SelectStairsElementCommand.Execute(element);
-    }
+    void SetSelectedStairsElements(BaseStairsElement? element = null) => ViewModel?.SelectStairsElementCommand.Execute(element);
+
+    void HideBottomSheet() => ViewModel?.HideBottomSheetCommand.Execute(null);
 
     private void PlatformSizesPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {

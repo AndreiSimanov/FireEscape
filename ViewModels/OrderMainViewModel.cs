@@ -13,7 +13,8 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     [ObservableProperty]
     ObservableCollection<Order> orders = new();
 
-    BaseObject? SelectedObject = null;
+    [ObservableProperty]
+    object? selectedItem = null;
 
     [ObservableProperty]
     bool isRefreshing;
@@ -35,7 +36,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             {
                 IsRefreshing = true;
                 IsLoadMore = true;
-                ChangeSelectedObject(null);
+                SelectedItem = null;
                 pageParams = new PagingParameters(0, applicationSettings.PageSize);
                 var pagedResult = await orderService.GetOrdersAsync(Search, pageParams);
                 IsLoadMore = pagedResult.IsLoadMore;
@@ -78,7 +79,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         {
             newOrder = await orderService.CreateAsync();
             Orders.Insert(0, newOrder);
-            ChangeSelectedObject(newOrder);
+            SelectedItem = newOrder;
         },
         AppResources.AddOrderError);
 
@@ -91,6 +92,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task DeleteOrderAsync(Order order) =>
         await DoBusyCommandAsync(async () =>
         {
+            SelectedItem = order;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteOrder, AppResources.Cancel, AppResources.Delete);
 
             if (string.Equals(action, AppResources.Cancel))
@@ -98,7 +100,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
             await orderService.DeleteAsync(order);
             Orders.Remove(order);
-            ChangeSelectedObject(null);
+            SelectedItem = null;
         },
         order,
         AppResources.DeleteOrderError);
@@ -107,7 +109,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task GoToDetailsAsync(Order order) =>
         await DoBusyCommandAsync(async () =>
         {
-            ChangeSelectedObject(order);
+            SelectedItem = order;
             await Shell.Current.GoToAsync(nameof(OrderPage), true,
                 new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
         },
@@ -119,7 +121,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task GoToProtocolsAsync(Order order) =>
         await DoBusyCommandAsync(async () =>
         {
-            ChangeSelectedObject(order);
+            SelectedItem = order;
             await Shell.Current.GoToAsync(nameof(ProtocolMainPage), true, new Dictionary<string, object> { { nameof(Order), order } });
         },
         order,
@@ -129,7 +131,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task CreateReportAsync(Order order) =>
         await DoBusyCommandAsync(async () =>
         {
-            ChangeSelectedObject(order);
+            SelectedItem = order;
             if (order == null)
                 return;
             var protocols = await protocolService.GetProtocolsAsync(order.Id);
@@ -184,15 +186,6 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             }
         },
         AppResources.AddOrderError);
-
-    void ChangeSelectedObject(BaseObject? selectedObject)
-    { 
-        if (SelectedObject != null)
-            SelectedObject.IsSelected = false;
-        SelectedObject = selectedObject;
-        if (SelectedObject != null)
-            SelectedObject.IsSelected = true;
-    }
 
     static Random random = new Random();
     static string RandomString(int length)

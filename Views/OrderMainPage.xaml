@@ -16,12 +16,8 @@
     x:DataType="viewmodel:OrderMainViewModel"
     HideSoftInputOnTapped="True"
     Shell.NavBarIsVisible="False">
+
     <Grid RowDefinitions="Auto,*" >
-        <Grid.Resources>
-            <ResourceDictionary>
-                <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor Primary}" FalseObject="{dx:ThemeColor OnSurface, Alpha=0.22}" />
-            </ResourceDictionary>
-        </Grid.Resources>
         <ctrl:SearchControl
             x:Name="searchControl"
             Search="{Binding Search}"
@@ -51,12 +47,14 @@
             x:Name="orders"
             ItemsSource="{Binding Orders}"
             IsPullToRefreshEnabled="True"
-            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+            IsRefreshing="{Binding IsRefreshing}"
             PullToRefreshCommand="{Binding GetOrdersCommand}"
             IsLoadMoreEnabled="{Binding IsLoadMore}"
             LoadMoreCommand="{Binding LoadMoreCommand}"
             AllowLiveDataShaping="True"
-            SelectionMode="Single" 
+            IsScrollBarVisible="False"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedItem}"
             Grid.Row="1"
             ItemSeparatorThickness="0"
             UseRippleEffect="true"
@@ -68,6 +66,11 @@
             <dxcv:DXCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Order">
                     <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=GoToProtocolsCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </dxcv:SwipeContainer.GestureRecognizers>
                         <dxcv:SwipeContainer.StartSwipeItems>
                             <dxcv:SwipeItem
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel } }, Path=IsNotBusy}"
@@ -93,89 +96,84 @@
                                 Image="delete"/>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
-                            <Frame Style="{StaticResource CardView}" HeightRequest="140" Margin="10,5,10,5"
-                                   BorderColor="{Binding IsSelected, Converter={StaticResource BoolToObjectConverter}}">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=GoToProtocolsCommand}"
-                                            CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers>
-                                <VerticalStackLayout Spacing="2" Margin="10,0,10,0">
-                                    <Label Style="{StaticResource Titleline}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{x:Static lang:AppResources.OrderName}" />
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                <Span Text="{Binding Name}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Style="{StaticResource SubTitleline}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{x:Static lang:AppResources.Customer}" />
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                <Span Text="{Binding Customer}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Style="{StaticResource SubTitleline}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{x:Static lang:AppResources.ExecutiveCompany}" />
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                <Span Text="{Binding ExecutiveCompany}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Style="{StaticResource SubTitleline}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{x:Static lang:AppResources.Location}" />
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                <Span Text="{Binding Location}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Style="{StaticResource SubTitleline}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{x:Static lang:AppResources.Address}" />
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                <Span Text="{Binding Address}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Style="{StaticResource SubTitleline}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{x:Static lang:AppResources.FireEscapeObject}" />
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                <Span Text="{Binding FireEscapeObject}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Style="{StaticResource SubTitleline}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{x:Static lang:AppResources.OrderDate}" />
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                <Span Text="{Binding Created, StringFormat='{0:dd.MM.yyyy}'}" />
-                                                <Span Text="  (" />
-                                                <Span Text="{x:Static lang:AppResources.Id}" />
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                                <Span Text="{Binding Id}" />
-                                                <Span Text=")" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                </VerticalStackLayout>
-                            </Frame>
+
+                            <VerticalStackLayout HeightRequest="140" Spacing="2" Margin="10,0,10,0">
+                                <Label Style="{StaticResource Titleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.OrderName}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Name}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Customer}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Customer}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.ExecutiveCompany}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding ExecutiveCompany}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Location}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Location}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Address}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Address}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.FireEscapeObject}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding FireEscapeObject}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.OrderDate}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Created, StringFormat='{0:dd.MM.yyyy}'}" />
+                                            <Span Text="  (" />
+                                            <Span Text="{x:Static lang:AppResources.Id}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Id}" />
+                                            <Span Text=")" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+
                         </dxcv:SwipeContainer.ItemView>
                     </dxcv:SwipeContainer>
                 </DataTemplate>
             </dxcv:DXCollectionView.ItemTemplate>
         </dxcv:DXCollectionView>
+
         <dx:DXButton
             x:Name="addButton"
             IsEnabled="{Binding IsNotBusy}"
@@ -187,7 +185,7 @@
                 <toolkit:TouchBehavior LongPressCommand="{Binding OpenUserAccountMainPageCommand}" LongPressDuration="6000"/>
             </dx:DXButton.Behaviors>
         </dx:DXButton>
-<!--
+        <!--
         <dx:DXButton
             x:Name="addBatchButton"
             IsEnabled="{Binding IsNotBusy}"
@@ -196,6 +194,6 @@
             Command="{Binding AddOrdersCommand}">
             Style="{StaticResource RadialButton}">
         </dx:DXButton>
--->        
+-->
     </Grid>
 </ContentPage>

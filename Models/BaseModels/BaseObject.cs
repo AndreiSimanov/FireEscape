@@ -17,9 +17,4 @@ public partial class BaseObject : ObservableObject
     [ObservableProperty]
     [property: Column(nameof(Updated))]
     DateTime updated;
-
-    [ObservableProperty]
-    [property: Ignore]
-    [property: JsonIgnore]
-    bool isSelected;
 }
