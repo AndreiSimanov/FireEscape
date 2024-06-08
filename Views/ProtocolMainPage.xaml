@@ -18,6 +18,11 @@
     HideSoftInputOnTapped="True"
     Appearing="ContentPageAppearing">
     <Grid RowDefinitions="Auto,*">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor Primary}" FalseObject="{dx:ThemeColor OnSurface, Alpha=0.22}" />
+            </ResourceDictionary>
+        </Grid.Resources>
         <ctrl:SearchControl
             x:Name="searchControl"
             Search="{Binding Search}"
@@ -87,7 +92,8 @@
                                 Image="delete"/>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
-                            <Frame Style="{StaticResource CardView}" HeightRequest="140" Margin="10,5,10,5">
+                            <Frame Style="{StaticResource CardView}" HeightRequest="140" Margin="10,5,10,5"
+                                BorderColor="{Binding IsSelected, Converter={StaticResource BoolToObjectConverter}}">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=GoToDetailsCommand}"

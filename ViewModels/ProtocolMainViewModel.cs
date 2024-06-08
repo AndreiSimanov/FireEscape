@@ -15,6 +15,8 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     [ObservableProperty]
     ObservableCollection<Protocol> protocols = [];
 
+    BaseObject? SelectedObject = null;
+
     [ObservableProperty]
     bool isRefreshing;
 
@@ -36,6 +38,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
                 if (Order == null || Protocols.Any())
                     return;
                 IsRefreshing = true;
+                ChangeSelectedObject(null);
                 var protocols = await protocolService.GetProtocolsAsync(Order.Id);
                 Protocols = protocols.ToObservableCollection();
             }
@@ -65,6 +68,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
                 return;
             newProtocol = await protocolService.CreateAsync(Order);
             Protocols.Insert(0, newProtocol);
+            ChangeSelectedObject(newProtocol);
         },
         AppResources.AddProtocolError);
 
@@ -80,6 +84,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         {
             newProtocol = await protocolService.CopyAsync(protocol);
             Protocols.Insert(0, newProtocol);
+            ChangeSelectedObject(newProtocol);
         },
         AppResources.CopyProtocolError);
 
@@ -95,6 +100,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         {
             newProtocol = await protocolService.CopyWithStairsAsync(protocol);
             Protocols.Insert(0, newProtocol);
+            ChangeSelectedObject(newProtocol);
         },
         AppResources.CopyProtocolError);
 
@@ -113,6 +119,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
 
             await protocolService.DeleteAsync(protocol);
             Protocols.Remove(protocol);
+            ChangeSelectedObject(null);
         },
         protocol,
         AppResources.DeleteProtocolError);
@@ -121,6 +128,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     async Task CreateReportAsync(Protocol protocol) =>
         await DoBusyCommandAsync(async () =>
         {
+            ChangeSelectedObject(protocol);
             if (Order == null)
                 return;
             await reportService.CreateSingleReportAsync(Order, protocol);
@@ -132,6 +140,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     async Task GoToDetailsAsync(Protocol protocol) =>
         await DoBusyCommandAsync(async () =>
         {
+            ChangeSelectedObject(protocol);
             await Shell.Current.GoToAsync(nameof(ProtocolPage), true,
                 new Dictionary<string, object> { { nameof(ProtocolViewModel.EditObject), protocol } });
             // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
@@ -159,6 +168,17 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         {
             Protocols = [];
             Search = string.Empty;
+            ChangeSelectedObject(null);
         }
     }
+
+    void ChangeSelectedObject(BaseObject? selectedObject)
+    {
+        if (SelectedObject != null)
+            SelectedObject.IsSelected = false;
+        SelectedObject = selectedObject;
+        if (SelectedObject != null)
+            SelectedObject.IsSelected = true;
+    }
+
 }
