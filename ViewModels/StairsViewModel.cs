@@ -67,8 +67,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
 
     void SetPlatformSizes(BaseStairsElement? element, bool expand)
     {
-        var platformElement = element as BasePlatformElement;
-        if (platformElement == null || expanded == expand)
+        if (element is not BasePlatformElement platformElement || expanded == expand)
             return;
 
         expanded = expand;
@@ -118,7 +117,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
             }
 
             var elementNames = availableStairsElements.Select(item => item.ToString()).ToArray();
-            if (elementNames.Any())
+            if (elementNames.Length != 0)
             {
                 var action = await Shell.Current.DisplayActionSheet(AppResources.SelectStairsElement, AppResources.Cancel, string.Empty, elementNames);
                 var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
@@ -161,7 +160,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
        EditObject,
        AppResources.SaveProtocolError);
 
-    public string PlatformLength => AddUnitOfMeasure(AppResources.PlatformLength, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
-    public string PlatformWidth => AddUnitOfMeasure(AppResources.PlatformWidth, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
-    string AddUnitOfMeasure(string val, UnitOfMeasure unitOfMeasure) => string.IsNullOrWhiteSpace(val) ? string.Empty : string.Format(val + " ({0})", unitOfMeasure.Symbol);
+    public static string PlatformLength => AddUnitOfMeasure(AppResources.PlatformLength, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
+    public static string PlatformWidth => AddUnitOfMeasure(AppResources.PlatformWidth, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
+    static string AddUnitOfMeasure(string val, UnitOfMeasure unitOfMeasure) => string.IsNullOrWhiteSpace(val) ? string.Empty : string.Format(val + " ({0})", unitOfMeasure.Symbol);
 }

@@ -51,8 +51,7 @@ public partial class StairsPage : BaseStairsPage
             return;
         if (e.PropertyName == nameof(platformSizes.ItemsSource))
         {
-            var itemsSource = platformSizes.ItemsSource as PlatformSize[];
-            if (itemsSource != null && itemsSource.Any())
+            if (platformSizes.ItemsSource is PlatformSize[] itemsSource && itemsSource.Length != 0)
                 platformSizes.ScrollToRow(0);
         }
 

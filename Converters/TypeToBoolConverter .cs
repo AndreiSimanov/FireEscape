@@ -7,7 +7,7 @@ public class TypeToBoolConverter : BaseConverterOneWay<Type, bool, Type?>
 {
     public override bool DefaultConvertReturnValue { get; set; } = false;
 
-    public IList<Type> TrueValues { get; } = new List<Type>();
+    public IList<Type> TrueValues { get; } = [];
 
     public override bool ConvertFrom(Type value, Type? parameter = null, CultureInfo? culture = null)
     {

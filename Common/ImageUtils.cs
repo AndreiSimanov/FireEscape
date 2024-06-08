@@ -50,21 +50,13 @@ public static class ImageUtils
         var orientation = GetImageOrientation(filePath);
         int angle = 0;
         if (orientation != null)
-            switch (orientation.Value)
+            angle = orientation.Value switch
             {
-                case Orientation.RotatedLeft:
-                    angle = -90;
-                    break;
-                case Orientation.RotatedRight:
-                    angle = 90;
-                    break;
-                case Orientation.Rotated180:
-                    angle = 180;
-                    break;
-                default:
-                    angle = 0;
-                    break;
-            }
+                Orientation.RotatedLeft => -90,
+                Orientation.RotatedRight => 90,
+                Orientation.Rotated180 => 180,
+                _ => 0,
+            };
         return angle * Math.PI / 180;
     }
 }

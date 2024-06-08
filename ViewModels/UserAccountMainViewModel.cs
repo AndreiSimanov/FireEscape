@@ -5,7 +5,7 @@ namespace FireEscape.ViewModels;
 public partial class UserAccountMainViewModel(UserAccountService userAccountService, ILogger<UserAccountMainViewModel> logger) : BaseViewModel(logger)
 {
     [ObservableProperty]
-    ObservableCollection<UserAccount> userAccounts = new();
+    ObservableCollection<UserAccount> userAccounts = [];
 
     [ObservableProperty]
     bool isRefreshing;

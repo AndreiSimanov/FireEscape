@@ -11,7 +11,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     PagingParameters pageParams;
 
     [ObservableProperty]
-    ObservableCollection<Order> orders = new();
+    ObservableCollection<Order> orders = [];
 
     [ObservableProperty]
     object? selectedItem = null;
@@ -147,7 +147,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
                 await reportService.CreateSingleReportAsync(order, protocols[0]);
                 return;
             }
-            protocols = protocols.OrderBy(protocol => protocol.FireEscapeNum).ToArray();
+            protocols = [.. protocols.OrderBy(protocol => protocol.FireEscapeNum)];
             await Shell.Current.GoToAsync(nameof(BatchReportPage), true, new Dictionary<string, object> { { nameof(Order), order }, { nameof(Protocol), protocols } });
             //await reportService.CreateBatchReportAsync(order, protocols);
         },
@@ -187,7 +187,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         },
         AppResources.AddOrderError);
 
-    static Random random = new Random();
+    static readonly Random random = new();
     static string RandomString(int length)
     {
         length = random.Next(0, length);

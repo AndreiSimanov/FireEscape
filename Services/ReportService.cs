@@ -42,14 +42,14 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
         }
     }
 
-    public IEnumerable<FileInfo> GetReports(Order order) => new DirectoryInfo(PrepareOutputFolder(order)).EnumerateFiles();
+    public static IEnumerable<FileInfo> GetReports(Order order) => new DirectoryInfo(PrepareOutputFolder(order)).EnumerateFiles();
 
-    public async Task MakeReportArchiveAsync(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
+    public static async Task MakeReportArchiveAsync(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
     {
-        if (!files.Any())
+        if (files.Count == 0)
             return;
 
-        using var archiveStream = await GetArchiveStream(files, ct, progress);
+        using var archiveStream = await ReportService.GetArchiveStream(files, ct, progress);
 
         if (ct.IsCancellationRequested)
             return;
@@ -74,7 +74,7 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
         });
     }
 
-    async Task<MemoryStream> GetArchiveStream(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
+    static async Task<MemoryStream> GetArchiveStream(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
     {
         var ms = new MemoryStream();
         double count = 0;

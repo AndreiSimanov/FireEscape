@@ -17,7 +17,7 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
 
     public override string DefaultConvertReturnValue { get; set; } = string.Empty;
 
-    StringBuilder sb = new();
+    readonly StringBuilder sb = new();
     public override string ConvertFrom(BaseStairsElement value, CultureInfo? culture)
     {
         if (value == null)

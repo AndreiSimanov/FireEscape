@@ -22,7 +22,7 @@
                 Text="{Binding Search}"
                 BackgroundColor="{dx:ThemeColor Primary}"
                 ReturnType="Search"
-                TextChanged="searchTextChanged"
+                TextChanged="SearchTextChanged"
                 Placeholder="{Binding Placeholder}">
                 <Entry.Behaviors>
                     <toolkit:UserStoppedTypingBehavior 

@@ -18,7 +18,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(FilesExists))]
-    ObservableCollection<FileInfo> files = new();
+    ObservableCollection<FileInfo> files = [];
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(MakeReportArchiveCommand))]
@@ -39,7 +39,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
     [ObservableProperty]
     double archiveProgress;
 
-    object syncObject = new();
+    readonly object syncObject = new();
     bool disposed;
     CancellationTokenSource? cts;
 
@@ -100,7 +100,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
                 IsMakingReportArchive = true;
                 var progressIndicator = new Progress<double>(progress => ArchiveProgress = progress);
                 cts = new CancellationTokenSource();
-                await reportService.MakeReportArchiveAsync(Files, cts.Token, progressIndicator);
+                await ReportService.MakeReportArchiveAsync(Files, cts.Token, progressIndicator);
             }
             finally
             {
@@ -121,7 +121,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
             Files.Clear();
             FilesExists = false;
             SelectedItem = null;
-            Files = reportService.GetReports(Order).ToObservableCollection();
+            Files = ReportService.GetReports(Order).ToObservableCollection();
             FilesExists = Files.Any();
         },
         AppResources.CreateReportError);

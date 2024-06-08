@@ -16,7 +16,7 @@ public partial class BaseViewModel(ILogger<BaseViewModel> logger) : ObservableOb
     protected async Task ProcessExeptionAsync(string caption, Exception ex)
     {
         Debug.WriteLine($"{caption}: {ex.Message}");
-        logger.LogError(ex, ex.Message);
+        logger.LogError(ex, message: ex.Message);
         await Shell.Current.DisplayAlert(AppResources.Error, ex.Message, AppResources.OK);
     }
 

@@ -401,12 +401,12 @@
                                         MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
                                         MinValue="0" 
                                         MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
-                                        Caption="{Binding PlatformLength}" HeaderFontSize="12" FieldName="Length" AllowNullValue="True" HorizontalContentAlignment="Center" />
+                                        Caption="{x:Static viewmodel:StairsViewModel.PlatformLength}" HeaderFontSize="12" FieldName="Length" AllowNullValue="True" HorizontalContentAlignment="Center" />
                                     <dxg:NumberColumn 
                                         MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
                                         MinValue="0" 
                                         MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
-                                        Caption="{Binding PlatformWidth}" HeaderFontSize="12" FieldName="Width" AllowNullValue="True" HorizontalContentAlignment="Center"/>
+                                        Caption="{x:Static viewmodel:StairsViewModel.PlatformWidth}" HeaderFontSize="12" FieldName="Width" AllowNullValue="True" HorizontalContentAlignment="Center"/>
                                 </dxg:DataGridView.Columns>
                             </dxg:DataGridView>
                         </StackLayout>

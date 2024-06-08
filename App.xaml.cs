@@ -26,10 +26,9 @@ public partial class App : Application
 
         MauiExceptions.UnhandledException += (sender, args) =>
         {
-            var exception = args.ExceptionObject as Exception;
-            if (exception == null)
+            if (args.ExceptionObject is not Exception exception)
                 return;
-            logger.LogCritical(exception, exception.Message);
+            logger.LogCritical(exception, message: exception.Message);
             throw exception;
         };
     }

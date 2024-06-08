@@ -36,6 +36,6 @@ public partial class SearchControl : ContentView
 
     void SearchTextClicked(object sender, EventArgs e) => Search = string.Empty;
 
-    void searchTextChanged(object sender, TextChangedEventArgs e) =>
+    void SearchTextChanged(object sender, TextChangedEventArgs e) =>
         clearSearchText.IsEnabled = !string.IsNullOrEmpty(e.NewTextValue);
 }

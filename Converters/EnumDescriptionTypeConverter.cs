@@ -3,30 +3,28 @@ using System.Globalization;
 
 namespace FireEscape.Converters;
 
-public class EnumDescriptionTypeConverter : EnumConverter
+public class EnumDescriptionTypeConverter(Type type) : EnumConverter(type)
 {
-    protected Type type;
-
-    public EnumDescriptionTypeConverter(Type type) : base(type) => this.type = type;
+    protected Type type = type;
 
     public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
     {
-        if (value is Enum && destinationType == typeof(string))
-            return GetEnumDescription((Enum)value);
+        if (value is Enum enumValue && destinationType == typeof(string))
+            return GetEnumDescription(enumValue);
 
-        if (value is string && destinationType == typeof(string))
-            return GetEnumDescription(type, (string)value);
+        if (value is string stringValue && destinationType == typeof(string))
+            return GetEnumDescription(type, stringValue);
 
         return base.ConvertTo(context, culture, value, destinationType);
     }
 
     public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
     {
-        if (value is string)
-            return GetEnumValue(type, (string)value);
+        if (value is string stringValue)
+            return GetEnumValue(type, stringValue);
 
-        if (value is Enum)
-            return GetEnumDescription((Enum)value);
+        if (value is Enum enumValue)
+            return GetEnumDescription(enumValue);
 
         return base.ConvertFrom(context, culture, value);
     }
