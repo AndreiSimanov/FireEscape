@@ -153,7 +153,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         AppResources.DeleteStairsElementError);
 
     protected override async Task SaveEditObjectAsync() =>
-       await DoBusyCommandAsync(async () =>
+       await DoCommandAsync(async () =>
        {
            await stairsService.SaveAsync(EditObject!);
        },

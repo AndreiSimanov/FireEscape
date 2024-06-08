@@ -21,10 +21,7 @@ public partial class ProtocolViewModel(ProtocolService protocolService, ILogger<
         AppResources.AddPhotoError);
 
     [RelayCommand]
-    async Task GoToDetailsAsync()
-    {
-        await SaveEditObjectCommand.ExecuteAsync(null);
-
+    async Task GoToDetailsAsync() =>
         await DoBusyCommandAsync(async () =>
         {
             await Shell.Current.GoToAsync(nameof(StairsPage), true,
@@ -32,10 +29,9 @@ public partial class ProtocolViewModel(ProtocolService protocolService, ILogger<
         },
         EditObject,
         AppResources.EditStairsError);
-    }
 
     protected override async Task SaveEditObjectAsync() =>
-       await DoBusyCommandAsync(async () =>
+       await DoCommandAsync(async () =>
        {
            await protocolService.SaveAsync(EditObject!);
        },
