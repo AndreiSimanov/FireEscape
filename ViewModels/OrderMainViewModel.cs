@@ -13,6 +13,8 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     [ObservableProperty]
     ObservableCollection<Order> orders = new();
 
+    Order? SelectedOrder = null;
+
     [ObservableProperty]
     bool isRefreshing;
 
@@ -33,6 +35,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             {
                 IsRefreshing = true;
                 IsLoadMore = true;
+                ChangeSelectedOrder(null);
                 pageParams = new PagingParameters(0, applicationSettings.PageSize);
                 var pagedResult = await orderService.GetOrdersAsync(Search, pageParams);
                 IsLoadMore = pagedResult.IsLoadMore;
@@ -75,6 +78,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         {
             newOrder = await orderService.CreateAsync();
             Orders.Insert(0, newOrder);
+            ChangeSelectedOrder(newOrder);
         },
         AppResources.AddOrderError);
 
@@ -94,6 +98,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
             await orderService.DeleteAsync(order);
             Orders.Remove(order);
+            ChangeSelectedOrder(null);
         },
         order,
         AppResources.DeleteOrderError);
@@ -102,6 +107,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task GoToDetailsAsync(Order order) =>
         await DoBusyCommandAsync(async () =>
         {
+            ChangeSelectedOrder(order);
             await Shell.Current.GoToAsync(nameof(OrderPage), true,
                 new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
         },
@@ -113,6 +119,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task GoToProtocolsAsync(Order order) =>
         await DoBusyCommandAsync(async () =>
         {
+            ChangeSelectedOrder(order);
             await Shell.Current.GoToAsync(nameof(ProtocolMainPage), true, new Dictionary<string, object> { { nameof(Order), order } });
         },
         order,
@@ -122,6 +129,7 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     async Task CreateReportAsync(Order order) =>
         await DoBusyCommandAsync(async () =>
         {
+            ChangeSelectedOrder(order);
             if (order == null)
                 return;
             var protocols = await protocolService.GetProtocolsAsync(order.Id);
@@ -176,6 +184,15 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             }
         },
         AppResources.AddOrderError);
+
+    void ChangeSelectedOrder(Order? order)
+    { 
+        if (SelectedOrder != null)
+            SelectedOrder.IsSelected = false;
+        SelectedOrder = order;
+        if (SelectedOrder != null)
+            SelectedOrder.IsSelected = true;
+    }
 
     static Random random = new Random();
     static string RandomString(int length)
