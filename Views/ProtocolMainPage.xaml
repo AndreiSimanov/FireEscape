@@ -96,7 +96,7 @@
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
                             
-                            <Grid HeightRequest="140" ColumnDefinitions="125,*">
+                            <Grid ColumnDefinitions="125,*">
                                 <Grid.Resources>
                                     <ResourceDictionary>
                                         <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
@@ -142,9 +142,9 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Style="{StaticResource SubTitleline}" Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}"/>
+                                    <Label Style="{StaticResource SubLine}" Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}"/>
                                     <Label 
-                                        Style="{StaticResource SubTitleline}"
+                                        Style="{StaticResource SubLine}"
                                         IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -155,7 +155,7 @@
                                         </Label.FormattedText>
                                     </Label>
                                     <Label 
-                                        Style="{StaticResource SubTitleline}"
+                                        Style="{StaticResource SubLine}"
                                         IsVisible="{Binding Location, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -166,27 +166,33 @@
                                         </Label.FormattedText>
                                     </Label>
                                     <Label 
-                                        Style="{StaticResource SubTitleline}"
+                                        Style="{StaticResource SubLine}"
                                         IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
                                         Text="{Binding Address}"/>
                                     <Label 
-                                        Style="{StaticResource SubTitleline}"
+                                        Style="{StaticResource SubLine}"
                                         IsVisible="{Binding Address, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
                                         Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Address}"/>
-                                    <Label Style="{StaticResource SmallSubTitleline}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{x:Static lang:AppResources.ProtocolDate}"/>
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}"/>
-                                                <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}"/>
-                                                <Span Text="  ("/>
-                                                <Span Text="{x:Static lang:AppResources.Id}"/>
-                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}"/>
-                                                <Span Text="{Binding Id}" />
-                                                <Span Text=")" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                    <Grid>
+                                        <Label Style="{StaticResource SmallSubLine}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Style="{StaticResource SmallSubLine}" HorizontalTextAlignment="End">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.Id}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding Id}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
                                 </VerticalStackLayout>
                             </Grid>
 

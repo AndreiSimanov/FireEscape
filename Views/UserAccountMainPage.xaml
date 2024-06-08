@@ -88,7 +88,7 @@
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
 
-                            <VerticalStackLayout HeightRequest="145" Spacing="2" >
+                            <VerticalStackLayout Spacing="2" >
                                 <Label Style="{StaticResource Titleline}">
                                     <Label.FormattedText>
                                         <FormattedString>

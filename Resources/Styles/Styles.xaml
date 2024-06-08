@@ -342,6 +342,11 @@
         <Setter Property="FontSize" Value="12" />
     </Style>
 
+    <Style TargetType="Label" x:Key="SmallSubLine" BasedOn="{StaticResource SubLine}">
+        <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface, Alpha=0.80}" />
+        <Setter Property="FontSize" Value="10" />
+    </Style>
+
     <Style TargetType="ListView">
         <Setter Property="SeparatorColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="RefreshControlColor" Value="{dx:ThemeColor OnSurfaceVariant}" />

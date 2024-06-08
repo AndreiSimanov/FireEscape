@@ -14,6 +14,9 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
     Protocol[]? protocols;
 
     [ObservableProperty]
+    object? selectedItem = null;
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(FilesExists))]
     ObservableCollection<FileInfo> files = new();
 
@@ -61,6 +64,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
 
             StartStopStatus = StartStopEnum.Stop;
             FilesExists = false;
+            SelectedItem = null;
             Files.Clear();
 
             var progressIndicator = new Progress<(double progress, string outputPath)>(progress =>
@@ -116,6 +120,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
                 return;
             Files.Clear();
             FilesExists = false;
+            SelectedItem = null;
             Files = reportService.GetReports(Order).ToObservableCollection();
             FilesExists = Files.Any();
         },
@@ -125,6 +130,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
     async Task OpenFileAsync(FileInfo fileInfo) =>
         await DoCommandAsync(async () =>
         {
+            SelectedItem = fileInfo;
             await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(fileInfo.FullName) });
         },
         fileInfo,

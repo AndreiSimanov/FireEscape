@@ -74,54 +74,57 @@
         <dxcv:DXCollectionView 
             ItemsSource="{Binding Files}"
             SelectionMode="Single" 
+            SelectedItem="{Binding SelectedItem}"
             AllowLiveDataShaping="True"
             IsScrollBarVisible="False"
-            ItemSeparatorThickness="1"
-            Margin="10,0,10,0"
             Grid.Row="1"
             UseRippleEffect="true">
             <dxcv:DXCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type sysio:FileInfo}">
-                    <StackLayout>
-                        <StackLayout.GestureRecognizers>
+
+                    <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer.GestureRecognizers>
                             <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BatchReportModel}}, Path=OpenFileCommand}"
-                                    CommandParameter="{Binding .}"/>
-                        </StackLayout.GestureRecognizers>
-                        <VerticalStackLayout Spacing="2" Margin="0">
-                            <Label Style="{StaticResource Titleline}" Text="{Binding Name}" />
-                            <Grid>
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BatchReportModel}}, Path=OpenFileCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </dxcv:SwipeContainer.GestureRecognizers>
+                        <dxcv:SwipeContainer.ItemView>
+                            <VerticalStackLayout Spacing="2" Margin="10,0,10,0">
+                                <Label Style="{StaticResource Titleline}" Text="{Binding Name}" />
+                                <Grid>
+                                    <Label Style="{StaticResource SubLine}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.DateCreated}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding CreationTime, StringFormat='{0:dd.MM.yyyy hh:mm}'}"/>
+                                                <Span Text="  " />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.Size}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Length, Converter={StaticResource FileSizeToStringConverter}}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
                                 <Label Style="{StaticResource SubLine}">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{x:Static lang:AppResources.DateCreated}" />
+                                            <Span Text="{x:Static lang:AppResources.Path}" />
                                             <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                            <Span Text="{Binding CreationTime, StringFormat='{0:dd.MM.yyyy hh:mm}'}"/>
-                                            <Span Text="  " />
+                                            <Span Text="{Binding DirectoryName}" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{x:Static lang:AppResources.Size}" />
-                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                            <Span Text="{Binding Length, Converter={StaticResource FileSizeToStringConverter}}" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </Grid>
-                            <Label Style="{StaticResource SubLine}">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{x:Static lang:AppResources.Path}" />
-                                        <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                        <Span Text="{Binding DirectoryName}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </VerticalStackLayout>
-                    </StackLayout>
+                            </VerticalStackLayout>
+
+                        </dxcv:SwipeContainer.ItemView>
+                    </dxcv:SwipeContainer>
                 </DataTemplate>
             </dxcv:DXCollectionView.ItemTemplate>
         </dxcv:DXCollectionView>
