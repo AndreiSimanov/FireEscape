@@ -16,7 +16,7 @@ public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbs
     }
 
     public Type StairsElementType => StairsElements.First().StairsElementType;
-    public int TestPointCount => StairsElements.First().TestPointCount;
+    public int TestPointCount => StairsElements.Sum(element => element.TestPointCount);
     public float WithstandLoadCalcResult => StairsElements.First().WithstandLoadCalcResult;
     public int PrintOrder => StairsElements.First().PrintOrder;
     public int ElementNumber => StairsElements.Min(element => element.ElementNumber);
