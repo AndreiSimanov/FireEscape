@@ -22,7 +22,7 @@
         <ctrl:SearchControl
             x:Name="searchControl"
             Search="{Binding Search}"
-            SearchCommand="{Binding FilterProtocolsCommand}"
+            SearchCommand="{Binding FilterItemsCommand}"
             Placeholder="{x:Static lang:AppResources.ProtocolsSearch}"
             StoppedTypingTimeThreshold="300"/>
         <Border

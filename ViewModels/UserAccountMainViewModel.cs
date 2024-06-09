@@ -72,11 +72,14 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
         AppResources.DeleteUserAccountError);
 
     [RelayCommand]
-    void FilterUserAccounts()
+    void FilterItems() =>
+    DoCommand(() =>
     {
         Filter = $"Contains([id], '{Search}') " +
             $"or Contains([Name], '{Search}') " +
             $"or Contains([Signature], '{Search}') " +
             $"or Contains([Company], '{Search}')";
-    }
+
+    },
+    AppResources.GetUserAccountsError);
 }

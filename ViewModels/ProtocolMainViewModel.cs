@@ -151,7 +151,8 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         AppResources.EditProtocolError);
 
     [RelayCommand]
-    void FilterProtocols()
+    void FilterItems() =>
+    DoCommand(() =>
     {
         var searchValue = Search.Trim().ToLowerInvariant();
         var isOrderLocation = Order != null && Order.Location.ToLowerInvariant().Contains(searchValue);
@@ -161,7 +162,9 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         Filter = $"(Contains([Location], '{searchValue}') or (IsNullOrEmpty([Location]) and {isOrderLocation}))" +
             $" or (Contains([Address], '{searchValue}') or (IsNullOrEmpty([Address]) and {isOrderAddress}))" +
             $" or (Contains([FireEscapeObject], '{searchValue}') or (IsNullOrEmpty([FireEscapeObject]) and {isOrderFireEscapeObject}))";
-    }
+
+    },
+    AppResources.GetProtocolsError);
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
