@@ -69,18 +69,15 @@ public partial class Stairs : BaseObject
     public string? StairsElementsBlob { get; set; }
 
     public IEnumerable<BaseStairsElement> GetBaseStairsTypeElements() => StairsElements.Where(element => element.BaseStairsType == BaseStairsType);
-    public void UpdateStepsCount()
-    {
-        if (BaseStairsType == BaseStairsTypeEnum.P2)
-            StepsCount = StairsElements.Where(element => element.StairsElementType == typeof(StairwayP2)).Sum(item => ((StairwayP2)item).StepsCount);
-    }
 
     public void UpdateStairsElements()
     {
         StairsElements.ToList().ForEach(UpdateStairsElement);
+        if (StairsElements.FirstOrDefault(element => element is FenceP2) is FenceP2 fenceP2)
+            fenceP2.FenceElementsCount = StairsElements.Count(element => element is PlatformP2 or StairwayP2);
     }
 
-    public void UpdateStairsElement(BaseStairsElement element)
+    void UpdateStairsElement(BaseStairsElement element)
     {
         element.StairsHeight = StairsHeight.Value;
         element.StairsStepsCount = StepsCount;

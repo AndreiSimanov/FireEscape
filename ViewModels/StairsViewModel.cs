@@ -51,7 +51,11 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     void UpdatStairsElements() => EditObject?.UpdateStairsElements();
 
     [RelayCommand]
-    void UpdateStepsCount() => EditObject?.UpdateStepsCount();
+    void UpdateStepsCount()
+    {
+        if (EditObject != null && EditObject.BaseStairsType == BaseStairsTypeEnum.P2)
+            EditObject.StepsCount = EditObject.StairsElements.Where(element => element.StairsElementType == typeof(StairwayP2)).Sum(item => ((StairwayP2)item).StepsCount);
+    }
 
     [RelayCommand]
     void SelectStairsElement(BaseStairsElement? element)
@@ -123,8 +127,8 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                 var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
                 if (element != null)
                 {
-                    EditObject.UpdateStairsElement(element);
                     EditObject.StairsElements.Insert(0, element);
+                    UpdatStairsElements();
                     SelectStairsElement(element);
                 }
             }
@@ -146,7 +150,8 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                 return;
 
             EditObject.StairsElements.Remove(element);
-            EditObject.UpdateStepsCount();
+            UpdateStepsCount();
+            UpdatStairsElements();
             SelectStairsElement(null);
         },
         element,
