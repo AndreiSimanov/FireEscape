@@ -72,15 +72,14 @@ public partial class Stairs : BaseObject
 
     public void UpdateStairsElements()
     {
-        StairsElements.ToList().ForEach(UpdateStairsElement);
+        foreach (var element in StairsElements) 
+        {
+            element.StairsHeight = StairsHeight.Value;
+            element.StairsStepsCount = StepsCount;
+        }
+
         if (StairsElements.FirstOrDefault(element => element is FenceP2) is FenceP2 fenceP2)
             fenceP2.FenceElementsCount = StairsElements.Count(element => element is PlatformP2 or StairwayP2);
-    }
-
-    void UpdateStairsElement(BaseStairsElement element)
-    {
-        element.StairsHeight = StairsHeight.Value;
-        element.StairsStepsCount = StepsCount;
     }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)

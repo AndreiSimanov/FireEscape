@@ -19,7 +19,8 @@ public class OrderRepository(SqliteContext context, IOrderFactory factory) : Bas
 
         var imageFileMask = $"{order.Id}_*.{ImageUtils.IMAGE_FILE_EXTENSION}";
         var dir = new DirectoryInfo(ApplicationSettings.ImagesFolder);
-        dir.EnumerateFiles(imageFileMask).ToList().ForEach(file => file.Delete());
+        foreach (var file in dir.EnumerateFiles(imageFileMask))
+            file.Delete();
     }
 
     public async Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams)
