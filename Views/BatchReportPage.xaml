@@ -80,7 +80,8 @@
             Grid.Row="1"
             UseRippleEffect="true">
             <dxcv:DXCollectionView.SortDescriptions>
-                <dxcv:SortDescription FieldName="CreationTime"/>
+                <dxcv:SortDescription FieldName="CreationTime" SortOrder="Ascending"/>
+                <dxcv:SortDescription FieldName="Name" SortOrder="Ascending" />
             </dxcv:DXCollectionView.SortDescriptions>
             <dxcv:DXCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type sysio:FileInfo}">
