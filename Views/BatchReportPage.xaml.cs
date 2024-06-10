@@ -18,6 +18,6 @@ public partial class BatchReportPage : ContentPage
     private void ContentPageDisappearing(object sender, EventArgs e)
     {
         var viewModel = BindingContext as BatchReportModel;
-        viewModel?.Dispose();
+        viewModel?.Reset();
     }
 }

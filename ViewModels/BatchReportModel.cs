@@ -117,11 +117,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
     void GetReports() =>
         DoBusyCommand(() =>
         {
-            Progress = 0;
-            ArchiveProgress = 0;
-            Files.Clear();
-            FilesExists = false;
-            SelectedItem = null;
+            Reset();
             if (Order != null)
                 Files = ReportService.GetReports(Order).ToObservableCollection();
             FilesExists = Files.Count > 0;
@@ -147,10 +143,19 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
         {
             if (disposed)
                 return;
-            cts?.Cancel();
-            cts?.Dispose();
+            Reset();
             disposed = true;
         }
+    }
+
+    public void Reset()
+    {
+        cts?.Cancel();
+        Progress = 0;
+        ArchiveProgress = 0;
+        Files.Clear();
+        FilesExists = false;
+        SelectedItem = null;
     }
 
     bool CanMakeReportArchive() => FilesExists && StartStopStatus == StartStopEnum.Start;
