@@ -43,9 +43,6 @@ public abstract partial class BaseStairsElement : ObservableObject
     public virtual float WithstandLoadCalcResult => WithstandLoad;
 
     [JsonIgnore]
-    public virtual string WithstandLoadCalc => string.Empty;
-
-    [JsonIgnore]
     public virtual int TestPointCount => 0;
 
     [ObservableProperty]

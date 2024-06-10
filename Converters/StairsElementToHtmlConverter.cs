@@ -6,7 +6,7 @@ namespace FireEscape.Converters;
 
 public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElement, string>
 {
-    const int MAX_TEXT_LENGTH = 140;
+    //const int MAX_TEXT_LENGTH = 140;
     string primaryColorStr = Colors.Black.ToArgbHex();
     string surfaceColorStr = Colors.Gray.ToArgbHex();
     string surfaceVariantColorStr = Colors.Gray.ToArgbHex();

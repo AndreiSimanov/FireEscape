@@ -29,8 +29,9 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     public string Location => string.IsNullOrWhiteSpace(protocol.Location) ? order.Location : protocol.Location;
     public string Address => string.IsNullOrWhiteSpace(protocol.Address) ? order.Address : protocol.Address;
     public DateTime ProtocolDate => protocol.ProtocolDate;
-    public string StairsTypeStr => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsType);
+    public BaseStairsTypeEnum BaseStairsType => Stairs.BaseStairsType;
     public StairsTypeEnum StairsType => Stairs.StairsType;
+    public string StairsTypeStr => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsType);
     public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsMountType);
     public string FireEscapeObject => string.IsNullOrWhiteSpace(protocol.FireEscapeObject) ? order.FireEscapeObject : protocol.FireEscapeObject;
     public string FullAddress => Location + ", " + Address;
@@ -67,6 +68,32 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
 
     public string SecondaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.SecondaryExecutorSign) ? order.SecondaryExecutorSign : protocol.SecondaryExecutorSign);
 
+    public string GetSupportBeamsP1Calc() => GetStairsElementResultCalc(typeof(SupportBeamsP1));
+
+    public string GetPlatformP1Calc() => GetStairsElementResultCalc(typeof(PlatformP1));
+
+    string GetStairsElementResultCalc(Type type)
+    {
+        var element = GetStairsElementsResult().FirstOrDefault(element => element.StairsElementType == type && !element.IsAbsent);
+        if (element == null)
+            return string.Empty;
+        return GetWithstandLoadCalc(element?.StairsElements.FirstOrDefault());
+    }
+
+    string GetWithstandLoadCalc(BaseStairsElement? element)
+    {
+        if (element is SupportBeamsP1)
+            return $"({StairsHeight.ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K1}*{element.TestPointCount})*{BaseStairsElement.K3} = {element.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
+
+        if (element is BasePlatformElement platformElement)
+           return $"({platformElement.Size}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{platformElement.SupportBeamsCount})*{BaseStairsElement.K3} = {platformElement.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
+
+        if (element is StairwayP2 stairwayP2)
+            return $"(({(stairwayP2.StairwayWidth / 1000).ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{stairwayP2.SupportBeamsCount}))*{BaseStairsElement.K3}*{BaseStairsElement.COS_ALPHA} = {stairwayP2.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
+
+        return string.Empty;
+    }
+
     public List<StairsElementResult> GetStairsElementsResult()
     {
         if (stairsElementResults != null)
@@ -74,7 +101,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
 
         stairsElementResults = Stairs.GetBaseStairsTypeElements().
             Where(stairsElement => stairsElement.BaseStairsType == Stairs.BaseStairsType).
-            GroupBy(stairsElement => new { stairsElement.StairsElementType, stairsElement.WithstandLoadCalc }, (key, group) =>
+            GroupBy(stairsElement => new { stairsElement.StairsElementType, WithstandLoadCalc = GetWithstandLoadCalc(stairsElement) }, (key, group) =>
                 new StairsElementResult([.. group.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)], false, [])).ToList();
 
         foreach (var (elementResult, element) in stairsElementResults.SelectMany(elementResult => elementResult.StairsElements.Select(element => (elementResult, element))))

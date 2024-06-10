@@ -24,6 +24,4 @@ public partial class StairwayP2 : BaseSupportBeamsElement
             return (float)Math.Round(ConvertToMeter(StairwayWidth) * K2 / (K4 * SupportBeamsCount) * K3 * COS_ALPHA);
         }
     }
-
-    public override string WithstandLoadCalc => $"(({ConvertToMeter(StairwayWidth)}*{K2})/({K4}*{SupportBeamsCount}))*{K3}*{COS_ALPHA} = {WithstandLoadCalcResult}";
 }

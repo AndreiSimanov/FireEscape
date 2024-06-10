@@ -21,7 +21,6 @@ public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbs
     public int PrintOrder => StairsElements.First().PrintOrder;
     public int ElementNumber => StairsElements.Min(element => element.ElementNumber);
 
-
     string GetStairsElementResultName()
     {
         var elementNumber = string.Empty;

@@ -19,6 +19,12 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         {
             MakeHeader(document);
             MakeOverview(document);
+
+            if (protocolRdp.BaseStairsType == BaseStairsTypeEnum.P1)
+                MakeCalcBlockP1(document);
+            else
+                MakeCalcBlockP2(document);
+
             MakeTestResultsTable(document);
             MakeImage(document);
             MakeFooter(document);
@@ -27,6 +33,22 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         {
             document.Close();
         }
+    }
+
+    static Paragraph GetParagraph(string? text = null)
+    {
+        var paragraph = text == null ? new Paragraph() : new Paragraph(text);
+        paragraph.SetFixedLeading(12).SetMargin(0);
+        return paragraph;
+    }
+
+    static ListItem GetListItem(string text, string? listSymbol = null)
+    {
+        var listItem = new ListItem();
+        if (listSymbol != null)
+            listItem.SetListSymbol(listSymbol);
+        listItem.Add(GetParagraph(text));
+        return listItem;
     }
 
     void MakeHeader(Document document)
@@ -70,8 +92,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
     }
     void MakeOverview(Document document)
     {
-        document.Add(new Paragraph()
-            .SetFixedLeading(12)
+        document.Add(GetParagraph()
             .AddAll(new[]{
                 new Text("Характеристика объекта: ").SetBold(),
                 new Text(protocolRdp.StairsTypeStr + ", "),
@@ -79,57 +100,48 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text(protocolRdp.FireEscapeObject).SetBold()})
         );
 
-        document.Add(new Paragraph()
+        document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text(" по адресу: "),
                 new Text(protocolRdp.FullAddress).SetBold()})
            );
 
-        document.Add(new Paragraph($"Номер испытуемого объекта: № {protocolRdp.FireEscapeNum}")
-            .SetFixedLeading(8)
-            .SetBold());
+        document.Add(new Paragraph(" "));
+        document.Add(GetParagraph($"Номер испытуемого объекта: № {protocolRdp.FireEscapeNum}").SetBold());
 
-        document.Add(new Paragraph()
-            .SetFixedLeading(8)
+        document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Высота лестницы: ").SetBold(),
                 new Text(protocolRdp.StairsHeight.ToString(reportSettings.FloatFormat)).SetBold().SetUnderline(),
                 new Text(" м.")}));
 
-        document.Add(new Paragraph()
-            .SetFixedLeading(8)
+        document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Ширина лестницы: ").SetBold(),
                 new Text(protocolRdp.StairsWidth.ToString()).SetBold().SetUnderline(),
                 new Text(" мм.")}));
 
-        document.Add(new Paragraph()
-            .SetFixedLeading(8)
+        document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Количество ступеней: ").SetBold(),
                 new Text(protocolRdp.StepsCount.ToString()).SetBold().SetUnderline(),
                 new Text(" шт.")}));
 
-        document.Add(new Paragraph($"Наличие ограждения лестницы: {(protocolRdp.HasStairsFence ? "имеется" : "не имеется")} ")
-                    .SetFixedLeading(8)
-                    .SetBold());
+        document.Add(GetParagraph($"Наличие ограждения лестницы: {(protocolRdp.HasStairsFence ? "имеется" : "не имеется")} ").SetBold());
 
-        document.Add(new Paragraph()
-            .SetFixedLeading(12)
+        document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Условия проведения испытания: ").SetBold(),
                 new Text("скорость ветра до 10 м/с, время суток - дневное, в условиях визуальной видимости испытателей друг друга.")}));
 
-         document.Add(new Paragraph()
-            .SetFixedLeading(12)
+         document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Средства испытаний: ").SetBold(),
                 new Text(protocolRdp.StairsType == StairsTypeEnum.P2 ?
                     "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство.":
                     "лебёдка, динамометр, набор грузов, цепи, лазерная рулетка.")}));
 
-        document.Add(new Paragraph()
-            .SetFixedLeading(12)
+        document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Визуальный осмотр ").SetBold(),
                 new Text("сварных швов лестниц и ограждений "),
@@ -139,6 +151,95 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("  ГОСТ 9.302 - 88.")}));
 
         document.Add(new Paragraph(" "));
+    }
+
+    void MakeCalcBlockP1(Document document)
+    {
+        document.Add(GetParagraph("Расчет величины нагрузки на балку:").SetBold());
+        document.Add(GetParagraph($"М = (Н*К2)/(К1*Х)*К3 = {protocolRdp.GetSupportBeamsP1Calc()}").SetBold());
+
+
+        var platformP1Calc = protocolRdp.GetPlatformP1Calc();
+        if (!string.IsNullOrWhiteSpace(platformP1Calc))
+        {
+            document.Add(GetParagraph("Расчет величины нагрузки на площадку лестницы:").SetBold());
+            document.Add(GetParagraph($"Р = (S*К2)/(К4*Х)*К3 = {platformP1Calc}").SetBold());
+        }
+
+        var paramsList = new List();
+        paramsList.Add(GetListItem("масса груза, при которой следует проводить испытания;", "где  М - "));
+        if (!string.IsNullOrWhiteSpace(platformP1Calc))
+            paramsList.Add(GetListItem("площадь площадки лестницы;", "S - "));
+        paramsList.Add(GetListItem("высота лестницы, м.;", "Н - "));
+        paramsList.Add(GetListItem("количество балок, при помощи которых лестница крепится к стене;", "Х - "));
+        paramsList.Add(GetListItem("коэффициент, численно равный высоте расположения одного человека (пожарного) на лестнице, м, принимается равным 2,5;", "К1- "));
+        paramsList.Add(GetListItem("максимальная масса одного человека (пожарного), принимается равным 120 кг.;", "К2- "));
+        paramsList.Add(GetListItem("коэффициент запаса прочности, принимается равным 1,5;", "К3- "));
+        if (!string.IsNullOrWhiteSpace(platformP1Calc))
+            paramsList.Add(GetListItem("коэффициент, численно равный величине проекции человека на горизонталь, принимается равным 0,5;", "K4- "));
+        document.Add(paramsList);
+    }
+
+    static void MakeCalcBlockP2(Document document)
+    {
+        MakeCalcStairwayP2(document);
+        MakeCalcPlatformP2(document);
+    }
+
+    static void MakeCalcStairwayP2(Document document)
+    {
+        document.Add(GetParagraph()
+            .AddAll(new[] {
+                new Text("Расчет величины нагрузки на марш ").SetBold(),
+                new Text("должен выдерживать испытательную нагрузку "),
+                new Text("Р"),
+                new Text("марш").SetFontSize(8),
+                new Text(", определяемую по формуле:")
+            }));
+
+        document.Add(GetParagraph()
+            .AddAll(new[] {
+                new Text("Р").SetBold(),
+                new Text("марш ").SetFontSize(8).SetBold(),
+                new Text("= ((L * К2) / (К4 * Х)) * К3 * cos ").SetBold(),
+                new Text("α,     (1)")}));
+
+        var paramsList = new List();
+        paramsList.Add(GetListItem("длина марша лестницы, м;", "где  L - "));
+        paramsList.Add(GetListItem("максимальная нагрузка, создаваемая одним человеком (пожарным), принимается равной 1,2 кН (120 кгс);", "K2- "));
+        paramsList.Add(GetListItem("коэффициент запаса прочности, принимается равным 1,5;", "K3- "));
+        paramsList.Add(GetListItem("коэффициент, численно равный величине проекции человека на горизонталь, м, принимается равным 0,5;", "K4- "));
+        paramsList.Add(GetListItem("количество балок, при помощи которых лестница крепится к стене, шт.;", "Х - "));
+        paramsList.Add(GetListItem("угол наклона плоскости лестницы к горизонтали (α = 45 град.);", "α  - "));
+        document.Add(paramsList);
+        document.Add(new Paragraph(" "));
+    }
+
+    static void MakeCalcPlatformP2(Document document)
+    {
+        document.Add(GetParagraph()
+            .AddAll(new[] {
+                new Text("Площадка лестницы ").SetBold(),
+                new Text("должен выдерживать испытательную нагрузку "),
+                new Text("Р"),
+                new Text("площ").SetFontSize(8),
+                new Text(", определяемую по формуле:")
+            }));
+
+        document.Add(GetParagraph()
+                   .AddAll(new[] {
+                new Text("Р").SetBold(),
+                new Text("площ ").SetFontSize(8).SetBold(),
+                new Text("= ((S * К2) / (К4 * Х)) * К3").SetBold(),
+                new Text(",     (2)")}));
+
+        var paramsList = new List();
+        paramsList.Add(GetListItem("площадь площадки лестницы;", "где  S - "));
+        paramsList.Add(GetListItem("максимальная нагрузка, создаваемая одним человеком (пожарным), принимается равной 1,2 кН (120 кгс);", "K2- "));
+        paramsList.Add(GetListItem("коэффициент запаса прочности, принимается равным 1,5;", "K3- "));
+        paramsList.Add(GetListItem("коэффициент, численно равный величине проекции человека на горизонталь, м, принимается равным 0,5;", "K4- "));
+        paramsList.Add(GetListItem("количество балок, при помощи которых лестница крепится к стене, шт.;", "Х - "));
+        document.Add(paramsList);
     }
 
     void MakeTestResultsTable(Document document)
@@ -208,12 +309,11 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 
     void MakeFooter(Document document)
     {
-        document.SetFontSize(10);
-
+        document.Add(new AreaBreak());
         var summary = protocolRdp.GetReportSummary().ToList();
 
-        document.Add(new Paragraph()
-            .SetFixedLeading(12)
+        document.Add(GetParagraph()
+            .SetFontSize(10)
             .AddAll(new[] {
                 new Text("Выводы по результатам испытаний: ").SetBold(),
                 new Text("В соответствии с "),
@@ -223,18 +323,13 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
             }));
 
         var summaryList = new List();
-        foreach (var item in summary)
-        {
-            var listItem = new ListItem();
-            listItem.Add(new Paragraph(item).SetFixedLeading(12));
-            summaryList.Add(listItem);
-        }
+        summary.ForEach(item => summaryList.Add(GetListItem(FirstCharToUpper(item))));
+        summaryList.SetFontSize(10);
         document.Add(summaryList);
 
         document.Add(new Paragraph(" "));
 
-        document.Add(new Paragraph()
-            .SetFixedLeading(8)
+        document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Испытания проводили: инженер "),
                 new Text(protocolRdp.ExecutiveCompany).SetBold()}));
@@ -244,13 +339,20 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 
         if (!string.IsNullOrWhiteSpace(protocolRdp.Customer))
         {
-            document.Add(new Paragraph()
-                .SetFixedLeading(8)
+            document.Add(GetParagraph()
                 .AddAll(new[] {
                 new Text("Присутствовали: Представитель Заказчика "),
                 new Text(protocolRdp.Customer).SetBold()}));
-            document.Add(new Paragraph("М.П.").SetFixedLeading(8));
-            document.Add(new Paragraph("_______________ / ___________ /").SetTextAlignment(TextAlignment.RIGHT));
+            document.Add(GetParagraph("М.П."));
+            document.Add(GetParagraph("_______________ / ___________ /").SetTextAlignment(TextAlignment.RIGHT));
         }
     }
+
+    static string FirstCharToUpper(string input) =>
+       input switch
+       {
+           null => throw new ArgumentNullException(nameof(input)),
+           "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+           _ => string.Concat(input[0].ToString().ToUpper(), input.AsSpan(1))
+       };
 }

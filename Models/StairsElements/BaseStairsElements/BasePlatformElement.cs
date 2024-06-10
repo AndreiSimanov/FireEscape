@@ -28,8 +28,6 @@ public abstract partial class BasePlatformElement : BaseSupportBeamsElement
         }
     }
 
-    public override string WithstandLoadCalc => $"(({Size}*{K2})/({K4}*{SupportBeamsCount}))*{K4} = {WithstandLoadCalcResult}";
-
     [JsonIgnore]
     public float Size => (float)Math.Round(GetAllPlatformSizes().Sum(item => ConvertToMeter(item.Length) * ConvertToMeter(item.Width)), 2);
 
