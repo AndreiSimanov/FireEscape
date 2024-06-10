@@ -499,6 +499,9 @@
         <Setter Property="TextHorizontalAlignment" Value="Start" />
         <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
+        <Setter Property="ErrorColor" Value="{dx:ThemeColor Outline}" />
+        <Setter Property="ErrorIconColor" Value="Red" />
+        <Setter Property="ErrorIcon" Value="warning" />
     </Style>
 
     <Style TargetType="dxe:NumericEdit" x:Key="NextNumericEdit" BasedOn="{StaticResource DefaultNumericEdit}">

@@ -13,6 +13,13 @@ public partial class UnitOfMeasureEditControl : ContentView
         set => SetValue(ValueProperty, value);
     }
 
+    public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(UnitOfMeasureEditControl), defaultBindingMode: BindingMode.OneWay);
+    public bool HasError
+    {
+        get => (bool)GetValue(HasErrorProperty);
+        set => SetValue(HasErrorProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextProperty = BindableProperty.Create(nameof(LabelText), typeof(string), typeof(UnitOfMeasureEditControl), defaultBindingMode: BindingMode.OneWay);
     public string LabelText
     {

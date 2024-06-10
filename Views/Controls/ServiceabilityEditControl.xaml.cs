@@ -12,6 +12,13 @@ public partial class ServiceabilityEditControl : ContentView
         set => SetValue(ServiceabilityValueProperty, value);
     }
 
+    public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(UnitOfMeasureEditControl), defaultBindingMode: BindingMode.OneWay);
+    public bool HasError
+    {
+        get => (bool)GetValue(HasErrorProperty);
+        set => SetValue(HasErrorProperty, value);
+    }
+
     public static readonly BindableProperty ServiceabilityTypesProperty = BindableProperty.Create(nameof(ServiceabilityTypes), typeof(string[]), typeof(ServiceabilityEditControl));
     public string[] ServiceabilityTypes
     {

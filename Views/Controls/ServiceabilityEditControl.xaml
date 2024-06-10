@@ -27,6 +27,7 @@
             PlaceholderText="{Binding PlaceholderText}"
             Grid.Column="0"
             Value="{Binding ServiceabilityValue.Value}"
+            HasError="{Binding HasError}"
             ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"/>
 
         <dxe:ComboBoxEdit
