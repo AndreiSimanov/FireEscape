@@ -79,6 +79,9 @@
             IsScrollBarVisible="False"
             Grid.Row="1"
             UseRippleEffect="true">
+            <dxcv:DXCollectionView.SortDescriptions>
+                <dxcv:SortDescription FieldName="CreationTime"/>
+            </dxcv:DXCollectionView.SortDescriptions>
             <dxcv:DXCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Type sysio:FileInfo}">
 
