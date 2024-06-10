@@ -1,4 +1,5 @@
-﻿using iText.Kernel.Font;
+﻿using iText.IO.Font;
+using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 
@@ -6,14 +7,30 @@ namespace FireEscape.Reports.ReportWriters;
 
 public static class PdfReportWriter
 {
-    public static async Task<Document> GetPdfDocumentAsync(string filePath, string fontName, float fontSize)
+    public static async Task<Document> CreatePdfDocumentAsync(string filePath, string fontName, float fontSize)
     {
         if (string.IsNullOrWhiteSpace(filePath))
             throw new ArgumentNullException(nameof(filePath));
 
+        var pdfDoc = new PdfDocument(new PdfWriter(filePath));
+        return await GetDocument(pdfDoc, fontName, fontSize);
+    }
+
+    public static async Task<Document> OpenPdfDocumentAsync(string sourceFilePath, string destFilePath, string fontName, float fontSize)
+    {
+        if (string.IsNullOrWhiteSpace(sourceFilePath))
+            throw new ArgumentNullException(nameof(sourceFilePath));
+        if (string.IsNullOrWhiteSpace(destFilePath))
+            throw new ArgumentNullException(nameof(destFilePath));
+
+        var pdfDoc = new PdfDocument(new PdfReader(sourceFilePath), new PdfWriter(destFilePath));
+        return await GetDocument(pdfDoc, fontName, fontSize);
+    }
+
+    static async Task<Document> GetDocument(PdfDocument pdfDoc, string fontName, float fontSize)
+    {
         var fontFilePath = await AddFontIfNotExisitAsync(AppUtils.DefaultContentFolder, fontName);
-        var pdf = new PdfDocument(new PdfWriter(filePath));
-        var document = new Document(pdf);
+        var document = new Document(pdfDoc);
         var font = PdfFontFactory.CreateFont(fontFilePath);
         document.SetFont(font);
         document.SetFontSize(fontSize);

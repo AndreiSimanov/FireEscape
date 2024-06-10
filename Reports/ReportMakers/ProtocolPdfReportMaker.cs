@@ -7,6 +7,7 @@ using Border = iText.Layout.Borders.Border;
 using Cell = iText.Layout.Element.Cell;
 using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 using TextAlignment = iText.Layout.Properties.TextAlignment;
+using VerticalAlignment = iText.Layout.Properties.VerticalAlignment;
 
 namespace FireEscape.Reports.ReportMakers;
 
@@ -14,7 +15,8 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 {
     public async Task MakeReportAsync()
     {
-        var document = await PdfReportWriter.GetPdfDocumentAsync(outputPath, reportSettings.FontName, reportSettings.FontSize);
+        var tempPdfFile = outputPath + ".tmp";
+        var document = await PdfReportWriter.CreatePdfDocumentAsync(tempPdfFile, reportSettings.FontName, reportSettings.FontSize);
         try
         {
             MakeHeader(document);
@@ -32,6 +34,18 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         finally
         {
             document.Close();
+        }
+
+        document = await PdfReportWriter.OpenPdfDocumentAsync(tempPdfFile, outputPath, reportSettings.FontName, reportSettings.FontSize);
+        try
+        {
+            MakeNumberOfPages(document);
+        }
+        finally
+        {
+            document.Close();
+            if (File.Exists(tempPdfFile))
+                File.Delete(tempPdfFile);
         }
     }
 
@@ -333,21 +347,32 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
             .AddAll(new[] {
                 new Text("Испытания проводили: инженер "),
                 new Text(protocolRdp.ExecutiveCompany).SetBold()}));
-        document.Add(new Paragraph("М.П.").SetFixedLeading(8));
+        document.Add(GetParagraph("М.П."));
         document.Add(new Paragraph($"_______________ / {protocolRdp.PrimaryExecutorSign} /").SetTextAlignment(TextAlignment.RIGHT));
         document.Add(new Paragraph($"_______________ / {protocolRdp.SecondaryExecutorSign} /").SetTextAlignment(TextAlignment.RIGHT));
 
         if (!string.IsNullOrWhiteSpace(protocolRdp.Customer))
         {
+            document.Add(new Paragraph(" "));
             document.Add(GetParagraph()
                 .AddAll(new[] {
                 new Text("Присутствовали: Представитель Заказчика "),
                 new Text(protocolRdp.Customer).SetBold()}));
             document.Add(GetParagraph("М.П."));
-            document.Add(GetParagraph("_______________ / ___________ /").SetTextAlignment(TextAlignment.RIGHT));
+            document.Add(new Paragraph($"_______________ / {protocolRdp.CustomerSign} /").SetTextAlignment(TextAlignment.RIGHT));
         }
     }
 
+    static void MakeNumberOfPages(Document document)
+    {
+        int numberOfPages = document.GetPdfDocument().GetNumberOfPages();
+        for (int i = 1; i <= numberOfPages; i++)
+        {
+            document.ShowTextAligned(GetParagraph("стр. " + i + " из " + numberOfPages).
+                SetFontSize(10).SetFontColor(iText.Kernel.Colors.ColorConstants.GRAY),
+                559, 17, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+        }
+    }
     static string FirstCharToUpper(string input) =>
        input switch
        {

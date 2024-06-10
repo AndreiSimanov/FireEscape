@@ -68,6 +68,8 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
 
     public string SecondaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.SecondaryExecutorSign) ? order.SecondaryExecutorSign : protocol.SecondaryExecutorSign);
 
+    public string CustomerSign => GetExecutorSign(string.Empty);
+
     public string GetSupportBeamsP1Calc() => GetStairsElementResultCalc(typeof(SupportBeamsP1));
 
     public string GetPlatformP1Calc() => GetStairsElementResultCalc(typeof(PlatformP1));
