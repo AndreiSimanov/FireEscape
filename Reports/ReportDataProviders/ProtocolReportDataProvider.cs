@@ -89,7 +89,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
            return $"({platformElement.Size}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{platformElement.SupportBeamsCount})*{BaseStairsElement.K3} = {platformElement.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
 
         if (element is StairwayP2 stairwayP2)
-            return $"(({(stairwayP2.StairwayWidth / 1000).ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{stairwayP2.SupportBeamsCount}))*{BaseStairsElement.K3}*{BaseStairsElement.COS_ALPHA} = {stairwayP2.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
+            return $"({(stairwayP2.StairwayLength / 1000).ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{stairwayP2.SupportBeamsCount})*{BaseStairsElement.K3}*{BaseStairsElement.COS_ALPHA} = {stairwayP2.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
 
         return string.Empty;
     }

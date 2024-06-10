@@ -441,11 +441,11 @@
   <data name="SupportBeamsPairsCountHint" xml:space="preserve">
     <value>Specify support beams count (in pairs)</value>
   </data>
-  <data name="StairwayWidth" xml:space="preserve">
-    <value>Stairway width</value>
+  <data name="StairwayLength" xml:space="preserve">
+    <value>Stairway length</value>
   </data>
-  <data name="StairwayWidthHint" xml:space="preserve">
-    <value>Specify stairway width</value>
+  <data name="StairwayLengthHint" xml:space="preserve">
+    <value>Specify stairway length</value>
   </data>
   <data name="StepsHeight" xml:space="preserve">
     <value>Steps height</value>

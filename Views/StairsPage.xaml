@@ -261,9 +261,9 @@
                             <ctrl:UnitOfMeasureEditControl
                                 Grid.Column="1"
                                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayWidth}"
-                                LabelText="{x:Static lang:AppResources.StairwayWidth}"
-                                PlaceholderText="{x:Static lang:AppResources.StairwayWidthHint}"/>
+                                Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayLength}"
+                                LabelText="{x:Static lang:AppResources.StairwayLength}"
+                                PlaceholderText="{x:Static lang:AppResources.StairwayLengthHint}"/>
                         </Grid>
 
                         <Grid IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP2}}"

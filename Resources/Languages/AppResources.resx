@@ -441,10 +441,10 @@
   <data name="SupportBeamsPairsCountHint" xml:space="preserve">
     <value>Укажите количество балок (парами)</value>
   </data>
-  <data name="StairwayWidth" xml:space="preserve">
+  <data name="StairwayLength" xml:space="preserve">
     <value>Длина марша</value>
   </data>
-  <data name="StairwayWidthHint" xml:space="preserve">
+  <data name="StairwayLengthHint" xml:space="preserve">
     <value>Укажите длину марша</value>
   </data>
   <data name="StepsHeight" xml:space="preserve">

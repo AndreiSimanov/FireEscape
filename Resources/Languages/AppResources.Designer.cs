@@ -1143,18 +1143,18 @@ namespace FireEscape.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Длина марша.
         /// </summary>
-        internal static string StairwayWidth {
+        internal static string StairwayLength {
             get {
-                return ResourceManager.GetString("StairwayWidth", resourceCulture);
+                return ResourceManager.GetString("StairwayLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Укажите длину марша.
         /// </summary>
-        internal static string StairwayWidthHint {
+        internal static string StairwayLengthHint {
             get {
-                return ResourceManager.GetString("StairwayWidthHint", resourceCulture);
+                return ResourceManager.GetString("StairwayLengthHint", resourceCulture);
             }
         }
         
