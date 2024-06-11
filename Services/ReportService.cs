@@ -17,7 +17,7 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
         outputPath = IncrementFileNameIfExists(outputPath);
         await reportRepository.CreateReportAsync(order, protocol, outputPath);
         userAccountService.UpdateExpirationCount(userAccount!);
-        await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(outputPath) });
+        await Launcher.OpenAsync(new OpenFileRequest { Title = AppResources.PdfView, File = new ReadOnlyFile(outputPath) });
     }
 
     public async Task CreateBatchReportAsync(Order order, Protocol[] protocols, CancellationToken ct, IProgress<(double progress, string outputPath)>? progress = null)

@@ -129,7 +129,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
         await DoCommandAsync(async () =>
         {
             SelectedItem = fileInfo;
-            await Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(fileInfo.FullName) });
+            await Launcher.OpenAsync(new OpenFileRequest {Title = AppResources.PdfView,  File = new ReadOnlyFile(fileInfo.FullName) });
         },
         fileInfo,
         AppResources.CreateReportError);

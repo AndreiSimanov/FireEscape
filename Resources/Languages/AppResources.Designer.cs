@@ -763,6 +763,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Просмотр PDF файла.
+        /// </summary>
+        internal static string PdfView {
+            get {
+                return ResourceManager.GetString("PdfView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Длина площадки.
         /// </summary>
         internal static string PlatformLength {
