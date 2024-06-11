@@ -133,7 +133,7 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
             SelectedItem = protocol;
             if (Order == null)
                 return;
-            await reportService.CreateSingleReportAsync(Order, protocol);
+            await reportService.CreateSingleReportAsync(Order, protocol, Protocols.Count > 1);
         },
         protocol,
         AppResources.CreateReportError);

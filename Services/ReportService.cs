@@ -5,7 +5,7 @@ namespace FireEscape.Services;
 
 public class ReportService(UserAccountService userAccountService, IReportRepository reportRepository)
 {
-    public async Task CreateSingleReportAsync(Order order, Protocol protocol)
+    public async Task CreateSingleReportAsync(Order order, Protocol protocol, bool incrementFileNameIfExists = false)
     {
         var folderPath = PrepareOutputFolder(order);
         if (string.IsNullOrWhiteSpace(folderPath))
@@ -14,7 +14,8 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
         var userAccount = await userAccountService.GetCurrentUserAccountAsync();
         CheckUserAccount(userAccount);
         var outputPath = Path.Combine(folderPath, GetFileName(order, protocol));
-        outputPath = IncrementFileNameIfExists(outputPath);
+        if (incrementFileNameIfExists)
+            outputPath = IncrementFileNameIfExists(outputPath);
         await reportRepository.CreateReportAsync(order, protocol, outputPath);
         userAccountService.UpdateExpirationCount(userAccount!);
         await Launcher.OpenAsync(new OpenFileRequest { Title = AppResources.PdfView, File = new ReadOnlyFile(outputPath) });

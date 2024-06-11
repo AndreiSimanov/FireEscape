@@ -149,7 +149,6 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             }
             protocols = [.. protocols.OrderBy(protocol => protocol.FireEscapeNum)];
             await Shell.Current.GoToAsync(nameof(BatchReportPage), true, new Dictionary<string, object> { { nameof(Order), order }, { nameof(Protocol), protocols } });
-            //await reportService.CreateBatchReportAsync(order, protocols);
         },
         order,
         AppResources.CreateReportError);
