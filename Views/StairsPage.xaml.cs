@@ -23,6 +23,7 @@ public partial class StairsPage : BaseStairsPage
     void StairsTypeChanged(object sender, EventArgs e)
     {
         SetSelectedStairsElements();
+        ViewModel?.SetPlatformP1WidthCommand.Execute(null);
         var baseStairsType = ViewModel?.EditObject?.BaseStairsType;
         if (!baseStairsType.HasValue)
             baseStairsType = BaseStairsTypeEnum.P1;
@@ -44,6 +45,8 @@ public partial class StairsPage : BaseStairsPage
     void SetSelectedStairsElements(BaseStairsElement? element = null) => ViewModel?.SelectStairsElementCommand.Execute(element);
 
     void HideBottomSheet() => ViewModel?.HideBottomSheetCommand.Execute(null);
+
+    void StairsWidthEditorUnfocused(object sender, FocusEventArgs e) => ViewModel?.SetPlatformP1WidthCommand.Execute(null);
 
     private void PlatformSizesPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {

@@ -94,6 +94,7 @@
 
             <ctrl:ServiceabilityEditControl
                 EditorFocused="EditorFocused"
+                EditorUnfocused="StairsWidthEditorUnfocused"
                 LabelText ="{x:Static lang:AppResources.StairsWidth}"
                 PlaceholderText ="{x:Static lang:AppResources.StairsWidthHint}"
                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"

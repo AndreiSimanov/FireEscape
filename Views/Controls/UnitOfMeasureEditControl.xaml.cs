@@ -47,6 +47,12 @@ public partial class UnitOfMeasureEditControl : ContentView
         remove { numEdit.Focused -= value; }
     }
 
+    public event EventHandler<FocusEventArgs> EditorUnfocused
+    {
+        add { numEdit.Unfocused += value; }
+        remove { numEdit.Unfocused -= value; }
+    }
+
     public string? UnitOfMeasureSymbol { get; private set; }
 
     public decimal MinValue { get => numEdit.MinValue; set => numEdit.MinValue = value; }

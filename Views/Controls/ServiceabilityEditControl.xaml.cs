@@ -53,6 +53,12 @@ public partial class ServiceabilityEditControl : ContentView
         remove { numEdit.EditorFocused -= value; }
     }
 
+    public event EventHandler<FocusEventArgs> EditorUnfocused
+    {
+        add { numEdit.EditorUnfocused += value; }
+        remove { numEdit.EditorUnfocused -= value; }
+    }
+
     public IValueConverter? ValueConverter
     {
         get => numEdit.ValueConverter;

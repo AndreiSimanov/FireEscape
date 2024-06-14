@@ -202,9 +202,10 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 
     static void MakeCalcStairwayP2(Document document)
     {
+        document.Add(GetParagraph("Расчет величины нагрузки:").SetBold());
         document.Add(GetParagraph()
             .AddAll(new[] {
-                new Text("Расчет величины нагрузки на марш ").SetBold(),
+                new Text("Лестничный марш ").SetBold(),
                 new Text("должен выдерживать испытательную нагрузку "),
                 new Text("Р"),
                 new Text("марш").SetFontSize(8),
@@ -234,7 +235,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Площадка лестницы ").SetBold(),
-                new Text("должен выдерживать испытательную нагрузку "),
+                new Text("должна выдерживать испытательную нагрузку "),
                 new Text("Р"),
                 new Text("площ").SetFontSize(8),
                 new Text(", определяемую по формуле:")

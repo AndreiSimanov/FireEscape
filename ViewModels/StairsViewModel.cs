@@ -56,6 +56,19 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         if (EditObject != null && EditObject.BaseStairsType == BaseStairsTypeEnum.P2)
             EditObject.StepsCount = EditObject.StairsElements.Where(element => element.StairsElementType == typeof(StairwayP2)).Sum(item => ((StairwayP2)item).StepsCount);
     }
+    
+    [RelayCommand]
+    void SetPlatformP1Width()
+    {
+        if (EditObject != null && EditObject.BaseStairsType == BaseStairsTypeEnum.P1)
+        {
+            if (EditObject.StairsElements.FirstOrDefault(element => element.StairsElementType == typeof(PlatformP1)) is PlatformP1 platformP1)
+            {
+                if (platformP1.PlatformWidth.Value == 0)
+                    platformP1.PlatformWidth.Value = EditObject.StairsWidth.Value;
+            }
+        }
+    }
 
     [RelayCommand]
     void SelectStairsElement(BaseStairsElement? element)
@@ -129,6 +142,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
                 {
                     EditObject.StairsElements.Insert(0, element);
                     UpdatStairsElements();
+                    SetPlatformP1Width();
                     SelectStairsElement(element);
                 }
             }
