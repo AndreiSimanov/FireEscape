@@ -26,6 +26,7 @@ public static class ModuleInitializer
         services.AddSingleton<ProtocolService>();
         services.AddSingleton<StairsService>();
         services.AddSingleton<UserAccountService>();
+        services.AddSingleton<RemoteLogService>();
 
         services.AddSingleton<OrderMainViewModel>();
         services.AddSingleton<OrderMainPage>();

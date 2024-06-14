@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.AppSettings;
 
-public class NewProtocolSettings
+public class ProtocolSettings
 {
     public required string Location { get; set; }
     public int ProtocolNum { get; set; }

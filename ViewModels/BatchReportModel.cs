@@ -5,7 +5,7 @@ namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
 [QueryProperty(nameof(Protocols), nameof(Protocol))]
-public partial class BatchReportModel(ReportService reportService, ILogger<BatchReportModel> logger) : BaseViewModel(logger), IDisposable
+public partial class BatchReportModel(ReportService reportService, RemoteLogService remoteLogService, UserAccountService userAccountService, ILogger<BatchReportModel> logger) : BaseViewModel(logger), IDisposable
 {
     [ObservableProperty]
     Order? order;
@@ -53,10 +53,10 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
         AppResources.CreateReportError);
 
     [RelayCommand(CanExecute = nameof(CanCreateReport))]
-    async Task CreateReportAsync(Order order) =>
+    async Task CreateReportAsync() =>
         await DoBusyCommandAsync(async () =>
         {
-            if (Protocols == null || Protocols.Length == 0)
+            if (Order == null || Protocols == null || Protocols.Length == 0)
             {
                 await Shell.Current.DisplayAlert(AppResources.Error, AppResources.OrderIsEmpty, AppResources.OK);
                 return;
@@ -66,6 +66,9 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
             FilesExists = false;
             SelectedItem = null;
             Files.Clear();
+
+            var message = $"Order: {Order.Name} Protocol count: {Protocols.Length} PrimarySign: {Order.PrimaryExecutorSign} SecondarySign: {Order.SecondaryExecutorSign}";
+            _ = Task.Run(() => remoteLogService.LogAsync(userAccountService.CurrentUserAccountId, RemoteLogCategoryType.BatchReport, message));
 
             var progressIndicator = new Progress<(double progress, string outputPath)>(progress =>
             {
@@ -77,7 +80,7 @@ public partial class BatchReportModel(ReportService reportService, ILogger<Batch
             try
             {
                 cts = new CancellationTokenSource();
-                await reportService.CreateBatchReportAsync(Order!, Protocols, cts.Token, progressIndicator);
+                await reportService.CreateBatchReportAsync(Order, Protocols, cts.Token, progressIndicator);
             }
             finally
             {

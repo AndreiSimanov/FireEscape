@@ -3,19 +3,19 @@ using Microsoft.Extensions.Options;
 
 namespace FireEscape.Factories;
 
-public class ProtocolFactory(IOptions<NewProtocolSettings> newProtocolSettings) : IProtocolFactory
+public class ProtocolFactory(IOptions<ProtocolSettings> ProtocolSettings) : IProtocolFactory
 {
-    readonly NewProtocolSettings newProtocolSettings = newProtocolSettings.Value;
+    readonly ProtocolSettings ProtocolSettings = ProtocolSettings.Value;
 
     public Protocol CreateBrokenDataProtocol(int id) => new() { Id = id, FireEscapeObject = AppResources.BrokenData };
 
     public Protocol CreateDefault(Order? order) => new()
     {
         OrderId = (order == null) ? 0 : order.Id,
-        ProtocolNum = newProtocolSettings.ProtocolNum,
+        ProtocolNum = ProtocolSettings.ProtocolNum,
         ProtocolDate = DateTime.Today,
-        FireEscapeNum = newProtocolSettings.FireEscapeNum,
-        Location = (order != null && string.IsNullOrWhiteSpace(order.Location)) ? newProtocolSettings.Location : string.Empty,
+        FireEscapeNum = ProtocolSettings.FireEscapeNum,
+        Location = (order != null && string.IsNullOrWhiteSpace(order.Location)) ? ProtocolSettings.Location : string.Empty,
         Created = DateTime.Now,
         Updated = DateTime.Now
     };

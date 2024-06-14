@@ -3,12 +3,12 @@ using Microsoft.Extensions.Options;
 
 namespace FireEscape.Factories;
 
-public class OrderFactory(IOptions<NewOrderSettings> newOrderSettings) : IOrderFactory
+public class OrderFactory(IOptions<OrderSettings> OrderSettings) : IOrderFactory
 {
-    readonly NewOrderSettings newOrderSettings = newOrderSettings.Value;
+    readonly OrderSettings OrderSettings = OrderSettings.Value;
     public Order CreateDefault(BaseObject? parent) => new()
     {
-        Location = newOrderSettings.Location,
+        Location = OrderSettings.Location,
         Created = DateTime.Now,
         Updated = DateTime.Now
     };
