@@ -5,6 +5,7 @@
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute(nameof(RemoteLogPage), typeof(RemoteLogPage));
             Routing.RegisterRoute(nameof(BatchReportPage), typeof(BatchReportPage));
             Routing.RegisterRoute(nameof(StairsPage), typeof(StairsPage));
             Routing.RegisterRoute(nameof(ProtocolPage), typeof(ProtocolPage));

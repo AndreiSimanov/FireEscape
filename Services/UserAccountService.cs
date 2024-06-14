@@ -169,7 +169,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
         lock (syncObject)
         {
             var json = Preferences.Default.Get(USER_ACCOUNT, string.Empty);
-            return string.IsNullOrWhiteSpace(json) ? null : JsonSerializer.Deserialize<UserAccount>(json);
+            return AppUtils.TryToDeserialize<UserAccount>(json);
         }
     }
 

@@ -77,6 +77,14 @@
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
                                 CommandParameter="{Binding .}"/>
                         </dxcv:SwipeContainer.GestureRecognizers>
+                        <dxcv:SwipeContainer.StartSwipeItems>
+                            <dxcv:SwipeItem
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GetLogCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="{x:Static lang:AppResources.Log}"
+                                Image="edit"/>
+                        </dxcv:SwipeContainer.StartSwipeItems>
                         <dxcv:SwipeContainer.EndSwipeItems>
                             <dxcv:SwipeItem 
                                 BackgroundColor="#D74F67"

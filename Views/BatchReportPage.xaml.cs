@@ -2,22 +2,21 @@ namespace FireEscape.Views;
 
 public partial class BatchReportPage : ContentPage
 {
-    public BatchReportPage(BatchReportModel viewModel)
+    public BatchReportPage(BatchReportViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
     }
 
-    BatchReportModel? BatchReportModel => BindingContext as BatchReportModel;
+    BatchReportViewModel? BatchReportViewModel => BindingContext as BatchReportViewModel;
 
     private void ContentPageAppearing(object sender, EventArgs e)
     {
-        BatchReportModel?.GetReportsCommand.Execute(null);
+        BatchReportViewModel?.GetReportsCommand.Execute(null);
     }
 
     private void ContentPageDisappearing(object sender, EventArgs e)
     {
-        var viewModel = BindingContext as BatchReportModel;
-        viewModel?.Reset();
+        BatchReportViewModel?.ResetCommand.Execute(null);
     }
 }

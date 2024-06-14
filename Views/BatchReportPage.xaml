@@ -13,8 +13,8 @@
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Class="FireEscape.Views.BatchReportPage"
-    x:DataType="viewmodel:BatchReportModel"
-    HideSoftInputOnTapped="True"    
+    x:DataType="viewmodel:BatchReportViewModel"
+    HideSoftInputOnTapped="True"
     Title="{x:Static lang:AppResources.OrderReport}"
     Appearing="ContentPageAppearing"
     Disappearing="ContentPageDisappearing">
@@ -89,7 +89,7 @@
                     <dxcv:SwipeContainer>
                         <dxcv:SwipeContainer.GestureRecognizers>
                             <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BatchReportModel}}, Path=OpenFileCommand}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BatchReportViewModel}}, Path=OpenFileCommand}"
                                 CommandParameter="{Binding .}"/>
                         </dxcv:SwipeContainer.GestureRecognizers>
                         <dxcv:SwipeContainer.ItemView>

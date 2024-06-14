@@ -2,6 +2,7 @@
 
 public enum RemoteLogCategoryType
 {
+    Unknown,
     Order,
     BatchReport,
 }

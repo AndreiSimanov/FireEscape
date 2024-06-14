@@ -5,7 +5,7 @@ namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
 [QueryProperty(nameof(Protocols), nameof(Protocol))]
-public partial class BatchReportModel(ReportService reportService, RemoteLogService remoteLogService, UserAccountService userAccountService, ILogger<BatchReportModel> logger) : BaseViewModel(logger), IDisposable
+public partial class BatchReportViewModel(ReportService reportService, RemoteLogService remoteLogService, UserAccountService userAccountService, ILogger<BatchReportViewModel> logger) : BaseViewModel(logger), IDisposable
 {
     [ObservableProperty]
     Order? order;
@@ -137,6 +137,19 @@ public partial class BatchReportModel(ReportService reportService, RemoteLogServ
         fileInfo,
         AppResources.CreateReportError);
 
+    [RelayCommand]
+    void Reset () =>
+        DoCommand(() =>
+        {
+            cts?.Cancel();
+            Progress = 0;
+            ArchiveProgress = 0;
+            Files.Clear();
+            FilesExists = false;
+            SelectedItem = null;
+        },
+        AppResources.CreateReportError);
+
     public void Dispose()
     {
         if (disposed)
@@ -150,17 +163,6 @@ public partial class BatchReportModel(ReportService reportService, RemoteLogServ
             disposed = true;
         }
     }
-
-    public void Reset()
-    {
-        cts?.Cancel();
-        Progress = 0;
-        ArchiveProgress = 0;
-        Files.Clear();
-        FilesExists = false;
-        SelectedItem = null;
-    }
-
     bool CanMakeReportArchive() => FilesExists && StartStopStatus == StartStopEnum.Start;
     bool CanCreateReport() => !IsMakingReportArchive;
 }

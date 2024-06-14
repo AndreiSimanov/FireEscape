@@ -1,4 +1,6 @@
-﻿namespace FireEscape.Common;
+﻿using System.Text.Json;
+
+namespace FireEscape.Common;
 
 public static class AppUtils
 {
@@ -50,5 +52,19 @@ public static class AppUtils
         if (recursive)
             foreach (var dir in di.EnumerateDirectories())
                 dir.Delete(true);
+    }
+
+    public static T? TryToDeserialize<T>(string json) 
+    {
+        if (string.IsNullOrWhiteSpace(json))
+            return default;
+        try
+        {
+            return JsonSerializer.Deserialize<T>(json) ?? default;
+        }
+        catch
+        {
+            return default;
+        }
     }
 }

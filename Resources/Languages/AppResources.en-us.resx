@@ -579,4 +579,16 @@
   <data name="PdfView" xml:space="preserve">
     <value>View Pdf file</value>
   </data>
+  <data name="Log" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="RemoteLog" xml:space="preserve">
+    <value>Remote log</value>
+  </data>
+  <data name="GetRemoteLogError" xml:space="preserve">
+    <value>Unable to get the remote log</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
 </root>

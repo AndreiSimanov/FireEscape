@@ -178,6 +178,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Категория.
+        /// </summary>
+        internal static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Проверьте подключение к интернет и повторите операцию..
         /// </summary>
         internal static string CheckInternetMessage {
@@ -565,6 +574,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно получить удаленный лог.
+        /// </summary>
+        internal static string GetRemoteLogError {
+            get {
+                return ResourceManager.GetString("GetRemoteLogError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Невозможно получить список пользователей.
         /// </summary>
         internal static string GetUserAccountsError {
@@ -615,6 +633,15 @@ namespace FireEscape.Resources.Languages {
         internal static string LocationHint {
             get {
                 return ResourceManager.GetString("LocationHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Лог.
+        /// </summary>
+        internal static string Log {
+            get {
+                return ResourceManager.GetString("Log", resourceCulture);
             }
         }
         
@@ -912,6 +939,15 @@ namespace FireEscape.Resources.Languages {
         internal static string RejectExplanationLabel {
             get {
                 return ResourceManager.GetString("RejectExplanationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удаленный лог.
+        /// </summary>
+        internal static string RemoteLog {
+            get {
+                return ResourceManager.GetString("RemoteLog", resourceCulture);
             }
         }
         

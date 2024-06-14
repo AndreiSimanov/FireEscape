@@ -152,19 +152,18 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
 
     [RelayCommand]
     void FilterItems() =>
-    DoCommand(() =>
-    {
-        var searchValue = Search.Trim().ToLowerInvariant();
-        var isOrderLocation = Order != null && Order.Location.ToLowerInvariant().Contains(searchValue);
-        var isOrderAddress = Order != null && Order.Address.ToLowerInvariant().Contains(searchValue);
-        var isOrderFireEscapeObject = Order != null && Order.FireEscapeObject.ToLowerInvariant().Contains(searchValue);
+        DoCommand(() =>
+        {
+            var searchValue = Search.Trim().ToLowerInvariant();
+            var isOrderLocation = Order != null && Order.Location.ToLowerInvariant().Contains(searchValue);
+            var isOrderAddress = Order != null && Order.Address.ToLowerInvariant().Contains(searchValue);
+            var isOrderFireEscapeObject = Order != null && Order.FireEscapeObject.ToLowerInvariant().Contains(searchValue);
 
-        Filter = $"(Contains([Location], '{searchValue}') or (IsNullOrEmpty([Location]) and {isOrderLocation}))" +
-            $" or (Contains([Address], '{searchValue}') or (IsNullOrEmpty([Address]) and {isOrderAddress}))" +
-            $" or (Contains([FireEscapeObject], '{searchValue}') or (IsNullOrEmpty([FireEscapeObject]) and {isOrderFireEscapeObject}))";
-
-    },
-    AppResources.GetProtocolsError);
+            Filter = $"(Contains([Location], '{searchValue}') or (IsNullOrEmpty([Location]) and {isOrderLocation}))" +
+                $" or (Contains([Address], '{searchValue}') or (IsNullOrEmpty([Address]) and {isOrderAddress}))" +
+                $" or (Contains([FireEscapeObject], '{searchValue}') or (IsNullOrEmpty([FireEscapeObject]) and {isOrderFireEscapeObject}))";
+        },
+        AppResources.GetProtocolsError);
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {

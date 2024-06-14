@@ -30,9 +30,9 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
             {
                 IsRefreshing = false;
                 UserAccounts.Clear();
-                await foreach (var item in userAccountService.GetAsync())
+                await foreach (var userAccount in userAccountService.GetAsync())
                 {
-                    UserAccounts.Add(item);
+                    UserAccounts.Add(userAccount);
                 }
             }
             finally
@@ -72,14 +72,25 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
         AppResources.DeleteUserAccountError);
 
     [RelayCommand]
-    void FilterItems() =>
-    DoCommand(() =>
-    {
-        Filter = $"Contains([id], '{Search}') " +
-            $"or Contains([Name], '{Search}') " +
-            $"or Contains([Signature], '{Search}') " +
-            $"or Contains([Company], '{Search}')";
+    async Task GetLogAsync(UserAccount userAccount) =>
+        await DoBusyCommandAsync(async () =>
+        {
+            SelectedItem = userAccount;
+            await Shell.Current.GoToAsync(nameof(RemoteLogPage), true,
+                new Dictionary<string, object> { { nameof(RemoteLogViewModel.Key), userAccount.Id } });
+        },
+        userAccount,
+        AppResources.EditUserAccountError);
 
-    },
-    AppResources.GetUserAccountsError);
+    [RelayCommand]
+    void FilterItems() =>
+        DoCommand(() =>
+        {
+            Filter = $"Contains([id], '{Search}') " +
+                $"or Contains([Name], '{Search}') " +
+                $"or Contains([Signature], '{Search}') " +
+                $"or Contains([Company], '{Search}')";
+
+        },
+        AppResources.GetUserAccountsError);
 }

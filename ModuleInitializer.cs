@@ -49,8 +49,11 @@ public static class ModuleInitializer
         services.AddTransient<UserAccountViewModel>();
         services.AddSingleton<UserAccountPage>();
 
-        services.AddTransient<BatchReportModel>();
+        services.AddTransient<BatchReportViewModel>();
         services.AddSingleton<BatchReportPage>();
+
+        services.AddTransient<RemoteLogViewModel>();
+        services.AddSingleton<RemoteLogPage>();
 
         return services;
     }

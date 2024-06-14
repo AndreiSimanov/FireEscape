@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    x:Class="FireEscape.Views.RemoteLogPage"
+    x:DataType="viewmodel:RemoteLogViewModel"
+    HideSoftInputOnTapped="True"
+    Appearing="ContentPageAppearing"
+    Disappearing="ContentPageDisappearing"
+    Title="{x:Static lang:AppResources.RemoteLog}">
+
+    <dxg:DataGridView
+        AllowSort="True" 
+        ShowAutoFilterRow="True"
+        IsReadOnly="True"
+        IsRefreshing="{Binding IsRefreshing}"
+        ItemsSource="{Binding Log}">
+        <dxg:DataGridView.Columns>
+            <dxg:DateColumn
+                FieldName="LogDateTime"
+                IsDateIconVisible="True"
+                DisplayFormat ="dd/MM/yyyy hh:mm:ss"
+                MinWidth="120"
+                Caption="{x:Static lang:AppResources.DateCreated}" HeaderFontSize="12"/>
+            <dxg:TextColumn
+                FieldName="СategoryType"
+                MinWidth="120"
+                Caption="{x:Static lang:AppResources.Category}" HeaderFontSize="12"/>
+            <dxg:MultilineTextColumn
+                FieldName="Message"
+                MinWidth="300"
+                Caption="{x:Static lang:AppResources.RemoteLog}" HeaderFontSize="12"/>
+        </dxg:DataGridView.Columns>
+    </dxg:DataGridView>
+
+</ContentPage>
