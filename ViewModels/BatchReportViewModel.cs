@@ -67,7 +67,11 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
             SelectedItem = null;
             Files.Clear();
 
-            var message = $"Order: {Order.Name} Protocol count: {Protocols.Length} PrimarySign: {Order.PrimaryExecutorSign} SecondarySign: {Order.SecondaryExecutorSign}";
+            var message = $"{AppResources.Order}{AppResources.CaptionDivider} {Order.Name} " +
+                $"{AppResources.NumberOfProtocols}{AppResources.CaptionDivider} {Protocols.Length} " +
+                $"{AppResources.PrimaryExecutorSign}{AppResources.CaptionDivider} {Order.PrimaryExecutorSign} " +
+                $"{AppResources.SecondaryExecutorSign}{AppResources.CaptionDivider} {Order.SecondaryExecutorSign}";
+
             _ = Task.Run(() => remoteLogService.LogAsync(userAccountService.CurrentUserAccountId, RemoteLogCategoryType.BatchReport, message));
 
             var progressIndicator = new Progress<(double progress, string outputPath)>(progress =>

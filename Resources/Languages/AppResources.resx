@@ -591,4 +591,7 @@
   <data name="Category" xml:space="preserve">
     <value>Категория</value>
   </data>
+  <data name="NumberOfProtocols" xml:space="preserve">
+    <value>Количество протоколов</value>
+  </data>
 </root>
