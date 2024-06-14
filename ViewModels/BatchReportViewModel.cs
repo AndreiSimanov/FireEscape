@@ -67,9 +67,9 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
             SelectedItem = null;
             Files.Clear();
 
-            var message = $"{AppResources.Order}{AppResources.CaptionDivider} {Order.Name} " +
-                $"{AppResources.NumberOfProtocols}{AppResources.CaptionDivider} {Protocols.Length} " +
-                $"{AppResources.PrimaryExecutorSign}{AppResources.CaptionDivider} {Order.PrimaryExecutorSign} " +
+            var message = $"{AppResources.Order}{AppResources.CaptionDivider} {Order.Name}{Environment.NewLine}" +
+                $"{AppResources.NumberOfProtocols}{AppResources.CaptionDivider} {Protocols.Length}{Environment.NewLine}" +
+                $"{AppResources.PrimaryExecutorSign}{AppResources.CaptionDivider} {Order.PrimaryExecutorSign}{Environment.NewLine}" +
                 $"{AppResources.SecondaryExecutorSign}{AppResources.CaptionDivider} {Order.SecondaryExecutorSign}";
 
             _ = Task.Run(() => remoteLogService.LogAsync(userAccountService.CurrentUserAccountId, RemoteLogCategoryType.BatchReport, message));
