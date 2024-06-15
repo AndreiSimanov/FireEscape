@@ -181,10 +181,9 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
     void MakeCalcBlockP1(Document document)
     {
         document.Add(GetParagraph("Расчет величины нагрузки на балку:").SetBold());
-        document.Add(GetParagraph($"М = (Н*К2)/(К1*Х)*К3 = {protocolRdp!.GetSupportBeamsP1Calc()}").SetBold());
+        document.Add(GetParagraph($"М = (Н*К2)/(К1*Х)*К3 = {protocolRdp!.SupportBeamsP1Calc}").SetBold());
 
-
-        var platformP1Calc = protocolRdp.GetPlatformP1Calc();
+        var platformP1Calc = protocolRdp.PlatformP1Calc;
         if (!string.IsNullOrWhiteSpace(platformP1Calc))
         {
             document.Add(GetParagraph("Расчет величины нагрузки на площадку лестницы:").SetBold());
@@ -227,7 +226,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             .AddAll(new[] {
                 new Text("Р").SetBold(),
                 new Text("марш ").SetFontSize(8).SetBold(),
-                new Text("= ((L * К2) / (К4 * Х)) * К3 * cos ").SetBold(),
+                new Text("= (L * К2) / (К4 * Х) * К3 * cos ").SetBold(),
                 new Text("α,     (1)")}));
 
         var stairwayP2Lens = new List<Text>();
@@ -238,6 +237,13 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             stairwayP2Lens.Add(new Text($"={stairwayP2Len.Item2} м; "));
         }
         document.Add(GetParagraph().AddAll(stairwayP2Lens).SetBold());
+
+        foreach (var stairwayP2Calc in protocolRdp!.StairwayP2Calc)
+            document.Add(GetParagraph()
+            .AddAll(new[] {
+                new Text("Р"),
+                new Text($"марш.{stairwayP2Calc.Item1}").SetFontSize(8),
+                new Text($"= {stairwayP2Calc.Item2}")}).SetBold());
 
         var paramsList = new List();
         paramsList.Add(GetListItem("длина марша лестницы, м;", "где  L - "));
@@ -271,7 +277,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
                    .AddAll(new[] {
                 new Text("Р").SetBold(),
                 new Text("площ ").SetFontSize(8).SetBold(),
-                new Text("= ((S * К2) / (К4 * Х)) * К3").SetBold(),
+                new Text("= (S * К2) / (К4 * Х) * К3").SetBold(),
                 new Text(",     (2)")}));
 
         var platformP2Sizes = new List<Text>();
@@ -284,6 +290,13 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             platformP2Sizes.Add(new Text("; "));
         }
         document.Add(GetParagraph().AddAll(platformP2Sizes).SetBold());
+
+        foreach (var stairwayP2Calc in protocolRdp!.PlatformP2Calc)
+            document.Add(GetParagraph()
+            .AddAll(new[] {
+                new Text("Р"),
+                new Text($"площ.{stairwayP2Calc.Item1}").SetFontSize(8),
+                new Text($"= {stairwayP2Calc.Item2}")}).SetBold());
 
         var paramsList = new List();
         paramsList.Add(GetListItem("площадь площадки лестницы;", "где  S - "));

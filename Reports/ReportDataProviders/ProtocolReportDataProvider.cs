@@ -48,10 +48,12 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     public string PrimaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.PrimaryExecutorSign) ? order.PrimaryExecutorSign : protocol.PrimaryExecutorSign);
     public string SecondaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.SecondaryExecutorSign) ? order.SecondaryExecutorSign : protocol.SecondaryExecutorSign);
     public string CustomerSign => GetExecutorSign(string.Empty);
-    public string GetSupportBeamsP1Calc() => GetStairsElementResultCalc(typeof(SupportBeamsP1));
-    public string GetPlatformP1Calc() => GetStairsElementResultCalc(typeof(PlatformP1));
+    public string SupportBeamsP1Calc => GetStairsElementResultCalc<SupportBeamsP1>().FirstOrDefault().Item2;
+    public string PlatformP1Calc => GetStairsElementResultCalc<PlatformP1>().FirstOrDefault().Item2;
     public IEnumerable<(string, string)> StairwayP2Lens => GetCalcParams<StairwayP2>();
     public IEnumerable<(string, string)> PlatformP2Sizes => GetCalcParams<PlatformP2>();
+    public IEnumerable<(string, string)> StairwayP2Calc => GetStairsElementResultCalc<StairwayP2>();
+    public IEnumerable<(string, string)> PlatformP2Calc => GetStairsElementResultCalc<PlatformP2>();
 
     public bool HasStairsFence
     {
@@ -130,12 +132,10 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         }
     }
 
-    string GetStairsElementResultCalc(Type type)
+    IEnumerable<(string, string)> GetStairsElementResultCalc<T>()
     {
-        var element = StairsElementsResult.FirstOrDefault(element => element.StairsElementType == type && !element.IsAbsent);
-        if (element == null)
-            return string.Empty;
-        return GetWithstandLoadCalc(element?.StairsElements.FirstOrDefault());
+        return StairsElementsResult.Where(element => element.StairsElementType == typeof(T) && !element.IsAbsent).
+            Select(elementsResult => (elementsResult.ElementNumber, GetWithstandLoadCalc(elementsResult?.StairsElements.FirstOrDefault())));
     }
 
     string GetWithstandLoadCalc(BaseStairsElement? element)
