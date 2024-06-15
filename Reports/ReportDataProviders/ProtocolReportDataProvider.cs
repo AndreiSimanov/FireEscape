@@ -29,7 +29,6 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     public string Location => string.IsNullOrWhiteSpace(protocol.Location) ? order.Location : protocol.Location;
     public string Address => string.IsNullOrWhiteSpace(protocol.Address) ? order.Address : protocol.Address;
     public DateTime ProtocolDate => protocol.ProtocolDate;
-    public BaseStairsTypeEnum BaseStairsType => Stairs.BaseStairsType;
     public StairsTypeEnum StairsType => Stairs.StairsType;
     public string StairsTypeStr => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsType);
     public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsMountType);
@@ -105,30 +104,25 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         get
         {
             var summary = new List<string>();
-            if (!Stairs.WeldSeamServiceability)
-                summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
-            if (!Stairs.ProtectiveServiceability)
-                summary.Add("конструкция не окрашена (ГОСТ 9.032)");
 
             GetServiceabilityRecords(Stairs).
                 OrderBy(item => item.ServiceabilityLimit.PrintOrder).
                 ToList().
                 ForEach(serviceabilityRecord => summary.AddRange(GetServiceabilitySummary(serviceabilityRecord)));
 
-            if (Stairs.StairsType == StairsTypeEnum.P1_2)
-            {
-                var stairsHeightlimit = allServiceabilityLimits.FirstOrDefault(limit => limit.StairsType == StairsTypeEnum.P1_1 && limit.ServiceabilityName == "Stairs.StairsHeight");
-                if (stairsHeightlimit.MaxValue.HasValue && Stairs.StairsHeight.Value > stairsHeightlimit.MaxValue && !HasStairsFence)
-                    summary.Add($"Высота лестницы более {stairsHeightlimit.MaxValue / stairsHeightlimit.Multiplier} метров (нет ограждения лестницы)");
-            }
-
-            if (Stairs.StairsType == StairsTypeEnum.P2 && !HasStairsFence)
-                summary.Add($"Нет ограждения лестницы");
-
             StairsElementsResult.ForEach(elementResult => summary.AddRange(elementResult.Summary));
-
             summary.RemoveAll(string.IsNullOrWhiteSpace);
             return summary;
+        }
+    }
+
+    public float? MaxStairsP1Height 
+    { 
+        get 
+        {
+            var stairsHeightlimit = allServiceabilityLimits.FirstOrDefault(limit => limit.StairsType == StairsTypeEnum.P1_1 &&
+                limit.ServiceabilityName == $"{nameof(Stairs)}.{nameof(Stairs.StairsHeight)}");
+            return stairsHeightlimit.MaxValue / stairsHeightlimit.Multiplier;
         }
     }
 
@@ -141,13 +135,13 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     string GetWithstandLoadCalc(BaseStairsElement? element)
     {
         if (element is SupportBeamsP1)
-            return $"({StairsHeight.ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K1}*{element.TestPointCount})*{BaseStairsElement.K3} = {element.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
+            return $"({StairsHeight.ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K1}*{element.TestPointCount})*{BaseStairsElement.K3} = {element.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)}";
 
         if (element is BasePlatformElement platformElement)
-           return $"({platformElement.Size}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{platformElement.SupportBeamsCount})*{BaseStairsElement.K3} = {platformElement.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
+           return $"({platformElement.Size}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{platformElement.SupportBeamsCount})*{BaseStairsElement.K3} = {platformElement.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)}";
 
         if (element is StairwayP2 stairwayP2)
-            return $"({(stairwayP2.StairwayLength / 1000).ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{stairwayP2.SupportBeamsCount})*{BaseStairsElement.K3}*{BaseStairsElement.COS_ALPHA} = {stairwayP2.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)} кгс.";
+            return $"({(stairwayP2.StairwayLength / 1000).ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{stairwayP2.SupportBeamsCount})*{BaseStairsElement.K3}*{BaseStairsElement.COS_ALPHA} = {stairwayP2.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)}";
 
         return string.Empty;
     }

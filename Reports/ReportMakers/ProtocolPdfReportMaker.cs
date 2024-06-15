@@ -28,10 +28,10 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             MakeHeader(document);
             MakeOverview(document);
 
-            if (protocolRdp.BaseStairsType == BaseStairsTypeEnum.P1)
-                MakeCalcBlockP1(document);
-            else
+            if (protocolRdp.StairsType == StairsTypeEnum.P2)
                 MakeCalcBlockP2(document);
+            else
+                MakeCalcBlockP1(document);
 
             MakeTestResultsTable(document);
             MakeImage(document);
@@ -181,13 +181,13 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
     void MakeCalcBlockP1(Document document)
     {
         document.Add(GetParagraph("Расчет величины нагрузки на балку:").SetBold());
-        document.Add(GetParagraph($"М = (Н*К2)/(К1*Х)*К3 = {protocolRdp!.SupportBeamsP1Calc}").SetBold());
+        document.Add(GetParagraph($"М = (Н*К2)/(К1*Х)*К3 = {protocolRdp!.SupportBeamsP1Calc} кгс.").SetBold());
 
         var platformP1Calc = protocolRdp.PlatformP1Calc;
         if (!string.IsNullOrWhiteSpace(platformP1Calc))
         {
             document.Add(GetParagraph("Расчет величины нагрузки на площадку лестницы:").SetBold());
-            document.Add(GetParagraph($"Р = (S*К2)/(К4*Х)*К3 = {platformP1Calc}").SetBold());
+            document.Add(GetParagraph($"Р = (S*К2)/(К4*Х)*К3 = {platformP1Calc} кгс.").SetBold());
         }
 
         var paramsList = new List();
@@ -243,7 +243,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             .AddAll(new[] {
                 new Text("Р"),
                 new Text($"марш.{stairwayP2Calc.Item1}").SetFontSize(8),
-                new Text($"= {stairwayP2Calc.Item2}")}).SetBold());
+                new Text($"= {stairwayP2Calc.Item2} кгс.")}).SetBold());
 
         var paramsList = new List();
         paramsList.Add(GetListItem("длина марша лестницы, м;", "где  L - "));
@@ -296,7 +296,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             .AddAll(new[] {
                 new Text("Р"),
                 new Text($"площ.{stairwayP2Calc.Item1}").SetFontSize(8),
-                new Text($"= {stairwayP2Calc.Item2}")}).SetBold());
+                new Text($"= {stairwayP2Calc.Item2} кгс.")}).SetBold());
 
         var paramsList = new List();
         paramsList.Add(GetListItem("площадь площадки лестницы;", "где  S - "));
@@ -376,7 +376,29 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
     void MakeFooter(Document document)
     {
         document.Add(new AreaBreak());
-        var summary = protocolRdp!.ReportSummary;
+
+        var summary = new List<string>();
+        if (!protocolRdp!.WeldSeamServiceability)
+            summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
+        if (!protocolRdp.ProtectiveServiceability)
+            summary.Add("конструкция не окрашена (ГОСТ 9.032)");
+
+        if (protocolRdp.StairsType == StairsTypeEnum.P2 && !protocolRdp.HasStairsFence)
+            summary.Add($"Нет ограждения лестницы");
+
+        if (protocolRdp.StairsType == StairsTypeEnum.P1_2 && !protocolRdp.HasStairsFence)
+        {
+            var maxStairsP1Height = protocolRdp.MaxStairsP1Height;
+            if (maxStairsP1Height.HasValue)
+            { 
+                if (protocolRdp.StairsHeight > maxStairsP1Height)
+                    summary.Add($"Высота лестницы более {maxStairsP1Height} метров (нет ограждения лестницы)");
+            }
+            else
+                summary.Add($"Нет ограждения лестницы");
+        }
+
+        summary.AddRange(protocolRdp!.ReportSummary);
 
         document.Add(GetParagraph()
             .SetFontSize(10)
