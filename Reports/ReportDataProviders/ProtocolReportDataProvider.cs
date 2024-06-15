@@ -41,6 +41,17 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     public int StepsCount => Stairs.StepsCount;
     public bool WeldSeamServiceability => Stairs.WeldSeamServiceability;
     public bool ProtectiveServiceability => Stairs.ProtectiveServiceability;
+    public bool HasImage => protocol.HasImage;
+    public string ImageFilePath => HasImage ? protocol.ImageFilePath! : string.Empty;
+    public string Customer => order.Customer;
+    public string ExecutiveCompany => order.ExecutiveCompany;
+    public string PrimaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.PrimaryExecutorSign) ? order.PrimaryExecutorSign : protocol.PrimaryExecutorSign);
+    public string SecondaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.SecondaryExecutorSign) ? order.SecondaryExecutorSign : protocol.SecondaryExecutorSign);
+    public string CustomerSign => GetExecutorSign(string.Empty);
+    public string GetSupportBeamsP1Calc() => GetStairsElementResultCalc(typeof(SupportBeamsP1));
+    public string GetPlatformP1Calc() => GetStairsElementResultCalc(typeof(PlatformP1));
+    public IEnumerable<(string, string)> StairwayP2Lens => GetCalcParams<StairwayP2>();
+    public IEnumerable<(string, string)> PlatformP2Sizes => GetCalcParams<PlatformP2>();
 
     public bool HasStairsFence
     {
@@ -57,26 +68,71 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         }
     }
 
-    public bool HasImage => protocol.HasImage;
-    public string ImageFilePath => HasImage ? protocol.ImageFilePath! : string.Empty;
+    public List<StairsElementResult> StairsElementsResult
+    {
+        get
+        {
+            if (stairsElementResults != null)
+                return stairsElementResults;
 
-    public string Customer => order.Customer;
+            stairsElementResults = Stairs.GetBaseStairsTypeElements().
+                Where(stairsElement => stairsElement.BaseStairsType == Stairs.BaseStairsType).
+                GroupBy(stairsElement => new { stairsElement.StairsElementType, WithstandLoadCalc = GetWithstandLoadCalc(stairsElement) }, (key, group) =>
+                    new StairsElementResult([.. group.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)], false, [])).ToList();
 
-    public string ExecutiveCompany => order.ExecutiveCompany;
+            foreach (var (elementResult, element) in stairsElementResults.SelectMany(elementResult => elementResult.StairsElements.Select(element => (elementResult, element))))
+            {
+                foreach (var serviceabilityRecord in GetServiceabilityRecords(element).OrderBy(item => item.ServiceabilityLimit.PrintOrder))
+                {
+                    serviceabilityRecord.WithstandLoadCalcResult = element.WithstandLoadCalcResult;
+                    serviceabilityRecord.ElementCaption = element.Caption;
+                    elementResult.Summary.AddRange(GetServiceabilitySummary(serviceabilityRecord));
+                }
+            }
 
-    public string PrimaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.PrimaryExecutorSign) ? order.PrimaryExecutorSign : protocol.PrimaryExecutorSign);
+            stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(Stairs)
+                .Where(element => !stairsElementResults.Any(item => item.StairsElementType == element.StairsElementType))
+                .Select(element => new StairsElementResult([element], true, [])));
 
-    public string SecondaryExecutorSign => GetExecutorSign(string.IsNullOrWhiteSpace(protocol.SecondaryExecutorSign) ? order.SecondaryExecutorSign : protocol.SecondaryExecutorSign);
+            return stairsElementResults = [.. stairsElementResults.OrderBy(element => element.PrintOrder).ThenBy(element => element.MinElementNumber)];
+        }
+    }
 
-    public string CustomerSign => GetExecutorSign(string.Empty);
+    public List<string> ReportSummary
+    {
+        get
+        {
+            var summary = new List<string>();
+            if (!Stairs.WeldSeamServiceability)
+                summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
+            if (!Stairs.ProtectiveServiceability)
+                summary.Add("конструкция не окрашена (ГОСТ 9.032)");
 
-    public string GetSupportBeamsP1Calc() => GetStairsElementResultCalc(typeof(SupportBeamsP1));
+            GetServiceabilityRecords(Stairs).
+                OrderBy(item => item.ServiceabilityLimit.PrintOrder).
+                ToList().
+                ForEach(serviceabilityRecord => summary.AddRange(GetServiceabilitySummary(serviceabilityRecord)));
 
-    public string GetPlatformP1Calc() => GetStairsElementResultCalc(typeof(PlatformP1));
+            if (Stairs.StairsType == StairsTypeEnum.P1_2)
+            {
+                var stairsHeightlimit = allServiceabilityLimits.FirstOrDefault(limit => limit.StairsType == StairsTypeEnum.P1_1 && limit.ServiceabilityName == "Stairs.StairsHeight");
+                if (stairsHeightlimit.MaxValue.HasValue && Stairs.StairsHeight.Value > stairsHeightlimit.MaxValue && !HasStairsFence)
+                    summary.Add($"Высота лестницы более {stairsHeightlimit.MaxValue / stairsHeightlimit.Multiplier} метров (нет ограждения лестницы)");
+            }
+
+            if (Stairs.StairsType == StairsTypeEnum.P2 && !HasStairsFence)
+                summary.Add($"Нет ограждения лестницы");
+
+            StairsElementsResult.ForEach(elementResult => summary.AddRange(elementResult.Summary));
+
+            summary.RemoveAll(string.IsNullOrWhiteSpace);
+            return summary;
+        }
+    }
 
     string GetStairsElementResultCalc(Type type)
     {
-        var element = GetStairsElementsResult().FirstOrDefault(element => element.StairsElementType == type && !element.IsAbsent);
+        var element = StairsElementsResult.FirstOrDefault(element => element.StairsElementType == type && !element.IsAbsent);
         if (element == null)
             return string.Empty;
         return GetWithstandLoadCalc(element?.StairsElements.FirstOrDefault());
@@ -96,60 +152,21 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         return string.Empty;
     }
 
-    public List<StairsElementResult> GetStairsElementsResult()
+    IEnumerable<(string, string)> GetCalcParams<T>() where T : BaseStairsElement
     {
-        if (stairsElementResults != null)
-            return stairsElementResults;
+        if (Stairs.BaseStairsType != BaseStairsTypeEnum.P2)
+            yield break;
 
-        stairsElementResults = Stairs.GetBaseStairsTypeElements().
-            Where(stairsElement => stairsElement.BaseStairsType == Stairs.BaseStairsType).
-            GroupBy(stairsElement => new { stairsElement.StairsElementType, WithstandLoadCalc = GetWithstandLoadCalc(stairsElement) }, (key, group) =>
-                new StairsElementResult([.. group.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)], false, [])).ToList();
-
-        foreach (var (elementResult, element) in stairsElementResults.SelectMany(elementResult => elementResult.StairsElements.Select(element => (elementResult, element))))
+        foreach (var elementsResult in StairsElementsResult.Where(element => element.StairsElementType == typeof(T) && !element.IsAbsent))
         {
-            foreach (var serviceabilityRecord in GetServiceabilityRecords(element).OrderBy(item => item.ServiceabilityLimit.PrintOrder))
-            {
-                serviceabilityRecord.WithstandLoadCalcResult = element.WithstandLoadCalcResult;
-                serviceabilityRecord.ElementCaption = element.Caption;
-                elementResult.Summary.AddRange(GetServiceabilitySummary(serviceabilityRecord));
-            }
+            var val = string.Empty;
+            if (elementsResult.StairsElements.FirstOrDefault() is StairwayP2 stairwayP2)
+                val = (stairwayP2.StairwayLength / 1000).ToString(reportSettings.FloatFormat);
+            else if (elementsResult.StairsElements.FirstOrDefault() is PlatformP2 platformP2)
+                val = platformP2.Size.ToString();
+
+            yield return (elementsResult.ElementNumber, val);
         }
-
-        stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(Stairs)
-            .Where(element => !stairsElementResults.Any(item => item.StairsElementType == element.StairsElementType))
-            .Select(element => new StairsElementResult([element], true, [])));
-
-        return stairsElementResults = [.. stairsElementResults.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)];
-    }
-
-    public IEnumerable<string> GetReportSummary()
-    {
-        var summary = new List<string>();
-        if (!Stairs.WeldSeamServiceability)
-            summary.Add("сварные швы не соответствуют (ГОСТ 5264)");
-        if (!Stairs.ProtectiveServiceability)
-            summary.Add("конструкция не окрашена (ГОСТ 9.032)");
-
-        GetServiceabilityRecords(Stairs).
-            OrderBy(item => item.ServiceabilityLimit.PrintOrder).
-            ToList().
-            ForEach(serviceabilityRecord => summary.AddRange(GetServiceabilitySummary(serviceabilityRecord)));
-
-        if (Stairs.StairsType == StairsTypeEnum.P1_2)
-        {
-            var stairsHeightlimit = allServiceabilityLimits.FirstOrDefault(limit => limit.StairsType == StairsTypeEnum.P1_1 && limit.ServiceabilityName == "Stairs.StairsHeight");
-            if (stairsHeightlimit.MaxValue.HasValue && Stairs.StairsHeight.Value > stairsHeightlimit.MaxValue && !HasStairsFence)
-                summary.Add($"Высота лестницы более {stairsHeightlimit.MaxValue / stairsHeightlimit.Multiplier} метров (нет ограждения лестницы)");
-        }
-
-        if (Stairs.StairsType == StairsTypeEnum.P2 && !HasStairsFence)
-           summary.Add($"Нет ограждения лестницы");
-
-        GetStairsElementsResult().ForEach(elementResult => summary.AddRange(elementResult.Summary));
-
-        summary.RemoveAll(string.IsNullOrWhiteSpace);
-        return summary.Distinct();
     }
 
     IEnumerable<ServiceabilityRecord> GetServiceabilityRecords(object obj)

@@ -58,10 +58,15 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 
     static ListItem GetListItem(string text, string? listSymbol = null)
     {
+        return GetListItem(GetParagraph(text), listSymbol);
+    }
+
+    static ListItem GetListItem(Paragraph paragraph, string? listSymbol = null)
+    {
         var listItem = new ListItem();
         if (listSymbol != null)
             listItem.SetListSymbol(listSymbol);
-        listItem.Add(GetParagraph(text));
+        listItem.Add(paragraph);
         return listItem;
     }
 
@@ -194,13 +199,13 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         document.Add(paramsList);
     }
 
-    static void MakeCalcBlockP2(Document document)
+    void MakeCalcBlockP2(Document document)
     {
         MakeCalcStairwayP2(document);
         MakeCalcPlatformP2(document);
     }
 
-    static void MakeCalcStairwayP2(Document document)
+    void MakeCalcStairwayP2(Document document)
     {
         document.Add(GetParagraph("Расчет величины нагрузки:").SetBold());
         document.Add(GetParagraph()
@@ -219,18 +224,33 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("= ((L * К2) / (К4 * Х)) * К3 * cos ").SetBold(),
                 new Text("α,     (1)")}));
 
+        var stairwayP2Lens = new List<Text>();
+        foreach (var stairwayP2Len in protocolRdp.StairwayP2Lens)
+        {
+            stairwayP2Lens.Add(new Text("L"));
+            stairwayP2Lens.Add(new Text(stairwayP2Len.Item1).SetFontSize(8));
+            stairwayP2Lens.Add(new Text($"={stairwayP2Len.Item2} м; "));
+        }
+        document.Add(GetParagraph().AddAll(stairwayP2Lens).SetBold());
+
         var paramsList = new List();
         paramsList.Add(GetListItem("длина марша лестницы, м;", "где  L - "));
         paramsList.Add(GetListItem("максимальная нагрузка, создаваемая одним человеком (пожарным), принимается равной 1,2 кН (120 кгс);", "K2- "));
         paramsList.Add(GetListItem("коэффициент запаса прочности, принимается равным 1,5;", "K3- "));
         paramsList.Add(GetListItem("коэффициент, численно равный величине проекции человека на горизонталь, м, принимается равным 0,5;", "K4- "));
         paramsList.Add(GetListItem("количество балок, при помощи которых лестница крепится к стене, шт.;", "Х - "));
-        paramsList.Add(GetListItem("угол наклона плоскости лестницы к горизонтали (α = 45 град.);", "α  - "));
+
+        var p = GetParagraph()
+            .AddAll(new[] {
+                new Text("угол наклона плоскости лестницы к горизонтали (α = 45"),
+                new Text("0").SetFontSize(8).SetTextRise(5),
+                new Text(");")});
+        paramsList.Add(GetListItem(p , "α  - "));
         document.Add(paramsList);
         document.Add(new Paragraph(" "));
     }
 
-    static void MakeCalcPlatformP2(Document document)
+    void MakeCalcPlatformP2(Document document)
     {
         document.Add(GetParagraph()
             .AddAll(new[] {
@@ -247,6 +267,17 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("площ ").SetFontSize(8).SetBold(),
                 new Text("= ((S * К2) / (К4 * Х)) * К3").SetBold(),
                 new Text(",     (2)")}));
+
+        var platformP2Sizes = new List<Text>();
+        foreach (var platformP2Size in protocolRdp.PlatformP2Sizes)
+        {
+            platformP2Sizes.Add(new Text("S"));
+            platformP2Sizes.Add(new Text(platformP2Size.Item1).SetFontSize(8));
+            platformP2Sizes.Add(new Text($"={platformP2Size.Item2} м"));
+            platformP2Sizes.Add(new Text("2").SetFontSize(8).SetTextRise(5));
+            platformP2Sizes.Add(new Text("; "));
+        }
+        document.Add(GetParagraph().AddAll(platformP2Sizes).SetBold());
 
         var paramsList = new List();
         paramsList.Add(GetListItem("площадь площадки лестницы;", "где  S - "));
@@ -269,7 +300,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         table.AddHeaderCell(MakeCell("Количество\r\nточек\r\nиспытаний", alignment: TextAlignment.CENTER));
         table.AddHeaderCell(MakeCell("Нагрузка\r\n(кгс.)", alignment: TextAlignment.CENTER));
         table.AddHeaderCell(MakeCell("Результаты\r\nиспытания", alignment: TextAlignment.CENTER));
-        foreach (var stairsElement in protocolRdp.GetStairsElementsResult())
+        foreach (var stairsElement in protocolRdp.StairsElementsResult)
             MakeTestResultsRow(table, stairsElement);
         document.Add(table);
         document.Add(new Paragraph(" "));
@@ -303,7 +334,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
             paragraph.SetTextAlignment(alignment);
         if (bold)
             paragraph.SetBold();
-        return new Cell().Add(paragraph).SetVerticalAlignment(iText.Layout.Properties.VerticalAlignment.MIDDLE);
+        return new Cell().Add(paragraph).SetVerticalAlignment(VerticalAlignment.MIDDLE);
     }
 
     void MakeImage(Document document)
@@ -318,6 +349,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
             .SetMaxWidth(pageSize.GetWidth() / (100f / reportSettings.ImageScale))
             .SetMaxHeight(pageSize.GetHeight() / (100f / reportSettings.ImageScale))
             .SetRotationAngle(ImageUtils.GetRotation(protocolRdp.ImageFilePath));
+        document.Add(new Paragraph(" "));
         document.Add(pdfImage);
         document.Add(new Paragraph(" "));
     }
@@ -325,7 +357,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
     void MakeFooter(Document document)
     {
         document.Add(new AreaBreak());
-        var summary = protocolRdp.GetReportSummary().ToList();
+        var summary = protocolRdp.ReportSummary;
 
         document.Add(GetParagraph()
             .SetFontSize(10)

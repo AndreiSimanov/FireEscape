@@ -4,29 +4,25 @@ namespace FireEscape.Reports.ReportDataProviders;
 
 public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbsent, List<string> Summary)
 {
-    string name = string.Empty;
-    public string Name
-    {
-        get
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                name = GetStairsElementResultName();
-            return name;
-        }
-    }
-
+    public string Name => $"{StairsElements.First().Name} {ElementNumber}";
     public Type StairsElementType => StairsElements.First().StairsElementType;
     public int TestPointCount => StairsElements.Sum(element => element.TestPointCount);
     public float WithstandLoadCalcResult => StairsElements.First().WithstandLoadCalcResult;
     public int PrintOrder => StairsElements.First().PrintOrder;
-    public int ElementNumber => StairsElements.Min(element => element.ElementNumber);
+    public int MinElementNumber => StairsElements.Min(element => element.ElementNumber);
 
-    string GetStairsElementResultName()
+    string elementNumber = string.Empty;
+    public string ElementNumber
     {
-        var elementNumber = string.Empty;
-        if (StairsElementType == typeof(PlatformP2) || StairsElementType == typeof(StairwayP2))
-            elementNumber = ToRangeString(StairsElements.Select(element => element.ElementNumber));
-        return $"{StairsElements.First().Name} {elementNumber}";
+        get
+        {
+            if (string.IsNullOrWhiteSpace(elementNumber))
+            {
+                if (StairsElementType == typeof(PlatformP2) || StairsElementType == typeof(StairwayP2))
+                    elementNumber = ToRangeString(StairsElements.Select(element => element.ElementNumber));
+            }
+            return elementNumber;
+        }
     }
 
     static string ToRangeString(IEnumerable<int> nums)
