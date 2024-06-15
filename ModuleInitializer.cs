@@ -1,6 +1,7 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories;
 using FireEscape.Factories.Interfaces;
+using FireEscape.Reports.ReportMakers;
 
 namespace FireEscape;
 
@@ -20,6 +21,7 @@ public static class ModuleInitializer
         services.AddSingleton<IStairsRepository, StairsRepository>();
         services.AddSingleton<IReportRepository, PdfWriterRepository>();
         services.AddSingleton<IFileHostingRepository, DropboxRepository>();
+        services.AddSingleton<IProtocolPdfReportMaker, ProtocolPdfReportMaker>();
 
         services.AddSingleton<ReportService>();
         services.AddSingleton<OrderService>();

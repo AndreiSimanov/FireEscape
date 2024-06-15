@@ -3,6 +3,7 @@ using FireEscape.Reports.ReportWriters;
 using iText.IO.Image;
 using iText.Layout;
 using iText.Layout.Element;
+using Microsoft.Extensions.Options;
 using Border = iText.Layout.Borders.Border;
 using Cell = iText.Layout.Element.Cell;
 using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
@@ -11,10 +12,15 @@ using VerticalAlignment = iText.Layout.Properties.VerticalAlignment;
 
 namespace FireEscape.Reports.ReportMakers;
 
-public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, ReportSettings reportSettings, string outputPath)
+public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : IProtocolPdfReportMaker
 {
-    public async Task MakeReportAsync()
+    ProtocolReportDataProvider? protocolRdp;
+    readonly ReportSettings reportSettings = reportSettings.Value;
+    public async Task MakeReportAsync(ProtocolReportDataProvider protocolRdp, string outputPath)
     {
+        if (protocolRdp == null)
+            throw new ArgumentNullException(nameof(protocolRdp));
+        this.protocolRdp = protocolRdp;
         var tempPdfFile = outputPath + ".tmp";
         var document = await PdfReportWriter.CreatePdfDocumentAsync(tempPdfFile, reportSettings.FontName, reportSettings.FontSize);
         try
@@ -72,15 +78,15 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 
     void MakeHeader(Document document)
     {
-        document.Add(new Paragraph($"ПРОТОКОЛ № {protocolRdp.ProtocolNum}")
+        document.Add(new Paragraph($"ПРОТОКОЛ № {protocolRdp!.ProtocolNum}")
             .SetFixedLeading(5)
             .SetTextAlignment(TextAlignment.CENTER)
             .SetBold()
             .SetFirstLineIndent(0));
 
-        document.Add(new Paragraph(protocolRdp.IsEvacuation ? 
-            "испытания пожарной эвакуационной лестницы" : protocolRdp.StairsType == StairsTypeEnum.P2? 
-            "испытания пожарной маршевой лестницы": 
+        document.Add(new Paragraph(protocolRdp.IsEvacuation ?
+            "испытания пожарной эвакуационной лестницы" : protocolRdp.StairsType == StairsTypeEnum.P2 ?
+            "испытания пожарной маршевой лестницы" :
             "испытания пожарной лестницы")
             .SetFixedLeading(5)
             .SetTextAlignment(TextAlignment.CENTER)
@@ -114,7 +120,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         document.Add(GetParagraph()
             .AddAll(new[]{
                 new Text("Характеристика объекта: ").SetBold(),
-                new Text(protocolRdp.StairsTypeStr + ", "),
+                new Text(protocolRdp!.StairsTypeStr + ", "),
                 new Text(protocolRdp.StairsMountType + " "),
                 new Text(protocolRdp.FireEscapeObject).SetBold()})
         );
@@ -153,8 +159,8 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("Условия проведения испытания: ").SetBold(),
                 new Text("скорость ветра до 10 м/с, время суток - дневное, в условиях визуальной видимости испытателей друг друга.")}));
 
-         document.Add(GetParagraph()
-            .AddAll(new[] {
+        document.Add(GetParagraph()
+           .AddAll(new[] {
                 new Text("Средства испытаний: ").SetBold(),
                 new Text(protocolRdp.StairsType == StairsTypeEnum.P2 ?
                     "стропа металлические, лазерный дальномер, динамометр, цепь, специальное устройство.":
@@ -175,7 +181,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
     void MakeCalcBlockP1(Document document)
     {
         document.Add(GetParagraph("Расчет величины нагрузки на балку:").SetBold());
-        document.Add(GetParagraph($"М = (Н*К2)/(К1*Х)*К3 = {protocolRdp.GetSupportBeamsP1Calc()}").SetBold());
+        document.Add(GetParagraph($"М = (Н*К2)/(К1*Х)*К3 = {protocolRdp!.GetSupportBeamsP1Calc()}").SetBold());
 
 
         var platformP1Calc = protocolRdp.GetPlatformP1Calc();
@@ -225,7 +231,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("α,     (1)")}));
 
         var stairwayP2Lens = new List<Text>();
-        foreach (var stairwayP2Len in protocolRdp.StairwayP2Lens)
+        foreach (var stairwayP2Len in protocolRdp!.StairwayP2Lens)
         {
             stairwayP2Lens.Add(new Text("L"));
             stairwayP2Lens.Add(new Text(stairwayP2Len.Item1).SetFontSize(8));
@@ -245,7 +251,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text("угол наклона плоскости лестницы к горизонтали (α = 45"),
                 new Text("0").SetFontSize(8).SetTextRise(5),
                 new Text(");")});
-        paramsList.Add(GetListItem(p , "α  - "));
+        paramsList.Add(GetListItem(p, "α  - "));
         document.Add(paramsList);
         document.Add(new Paragraph(" "));
     }
@@ -269,7 +275,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
                 new Text(",     (2)")}));
 
         var platformP2Sizes = new List<Text>();
-        foreach (var platformP2Size in protocolRdp.PlatformP2Sizes)
+        foreach (var platformP2Size in protocolRdp!.PlatformP2Sizes)
         {
             platformP2Sizes.Add(new Text("S"));
             platformP2Sizes.Add(new Text(platformP2Size.Item1).SetFontSize(8));
@@ -300,7 +306,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
         table.AddHeaderCell(MakeCell("Количество\r\nточек\r\nиспытаний", alignment: TextAlignment.CENTER));
         table.AddHeaderCell(MakeCell("Нагрузка\r\n(кгс.)", alignment: TextAlignment.CENTER));
         table.AddHeaderCell(MakeCell("Результаты\r\nиспытания", alignment: TextAlignment.CENTER));
-        foreach (var stairsElement in protocolRdp.StairsElementsResult)
+        foreach (var stairsElement in protocolRdp!.StairsElementsResult)
             MakeTestResultsRow(table, stairsElement);
         document.Add(table);
         document.Add(new Paragraph(" "));
@@ -339,7 +345,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
 
     void MakeImage(Document document)
     {
-        if (!protocolRdp.HasImage)
+        if (!protocolRdp!.HasImage)
             return;
 
         var pageSize = document.GetPdfDocument().GetDefaultPageSize();
@@ -357,7 +363,7 @@ public class ProtocolPdfReportMaker(ProtocolReportDataProvider protocolRdp, Repo
     void MakeFooter(Document document)
     {
         document.Add(new AreaBreak());
-        var summary = protocolRdp.ReportSummary;
+        var summary = protocolRdp!.ReportSummary;
 
         document.Add(GetParagraph()
             .SetFontSize(10)
