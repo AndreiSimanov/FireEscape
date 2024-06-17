@@ -310,6 +310,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
     void MakeTestResultsTable(Document document)
     {
         document.Add(new Paragraph("РЕЗУЛЬТАТЫ ИСПЫТАНИЙ")
+            .SetKeepWithNext(true)
             .SetTextAlignment(TextAlignment.CENTER)
             .SetBold()
             .SetUnderline());
