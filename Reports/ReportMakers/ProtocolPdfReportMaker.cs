@@ -353,7 +353,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             paragraph.SetTextAlignment(alignment);
         if (bold)
             paragraph.SetBold();
-        return new Cell().Add(paragraph).SetVerticalAlignment(VerticalAlignment.MIDDLE);
+        return new Cell().Add(paragraph).SetVerticalAlignment(VerticalAlignment.MIDDLE).SetKeepTogether(true);
     }
 
     void MakeImage(Document document)
