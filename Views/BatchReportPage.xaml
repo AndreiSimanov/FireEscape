@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:conv="clr-namespace:FireEscape.Converters"
+    xmlns:enums="clr-namespace:FireEscape.Models.Enums"    
+    xmlns:sysio="clr-namespace:System.IO;assembly=mscorlib"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="FireEscape.Views.BatchReportPage"
+    x:DataType="viewmodel:BatchReportViewModel"
+    HideSoftInputOnTapped="True"
+    Title="{x:Static lang:AppResources.OrderReport}"
+    Appearing="ContentPageAppearing"
+    Disappearing="ContentPageDisappearing">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:FileSizeToStringConverter x:Key="FileSizeToStringConverter" />
+            <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
+            <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+        <StackLayout>
+            <dxga:RadialProgressBar
+                Style="{StaticResource RadialProgressBar}"
+                Value="{Binding Progress}">
+                <dxga:RadialProgressBar.Content>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <dx:DXButton
+                            IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Start}}"
+                            Style="{StaticResource RadialProgressButton}"
+                            Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
+                            Command="{Binding CreateReportCommand}"/>
+                        <dx:DXButton
+                            IsVisible="{Binding StartStopStatus, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:StartStopEnum.Stop}}"                    
+                            Style="{StaticResource RadialProgressButton}"
+                            Content="{Binding StartStopStatus, Converter={StaticResource EnumToStringConverter}}"
+                            Command="{Binding CancelOperationCommand}"/>
+                    </StackLayout>
+                </dxga:RadialProgressBar.Content>
+            </dxga:RadialProgressBar>
+            
+            <dxe:FormGroupItem Header="{x:Static lang:AppResources.Files}" HeightRequest="40" Margin="10,0,95,0" />
+            
+            <dxga:RadialProgressBar
+                Style="{StaticResource SmallRadialProgressBar}"
+                VerticalOptions="End" HorizontalOptions="End" Margin="0,-45,5,0"
+                Value="{Binding ArchiveProgress}">
+                <dxga:RadialProgressBar.Content>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <dx:DXButton
+                            IsVisible="{Binding IsMakingReportArchive, Converter={StaticResource InvertedBoolConverter} }"
+                            Style="{StaticResource SmallRadialProgressButton}"
+                            Content="ZIP"
+                            Command="{Binding MakeReportArchiveCommand}"/>
+                        <dx:DXButton
+                            IsVisible="{Binding IsMakingReportArchive }"
+                            Style="{StaticResource SmallRadialProgressButton}"
+                            Content="{x:Static lang:EnumResources.Stop}"
+                            Command="{Binding CancelOperationCommand}"/>
+                    </StackLayout>
+                </dxga:RadialProgressBar.Content>
+            </dxga:RadialProgressBar>
+        </StackLayout>
+        <dxcv:DXCollectionView 
+            ItemsSource="{Binding Files}"
+            SelectionMode="Single" 
+            SelectedItem="{Binding SelectedItem}"
+            AllowLiveDataShaping="True"
+            IsScrollBarVisible="False"
+            Grid.Row="1"
+            UseRippleEffect="true">
+            <dxcv:DXCollectionView.SortDescriptions>
+                <dxcv:SortDescription FieldName="CreationTime" SortOrder="Ascending"/>
+                <dxcv:SortDescription FieldName="Name" SortOrder="Ascending" />
+            </dxcv:DXCollectionView.SortDescriptions>
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type sysio:FileInfo}">
+
+                    <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:BatchReportViewModel}}, Path=OpenFileCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </dxcv:SwipeContainer.GestureRecognizers>
+                        <dxcv:SwipeContainer.ItemView>
+                            <VerticalStackLayout Spacing="2" Margin="10,0,10,0">
+                                <Label Style="{StaticResource Titleline}" Text="{Binding Name}" />
+                                <Grid>
+                                    <Label Style="{StaticResource SubLine}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.DateCreated}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding CreationTime, StringFormat='{0:dd.MM.yyyy hh:mm}'}"/>
+                                                <Span Text="  " />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource SubLine}" HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.Size}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Length, Converter={StaticResource FileSizeToStringConverter}}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                                <Label Style="{StaticResource SubLine}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Path}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding DirectoryName}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+
+                        </dxcv:SwipeContainer.ItemView>
+                    </dxcv:SwipeContainer>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+    </Grid>
+</ContentPage>

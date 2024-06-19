@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<baseview:BaseUserAccountPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"                     
+    x:Class="FireEscape.Views.UserAccountPage"
+    x:DataType="viewmodel:UserAccountViewModel"
+    HideSoftInputOnTapped="True"
+    Title="{x:Static lang:AppResources.UserAccount}">
+    <ScrollView>
+        <VerticalStackLayout >
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                IsReadOnly="True"
+                Text="{Binding EditObject.Id}"
+                LabelText="{x:Static lang:AppResources.UserAccountId}"
+                PlaceholderText="{x:Static lang:AppResources.UserAccountIdHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.Name}"
+                LabelText="{x:Static lang:AppResources.UserAccountName}"
+                PlaceholderText="{x:Static lang:AppResources.UserAccountNameHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.Signature}"
+                LabelText="{x:Static lang:AppResources.Signature}"
+                PlaceholderText="{x:Static lang:AppResources.UserAccountSignatureHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.Company}"
+                LabelText="{x:Static lang:AppResources.Company}"
+                PlaceholderText="{x:Static lang:AppResources.UserAccountCompanyHint}"/>
+            <dxe:DateEdit
+                    Date="{Binding EditObject.ExpirationDate}"                    
+                    LabelText="{x:Static lang:AppResources.ExpirationDate}"/>
+            <dxe:NumericEdit
+                Style="{StaticResource NextNumericEdit}"
+                MaxValue="2147483647"
+                MinValue="-1"
+                Value="{Binding EditObject.ExpirationCount}"
+                PlaceholderText="{x:Static lang:AppResources.ExpirationCount}"
+                LabelText="{x:Static lang:AppResources.ExpirationCount}"/>
+            <dxe:CheckEdit
+                Style="{StaticResource DefaultCheckEdit}"
+                IsChecked="{Binding EditObject.IsAdmin}"
+                Label="{x:Static lang:AppResources.Administrator}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</baseview:BaseUserAccountPage>

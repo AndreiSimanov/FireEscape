@@ -1,9 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+    <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+    <!-- 
 		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
 
 		<!-- Note for MacCatalyst:
@@ -24,7 +26,7 @@
 		<ApplicationTitle>FireEscape</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.fireescape</ApplicationId>
+		<ApplicationId>com.fireescape</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -43,11 +45,10 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="Transparent" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="Transparent" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#1b3148" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -57,10 +58,138 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	  <Compile Remove="Repositories\LocalFileRepository.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\Images\photo.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="DevExpress.Maui.CollectionView" Version="23.2.5" />
+    <PackageReference Include="DevExpress.Maui.Controls" Version="23.2.5" />
+    <PackageReference Include="DevExpress.Maui.Core" Version="23.2.5" />
+    <PackageReference Include="DevExpress.Maui.DataGrid" Version="23.2.5" />
+    <PackageReference Include="DevExpress.Maui.Editors" Version="23.2.5" />
+    <PackageReference Include="DevExpress.Maui.Gauges" Version="23.2.5" />
+    <PackageReference Include="Dropbox.Api" Version="6.37.0" />
+    <PackageReference Include="ExifLibNet" Version="2.1.4" />
+    <PackageReference Include="itext7" Version="8.0.4" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.4" />
+    <PackageReference Include="MetroLog.Maui" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0-preview.2.24128.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0-preview.2.24128.5" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <PackageReference Include="Simusr2.Maui.DeviceIdentifier" Version="1.0.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
+    <PackageReference Include="SQLiteNetExtensions.Async" Version="2.1.0" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\Languages\EnumResources.Designer.cs">
+	    <DependentUpon>EnumResources.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Resources\Languages\AppResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AppResources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\SearchControl.xaml.cs">
+	    <DependentUpon>SearchControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\ServiceabilityEditControl.xaml.cs">
+	    <DependentUpon>ServiceabilityEditControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\UnitOfMeasureEditControl.xaml.cs">
+	    <DependentUpon>UnitOfMeasureEditControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\ServiceabilityEditControl.xaml.cs">
+	    <DependentUpon>ServiceabilityEditControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\BatchReportPage.xaml.cs">
+	    <DependentUpon>BatchReportPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\StairsPage.xaml.cs">
+	    <DependentUpon>StairsPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ProtocolMainPage.xaml.cs">
+	    <DependentUpon>ProtocolMainPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ProtocolPage.xaml.cs">
+	    <DependentUpon>ProtocolPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\UserAccountMainPage.xaml.cs">
+	    <DependentUpon>UserAccountMainPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Languages\EnumResources.en-us.resx">
+	    <SubType>Designer</SubType>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Languages\EnumResources.resx">
+	    <SubType>Designer</SubType>
+	    <LastGenOutput>EnumResources.Designer.cs</LastGenOutput>
+	    <Generator>ResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Languages\AppResources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Controls\SearchControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\UnitOfMeasureEditControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\ServiceabilityEditControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OrderMainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\BatchReportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OrderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RemoteLogPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\StairsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProtocolPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\UserAccountPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\UserAccountMainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\Labels\" />
 	</ItemGroup>
 
 </Project>

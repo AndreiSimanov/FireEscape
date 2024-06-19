@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
+    ios:Page.UseSafeArea="True"
+    x:Class="FireEscape.Views.UserAccountMainPage"
+    x:DataType="viewmodel:UserAccountMainViewModel"
+    Title="{x:Static lang:AppResources.UserAccountMainPageTitle}"
+    HideSoftInputOnTapped="True"             
+    Shell.NavBarIsVisible="False"
+    Appearing="ContentPageAppearing">
+    
+    <Grid RowDefinitions="Auto,*">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="Green" FalseObject="Red" />
+            </ResourceDictionary>
+        </Grid.Resources>
+        <ctrl:SearchControl
+            x:Name="searchControl"
+            Search="{Binding Search}"
+            SearchCommand="{Binding FilterItemsCommand}"
+            Placeholder="{x:Static lang:AppResources.UserAccountsSearch}"
+            StoppedTypingTimeThreshold="300"/>        
+        <Border
+            IsVisible="{Binding IsEmptyList}"
+            StrokeShape="RoundRectangle 80"
+            Grid.Row="1"
+            Stroke="Transparent"
+            StrokeThickness="6"
+            HeightRequest="172"
+            WidthRequest="172"
+            Margin="0,8,0,0"
+            HorizontalOptions="Center">
+            <dx:DXImage 
+                BackgroundColor="Transparent"
+                TintColor="{dx:ThemeColor Primary}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                HeightRequest="80"
+                WidthRequest="80"
+                Source="nodata"/>
+        </Border>
+        <dxcv:DXCollectionView 
+            x:Name="userAccounts"
+            ItemsSource="{Binding UserAccounts}"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing}" 
+            PullToRefreshCommand="{Binding GetUserAccountsCommand}"
+            FilterString ="{Binding Filter}"
+            AllowLiveDataShaping="True"
+            IsScrollBarVisible="False"
+            SelectionMode="Single" 
+            SelectedItem="{Binding SelectedItem}"
+            Grid.Row="1"
+            ItemSeparatorThickness="0"
+            UseRippleEffect="true"
+            Scrolled ="ScrolledAsync"
+            PropertyChanged="CollectionViewChanged">
+            <dxcv:DXCollectionView.SortDescriptions>
+                <dxcv:SortDescription FieldName="Name" />
+            </dxcv:DXCollectionView.SortDescriptions>
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:UserAccount">
+                    <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GoToDetailsCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </dxcv:SwipeContainer.GestureRecognizers>
+                        <dxcv:SwipeContainer.StartSwipeItems>
+                            <dxcv:SwipeItem
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=GetLogCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="{x:Static lang:AppResources.Log}"
+                                Image="edit"/>
+                        </dxcv:SwipeContainer.StartSwipeItems>
+                        <dxcv:SwipeContainer.EndSwipeItems>
+                            <dxcv:SwipeItem 
+                                BackgroundColor="#D74F67"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:UserAccountMainViewModel}}, Path=DeleteUserAccountCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="{x:Static lang:AppResources.Delete}"
+                                Image="delete"/>
+                        </dxcv:SwipeContainer.EndSwipeItems>
+                        <dxcv:SwipeContainer.ItemView>
+
+                            <VerticalStackLayout Spacing="2" >
+                                <Label Style="{StaticResource Titleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.UserAccountId}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Id}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource Titleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.UserAccountName}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Name}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Signature}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Signature}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Company}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Company}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubTitleline}"
+                                    TextColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
+
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.ExpirationDate}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding ExpirationDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label Style="{StaticResource SubTitleline}"
+                                    TextColor="{Binding IsValidUserAccount, Converter={StaticResource BoolToObjectConverter}}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.ExpirationCount}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding ExpirationCount}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <dxe:CheckEdit
+                                    IsEnabled="False"
+                                    IsChecked="{Binding IsAdmin}"
+                                    Label="{x:Static lang:AppResources.Administrator}"
+                                    LabelColor="{dx:ThemeColor OnSurface}"
+                                    LabelFontSize="12"/>
+                            </VerticalStackLayout>
+
+                        </dxcv:SwipeContainer.ItemView>
+                    </dxcv:SwipeContainer>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+
+        <dx:DXButton
+            IsVisible="False"
+            IsEnabled="{Binding IsNotBusy}"
+            VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
+            Grid.RowSpan="2"
+            Style="{StaticResource RadialButton}"
+            Clicked="CreateUserAccount">
+        </dx:DXButton>
+    </Grid>
+</ContentPage>

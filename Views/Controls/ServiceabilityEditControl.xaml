@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:control="clr-namespace:FireEscape.Views.Controls"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:enums="clr-namespace:FireEscape.Models.Enums"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:conv="clr-namespace:FireEscape.Converters"
+    x:Name="this"
+    x:DataType="control:ServiceabilityEditControl"
+    x:Class="FireEscape.Views.Controls.ServiceabilityEditControl">
+
+    <Grid x:Name="grid" RowDefinitions="auto, *" ColumnDefinitions="*, *">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+                <conv:EnumToStringConverter x:Key="EnumToStringConverter"/>
+            </ResourceDictionary>
+        </Grid.Resources>
+
+        <control:UnitOfMeasureEditControl
+            x:Name="numEdit"
+            LabelText="{Binding LabelText}"
+            PlaceholderText="{Binding PlaceholderText}"
+            Grid.Column="0"
+            Value="{Binding ServiceabilityValue.Value}"
+            HasError="{Binding HasError}"
+            ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"/>
+
+        <dxe:ComboBoxEdit
+            Style="{StaticResource DefaultComboBoxEdit}"
+            Grid.Column="2"
+            LabelText="{x:Static lang:AppResources.Serviceability}"
+            SelectedItem="{Binding ServiceabilityValue.ServiceabilityType, Converter={StaticResource EnumToStringConverter}}"
+            ItemsSource="{Binding ServiceabilityTypes}"/>
+
+        <dxe:MultilineEdit
+            IsVisible="{Binding ServiceabilityValue.ServiceabilityType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:ServiceabilityTypeEnum.Reject}}"
+            Grid.Row="1" Grid.ColumnSpan="2"
+            Text="{Binding ServiceabilityValue.RejectExplanation}"
+            PlaceholderText="{x:Static lang:AppResources.RejectExplanationHint}"
+            LabelText="{Binding RejectExplanationLabel}"/>
+    </Grid>
+</ContentView>

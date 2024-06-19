@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
+    xmlns:conv="clr-namespace:FireEscape.Converters"
+    ios:Page.UseSafeArea="True"
+    Title="{x:Static lang:AppResources.ProtocolMainPageTitle}"
+    x:DataType="viewmodel:ProtocolMainViewModel"
+    x:Class="FireEscape.Views.ProtocolMainPage"
+    HideSoftInputOnTapped="True"
+    Appearing="ContentPageAppearing">
+
+    <Grid RowDefinitions="Auto,*">
+        <ctrl:SearchControl
+            x:Name="searchControl"
+            Search="{Binding Search}"
+            SearchCommand="{Binding FilterItemsCommand}"
+            Placeholder="{x:Static lang:AppResources.ProtocolsSearch}"
+            StoppedTypingTimeThreshold="300"/>
+        <Border
+            IsVisible="{Binding IsEmptyList}"
+            StrokeShape="RoundRectangle 80"
+            Grid.Row="1"
+            Stroke="Transparent"
+            StrokeThickness="6"
+            HeightRequest="172"
+            WidthRequest="172"
+            Margin="0,8,0,0"
+            HorizontalOptions="Center">
+            <dx:DXImage 
+                BackgroundColor="Transparent"
+                TintColor="{dx:ThemeColor Primary}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                HeightRequest="80"
+                WidthRequest="80"
+                Source="nodata"/>
+        </Border>
+        <dxcv:DXCollectionView 
+            x:Name="protocols"
+            ItemsSource="{Binding Protocols}"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing}"
+            PullToRefreshCommand="{Binding GetProtocolsCommand}"
+            FilterString ="{Binding Filter}"
+            AllowLiveDataShaping="True"
+            IsScrollBarVisible="False"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedItem}"
+            Grid.Row="1"
+            ItemSeparatorThickness="0"
+            UseRippleEffect="true"
+            Scrolled ="ScrolledAsync"
+            PropertyChanged="CollectionViewChanged">
+            <dxcv:DXCollectionView.SortDescriptions>
+                <dxcv:SortDescription FieldName="Id" SortOrder="Descending" />
+            </dxcv:DXCollectionView.SortDescriptions>
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Protocol">
+                    <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=GoToDetailsCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </dxcv:SwipeContainer.GestureRecognizers>
+                        <dxcv:SwipeContainer.StartSwipeItems>
+                            <dxcv:SwipeItem
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=CreateReportCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="PDF"
+                                Image="pdf"/>
+                            <dxcv:SwipeItem
+                                BackgroundColor="Green"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel } }, Path=IsNotBusy}"
+                                Tap="CopyProtocolWithStairs"
+                                Caption="{x:Static lang:AppResources.Copy}"
+                                Image="copy"/>
+                        </dxcv:SwipeContainer.StartSwipeItems>
+                        <dxcv:SwipeContainer.EndSwipeItems>
+                            <dxcv:SwipeItem 
+                                BackgroundColor="#D74F67"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=DeleteProtocolCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="{x:Static lang:AppResources.Delete}"
+                                Image="delete"/>
+                        </dxcv:SwipeContainer.EndSwipeItems>
+                        <dxcv:SwipeContainer.ItemView>
+                            
+                            <Grid ColumnDefinitions="125,*">
+                                <Grid.Resources>
+                                    <ResourceDictionary>
+                                        <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
+                                        <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+                                        <toolkit:IsStringNullOrWhiteSpaceConverter x:Key="IsStringNullOrWhiteSpaceConverter" />
+                                        <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
+                                    </ResourceDictionary>
+                                </Grid.Resources>
+                                <dx:DXImage
+                                    IsVisible="{Binding HasImage, Converter={StaticResource InvertedBoolConverter}}"
+                                    TintColor="{dx:ThemeColor Primary}"
+                                    HorizontalOptions="Center"
+                                    Aspect="AspectFill"
+                                    HeightRequest="80"
+                                    WidthRequest="80" 
+                                    Source="nophoto"/>
+                                <dx:DXImage
+                                    IsVisible="{Binding HasImage}"
+                                    HorizontalOptions="End"
+                                    Aspect="AspectFill"
+                                    HeightRequest="110"
+                                    WidthRequest="110" 
+                                    Source="{Binding ImageFilePath}">
+                                    <Image.Clip>
+                                        <RoundRectangleGeometry CornerRadius="10" Rect="0,0,110,110" />
+                                    </Image.Clip>
+                                </dx:DXImage>
+                                <VerticalStackLayout VerticalOptions="Center" Grid.Column="1" Spacing="2" Padding="10">
+                                    <Label 
+                                        Style="{StaticResource Titleline}"
+                                        IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                        Text="{Binding FireEscapeObject}"/>
+                                    <Label 
+                                        Style="{StaticResource Titleline}"
+                                        IsVisible="{Binding FireEscapeObject, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
+                                        Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.FireEscapeObject}"/>
+                                    <Label Style="{StaticResource SubTitleline}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.FireEscapeNum}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding FireEscapeNum}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource SubLine}" Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}"/>
+                                    <Label 
+                                        Style="{StaticResource SubLine}"
+                                        IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Location}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label 
+                                        Style="{StaticResource SubLine}"
+                                        IsVisible="{Binding Location, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.AddressStringFormat}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Location}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label 
+                                        Style="{StaticResource SubLine}"
+                                        IsVisible="{Binding Address, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}"
+                                        Text="{Binding Address}"/>
+                                    <Label 
+                                        Style="{StaticResource SubLine}"
+                                        IsVisible="{Binding Address, Converter={StaticResource IsStringNullOrWhiteSpaceConverter}}"
+                                        Text="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProtocolMainViewModel}}, Path=Order.Address}"/>
+                                    <Grid>
+                                        <Label Style="{StaticResource SmallSubLine}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.ProtocolDate}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding ProtocolDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Style="{StaticResource SmallSubLine}" HorizontalTextAlignment="End">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static lang:AppResources.Id}" />
+                                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                    <Span Text="{Binding Id}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                        </dxcv:SwipeContainer.ItemView>
+                    </dxcv:SwipeContainer>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+        <dx:DXButton
+            IsEnabled="{Binding IsNotBusy}"
+            VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
+            Grid.RowSpan="2"
+            Style="{StaticResource RadialButton}"
+            Clicked="CreateProtocol">
+        </dx:DXButton>
+    </Grid>
+</ContentPage>

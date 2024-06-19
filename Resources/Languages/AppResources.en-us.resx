@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddPhotoError" xml:space="preserve">
+    <value>Unable to add photo to the protocol</value>
+  </data>
+  <data name="AddProtocolError" xml:space="preserve">
+    <value>Unable to add protocol</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AddressHint" xml:space="preserve">
+    <value>Specify address</value>
+  </data>
+  <data name="AddressStringFormat" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Fire Escape</value>
+  </data>
+  <data name="BrokenData" xml:space="preserve">
+    <value>Broken data</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CheckInternetMessage" xml:space="preserve">
+    <value>Please check internet and try again.</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Unable to create report file</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer representative</value>
+  </data>
+  <data name="CustomerHint" xml:space="preserve">
+    <value>Specify representative of the customer</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteProtocol" xml:space="preserve">
+    <value>Delete the protocol?</value>
+  </data>
+  <data name="DeleteProtocolError" xml:space="preserve">
+    <value>Unable to delete protocol</value>
+  </data>
+  <data name="DeleteUserAccount" xml:space="preserve">
+    <value>Delete the uesr account?</value>
+  </data>
+  <data name="DeleteUserAccountError" xml:space="preserve">
+    <value>Unable to delete user account</value>
+  </data>
+  <data name="EditStairsError" xml:space="preserve">
+    <value>Unable to edit the fire escape properties</value>
+  </data>
+  <data name="EditProtocolError" xml:space="preserve">
+    <value>Unable to edit the protocol</value>
+  </data>
+  <data name="EditUserAccountError" xml:space="preserve">
+    <value>Unable to edit user account</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Expiration date</value>
+  </data>
+  <data name="FireEscape" xml:space="preserve">
+    <value>Fire escape</value>
+  </data>
+  <data name="StairsMountTypesHint" xml:space="preserve">
+    <value>Specify fire escape mount type</value>
+  </data>
+  <data name="FireEscapeNum" xml:space="preserve">
+    <value>Test object number</value>
+  </data>
+  <data name="FireEscapeObject" xml:space="preserve">
+    <value>Fire escape object name</value>
+  </data>
+  <data name="FireEscapeObjectHint" xml:space="preserve">
+    <value>Specify fire escape object name</value>
+  </data>
+  <data name="StairsPageTitle" xml:space="preserve">
+    <value>Fire escape properties</value>
+  </data>
+  <data name="StairsTypesHint" xml:space="preserve">
+    <value>Specify fire escape type</value>
+  </data>
+  <data name="GetProtocolsError" xml:space="preserve">
+    <value>Unable to get protocols</value>
+  </data>
+  <data name="GetUserAccountsError" xml:space="preserve">
+    <value>Unable to get user accounts</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="LocationHint" xml:space="preserve">
+    <value>Specify city/region</value>
+  </data>
+  <data name="MakePhotoHint" xml:space="preserve">
+    <value>Click image to make a photo</value>
+  </data>
+  <data name="NewProtocol" xml:space="preserve">
+    <value>New protocol</value>
+  </data>
+  <data name="NoConnectivity" xml:space="preserve">
+    <value>No connectivity</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OpenUserAccountMainPageError" xml:space="preserve">
+    <value>Unable to edit user accounts</value>
+  </data>
+  <data name="ProtocolDate" xml:space="preserve">
+    <value>Protocol date</value>
+  </data>
+  <data name="ProtocolNum" xml:space="preserve">
+    <value>Protocol number</value>
+  </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>Protocol</value>
+  </data>
+  <data name="ProtocolMainPageTitle" xml:space="preserve">
+    <value>Protocol list</value>
+  </data>
+  <data name="SaveProtocolError" xml:space="preserve">
+    <value>Unable to save the protocol</value>
+  </data>
+  <data name="UnregisteredApplicationMessage" xml:space="preserve">
+    <value>Unregistered application version or user account has been expired. Please report number {0} to the application vendor.</value>
+  </data>
+  <data name="UserAccountId" xml:space="preserve">
+    <value>Account identifier</value>
+  </data>
+  <data name="UserAccountName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>User account</value>
+  </data>
+  <data name="UserAccountMainPageTitle" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Signature</value>
+  </data>
+  <data name="UserAccountCompanyHint" xml:space="preserve">
+    <value>Specify user account company</value>
+  </data>
+  <data name="UserAccountIdHint" xml:space="preserve">
+    <value>Specify user account Id</value>
+  </data>
+  <data name="UserAccountNameHint" xml:space="preserve">
+    <value>Specify user account name</value>
+  </data>
+  <data name="UserAccountSignatureHint" xml:space="preserve">
+    <value>Specify user account signature</value>
+  </data>
+  <data name="CaptionDivider" xml:space="preserve">
+    <value>: </value>
+  </data>
+  <data name="EscapeStairs" xml:space="preserve">
+    <value>Escape stairs</value>
+  </data>
+  <data name="ProtectiveServiceability" xml:space="preserve">
+    <value>Protective coating quality corresponds to GOST</value>
+  </data>
+  <data name="StairsHeight" xml:space="preserve">
+    <value>Stairs height</value>
+  </data>
+  <data name="StairsHeightHint" xml:space="preserve">
+    <value>Specify stairs height</value>
+  </data>
+  <data name="StairsWidth" xml:space="preserve">
+    <value>Stairs width</value>
+  </data>
+  <data name="StairsWidthHint" xml:space="preserve">
+    <value>Specify stairs width</value>
+  </data>
+  <data name="StepsCount" xml:space="preserve">
+    <value>Steps count</value>
+  </data>
+  <data name="StepsCountHint" xml:space="preserve">
+    <value>Specify steps count</value>
+  </data>
+  <data name="WeldSeamServiceability" xml:space="preserve">
+    <value>Weld seam quality corresponds to GOST</value>
+  </data>
+  <data name="ProtocolsSearch" xml:space="preserve">
+    <value>Search protocols...</value>
+  </data>
+  <data name="UserAccountSearch" xml:space="preserve">
+    <value>Search user accounts...</value>
+  </data>
+  <data name="SelectPhotoHint" xml:space="preserve">
+    <value>Gallery</value>
+  </data>
+  <data name="ExpirationCount" xml:space="preserve">
+    <value>Expiration сount</value>
+  </data>
+  <data name="RejectExplanation" xml:space="preserve">
+    <value>Reject explanation</value>
+  </data>
+  <data name="RejectExplanationHint" xml:space="preserve">
+    <value>Specify the detected inconsistencies of GOST</value>
+  </data>
+  <data name="Serviceability" xml:space="preserve">
+    <value>Serviceability</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CopyProtocolError" xml:space="preserve">
+    <value>Unable to copy protocol</value>
+  </data>
+  <data name="DeleteStairsElement" xml:space="preserve">
+    <value>Delete the stairs element?</value>
+  </data>
+  <data name="DeleteStairsElementError" xml:space="preserve">
+    <value>Unable to delete stairs element</value>
+  </data>
+  <data name="GetOrdersError" xml:space="preserve">
+    <value>Unable to get orders</value>
+  </data>
+  <data name="OrderMainPageTitle" xml:space="preserve">
+    <value>Order list</value>
+  </data>
+  <data name="AddOrderError" xml:space="preserve">
+    <value>Unable to add order</value>
+  </data>
+  <data name="DeleteOrder" xml:space="preserve">
+    <value>Delete the order?</value>
+  </data>
+  <data name="DeleteOrderError" xml:space="preserve">
+    <value>Unable to delete order</value>
+  </data>
+  <data name="EditOrderError" xml:space="preserve">
+    <value>Unable to edit the order</value>
+  </data>
+  <data name="ExecutiveCompany" xml:space="preserve">
+    <value>Executive сompany</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Order date</value>
+  </data>
+  <data name="OrderName" xml:space="preserve">
+    <value>Order name</value>
+  </data>
+  <data name="OrdersSearch" xml:space="preserve">
+    <value>Search orders...</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="SaveOrderError" xml:space="preserve">
+    <value>Unable to save the order</value>
+  </data>
+  <data name="ExecutiveCompanyHint" xml:space="preserve">
+    <value>Specify executive company</value>
+  </data>
+  <data name="OrderNameHint" xml:space="preserve">
+    <value>Specify order name</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="SaveUserAccountError" xml:space="preserve">
+    <value>Unable to save the user account</value>
+  </data>
+  <data name="Deformation" xml:space="preserve">
+    <value>Deformation</value>
+  </data>
+  <data name="DeformationHint" xml:space="preserve">
+    <value>Specify the size of the deformation</value>
+  </data>
+  <data name="TestPointCount" xml:space="preserve">
+    <value>Count of test points</value>
+  </data>
+  <data name="TestPointCountHint" xml:space="preserve">
+    <value>Specify the count of test points</value>
+  </data>
+  <data name="StairsElements" xml:space="preserve">
+    <value>Stairs elements</value>
+  </data>
+  <data name="WithstandLoadUnit" xml:space="preserve">
+    <value>kgs</value>
+  </data>
+  <data name="TestPointCountTrim" xml:space="preserve">
+    <value>Test points</value>
+  </data>
+  <data name="WithstandLoad" xml:space="preserve">
+    <value>Withstand load</value>
+  </data>
+  <data name="StairsFenceHeight" xml:space="preserve">
+    <value>Stairs fence height</value>
+  </data>
+  <data name="StairsFenceHeightHint" xml:space="preserve">
+    <value>Specify stairs fence height</value>
+  </data>
+  <data name="SupportBeamsCount" xml:space="preserve">
+    <value>Support beams count</value>
+  </data>
+  <data name="SupportBeamsCountHint" xml:space="preserve">
+    <value>Specify support beams count</value>
+  </data>
+  <data name="SelectStairsElement" xml:space="preserve">
+    <value>Select stairs element</value>
+  </data>
+  <data name="SupportBeamsPairsCount" xml:space="preserve">
+    <value>Support beams count (in pairs)</value>
+  </data>
+  <data name="SupportBeamsPairsCountHint" xml:space="preserve">
+    <value>Specify support beams count (in pairs)</value>
+  </data>
+  <data name="StairwayLength" xml:space="preserve">
+    <value>Stairway length</value>
+  </data>
+  <data name="StairwayLengthHint" xml:space="preserve">
+    <value>Specify stairway length</value>
+  </data>
+  <data name="StepsHeight" xml:space="preserve">
+    <value>Steps height</value>
+  </data>
+  <data name="StepsHeightHint" xml:space="preserve">
+    <value>Specify steps height</value>
+  </data>
+  <data name="StepsWidth" xml:space="preserve">
+    <value>Steps width</value>
+  </data>
+  <data name="StepsWidthHint" xml:space="preserve">
+    <value>Specify steps width</value>
+  </data>
+  <data name="PlatformLength" xml:space="preserve">
+    <value>Platform length</value>
+  </data>
+  <data name="PlatformLengthHint" xml:space="preserve">
+    <value>Specify platform length</value>
+  </data>
+  <data name="PlatformWidth" xml:space="preserve">
+    <value>Platform width</value>
+  </data>
+  <data name="PlatformWidthHint" xml:space="preserve">
+    <value>Specify platform width</value>
+  </data>
+  <data name="AdditionalPlatformSizes" xml:space="preserve">
+    <value>Additional platform sizes</value>
+  </data>
+  <data name="RejectExplanationLabel" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="PlatformSize" xml:space="preserve">
+    <value>Platform size</value>
+  </data>
+  <data name="PlatformSizeUnit" xml:space="preserve">
+    <value>m2</value>
+  </data>
+  <data name="ElementNumber" xml:space="preserve">
+    <value>Element number</value>
+  </data>
+  <data name="ElementNumberHint" xml:space="preserve">
+    <value>Specify element number</value>
+  </data>
+  <data name="ExecutorSignHint" xml:space="preserve">
+    <value>Specify executor signature</value>
+  </data>
+  <data name="PrimaryExecutorSign" xml:space="preserve">
+    <value>Primary executor</value>
+  </data>
+  <data name="SecondaryExecutorSign" xml:space="preserve">
+    <value>Secondary executor</value>
+  </data>
+  <data name="OrderReport" xml:space="preserve">
+    <value>Prtotocol files of order</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="DateCreated" xml:space="preserve">
+    <value>Date created</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="OrderIsEmpty" xml:space="preserve">
+    <value>The order doesn't contain protocols</value>
+  </data>
+  <data name="SharingOrderZip" xml:space="preserve">
+    <value>Sharing order zip</value>
+  </data>
+  <data name="WallDistance" xml:space="preserve">
+    <value>Distance to the wall</value>
+  </data>
+  <data name="WallDistanceHint" xml:space="preserve">
+    <value>Specify the distance to the wall</value>
+  </data>
+  <data name="GroundDistance" xml:space="preserve">
+    <value>Dist. to the ground</value>
+  </data>
+  <data name="GroundDistanceHint" xml:space="preserve">
+    <value>Specify distance to the ground</value>
+  </data>
+  <data name="StepsDistance" xml:space="preserve">
+    <value>Steps distance</value>
+  </data>
+  <data name="StepsDistanceHint" xml:space="preserve">
+    <value>Specify steps distance</value>
+  </data>
+  <data name="BuildingMountedTrim" xml:space="preserve">
+    <value>build mount</value>
+  </data>
+  <data name="ElevationMountedTrim" xml:space="preserve">
+    <value>elev mount</value>
+  </data>
+  <data name="EscapeStairsTrim" xml:space="preserve">
+    <value>escape</value>
+  </data>
+  <data name="P1Trim" xml:space="preserve">
+    <value>Vert</value>
+  </data>
+  <data name="P2Trim" xml:space="preserve">
+    <value>March</value>
+  </data>
+  <data name="StairsTrim" xml:space="preserve">
+    <value>stairs</value>
+  </data>
+  <data name="StairsFence" xml:space="preserve">
+    <value>Stairs fence</value>
+  </data>
+  <data name="RoofPlatform" xml:space="preserve">
+    <value>Stairs roof platform</value>
+  </data>
+  <data name="StairsPlatform" xml:space="preserve">
+    <value>Stairs platform</value>
+  </data>
+  <data name="Stairway" xml:space="preserve">
+    <value>Stairway</value>
+  </data>
+  <data name="StairsSteps" xml:space="preserve">
+    <value>Stairs steps</value>
+  </data>
+  <data name="SupportBeams" xml:space="preserve">
+    <value>Support beams</value>
+  </data>
+  <data name="PdfView" xml:space="preserve">
+    <value>View Pdf file</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="RemoteLog" xml:space="preserve">
+    <value>Remote log</value>
+  </data>
+  <data name="GetRemoteLogError" xml:space="preserve">
+    <value>Unable to get the remote log</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="NumberOfProtocols" xml:space="preserve">
+    <value>Number of protocols</value>
+  </data>
+</root>

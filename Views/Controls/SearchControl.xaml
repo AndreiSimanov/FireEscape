@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:control="clr-namespace:FireEscape.Views.Controls"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    x:Name="this"
+    x:DataType="control:SearchControl"
+    x:Class="FireEscape.Views.Controls.SearchControl">
+    <StackLayout>
+        <Border
+            Margin="10" 
+            Padding="8,-9,25,0"
+            StrokeShape="RoundRectangle 25,25,25,25"
+            StrokeThickness="0"
+            BackgroundColor="{dx:ThemeColor SurfaceContainerHighest}">
+            <Entry 
+                x:Name="searchEntry"
+                Text="{Binding Search}"
+                BackgroundColor="{dx:ThemeColor Primary}"
+                ReturnType="Search"
+                TextChanged="SearchTextChanged"
+                Placeholder="{Binding Placeholder}">
+                <Entry.Behaviors>
+                    <toolkit:UserStoppedTypingBehavior 
+                        x:Name="stoppedTyping"
+                        Command="{Binding Source={x:Reference this}, Path=SearchCommand}"
+                        StoppedTypingTimeThreshold="{Binding StoppedTypingTimeThreshold}"
+                        ShouldDismissKeyboardAutomatically="False" />
+                </Entry.Behaviors>
+            </Entry>
+        </Border>
+        <dx:DXButton
+            x:Name="clearSearchText"
+            Clicked="SearchTextClicked" 
+            HorizontalOptions="End"
+            Margin="0,-40,22,20"
+            Icon="clearsearch"
+            WidthRequest="20" 
+            HeightRequest="20" Padding="0"
+            CornerRadius="10"/>
+    </StackLayout>
+</ContentView>

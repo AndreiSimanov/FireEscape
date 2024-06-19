@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<baseview:BaseOrderPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:baseview="clr-namespace:FireEscape.Views.BaseViews"
+    x:Class="FireEscape.Views.OrderPage"
+    x:DataType="viewmodel:OrderViewModel"
+    HideSoftInputOnTapped="True"    
+    Title="{x:Static lang:AppResources.Order}">
+    <ScrollView>
+        <VerticalStackLayout>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.Name}"
+                LabelText="{x:Static lang:AppResources.OrderName}"
+                PlaceholderText="{x:Static lang:AppResources.OrderNameHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.Customer}"
+                LabelText="{x:Static lang:AppResources.Customer}"
+                PlaceholderText="{x:Static lang:AppResources.CustomerHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.ExecutiveCompany}"
+                LabelText="{x:Static lang:AppResources.ExecutiveCompany}"
+                PlaceholderText="{x:Static lang:AppResources.ExecutiveCompanyHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.Location}"
+                LabelText="{x:Static lang:AppResources.Location}"
+                PlaceholderText="{x:Static lang:AppResources.LocationHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.Address}"
+                LabelText="{x:Static lang:AppResources.Address}"
+                PlaceholderText="{x:Static lang:AppResources.AddressHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.FireEscapeObject}"
+                LabelText="{x:Static lang:AppResources.FireEscapeObject}"
+                PlaceholderText="{x:Static lang:AppResources.FireEscapeObjectHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.PrimaryExecutorSign}"
+                LabelText="{x:Static lang:AppResources.PrimaryExecutorSign}"
+                PlaceholderText="{x:Static lang:AppResources.ExecutorSignHint}"/>
+            <dxe:TextEdit
+                Style="{StaticResource NextTextEdit}"
+                Text="{Binding EditObject.SecondaryExecutorSign}"
+                LabelText="{x:Static lang:AppResources.SecondaryExecutorSign}"
+                PlaceholderText="{x:Static lang:AppResources.ExecutorSignHint}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</baseview:BaseOrderPage>

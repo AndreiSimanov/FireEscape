@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
+    xmlns:model="clr-namespace:FireEscape.Models"
+    xmlns:ctrl="clr-namespace:FireEscape.Views.Controls"
+    ios:Page.UseSafeArea="True"
+    x:Class="FireEscape.Views.OrderMainPage"
+    Title="{x:Static lang:AppResources.OrderMainPageTitle}"
+    x:DataType="viewmodel:OrderMainViewModel"
+    HideSoftInputOnTapped="True"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*" >
+        <ctrl:SearchControl
+            x:Name="searchControl"
+            Search="{Binding Search}"
+            SearchCommand="{Binding GetOrdersCommand}"
+            Placeholder="{x:Static lang:AppResources.OrdersSearch}"
+            StoppedTypingTimeThreshold="900"/>
+        <Border
+            IsVisible="{Binding IsEmptyList}"
+            StrokeShape="RoundRectangle 80"
+            Grid.Row="1"
+            Stroke="Transparent"
+            StrokeThickness="6"
+            HeightRequest="172"
+            WidthRequest="172"
+            Margin="0,8,0,0"
+            HorizontalOptions="Center">
+            <dx:DXImage 
+                BackgroundColor="Transparent"
+                TintColor="{dx:ThemeColor Primary}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                HeightRequest="80"
+                WidthRequest="80"
+                Source="nodata"/>
+        </Border>
+        <dxcv:DXCollectionView 
+            x:Name="orders"
+            ItemsSource="{Binding Orders}"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing}"
+            PullToRefreshCommand="{Binding GetOrdersCommand}"
+            IsLoadMoreEnabled="{Binding IsLoadMore}"
+            LoadMoreCommand="{Binding LoadMoreCommand}"
+            AllowLiveDataShaping="True"
+            IsScrollBarVisible="False"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedItem}"
+            Grid.Row="1"
+            ItemSeparatorThickness="0"
+            UseRippleEffect="true"
+            Scrolled="ScrolledAsync"
+            PropertyChanged="CollectionViewChanged">
+            <dxcv:DXCollectionView.SortDescriptions>
+                <dxcv:SortDescription FieldName="Id" SortOrder="Descending" />
+            </dxcv:DXCollectionView.SortDescriptions>
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Order">
+                    <dxcv:SwipeContainer>
+                        <dxcv:SwipeContainer.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=GoToProtocolsCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </dxcv:SwipeContainer.GestureRecognizers>
+                        <dxcv:SwipeContainer.StartSwipeItems>
+                            <dxcv:SwipeItem
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=CreateReportCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="PDF"
+                                Image="pdf"/>
+                            <dxcv:SwipeItem
+                                BackgroundColor="Green"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=GoToDetailsCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="{x:Static lang:AppResources.Edit}"
+                                Image="edit"/>
+                        </dxcv:SwipeContainer.StartSwipeItems>
+                        <dxcv:SwipeContainer.EndSwipeItems>
+                            <dxcv:SwipeItem 
+                                BackgroundColor="#D74F67"
+                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel } }, Path=IsNotBusy}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=DeleteOrderCommand}"
+                                CommandParameter="{Binding .}"
+                                Caption="{x:Static lang:AppResources.Delete}"
+                                Image="delete"/>
+                        </dxcv:SwipeContainer.EndSwipeItems>
+                        <dxcv:SwipeContainer.ItemView>
+
+                            <VerticalStackLayout Spacing="2" Margin="10,0,10,0">
+                                <Label Style="{StaticResource Titleline}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.OrderName}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Name}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubLine}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Customer}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Customer}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubLine}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.ExecutiveCompany}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding ExecutiveCompany}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubLine}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Location}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Location}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubLine}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.Address}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding Address}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Style="{StaticResource SubLine}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static lang:AppResources.FireEscapeObject}" />
+                                            <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                            <Span Text="{Binding FireEscapeObject}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Grid>
+                                    <Label Style="{StaticResource SmallSubLine}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.OrderDate}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Created, StringFormat='{0:dd.MM.yyyy}'}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Style="{StaticResource SmallSubLine}" HorizontalTextAlignment="End">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.Id}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Id}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                               </Grid>
+                            </VerticalStackLayout>
+
+                        </dxcv:SwipeContainer.ItemView>
+                    </dxcv:SwipeContainer>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+
+        <dx:DXButton
+            x:Name="addButton"
+            IsEnabled="{Binding IsNotBusy}"
+            VerticalOptions="End" HorizontalOptions="End" Margin="18" Content="+"
+            Grid.RowSpan="2"
+            Style="{StaticResource RadialButton}"
+            Clicked="CreateOrder">
+            <dx:DXButton.Behaviors>
+                <toolkit:TouchBehavior LongPressCommand="{Binding OpenUserAccountMainPageCommand}" LongPressDuration="6000"/>
+            </dx:DXButton.Behaviors>
+        </dx:DXButton>
+        <!--
+        <dx:DXButton
+            x:Name="addBatchButton"
+            IsEnabled="{Binding IsNotBusy}"
+            VerticalOptions="End" HorizontalOptions="End" Margin="74" Content="++"
+            Grid.RowSpan="2"
+            Command="{Binding AddOrdersCommand}">
+            Style="{StaticResource RadialButton}">
+        </dx:DXButton>
+-->
+    </Grid>
+</ContentPage>
