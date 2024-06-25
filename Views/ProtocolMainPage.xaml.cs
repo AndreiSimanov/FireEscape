@@ -9,15 +9,22 @@ public partial class ProtocolMainPage : ContentPage
 
     ProtocolMainViewModel? ProtocolMainViewModel => BindingContext as ProtocolMainViewModel;
 
-    void ContentPageAppearing(object sender, EventArgs e)
+    async void ContentPageAppearing(object sender, EventArgs e)
     {
-        protocols.PullToRefreshCommand.Execute(null);
+        if (ProtocolMainViewModel != null)
+        {
+            await ProtocolMainViewModel.GetProtocolsCommand.ExecuteAsync(null);
+            protocols.ScrollTo(0);
+        }
     }
 
-    void CreateProtocol(object sender, EventArgs e)
+    async void CreateProtocol(object sender, EventArgs e)
     {
-        ProtocolMainViewModel?.AddProtocolCommand.Execute(null);
-        protocols.ScrollTo(0);
+        if (ProtocolMainViewModel != null)
+        {
+            await ProtocolMainViewModel.AddProtocolCommand.ExecuteAsync(null);
+            protocols.ScrollTo(0);
+        }
     }
 
     public void CopyProtocolWithStairs(object sender, DevExpress.Maui.CollectionView.SwipeItemTapEventArgs e)

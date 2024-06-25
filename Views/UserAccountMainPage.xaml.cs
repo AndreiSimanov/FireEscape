@@ -10,10 +10,10 @@ public partial class UserAccountMainPage : ContentPage
 
     UserAccountMainViewModel? UserAccountMainViewModel => BindingContext as UserAccountMainViewModel;
 
-    void ContentPageAppearing(object sender, EventArgs e)
+    async void ContentPageAppearing(object sender, EventArgs e)
     {
         if (UserAccountMainViewModel != null && !UserAccountMainViewModel.UserAccounts.Any())
-            userAccounts.PullToRefreshCommand.Execute(null);
+            await UserAccountMainViewModel.GetUserAccountsCommand.ExecuteAsync(null);
     }
 
     void CreateUserAccount(object sender, EventArgs e)

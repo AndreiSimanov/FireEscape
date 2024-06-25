@@ -14,10 +14,13 @@ public partial class StairsPage : BaseStairsPage
     void ContentSizeChanged(object? sender, EventArgs e) =>
         stairsElements.HeightRequest = Height - STAIRS_ELEMENTS_HEADER_HEIGHT;
 
-    void AddStairsElement(object sender, EventArgs e)
+    async void AddStairsElement(object sender, EventArgs e)
     {
-        ViewModel?.AddStairsElementCommand.Execute(null);
-        stairsElements.ScrollTo(0);
+        if (ViewModel != null)
+        {
+            await ViewModel.AddStairsElementCommand.ExecuteAsync(null);
+            stairsElements.ScrollTo(0);
+        }
     }
 
     void StairsTypeChanged(object sender, EventArgs e)
@@ -48,7 +51,7 @@ public partial class StairsPage : BaseStairsPage
 
     void StairsWidthEditorUnfocused(object sender, FocusEventArgs e) => ViewModel?.SetPlatformP1WidthCommand.Execute(null);
 
-    private void PlatformSizesPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    void PlatformSizesPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
         if (platformSizes == null)
             return;

@@ -10,12 +10,12 @@ public partial class BatchReportPage : ContentPage
 
     BatchReportViewModel? BatchReportViewModel => BindingContext as BatchReportViewModel;
 
-    private void ContentPageAppearing(object sender, EventArgs e)
+    void ContentPageAppearing(object sender, EventArgs e)
     {
         BatchReportViewModel?.GetReportsCommand.Execute(null);
     }
 
-    private void ContentPageDisappearing(object sender, EventArgs e)
+    void ContentPageDisappearing(object sender, EventArgs e)
     {
         BatchReportViewModel?.ResetCommand.Execute(null);
     }

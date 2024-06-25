@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace FireEscape.Models.BaseModels;
+﻿namespace FireEscape.Models.BaseModels;
 
 public partial class BaseObject : ObservableObject
 {
