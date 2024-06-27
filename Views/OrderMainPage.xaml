@@ -72,28 +72,37 @@
                                 CommandParameter="{Binding .}"/>
                         </dxcv:SwipeContainer.GestureRecognizers>
                         <dxcv:SwipeContainer.StartSwipeItems>
-                            <dxcv:SwipeItem
+                            <dxcv:CustomSwipeItem
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel } }, Path=IsNotBusy}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=CreateReportCommand}"
-                                CommandParameter="{Binding .}"
-                                Caption="PDF"
-                                Image="pdf"/>
-                            <dxcv:SwipeItem
+                                CommandParameter="{Binding .}">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <dx:DXImage TintColor="{dx:ThemeColor Background}" Source="pdf"/>
+                                    <Label Style="{StaticResource SubLine}" TextColor="{dx:ThemeColor Background}" Text="PDF" />
+                                </StackLayout>
+                            </dxcv:CustomSwipeItem>
+                            <dxcv:CustomSwipeItem
                                 BackgroundColor="Green"
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel } }, Path=IsNotBusy}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=GoToDetailsCommand}"
-                                CommandParameter="{Binding .}"
-                                Caption="{x:Static lang:AppResources.Edit}"
-                                Image="edit"/>
+                                CommandParameter="{Binding .}">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <dx:DXImage TintColor="{dx:ThemeColor Background}" Source="edit"/>
+                                    <Label Style="{StaticResource SubLine}" TextColor="{dx:ThemeColor Background}" Text="{x:Static lang:AppResources.Edit}" />
+                                </StackLayout>
+                            </dxcv:CustomSwipeItem>
                         </dxcv:SwipeContainer.StartSwipeItems>
                         <dxcv:SwipeContainer.EndSwipeItems>
-                            <dxcv:SwipeItem 
+                            <dxcv:CustomSwipeItem 
                                 BackgroundColor="#D74F67"
                                 IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel } }, Path=IsNotBusy}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:OrderMainViewModel}}, Path=DeleteOrderCommand}"
-                                CommandParameter="{Binding .}"
-                                Caption="{x:Static lang:AppResources.Delete}"
-                                Image="delete"/>
+                                CommandParameter="{Binding .}">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <dx:DXImage TintColor="{dx:ThemeColor Background}" Source="delete"/>
+                                    <Label Style="{StaticResource SubLine}" TextColor="{dx:ThemeColor Background}" Text="{x:Static lang:AppResources.Delete}" />
+                                </StackLayout>
+                            </dxcv:CustomSwipeItem>
                         </dxcv:SwipeContainer.EndSwipeItems>
                         <dxcv:SwipeContainer.ItemView>
 

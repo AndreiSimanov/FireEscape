@@ -10,12 +10,13 @@ public partial class RemoteLogPage : ContentPage
 
     RemoteLogViewModel? RemoteLogViewModel => BindingContext as RemoteLogViewModel;
 
-    private void ContentPageAppearing(object sender, EventArgs e)
+    async void ContentPageAppearing(object sender, EventArgs e)
     {
-        RemoteLogViewModel?.GetBatchReportLogCommand.Execute(null);
+        if (RemoteLogViewModel != null)
+            await RemoteLogViewModel.GetBatchReportLogCommand.ExecuteAsync(null);
     }
 
-    private void ContentPageDisappearing(object sender, EventArgs e)
+    void ContentPageDisappearing(object sender, EventArgs e)
     {
         RemoteLogViewModel?.ResetCommand.Execute(null);
     }

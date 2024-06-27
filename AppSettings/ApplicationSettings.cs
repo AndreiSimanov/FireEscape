@@ -25,6 +25,7 @@ public class ApplicationSettings
     public static string LogFolder => AppUtils.CreateFolderIfNotExists(AppUtils.DefaultContentFolder, LOG_FOLDER);
     public static string CacheFolder => FileSystem.CacheDirectory;
 
+    /*
     public static async Task<string> GetOutputPath()
     {
         var path = Preferences.Get(OUTPUT_FOLDER, string.Empty);
@@ -37,6 +38,7 @@ public class ApplicationSettings
         }
         return path;
     }
+    */
 
     public static void ClearOutputPathPreferences() => Preferences.Remove(OUTPUT_FOLDER);
 }

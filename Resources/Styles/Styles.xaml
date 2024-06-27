@@ -448,11 +448,6 @@
         <Setter Property="Offset" Value="10,10" />
     </Style>
 
-    <Style TargetType="dxcv:SwipeItem">
-        <Setter Property="FontColor" Value="White" />
-        <Setter Property="BackgroundColor" Value="{dx:ThemeColor Primary}" />
-    </Style>
-
     <Style TargetType="TimePicker">
         <Setter Property="TextColor" Value="{dx:ThemeColor Primary}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>

@@ -157,16 +157,14 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
             SelectedStairsElement = element;
             if (EditObject == null || element.Required)
                 return;
-            var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteStairsElement,
-                AppResources.Cancel,
-                AppResources.Delete);
-            if (string.Equals(action, AppResources.Cancel))
-                return;
-
-            EditObject.StairsElements.Remove(element);
-            UpdateStepsCount();
-            UpdatStairsElements();
-            SelectStairsElement(null);
+            var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteStairsElement, AppResources.Cancel, AppResources.Delete);
+            if (string.Equals(action, AppResources.Delete))
+            {
+                EditObject.StairsElements.Remove(element);
+                UpdateStepsCount();
+                UpdatStairsElements();
+                SelectStairsElement(null);
+            }
         },
         element,
         AppResources.DeleteStairsElementError);

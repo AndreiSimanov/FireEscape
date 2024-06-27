@@ -25,6 +25,8 @@ public record StairsElementResult(BaseStairsElement[] StairsElements, bool IsAbs
         }
     }
 
+    public bool IsDeformation => StairsElements.Any(element => element.Deformation.Value > 0 && element.Deformation.ServiceabilityType != ServiceabilityTypeEnum.Approve);
+
     static string ToRangeString(IEnumerable<int> nums)
     {
         var sb = new StringBuilder();

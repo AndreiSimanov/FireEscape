@@ -309,7 +309,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
 
     void MakeTestResultsTable(Document document)
     {
-        document.Add(new Paragraph("РЕЗУЛЬТАТЫ ИСПЫТАНИЙ")
+        document.Add(new Paragraph("РЕЗУЛЬТАТЫ НАГРУЗОЧНЫХ ИСПЫТАНИЙ")
             .SetKeepWithNext(true)
             .SetTextAlignment(TextAlignment.CENTER)
             .SetBold()
@@ -340,7 +340,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
 
         var serviceability = stairsElementResult.IsAbsent ?
             "-" :
-            stairsElementResult.Summary.Count > 0 ?
+            stairsElementResult.IsDeformation ?
                 "Не соответствует требованиям\r\nГОСТ Р. 53254-2009\r\n" :
                 "Соответствует требованиям\r\nГОСТ Р. 53254-2009\r\n";
 
