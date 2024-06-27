@@ -58,15 +58,13 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
         await DoBusyCommandAsync(async () =>
         {
             SelectedItem = userAccount;
-            var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteUserAccount,
-                AppResources.Cancel,
-                AppResources.Delete);
-            if (string.Equals(action, AppResources.Cancel))
-                return;
-
-            await userAccountService.DeleteAsync(userAccount);
-            UserAccounts.Remove(userAccount);
-            SelectedItem = null;
+            var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteUserAccount, AppResources.Cancel, AppResources.Delete);
+            if (string.Equals(action, AppResources.Delete))
+            {
+                await userAccountService.DeleteAsync(userAccount);
+                UserAccounts.Remove(userAccount);
+                SelectedItem = null;
+            }
         },
         userAccount,
         AppResources.DeleteUserAccountError);

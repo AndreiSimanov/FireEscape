@@ -95,12 +95,12 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             SelectedItem = order;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteOrder, AppResources.Cancel, AppResources.Delete);
 
-            if (string.Equals(action, AppResources.Cancel))
-                return;
-
-            await orderService.DeleteAsync(order);
-            Orders.Remove(order);
-            SelectedItem = null;
+            if (string.Equals(action, AppResources.Delete))
+            {
+                await orderService.DeleteAsync(order);
+                Orders.Remove(order);
+                SelectedItem = null;
+            }
         },
         order,
         AppResources.DeleteOrderError);

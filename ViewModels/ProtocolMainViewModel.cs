@@ -116,12 +116,12 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
             SelectedItem = protocol;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, AppResources.Cancel, AppResources.Delete);
 
-            if (string.Equals(action, AppResources.Cancel))
-                return;
-
-            await protocolService.DeleteAsync(protocol);
-            Protocols.Remove(protocol);
-            SelectedItem = null;
+            if (string.Equals(action, AppResources.Delete))
+            {
+                await protocolService.DeleteAsync(protocol);
+                Protocols.Remove(protocol);
+                SelectedItem = null;
+            }
         },
         protocol,
         AppResources.DeleteProtocolError);
