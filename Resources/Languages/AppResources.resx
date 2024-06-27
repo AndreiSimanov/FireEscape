@@ -391,7 +391,7 @@
     <value>Id</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Редакт.</value>
+    <value>Редактировать</value>
   </data>
   <data name="SaveUserAccountError" xml:space="preserve">
     <value>Невозможно сохранить учетную запись</value>

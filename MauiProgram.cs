@@ -27,6 +27,11 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .UseAppSettings(configuration)
             .UseDevExpress(true)
+            .UseDevExpressCollectionView()
+            .UseDevExpressControls()
+            .UseDevExpressDataGrid()
+            .UseDevExpressEditors()
+            .UseDevExpressGauges()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -35,6 +40,7 @@ public static class MauiProgram
 
         DevExpress.Maui.CollectionView.Initializer.Init();
         DevExpress.Maui.Controls.Initializer.Init();
+        DevExpress.Maui.DataGrid.Initializer.Init();
         DevExpress.Maui.Editors.Initializer.Init();
 
         builder.Logging.

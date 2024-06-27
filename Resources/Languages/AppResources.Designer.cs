@@ -358,7 +358,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Редакт..
+        ///   Looks up a localized string similar to Редактировать.
         /// </summary>
         internal static string Edit {
             get {

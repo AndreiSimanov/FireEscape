@@ -1,4 +1,3 @@
-
 namespace FireEscape.Views;
 
 public partial class OrderMainPage : ContentPage
@@ -8,6 +7,7 @@ public partial class OrderMainPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
+
     OrderMainViewModel? OrderMainViewModel => BindingContext as OrderMainViewModel;
 
     async void CreateOrder(object sender, EventArgs e)
