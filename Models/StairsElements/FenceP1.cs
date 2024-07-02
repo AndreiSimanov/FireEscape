@@ -10,7 +10,7 @@ public partial class FenceP1 : BaseStairsElement
 
     public override string Name => AppResources.StairsFence;
     public override int PrintOrder => 30;
-    public override int TestPointCount => CalcTestPointCount(StairsHeight, FENCE_TEST_POINT_DIVIDER);
+    public override int TestPointCount => CalcTestPointCount(StairsHeight - GroundDistance.Value, FENCE_TEST_POINT_DIVIDER);
 
     public FenceP1() : base() => GroundDistance.PropertyChanged += ServiceabilityPropertyChanged;
 }

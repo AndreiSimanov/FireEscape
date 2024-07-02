@@ -85,6 +85,8 @@ public abstract partial class BaseStairsElement : ObservableObject
     static protected int CalcTestPointCount(float measure, float divider)
     {
         var count = measure / divider;
+        if (count <= 0)
+            return 0;
         if (count > 0 && count < 1)
             return 1;
         return (int)Math.Floor(count);
