@@ -12,10 +12,7 @@ public partial class ProtocolMainPage : ContentPage
     async void ContentPageAppearing(object sender, EventArgs e)
     {
         if (ProtocolMainViewModel != null)
-        {
             await ProtocolMainViewModel.GetProtocolsCommand.ExecuteAsync(null);
-            protocols.ScrollTo(0);
-        }
     }
 
     async void CreateProtocol(object sender, EventArgs e)
