@@ -31,8 +31,8 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     string filter = string.Empty;
 
     [RelayCommand]
-    async Task GetProtocolsAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task GetProtocolsAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             try
             {
@@ -51,67 +51,15 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         AppResources.GetProtocolsError);
 
     [RelayCommand]
-    async Task AddProtocolAsync()
-    {
-        if (Protocols.Any())
-            await CopyProtocolAsync(Protocols[0]);
-        else
-            await CreateProtocolAsync();
-    }
+    Task AddProtocolAsync() => Protocols.Count == 0 ? CreateProtocolAsync() : CopyProtocolAsync(Protocols[0]);
 
     [RelayCommand]
-    async Task CreateProtocolAsync()
-    {
-        Protocol? newProtocol = null;
-        await DoBusyCommandAsync(async () =>
-        {
-            if (Order == null)
-                return;
-            newProtocol = await protocolService.CreateAsync(Order);
-            Protocols.Insert(0, newProtocol);
-            SelectedItem = newProtocol;
-        },
-        AppResources.AddProtocolError);
-
-        if (newProtocol != null)
-            await GoToDetailsAsync(newProtocol);
-    }
+    Task CopyProtocolWithStairsAsync(Protocol protocol) =>
+        CreateProtocolAsync(protocolService.CopyWithStairsAsync(protocol), AppResources.CopyProtocolError);
 
     [RelayCommand]
-    async Task CopyProtocolAsync(Protocol protocol)
-    {
-        Protocol? newProtocol = null;
-        await DoBusyCommandAsync(async () =>
-        {
-            newProtocol = await protocolService.CopyAsync(protocol);
-            Protocols.Insert(0, newProtocol);
-            SelectedItem = newProtocol;
-        },
-        AppResources.CopyProtocolError);
-
-        if (newProtocol != null)
-            await GoToDetailsAsync(newProtocol);
-    }
-
-    [RelayCommand]
-    async Task CopyProtocolWithStairsAsync(Protocol protocol)
-    {
-        Protocol? newProtocol = null;
-        await DoBusyCommandAsync(async () =>
-        {
-            newProtocol = await protocolService.CopyWithStairsAsync(protocol);
-            Protocols.Insert(0, newProtocol);
-            SelectedItem = newProtocol;
-        },
-        AppResources.CopyProtocolError);
-
-        if (newProtocol != null)
-            await GoToDetailsAsync(newProtocol);
-    }
-
-    [RelayCommand]
-    async Task DeleteProtocolAsync(Protocol protocol) =>
-        await DoBusyCommandAsync(async () =>
+    Task DeleteProtocolAsync(Protocol protocol) =>
+        DoBusyCommandAsync(async () =>
         {
             SelectedItem = protocol;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, AppResources.Cancel, AppResources.Delete);
@@ -127,26 +75,20 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         AppResources.DeleteProtocolError);
 
     [RelayCommand]
-    async Task CreateReportAsync(Protocol protocol) =>
-        await DoBusyCommandAsync(async () =>
+    Task CreateReportAsync(Protocol protocol) =>
+        DoBusyCommandAsync(() =>
         {
             SelectedItem = protocol;
             if (Order == null)
-                return;
-            await reportService.CreateSingleReportAsync(Order, protocol, Protocols.Count > 1);
+                return Task.CompletedTask;
+            return reportService.CreateSingleReportAsync(Order, protocol, Protocols.Count > 1);
         },
         protocol,
         AppResources.CreateReportError);
 
     [RelayCommand]
-    async Task GoToDetailsAsync(Protocol protocol) =>
-        await DoBusyCommandAsync(async () =>
-        {
-            SelectedItem = protocol;
-            await Shell.Current.GoToAsync(nameof(ProtocolPage), true,
-                new Dictionary<string, object> { { nameof(ProtocolViewModel.EditObject), protocol } });
-            // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
-        },
+    Task GoToDetailsAsync(Protocol protocol) =>
+        DoBusyCommandAsync(() => GoToAsync(protocol),
         protocol,
         AppResources.EditProtocolError);
 
@@ -164,6 +106,35 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
                 $" or (Contains([FireEscapeObject], '{searchValue}') or (IsNullOrEmpty([FireEscapeObject]) and {isOrderFireEscapeObject}))";
         },
         AppResources.GetProtocolsError);
+
+    Task CreateProtocolAsync()
+    {
+        if (Order == null)
+            return Task.CompletedTask;
+        return CreateProtocolAsync(protocolService.CreateAsync(Order), AppResources.AddProtocolError);
+    }
+
+    Task CopyProtocolAsync(Protocol protocol) =>
+        CreateProtocolAsync(protocolService.CopyAsync(protocol), AppResources.CopyProtocolError);
+
+    Task CreateProtocolAsync(Task<Protocol> task, string exceptionCaption) =>
+        DoBusyCommandAsync(async () =>
+        {
+            var newProtocol = await task;
+            Protocols.Insert(0, newProtocol);
+            SelectedItem = newProtocol;
+            if (newProtocol != null)
+                await GoToAsync(newProtocol);
+        },
+        exceptionCaption);
+
+    Task GoToAsync(Protocol protocol)
+    {
+        SelectedItem = protocol;
+        return Shell.Current.GoToAsync(nameof(ProtocolPage), true,
+            new Dictionary<string, object> { { nameof(ProtocolViewModel.EditObject), protocol } });
+        // return Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
+    }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {

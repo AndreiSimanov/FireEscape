@@ -20,7 +20,7 @@ public class OrderService(IOrderRepository orderRepository, UserAccountService u
         await searchDataRepository.SetSearchDataAsync(order.Id);
     }
 
-    public async Task DeleteAsync(Order order) => await orderRepository.DeleteAsync(order);
+    public Task DeleteAsync(Order order) => orderRepository.DeleteAsync(order);
 
-    public async Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams) => await orderRepository.GetOrdersAsync(searchText, pageParams);
+    public Task<PagedResult<Order>> GetOrdersAsync(string searchText, PagingParameters pageParams) => orderRepository.GetOrdersAsync(searchText, pageParams);
 }

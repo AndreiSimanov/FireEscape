@@ -4,7 +4,7 @@ public interface IFileHostingRepository
 {
     Task DeleteJsonAsync(string key, string folder = "");
     Task DownloadAsync(string sourceFilePath, string destinationFilePath);
-    IAsyncEnumerable<string> DownloadJsonAsync(IEnumerable<string> keys, string folder = "");
+    IAsyncEnumerable<string> DownloadJsonAsync(IAsyncEnumerable<string> keys, string folder = "");
     Task<string> DownloadJsonAsync(string key, string folder = "");
     IAsyncEnumerable<string> ListFolderAsync(string folder);
     Task<string> UploadAsync(string sourceFilePath, string destinationFilePath);

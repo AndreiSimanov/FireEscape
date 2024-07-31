@@ -27,11 +27,11 @@ public partial class SearchControl : ContentView
         InitializeComponent();
         searchEntry.BindingContext = this;
     }
-    public async ValueTask<bool> HideKeyboardAsync()
+    public ValueTask<bool> HideKeyboardAsync()
     {
         if (searchEntry.IsSoftKeyboardShowing())
-            return await searchEntry.HideKeyboardAsync();
-        return true;
+            return searchEntry.HideKeyboardAsync();
+        return ValueTask.FromResult(true);
     }
 
     void SearchTextClicked(object sender, EventArgs e) => Search = string.Empty;
