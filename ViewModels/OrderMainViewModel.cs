@@ -29,8 +29,8 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
     bool isEmptyList = true;
 
     [RelayCommand]
-    async Task GetOrdersAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task GetOrdersAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             try
             {
@@ -50,8 +50,8 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         AppResources.GetOrdersError);
 
     [RelayCommand]
-    async Task LoadMoreAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task LoadMoreAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             if (!IsLoadMore)
                 return;
@@ -87,10 +87,9 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             await GoToDetailsAsync(newOrder);
     }
 
-
     [RelayCommand]
-    async Task DeleteOrderAsync(Order order) =>
-        await DoBusyCommandAsync(async () =>
+    Task DeleteOrderAsync(Order order) =>
+        DoBusyCommandAsync(async () =>
         {
             SelectedItem = order;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteOrder, AppResources.Cancel, AppResources.Delete);
@@ -106,11 +105,11 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         AppResources.DeleteOrderError);
 
     [RelayCommand]
-    async Task GoToDetailsAsync(Order order) =>
-        await DoBusyCommandAsync(async () =>
+    Task GoToDetailsAsync(Order order) =>
+        DoBusyCommandAsync(() =>
         {
             SelectedItem = order;
-            await Shell.Current.GoToAsync(nameof(OrderPage), true,
+            return Shell.Current.GoToAsync(nameof(OrderPage), true,
                 new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
         },
         order,
@@ -118,18 +117,18 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
 
     [RelayCommand]
-    async Task GoToProtocolsAsync(Order order) =>
-        await DoBusyCommandAsync(async () =>
+    Task GoToProtocolsAsync(Order order) =>
+        DoBusyCommandAsync(() =>
         {
             SelectedItem = order;
-            await Shell.Current.GoToAsync(nameof(ProtocolMainPage), true, new Dictionary<string, object> { { nameof(Order), order } });
+            return Shell.Current.GoToAsync(nameof(ProtocolMainPage), true, new Dictionary<string, object> { { nameof(Order), order } });
         },
         order,
         AppResources.EditOrderError);
 
     [RelayCommand]
-    async Task CreateReportAsync(Order order) =>
-        await DoBusyCommandAsync(async () =>
+    Task CreateReportAsync(Order order) =>
+        DoBusyCommandAsync(async () =>
         {
             SelectedItem = order;
             if (order == null)
@@ -154,8 +153,8 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         AppResources.CreateReportError);
 
     [RelayCommand]
-    async Task OpenUserAccountMainPageAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task OpenUserAccountMainPageAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             var userAccount = await userAccountService.GetCurrentUserAccountAsync(true);
             if (UserAccountService.IsValidUserAccount(userAccount) && userAccount!.IsAdmin)
@@ -166,8 +165,8 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         AppResources.OpenUserAccountMainPageError);
 
     [RelayCommand] //For test only 
-    async Task AddOrdersAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task AddOrdersAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             for (var i = 0; i < 10000; i++)
             {

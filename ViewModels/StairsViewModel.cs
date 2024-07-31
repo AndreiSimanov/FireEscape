@@ -116,9 +116,8 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     }
 
     [RelayCommand]
-    async Task AddStairsElementAsync()
-    {
-        await DoBusyCommandAsync(async () =>
+    Task AddStairsElementAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             if (EditObject == null)
                 return;
@@ -148,11 +147,10 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
             }
         },
         AppResources.AddProtocolError);
-    }
 
     [RelayCommand]
-    async Task DeleteElementAsync(BaseStairsElement element) =>
-        await DoBusyCommandAsync(async () =>
+    Task DeleteElementAsync(BaseStairsElement element) =>
+        DoBusyCommandAsync(async () =>
         {
             SelectedStairsElement = element;
             if (EditObject == null || element.Required)
@@ -169,13 +167,10 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         element,
         AppResources.DeleteStairsElementError);
 
-    protected override async Task SaveEditObjectAsync() =>
-       await DoCommandAsync(async () =>
-       {
-           await stairsService.SaveAsync(EditObject!);
-       },
-       EditObject,
-       AppResources.SaveProtocolError);
+    protected override Task SaveEditObjectAsync() => 
+        DoCommandAsync(() => stairsService.SaveAsync(EditObject!),
+            EditObject,
+            AppResources.SaveProtocolError);
 
     public static string PlatformLength => AddUnitOfMeasure(AppResources.PlatformLength, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
     public static string PlatformWidth => AddUnitOfMeasure(AppResources.PlatformWidth, UnitOfMeasureSettings.PrimaryUnitOfMeasure);

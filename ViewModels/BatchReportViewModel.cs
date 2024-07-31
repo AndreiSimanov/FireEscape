@@ -53,8 +53,8 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
         AppResources.CreateReportError);
 
     [RelayCommand(CanExecute = nameof(CanCreateReport))]
-    async Task CreateReportAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task CreateReportAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             if (Order == null || Protocols == null || Protocols.Length == 0)
             {
@@ -98,8 +98,8 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
         AppResources.CreateReportError);
 
     [RelayCommand(CanExecute = nameof(CanMakeReportArchive))]
-    async Task MakeReportArchiveAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task MakeReportArchiveAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             if (!Files.Any())
                 return;
@@ -132,11 +132,11 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
         AppResources.CreateReportError);
 
     [RelayCommand]
-    async Task OpenFileAsync(FileInfo fileInfo) =>
-        await DoCommandAsync(async () =>
+    Task OpenFileAsync(FileInfo fileInfo) =>
+        DoCommandAsync(() =>
         {
             SelectedItem = fileInfo;
-            await Launcher.OpenAsync(new OpenFileRequest {Title = AppResources.PdfView,  File = new ReadOnlyFile(fileInfo.FullName) });
+            return Launcher.OpenAsync(new OpenFileRequest {Title = AppResources.PdfView,  File = new ReadOnlyFile(fileInfo.FullName) });
         },
         fileInfo,
         AppResources.CreateReportError);

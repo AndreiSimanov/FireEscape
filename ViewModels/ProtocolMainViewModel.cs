@@ -31,8 +31,8 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     string filter = string.Empty;
 
     [RelayCommand]
-    async Task GetProtocolsAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task GetProtocolsAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             try
             {
@@ -51,12 +51,12 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         AppResources.GetProtocolsError);
 
     [RelayCommand]
-    async Task AddProtocolAsync()
+    Task AddProtocolAsync()
     {
         if (Protocols.Any())
-            await CopyProtocolAsync(Protocols[0]);
+            return CopyProtocolAsync(Protocols[0]);
         else
-            await CreateProtocolAsync();
+            return CreateProtocolAsync();
     }
 
     [RelayCommand]
@@ -110,8 +110,8 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
     }
 
     [RelayCommand]
-    async Task DeleteProtocolAsync(Protocol protocol) =>
-        await DoBusyCommandAsync(async () =>
+    Task DeleteProtocolAsync(Protocol protocol) =>
+        DoBusyCommandAsync(async () =>
         {
             SelectedItem = protocol;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteProtocol, AppResources.Cancel, AppResources.Delete);
@@ -127,25 +127,25 @@ public partial class ProtocolMainViewModel(ProtocolService protocolService, Repo
         AppResources.DeleteProtocolError);
 
     [RelayCommand]
-    async Task CreateReportAsync(Protocol protocol) =>
-        await DoBusyCommandAsync(async () =>
+    Task CreateReportAsync(Protocol protocol) =>
+        DoBusyCommandAsync(() =>
         {
             SelectedItem = protocol;
             if (Order == null)
-                return;
-            await reportService.CreateSingleReportAsync(Order, protocol, Protocols.Count > 1);
+                return Task.CompletedTask;
+            return reportService.CreateSingleReportAsync(Order, protocol, Protocols.Count > 1);
         },
         protocol,
         AppResources.CreateReportError);
 
     [RelayCommand]
-    async Task GoToDetailsAsync(Protocol protocol) =>
-        await DoBusyCommandAsync(async () =>
+    Task GoToDetailsAsync(Protocol protocol) =>
+        DoBusyCommandAsync(() =>
         {
             SelectedItem = protocol;
-            await Shell.Current.GoToAsync(nameof(ProtocolPage), true,
+            return Shell.Current.GoToAsync(nameof(ProtocolPage), true,
                 new Dictionary<string, object> { { nameof(ProtocolViewModel.EditObject), protocol } });
-            // await Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
+            // return Shell.Current.GoToAsync($"//{nameof(ProtocolPage)}", true, new Dictionary<string, object> { { nameof(Protocol), protocol } });  //  modal form mode
         },
         protocol,
         AppResources.EditProtocolError);

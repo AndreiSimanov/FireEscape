@@ -81,7 +81,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
                 GroupBy(stairsElement => new { stairsElement.StairsElementType, WithstandLoadCalc = GetWithstandLoadCalc(stairsElement) }, (key, group) =>
                     new StairsElementResult([.. group.OrderBy(element => element.PrintOrder).ThenBy(element => element.ElementNumber)], false, [])).ToList();
 
-            foreach (var (elementResult, element) in stairsElementResults.SelectMany(elementResult => elementResult.StairsElements.Select(element => (elementResult, element))))
+            foreach (var (elementResult, element) in stairsElementResults.SelectMany(elementResult => elementResult.StairsElements.Select(element => ValueTuple.Create(elementResult, element))))
             {
                 foreach (var serviceabilityRecord in GetServiceabilityRecords(element).OrderBy(item => item.ServiceabilityLimit.PrintOrder))
                 {
@@ -129,7 +129,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     IEnumerable<(string, string)> GetStairsElementResultCalc<T>()
     {
         return StairsElementsResult.Where(element => element.StairsElementType == typeof(T) && !element.IsAbsent).
-            Select(elementsResult => (elementsResult.ElementNumber, GetWithstandLoadCalc(elementsResult?.StairsElements.FirstOrDefault())));
+            Select(elementsResult => ValueTuple.Create(elementsResult.ElementNumber, GetWithstandLoadCalc(elementsResult?.StairsElements.FirstOrDefault())));
     }
 
     string GetWithstandLoadCalc(BaseStairsElement? element)

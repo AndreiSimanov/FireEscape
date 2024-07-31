@@ -103,8 +103,8 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
 
     public bool IsCurrentUserAccount(UserAccount? userAccount) => userAccount != null && userAccount.Id == CurrentUserAccountId;
 
-    async Task UploadUserAccountAsync(UserAccount userAccount) =>
-        await fileHostingRepository.UploadJsonAsync(userAccount.Id,
+    Task UploadUserAccountAsync(UserAccount userAccount) =>
+        fileHostingRepository.UploadJsonAsync(userAccount.Id,
             JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
 
     async Task<UserAccount?> TryToGetUserAccountAsync()

@@ -38,7 +38,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
         await searchDataRepository.SetSearchDataAsync(protocol.OrderId);
     }
 
-    public async Task<Protocol[]> GetProtocolsAsync(int orderId) => await protocolRepository.GetProtocolsAsync(orderId);
+    public Task<Protocol[]> GetProtocolsAsync(int orderId) => protocolRepository.GetProtocolsAsync(orderId);
 
     public async Task AddPhotoAsync(Protocol protocol)
     {

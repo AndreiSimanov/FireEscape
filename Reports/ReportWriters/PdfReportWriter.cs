@@ -6,16 +6,16 @@ namespace FireEscape.Reports.ReportWriters;
 
 public static class PdfReportWriter
 {
-    public static async Task<Document> CreatePdfDocumentAsync(string filePath, string fontName, float fontSize)
+    public static Task<Document> CreatePdfDocumentAsync(string filePath, string fontName, float fontSize)
     {
         if (string.IsNullOrWhiteSpace(filePath))
             throw new ArgumentNullException(nameof(filePath));
 
         var pdfDoc = new PdfDocument(new PdfWriter(filePath));
-        return await GetDocument(pdfDoc, fontName, fontSize);
+        return GetDocument(pdfDoc, fontName, fontSize);
     }
 
-    public static async Task<Document> OpenPdfDocumentAsync(string sourceFilePath, string destFilePath, string fontName, float fontSize)
+    public static Task<Document> OpenPdfDocumentAsync(string sourceFilePath, string destFilePath, string fontName, float fontSize)
     {
         if (string.IsNullOrWhiteSpace(sourceFilePath))
             throw new ArgumentNullException(nameof(sourceFilePath));
@@ -23,7 +23,7 @@ public static class PdfReportWriter
             throw new ArgumentNullException(nameof(destFilePath));
 
         var pdfDoc = new PdfDocument(new PdfReader(sourceFilePath), new PdfWriter(destFilePath));
-        return await GetDocument(pdfDoc, fontName, fontSize);
+        return GetDocument(pdfDoc, fontName, fontSize);
     }
 
     static async Task<Document> GetDocument(PdfDocument pdfDoc, string fontName, float fontSize)

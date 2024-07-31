@@ -38,10 +38,10 @@ public class DropboxRepository(IOptions<FileHostingSettings> fileHostingSettings
         }
     }
 
-    public async IAsyncEnumerable<string> DownloadJsonAsync(IEnumerable<string> keys, string folder = "")
+    public async IAsyncEnumerable<string> DownloadJsonAsync(IAsyncEnumerable<string> keys, string folder = "")
     {
         using var dbx = await GetDropboxClient();
-        foreach (var key in keys)
+        await foreach (var key in keys)
         {
             using var response = await dbx.Files.DownloadAsync(GetJsonPath(key, folder));
             var s = await response.GetContentAsByteArrayAsync();

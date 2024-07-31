@@ -23,8 +23,8 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
     object? selectedItem = null;
 
     [RelayCommand]
-    async Task GetUserAccountsAsync() =>
-        await DoBusyCommandAsync(async () =>
+    Task GetUserAccountsAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             try
             {
@@ -43,19 +43,19 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
         AppResources.GetUserAccountsError);
 
     [RelayCommand]
-    async Task GoToDetailsAsync(UserAccount userAccount) =>
-        await DoBusyCommandAsync(async () =>
+    Task GoToDetailsAsync(UserAccount userAccount) =>
+        DoBusyCommandAsync(() =>
         {
             SelectedItem = userAccount;
-            await Shell.Current.GoToAsync(nameof(UserAccountPage), true,
+            return Shell.Current.GoToAsync(nameof(UserAccountPage), true,
                 new Dictionary<string, object> { { nameof(UserAccountViewModel.EditObject), userAccount } });
         },
         userAccount,
         AppResources.EditUserAccountError);
 
     [RelayCommand]
-    async Task DeleteUserAccountAsync(UserAccount userAccount) =>
-        await DoBusyCommandAsync(async () =>
+    Task DeleteUserAccountAsync(UserAccount userAccount) =>
+        DoBusyCommandAsync(async () =>
         {
             SelectedItem = userAccount;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteUserAccount, AppResources.Cancel, AppResources.Delete);
@@ -70,11 +70,11 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
         AppResources.DeleteUserAccountError);
 
     [RelayCommand]
-    async Task GetLogAsync(UserAccount userAccount) =>
-        await DoBusyCommandAsync(async () =>
+    Task GetLogAsync(UserAccount userAccount) =>
+        DoBusyCommandAsync(() =>
         {
             SelectedItem = userAccount;
-            await Shell.Current.GoToAsync(nameof(RemoteLogPage), true,
+            return Shell.Current.GoToAsync(nameof(RemoteLogPage), true,
                 new Dictionary<string, object> { { nameof(RemoteLogViewModel.Key), userAccount.Id } });
         },
         userAccount,

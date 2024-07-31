@@ -17,18 +17,18 @@ public partial class RemoteLogViewModel(RemoteLogService remoteLogService, ILogg
     bool isRefreshing;
 
     [RelayCommand]
-    async Task GetBatchReportLogAsync() =>
-    await DoBusyCommandAsync(async () =>
-    {
-        if (string.IsNullOrWhiteSpace(Key))
-            return;
+    Task GetBatchReportLogAsync() =>
+        DoBusyCommandAsync(async () =>
+        {
+            if (string.IsNullOrWhiteSpace(Key))
+                return;
 
-        IsRefreshing = true;
-        var logResult = await remoteLogService.DownloadLogAsync(Key, RemoteLogCategoryType.BatchReport);
-        Log = logResult.ToObservableCollection();
-        IsRefreshing = false;
-    },
-    AppResources.GetRemoteLogError);
+            IsRefreshing = true;
+            var logResult = await remoteLogService.DownloadLogAsync(Key, RemoteLogCategoryType.BatchReport);
+            Log = logResult.ToObservableCollection();
+            IsRefreshing = false;
+        },
+        AppResources.GetRemoteLogError);
 
     [RelayCommand]
     void Reset() =>

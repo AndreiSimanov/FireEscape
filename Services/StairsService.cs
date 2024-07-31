@@ -2,5 +2,5 @@
 
 public class StairsService(IStairsRepository stairsRepository)
 {
-    public async Task SaveAsync(Stairs stairs) => await stairsRepository.SaveAsync(stairs);
+    public Task SaveAsync(Stairs stairs) => stairsRepository.SaveAsync(stairs);
 }

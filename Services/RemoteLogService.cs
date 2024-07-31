@@ -8,7 +8,7 @@ public class RemoteLogService(IFileHostingRepository fileHostingRepository, ILog
 {
     readonly RemoteLogSettings remoteLogSettings = remoteLogSettings.Value;
 
-    public async Task LogAsync(string key, RemoteLogCategoryType remoteLogCategory, string message)
+    public Task LogAsync(string key, RemoteLogCategoryType remoteLogCategory, string message)
     {
         var log = GetLocalLog(remoteLogCategory);
         var categorySettings = remoteLogSettings.RemoteLogCategories?.FirstOrDefault(cat => cat.CategoryType == remoteLogCategory);
@@ -18,7 +18,7 @@ public class RemoteLogService(IFileHostingRepository fileHostingRepository, ILog
         var lastCount = log.Length < maxLogItemsCount ? log.Length : maxLogItemsCount - 1;
         log = [.. log.TakeLast(lastCount), .. new[] { remoteLogMessage }];
         SetLocalLog(remoteLogCategory, log);
-        await TryToUploadLogAsync(key, remoteLogCategory, log);
+        return TryToUploadLogAsync(key, remoteLogCategory, log);
     }
 
     RemoteLogMessage[] GetLocalLog(RemoteLogCategoryType remoteLogCategory)
