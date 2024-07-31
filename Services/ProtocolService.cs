@@ -6,24 +6,21 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
     {
         var protocol = await protocolRepository.CreateAsync(order);
         protocol.Stairs = await stairsRepository.CreateAsync(protocol);
-        await protocolRepository.SaveAsync(protocol);
-        return protocol;
+        return await protocolRepository.SaveAsync(protocol);
     }
 
     public async Task<Protocol> CopyAsync(Protocol protocol)
     {
         var newProtocol = await protocolRepository.CopyAsync(protocol);
         newProtocol.Stairs = await stairsRepository.CreateAsync(newProtocol);
-        await protocolRepository.SaveAsync(newProtocol);
-        return newProtocol;
+        return await protocolRepository.SaveAsync(newProtocol);
     }
 
     public async Task<Protocol> CopyWithStairsAsync(Protocol protocol)
     {
         var newProtocol = await protocolRepository.CopyAsync(protocol);
         newProtocol.Stairs = await stairsRepository.CopyAsync(protocol.Stairs);
-        await protocolRepository.SaveAsync(newProtocol);
-        return newProtocol;
+        return await protocolRepository.SaveAsync(newProtocol);
     }
 
     public async Task SaveAsync(Protocol protocol)

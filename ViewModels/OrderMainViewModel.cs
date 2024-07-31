@@ -72,20 +72,16 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         AppResources.GetOrdersError);
 
     [RelayCommand]
-    async Task AddOrderAsync()
-    {
-        Order? newOrder = null;
-        await DoBusyCommandAsync(async () =>
+    Task AddOrderAsync() =>
+        DoBusyCommandAsync(async () =>
         {
-            newOrder = await orderService.CreateAsync();
+            var newOrder = await orderService.CreateAsync();
             Orders.Insert(0, newOrder);
             SelectedItem = newOrder;
+            if (newOrder != null)
+                await GoToAsync(newOrder);
         },
         AppResources.AddOrderError);
-
-        if (newOrder != null)
-            await GoToDetailsAsync(newOrder);
-    }
 
     [RelayCommand]
     Task DeleteOrderAsync(Order order) =>
@@ -106,15 +102,16 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
 
     [RelayCommand]
     Task GoToDetailsAsync(Order order) =>
-        DoBusyCommandAsync(() =>
-        {
-            SelectedItem = order;
-            return Shell.Current.GoToAsync(nameof(OrderPage), true,
-                new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
-        },
+        DoBusyCommandAsync(() => GoToAsync(order),
         order,
         AppResources.EditOrderError);
 
+    Task GoToAsync(Order order)
+    {
+        SelectedItem = order;
+        return Shell.Current.GoToAsync(nameof(OrderPage), true,
+            new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
+    }
 
     [RelayCommand]
     Task GoToProtocolsAsync(Order order) =>
