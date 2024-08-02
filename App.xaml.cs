@@ -17,7 +17,7 @@ public partial class App : Application
         CultureInfo.CurrentUICulture = SetNumberDecimalSeparator(CultureInfo.CurrentUICulture);
         Localizer.StringLoader = new ResourceStringLoader(AppResources.ResourceManager);
         RemoveBorders();
-        Task.Run(() => userAccountService.GetCurrentUserAccountAsync());
+        _ = userAccountService.GetCurrentUserAccountAsync();
         InitializeComponent();
         MainPage = new AppShell();
 
