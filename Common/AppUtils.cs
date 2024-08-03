@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 
 namespace FireEscape.Common;
 
@@ -65,6 +66,19 @@ public static class AppUtils
         catch
         {
             return default;
+        }
+    }
+
+    public static async void SafeFireAndForget(this Task task,  Action<Exception>? onException)
+    {
+        try
+        {
+            await task.ConfigureAwait(false);
+        }
+        catch (Exception ex) 
+        {
+            Debug.WriteLine(ex);
+            onException?.Invoke(ex);
         }
     }
 }

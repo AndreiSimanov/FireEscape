@@ -25,7 +25,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
             userAccount = GetLocalUserAccount();
             if (userAccount == null)
             {
-                _ = TryToGetUserAccountAsync();
+                TryToGetUserAccountAsync().SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
                 return GetNewUserAccount();
             }
             CheckRemoteUserAccount(userAccount);
@@ -192,7 +192,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
 
         var checkCounter = Preferences.Default.Get(CHECK_COUNTER, 0);
         if (checkCounter == 0 || !IsValidUserAccount(userAccount) || string.Equals(userAccount.Name, NEW_USER_NAME))
-            _ = TryToGetUserAccountAsync();
+            TryToGetUserAccountAsync().SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
         if (checkCounter > 0)
             Preferences.Default.Set(CHECK_COUNTER, --checkCounter);
     }

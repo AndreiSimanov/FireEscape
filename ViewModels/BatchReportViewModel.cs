@@ -72,7 +72,7 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
                 $"{AppResources.PrimaryExecutorSign}{AppResources.CaptionDivider} {Order.PrimaryExecutorSign}{Environment.NewLine}" +
                 $"{AppResources.SecondaryExecutorSign}{AppResources.CaptionDivider} {Order.SecondaryExecutorSign}";
 
-            _ = remoteLogService.LogAsync(userAccountService.CurrentUserAccountId, RemoteLogCategoryType.BatchReport, message);
+            remoteLogService.LogAsync(userAccountService.CurrentUserAccountId, RemoteLogCategoryType.BatchReport, message).SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
 
             var progressIndicator = new Progress<(double progress, string outputPath)>(progress =>
             {
