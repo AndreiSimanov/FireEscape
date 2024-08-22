@@ -23,14 +23,14 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
         if (value == null)
             return string.Empty;
         sb.Clear();
-        sb.AppendLine($"<table style='width:100%; font-size:14px; border-bottom: 1px solid {surfaceVariantColorStr}'>");
+        sb.AppendLine($"<table style='width:100%; font-size:16px; font-weight:bold; border-bottom: 1px solid {surfaceVariantColorStr}'>");
         AddRowColSpan(value.Caption, primaryColorStr);
 
-        AddRow<int, float>(new ColumnData<int>(AppResources.TestPointCountTrim, string.Empty, value.TestPointCount, true, "Green"),
-            new ColumnData<float>(AppResources.WithstandLoad, AppResources.WithstandLoadUnit, value.WithstandLoadCalcResult, true, "Green"));
+        AddRow<int, float>(new ColumnData<int>(AppResources.TestPointCountTrim, string.Empty, value.TestPointCount, true, ColorSettings.AcceptColor),
+            new ColumnData<float>(AppResources.WithstandLoad, AppResources.WithstandLoadUnit, value.WithstandLoadCalcResult, true, ColorSettings.AcceptColor));
 
         sb.AppendLine("</table>");
-        sb.AppendLine("<table style='width:100%; font-size:12px'>");
+        sb.AppendLine("<table style='width:100%; font-size:14px; font-weight:bold'>");
 
         if (value is SupportBeamsP1 supportBeams)
         {
@@ -115,9 +115,9 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
         sb.AppendLine("</tr>");
     }
 
-    readonly record struct ColumnData<T>(string Label, string Postfix, T Value, bool IsZeroWarning = false, string DataColor = "", string WarningColor = "Red")
+    readonly record struct ColumnData<T>(string Label, string Postfix, T Value, bool IsZeroWarning = false, string DataColor = "")
     {
         public string Data => Label + AppResources.CaptionDivider + Value + (string.IsNullOrWhiteSpace(Postfix) ? string.Empty : " " + Postfix);
-        public string Color => IsZeroWarning ? Value != null && Value.ToString() == "0" ? "Red" : DataColor : string.Empty;
+        public string Color => IsZeroWarning ? Value != null && Value.ToString() == "0" ? ColorSettings.WarningColor : DataColor : string.Empty;
     }
 }

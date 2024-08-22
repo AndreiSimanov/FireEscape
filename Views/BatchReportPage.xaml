@@ -48,8 +48,8 @@
                     </StackLayout>
                 </dxga:RadialProgressBar.Content>
             </dxga:RadialProgressBar>
-            
-            <dxe:FormGroupItem Header="{x:Static lang:AppResources.Files}" HeightRequest="40" Margin="10,0,95,0" />
+
+            <dxe:FormGroupItem HeaderFontAttributes="Bold" Header="{x:Static lang:AppResources.Files}" HeightRequest="40" Margin="10,0,95,0" />
             
             <dxga:RadialProgressBar
                 Style="{StaticResource SmallRadialProgressBar}"

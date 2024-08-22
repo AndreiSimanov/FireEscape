@@ -6,7 +6,8 @@
                     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
                     xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
                     xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
-                    xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges">
+                    xmlns:dxga="clr-namespace:DevExpress.Maui.Gauges;assembly=DevExpress.Maui.Gauges"
+                    xmlns:appSettings="clr-namespace:FireEscape.AppSettings">
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{dx:ThemeColor Primary}" />
@@ -495,7 +496,7 @@
         <Setter Property="PlaceholderColor" Value="{dx:ThemeColor OnSurfaceVariant, Alpha=0.38}" />
         <Setter Property="Margin" Value="{StaticResource EditFieldMargin}" />
         <Setter Property="ErrorColor" Value="{dx:ThemeColor Outline}" />
-        <Setter Property="ErrorIconColor" Value="Red" />
+        <Setter Property="ErrorIconColor" Value="{x:Static appSettings:ColorSettings.WarningColor}" />
         <Setter Property="ErrorIcon" Value="warning" />
     </Style>
 

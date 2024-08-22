@@ -14,8 +14,11 @@ public class ApplicationSettings
     public int MaxImageSize { get; set; }
     public float ImageQuality { get; set; }
     public int PageSize { get; set; }
+    public bool LogPageShakeEnabled { get; set; }
     public required string LightThemeColor { get; set; }
     public required string DarkThemeColor { get; set; }
+    public required ColorSettings LightColorSettings { get; set; }
+    public required ColorSettings DarkColorSettings { get; set; }
     public required string DbName { get; set; }
     public required UnitOfMeasure PrimaryUnitOfMeasure { get; set; }
     public required UnitOfMeasure SecondaryUnitOfMeasure { get; set; }
