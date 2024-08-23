@@ -151,7 +151,15 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Style="{StaticResource SubLine}" Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}"/>
+                                    <Label Style="{StaticResource SubLine}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{x:Static lang:AppResources.StairsType}" />
+                                                <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                                <Span Text="{Binding Stairs.StairsType, Converter={StaticResource EnumToStringConverter}}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label> 
                                     <Label 
                                         Style="{StaticResource SubLine}"
                                         IsVisible="{Binding Location, Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}">

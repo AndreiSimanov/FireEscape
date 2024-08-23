@@ -79,7 +79,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to установленная на здание.
+        ///   Looks up a localized string similar to на здание.
         /// </summary>
         internal static string BuildingMounted {
             get {
@@ -106,7 +106,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to установленная на перепаде высот здания.
+        ///   Looks up a localized string similar to на перепаде высот здания.
         /// </summary>
         internal static string ElevationMounted {
             get {
@@ -133,7 +133,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to вертикальная лестница тип П1-1.
+        ///   Looks up a localized string similar to вертикальная П1-1.
         /// </summary>
         internal static string P1_1 {
             get {
@@ -142,7 +142,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to вертикальная лестница тип П1-2.
+        ///   Looks up a localized string similar to вертикальная П1-2.
         /// </summary>
         internal static string P1_2 {
             get {
@@ -151,7 +151,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to маршевая лестница тип П2.
+        ///   Looks up a localized string similar to маршевая П2.
         /// </summary>
         internal static string P2 {
             get {

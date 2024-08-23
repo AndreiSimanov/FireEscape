@@ -594,4 +594,10 @@
   <data name="NumberOfProtocols" xml:space="preserve">
     <value>Number of protocols</value>
   </data>
+  <data name="Gost" xml:space="preserve">
+    <value>GOST</value>
+  </data>
+  <data name="StairsType" xml:space="preserve">
+    <value>Stairs type</value>
+  </data>
 </root>

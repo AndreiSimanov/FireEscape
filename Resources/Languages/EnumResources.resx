@@ -124,7 +124,7 @@
     <value>Авто</value>
   </data>
   <data name="BuildingMounted" xml:space="preserve">
-    <value>установленная на здание</value>
+    <value>на здание</value>
   </data>
   <data name="CM" xml:space="preserve">
     <value>см</value>
@@ -133,7 +133,7 @@
     <value>дм</value>
   </data>
   <data name="ElevationMounted" xml:space="preserve">
-    <value>установленная на перепаде высот здания</value>
+    <value>на перепаде высот здания</value>
   </data>
   <data name="M" xml:space="preserve">
     <value>м</value>
@@ -142,13 +142,13 @@
     <value>мм</value>
   </data>
   <data name="P1_1" xml:space="preserve">
-    <value>вертикальная лестница тип П1-1</value>
+    <value>вертикальная П1-1</value>
   </data>
   <data name="P1_2" xml:space="preserve">
-    <value>вертикальная лестница тип П1-2</value>
+    <value>вертикальная П1-2</value>
   </data>
   <data name="P2" xml:space="preserve">
-    <value>маршевая лестница тип П2</value>
+    <value>маршевая П2</value>
   </data>
   <data name="Reject" xml:space="preserve">
     <value>Нет</value>

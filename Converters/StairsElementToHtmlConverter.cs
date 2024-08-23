@@ -23,14 +23,14 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
         if (value == null)
             return string.Empty;
         sb.Clear();
-        sb.AppendLine($"<table style='width:100%; font-size:16px; font-weight:bold; border-bottom: 1px solid {surfaceVariantColorStr}'>");
-        AddRowColSpan(value.Caption, primaryColorStr);
+        sb.AppendLine($"<table style='width:100%; font-size:16px; border-bottom: 1px solid {surfaceVariantColorStr}'>");
+        AddRowColSpan(value.Caption, primaryColorStr, "font-size:18px; word-wrap: break-word");
 
         AddRow<int, float>(new ColumnData<int>(AppResources.TestPointCountTrim, string.Empty, value.TestPointCount, true, ColorSettings.AcceptColor),
             new ColumnData<float>(AppResources.WithstandLoad, AppResources.WithstandLoadUnit, value.WithstandLoadCalcResult, true, ColorSettings.AcceptColor));
 
         sb.AppendLine("</table>");
-        sb.AppendLine("<table style='width:100%; font-size:14px; font-weight:bold'>");
+        sb.AppendLine("<table style='width:100%; font-size:14px'>");
 
         if (value is SupportBeamsP1 supportBeams)
         {
@@ -80,7 +80,7 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
     void AddServiceabilityRow(string label, ServiceabilityProperty serviceabilityProperty,  bool isZeroWarning)
     {
         AddRow<float, string>(new ColumnData<float>(label, UnitOfMeasure.Symbol, serviceabilityProperty.Value / UnitOfMeasure.Multiplier, isZeroWarning),
-            new ColumnData<string>(AppResources.Serviceability, string.Empty, EnumDescriptionTypeConverter.GetEnumDescription(serviceabilityProperty.ServiceabilityType), false));
+            new ColumnData<string>(AppResources.Gost, string.Empty, EnumDescriptionTypeConverter.GetEnumDescription(serviceabilityProperty.ServiceabilityType), false));
 
         /*
         if (string.IsNullOrWhiteSpace(serviceabilityProperty.RejectExplanationText))
@@ -93,10 +93,10 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
         */
     }
 
-    void AddRowColSpan(string value, string color)
+    void AddRowColSpan(string value, string color, string styleParams = "")
     {
-        sb.AppendLine("<tr>");
-        sb.AppendLine($"<td colspan='2' style='word-wrap: break-word'><font color='{color}'>{value}</font></td>");
+        sb.AppendLine("<tr >");
+        sb.AppendLine($"<td colspan='2' style='{styleParams}'><font color='{color}'>{value}</font></td>");
         sb.AppendLine("</tr>");
     }
 

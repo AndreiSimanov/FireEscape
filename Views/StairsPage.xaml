@@ -109,7 +109,7 @@
                 Margin="10">
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
-                        <Label Style="{StaticResource Titleline}" FontSize="16" FontAttributes="Bold" Grid.Row ="0" Text="{Binding EditObject.SupportBeams.Caption}" Margin="10,5,0,0" />
+                        <Label Style="{StaticResource Titleline}" FontSize="18" Grid.Row ="0" Text="{Binding EditObject.SupportBeams.Caption}" Margin="10,5,0,0" />
                         <Label
                             Grid.Row ="1" 
                             FontSize="16"
@@ -117,25 +117,24 @@
                             Margin="10,0,0,5">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span FontAttributes="Bold" Text="{x:Static lang:AppResources.TestPointCountTrim}" />
-                                    <Span FontAttributes="Bold" Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                    <Span FontAttributes="Bold" Text="{Binding EditObject.SupportBeams.TestPointCount}" />
+                                    <Span Text="{x:Static lang:AppResources.TestPointCountTrim}" />
+                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                    <Span Text="{Binding EditObject.SupportBeams.TestPointCount}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
                         <Label
                             Grid.Row ="1"
                             FontSize="16"
-                            FontAttributes="Bold"
                             TextColor = "{Binding EditObject.SupportBeams.WithstandLoadCalcResult,  Converter={StaticResource FloatZeroToColorConverter}}"
                             Margin="0,0,10,5" HorizontalTextAlignment="End">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span FontAttributes="Bold" Text="{x:Static lang:AppResources.WithstandLoad}" />
-                                    <Span FontAttributes="Bold" Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                    <Span FontAttributes="Bold" Text="{Binding EditObject.SupportBeams.WithstandLoadCalcResult}" />
+                                    <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
+                                    <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
+                                    <Span Text="{Binding EditObject.SupportBeams.WithstandLoadCalcResult}" />
                                     <Span Text=" " />
-                                    <Span FontAttributes="Bold" Text="{x:Static lang:AppResources.WithstandLoadUnit}" />
+                                    <Span Text="{x:Static lang:AppResources.WithstandLoadUnit}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -197,7 +196,7 @@
                 IsVisible="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
                 ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
-            <dxe:FormGroupItem HeaderFontAttributes="Bold" Header="{x:Static lang:AppResources.StairsElements}" HeightRequest="40" Margin="0,0,80,0" />
+            <dxe:FormGroupItem HeaderFontSize="18" HeaderFontAttributes="Bold" Header="{x:Static lang:AppResources.StairsElements}" HeightRequest="40" Margin="0,0,80,0" />
 
             <dx:DXButton
                 x:Name="addButton"

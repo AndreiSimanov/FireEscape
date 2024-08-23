@@ -592,6 +592,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ГОСТ.
+        /// </summary>
+        internal static string Gost {
+            get {
+                return ResourceManager.GetString("Gost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Расст. от земли.
         /// </summary>
         internal static string GroundDistance {
@@ -1155,6 +1164,15 @@ namespace FireEscape.Resources.Languages {
         internal static string StairsTrim {
             get {
                 return ResourceManager.GetString("StairsTrim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Тип лестницы.
+        /// </summary>
+        internal static string StairsType {
+            get {
+                return ResourceManager.GetString("StairsType", resourceCulture);
             }
         }
         

@@ -594,4 +594,10 @@
   <data name="NumberOfProtocols" xml:space="preserve">
     <value>Количество протоколов</value>
   </data>
+  <data name="Gost" xml:space="preserve">
+    <value>ГОСТ</value>
+  </data>
+  <data name="StairsType" xml:space="preserve">
+    <value>Тип лестницы</value>
+  </data>
 </root>
