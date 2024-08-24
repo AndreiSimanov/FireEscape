@@ -119,3 +119,7 @@ PDF maker
 Application Log
 
 	MetroLog.Maui 2.1.0
+
+Validation
+
+	FluentValidation 11.9.2
