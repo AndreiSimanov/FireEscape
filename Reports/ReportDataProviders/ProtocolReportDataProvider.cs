@@ -30,8 +30,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     public string Address => string.IsNullOrWhiteSpace(protocol.Address) ? order.Address : protocol.Address;
     public DateTime ProtocolDate => protocol.ProtocolDate;
     public StairsTypeEnum StairsType => Stairs.StairsType;
-    public string StairsTypeStr => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsType);
-    public string StairsMountType => EnumDescriptionTypeConverter.GetEnumDescription(Stairs.StairsMountType);
+    public StairsMountTypeEnum StairsMountType => Stairs.StairsMountType;
     public string FireEscapeObject => string.IsNullOrWhiteSpace(protocol.FireEscapeObject) ? order.FireEscapeObject : protocol.FireEscapeObject;
     public string FullAddress => Location + ", " + Address;
     public int FireEscapeNum => protocol.FireEscapeNum;

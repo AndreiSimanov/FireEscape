@@ -597,7 +597,7 @@
   <data name="Gost" xml:space="preserve">
     <value>ГОСТ</value>
   </data>
-  <data name="StairsType" xml:space="preserve">
-    <value>Тип лестницы</value>
+  <data name="Stairs" xml:space="preserve">
+    <value>Лестница</value>
   </data>
 </root>

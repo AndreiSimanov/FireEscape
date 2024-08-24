@@ -1069,6 +1069,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Лестница.
+        /// </summary>
+        internal static string Stairs {
+            get {
+                return ResourceManager.GetString("Stairs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Элементы лестницы.
         /// </summary>
         internal static string StairsElements {
@@ -1164,15 +1173,6 @@ namespace FireEscape.Resources.Languages {
         internal static string StairsTrim {
             get {
                 return ResourceManager.GetString("StairsTrim", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Тип лестницы.
-        /// </summary>
-        internal static string StairsType {
-            get {
-                return ResourceManager.GetString("StairsType", resourceCulture);
             }
         }
         

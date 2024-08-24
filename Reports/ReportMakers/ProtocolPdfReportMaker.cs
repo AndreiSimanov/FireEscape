@@ -1,4 +1,5 @@
-﻿using FireEscape.Reports.ReportDataProviders;
+﻿using FireEscape.Converters;
+using FireEscape.Reports.ReportDataProviders;
 using FireEscape.Reports.ReportWriters;
 using iText.IO.Image;
 using iText.Layout;
@@ -115,13 +116,14 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
 
         document.Add(new Paragraph(" "));
     }
+
     void MakeOverview(Document document)
     {
         document.Add(GetParagraph()
             .AddAll(new[]{
                 new Text("Характеристика объекта: ").SetBold(),
-                new Text(protocolRdp!.StairsTypeStr + ", "),
-                new Text(protocolRdp.StairsMountType + " "),
+                new Text(GetStairsType(protocolRdp!.StairsType) + ", "),
+                new Text(GetStairsMountType(protocolRdp.StairsMountType) + " "),
                 new Text(protocolRdp.FireEscapeObject).SetBold()})
         );
 
@@ -455,4 +457,25 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
            "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
            _ => string.Concat(input[0].ToString().ToUpper(), input.AsSpan(1))
        };
+
+    static string GetStairsType(StairsTypeEnum stairsType)
+    {
+        return stairsType switch
+        {
+            StairsTypeEnum.P1_1 => "вертикальная лестница тип П1-1",
+            StairsTypeEnum.P1_2 => "вертикальная лестница тип П1-2",
+            StairsTypeEnum.P2 => "маршевая лестница тип П2",
+            _ => EnumDescriptionTypeConverter.GetEnumDescription(stairsType)
+        };
+    }
+
+    static string GetStairsMountType(StairsMountTypeEnum stairsMountType)
+    {
+        return stairsMountType switch
+        {
+            StairsMountTypeEnum.BuildingMounted => "установленная на здание",
+            StairsMountTypeEnum.ElevationMounted => "установленная на перепаде высот здания",
+            _ => EnumDescriptionTypeConverter.GetEnumDescription(stairsMountType)
+        };
+    }
 }

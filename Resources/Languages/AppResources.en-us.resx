@@ -597,7 +597,7 @@
   <data name="Gost" xml:space="preserve">
     <value>GOST</value>
   </data>
-  <data name="StairsType" xml:space="preserve">
-    <value>Stairs type</value>
+  <data name="Stairs" xml:space="preserve">
+    <value>Stairs</value>
   </data>
 </root>
