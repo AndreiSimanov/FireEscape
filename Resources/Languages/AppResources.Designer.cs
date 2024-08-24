@@ -1465,6 +1465,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ошибка валидации:.
+        /// </summary>
+        internal static string ValidationError {
+            get {
+                return ResourceManager.GetString("ValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Расст. до стены.
         /// </summary>
         internal static string WallDistance {
@@ -1506,6 +1515,15 @@ namespace FireEscape.Resources.Languages {
         internal static string WithstandLoadUnit {
             get {
                 return ResourceManager.GetString("WithstandLoadUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Продолжить.
+        /// </summary>
+        internal static string Сontinue {
+            get {
+                return ResourceManager.GetString("Сontinue", resourceCulture);
             }
         }
     }

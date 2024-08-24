@@ -600,4 +600,10 @@
   <data name="Stairs" xml:space="preserve">
     <value>Лестница</value>
   </data>
+  <data name="Сontinue" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>Ошибка валидации:</value>
+  </data>
 </root>
