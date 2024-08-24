@@ -133,7 +133,7 @@
     <value>dm</value>
   </data>
   <data name="ElevationMounted" xml:space="preserve">
-    <value>escapes at level difference points on the building's roof</value>
+    <value>on the difference heights</value>
   </data>
   <data name="M" xml:space="preserve">
     <value>m</value>
@@ -142,13 +142,13 @@
     <value>mm</value>
   </data>
   <data name="P1_1" xml:space="preserve">
-    <value>vertical stairs P1-1 type</value>
+    <value>vertical P1-1</value>
   </data>
   <data name="P1_2" xml:space="preserve">
-    <value>vertical stairs P1-2 type</value>
+    <value>vertical P1-2</value>
   </data>
   <data name="P2" xml:space="preserve">
-    <value>marching stairs P2 type</value>
+    <value>marching P2</value>
   </data>
   <data name="Reject" xml:space="preserve">
     <value>Reject</value>

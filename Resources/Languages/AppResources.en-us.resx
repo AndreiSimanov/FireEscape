@@ -594,4 +594,34 @@
   <data name="NumberOfProtocols" xml:space="preserve">
     <value>Number of protocols</value>
   </data>
+  <data name="Gost" xml:space="preserve">
+    <value>GOST</value>
+  </data>
+  <data name="Stairs" xml:space="preserve">
+    <value>Stairs</value>
+  </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>Validation error:</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="FenceAbsentHint" xml:space="preserve">
+    <value>There is no fence for P1-2</value>
+  </data>
+  <data name="PlatformSupportBeamsCountHint" xml:space="preserve">
+    <value>Specify platform's support beams count</value>
+  </data>
+  <data name="StairwayStepsCountHint" xml:space="preserve">
+    <value>Specify stairway's steps count</value>
+  </data>
+  <data name="StairwaySupportBeamsCountHint" xml:space="preserve">
+    <value>Specify stairway's support beams count</value>
+  </data>
+  <data name="PlatformAbsentHint" xml:space="preserve">
+    <value>There is no platform for P2</value>
+  </data>
+  <data name="StairwayAbsentHint" xml:space="preserve">
+    <value>There is no stairway for P2</value>
+  </data>
 </root>

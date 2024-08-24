@@ -22,7 +22,7 @@ public partial class App : Application
         MainPage = new AppShell();
 
         LogController.InitializeNavigation(page => MainPage!.Navigation.PushModalAsync(page), () => MainPage!.Navigation.PopModalAsync());
-        new LogController().IsShakeEnabled = true;
+        new LogController().IsShakeEnabled = this.applicationSettings.LogPageShakeEnabled;
 
         MauiExceptions.UnhandledException += (sender, args) =>
         {
@@ -52,12 +52,14 @@ public partial class App : Application
         ThemeManager.ApplyThemeToSystemBars = true;
         ThemeManager.ThemeChanged += ThemeChanged;
         ThemeManager.Theme = new Theme(Color.FromArgb(ThemeManager.IsLightTheme ? applicationSettings.LightThemeColor : applicationSettings.DarkThemeColor));
+        ColorSettings.SetColors(ThemeManager.IsLightTheme ? applicationSettings.LightColorSettings : applicationSettings.DarkColorSettings); 
     }
 
     void ThemeChanged(object? sender, EventArgs e)
     {
         ThemeManager.ThemeChanged -= ThemeChanged;
         ThemeManager.Theme = new Theme(Color.FromArgb(ThemeManager.IsLightTheme ? applicationSettings.LightThemeColor : applicationSettings.DarkThemeColor));
+        ColorSettings.SetColors(ThemeManager.IsLightTheme ? applicationSettings.LightColorSettings : applicationSettings.DarkColorSettings);
         ThemeManager.ThemeChanged += ThemeChanged;
     }
 

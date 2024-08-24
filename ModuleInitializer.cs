@@ -2,6 +2,8 @@
 using FireEscape.Factories;
 using FireEscape.Factories.Interfaces;
 using FireEscape.Reports.ReportMakers;
+using FireEscape.Validators;
+using FluentValidation;
 
 namespace FireEscape;
 
@@ -56,6 +58,8 @@ public static class ModuleInitializer
 
         services.AddTransient<RemoteLogViewModel>();
         services.AddSingleton<RemoteLogPage>();
+
+        services.AddTransient<IValidator<Stairs>, StairsValidator>();
 
         return services;
     }

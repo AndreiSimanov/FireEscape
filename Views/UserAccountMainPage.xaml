@@ -7,6 +7,7 @@
     xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
     xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+    xmlns:appSettings="clr-namespace:FireEscape.AppSettings"
     xmlns:lang="clr-namespace:FireEscape.Resources.Languages"
     xmlns:model="clr-namespace:FireEscape.Models"
     xmlns:viewmodel="clr-namespace:FireEscape.ViewModels"
@@ -22,7 +23,7 @@
     <Grid RowDefinitions="Auto,*">
         <Grid.Resources>
             <ResourceDictionary>
-                <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="Green" FalseObject="Red" />
+                <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{x:Static appSettings:ColorSettings.AcceptColor}" FalseObject="{x:Static appSettings:ColorSettings.WarningColor}" />
             </ResourceDictionary>
         </Grid.Resources>
         <ctrl:SearchControl

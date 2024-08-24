@@ -10,13 +10,6 @@ public abstract partial class BaseEditViewModel<T>(ILogger<BaseEditViewModel<T>>
     T? editObject;
     string? origObject;
 
-    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
-    {
-        base.OnPropertyChanged(e);
-        if (e.PropertyName == nameof(EditObject))
-            SetEditObject(EditObject);
-    }
-
     [RelayCommand]
     async Task SaveEditObject()
     {
@@ -28,6 +21,21 @@ public abstract partial class BaseEditViewModel<T>(ILogger<BaseEditViewModel<T>>
         SetEditObject(EditObject);
     }
 
+    [RelayCommand]
+    async Task ValidateEditObjectAsync()
+    {
+        var validationResult = GetEditObjectValidationResult();
+        if (validationResult.Count == 0)
+        {
+            await Shell.Current.Navigation.PopAsync();
+            return;
+        }
+        var action = await Shell.Current.DisplayActionSheet(
+            AppResources.ValidationError, AppResources.Edit, AppResources.Exit, string.Join(Environment.NewLine, validationResult));
+        if (string.Equals(action, AppResources.Exit))
+            await Shell.Current.Navigation.PopAsync();
+    }
+
     void SetEditObject(T? editObject)
     {
         if (editObject != null)
@@ -36,5 +44,14 @@ public abstract partial class BaseEditViewModel<T>(ILogger<BaseEditViewModel<T>>
             origObject = null;
     }
 
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        if (e.PropertyName == nameof(EditObject))
+            SetEditObject(EditObject);
+    }
+
     protected abstract Task SaveEditObjectAsync();
+
+    protected virtual List<string> GetEditObjectValidationResult() => new();
 }
