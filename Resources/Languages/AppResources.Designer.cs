@@ -484,6 +484,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выйти.
+        /// </summary>
+        internal static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Счетчик окончания учетной записи.
         /// </summary>
         internal static string ExpirationCount {
@@ -498,6 +507,15 @@ namespace FireEscape.Resources.Languages {
         internal static string ExpirationDate {
             get {
                 return ResourceManager.GetString("ExpirationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отсутствует ограждение для П1-2.
+        /// </summary>
+        internal static string FenceAbsentHint {
+            get {
+                return ResourceManager.GetString("FenceAbsentHint", resourceCulture);
             }
         }
         
@@ -817,6 +835,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отсутствует площадка П2.
+        /// </summary>
+        internal static string PlatformAbsentHint {
+            get {
+                return ResourceManager.GetString("PlatformAbsentHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Длина площадки.
         /// </summary>
         internal static string PlatformLength {
@@ -849,6 +876,15 @@ namespace FireEscape.Resources.Languages {
         internal static string PlatformSizeUnit {
             get {
                 return ResourceManager.GetString("PlatformSizeUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите количество балок площадки.
+        /// </summary>
+        internal static string PlatformSupportBeamsCountHint {
+            get {
+                return ResourceManager.GetString("PlatformSupportBeamsCountHint", resourceCulture);
             }
         }
         
@@ -1213,6 +1249,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отсутствует марш П2.
+        /// </summary>
+        internal static string StairwayAbsentHint {
+            get {
+                return ResourceManager.GetString("StairwayAbsentHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Длина марша.
         /// </summary>
         internal static string StairwayLength {
@@ -1227,6 +1272,24 @@ namespace FireEscape.Resources.Languages {
         internal static string StairwayLengthHint {
             get {
                 return ResourceManager.GetString("StairwayLengthHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите количество ступеней марша.
+        /// </summary>
+        internal static string StairwayStepsCountHint {
+            get {
+                return ResourceManager.GetString("StairwayStepsCountHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Укажите количество балок марша.
+        /// </summary>
+        internal static string StairwaySupportBeamsCountHint {
+            get {
+                return ResourceManager.GetString("StairwaySupportBeamsCountHint", resourceCulture);
             }
         }
         
@@ -1515,15 +1578,6 @@ namespace FireEscape.Resources.Languages {
         internal static string WithstandLoadUnit {
             get {
                 return ResourceManager.GetString("WithstandLoadUnit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Продолжить.
-        /// </summary>
-        internal static string Сontinue {
-            get {
-                return ResourceManager.GetString("Сontinue", resourceCulture);
             }
         }
     }

@@ -167,6 +167,13 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         element,
         AppResources.DeleteStairsElementError);
 
+    protected override List<string> GetEditObjectValidationResult()
+    {
+        var result = base.GetEditObjectValidationResult();
+        result.AddRange(stairsService.Validate(EditObject!).Errors.Select(error => error.ErrorMessage).Distinct());
+        return result;
+    }
+
     protected override Task SaveEditObjectAsync() => 
         DoCommandAsync(() => stairsService.SaveAsync(EditObject!),
             EditObject,

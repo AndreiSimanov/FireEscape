@@ -600,10 +600,28 @@
   <data name="Stairs" xml:space="preserve">
     <value>Лестница</value>
   </data>
-  <data name="Сontinue" xml:space="preserve">
-    <value>Продолжить</value>
-  </data>
   <data name="ValidationError" xml:space="preserve">
     <value>Ошибка валидации:</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="FenceAbsentHint" xml:space="preserve">
+    <value>Отсутствует ограждение для П1-2</value>
+  </data>
+  <data name="PlatformSupportBeamsCountHint" xml:space="preserve">
+    <value>Укажите количество балок площадки</value>
+  </data>
+  <data name="StairwayStepsCountHint" xml:space="preserve">
+    <value>Укажите количество ступеней марша</value>
+  </data>
+  <data name="StairwaySupportBeamsCountHint" xml:space="preserve">
+    <value>Укажите количество балок марша</value>
+  </data>
+  <data name="PlatformAbsentHint" xml:space="preserve">
+    <value>Отсутствует площадка П2</value>
+  </data>
+  <data name="StairwayAbsentHint" xml:space="preserve">
+    <value>Отсутствует марш П2</value>
   </data>
 </root>

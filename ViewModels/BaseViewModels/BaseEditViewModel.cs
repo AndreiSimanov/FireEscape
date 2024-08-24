@@ -31,8 +31,8 @@ public abstract partial class BaseEditViewModel<T>(ILogger<BaseEditViewModel<T>>
             return;
         }
         var action = await Shell.Current.DisplayActionSheet(
-            AppResources.ValidationError, AppResources.Cancel, AppResources.Сontinue, string.Join(Environment.NewLine, validationResult));
-        if (string.Equals(action, AppResources.Сontinue))
+            AppResources.ValidationError, AppResources.Edit, AppResources.Exit, string.Join(Environment.NewLine, validationResult));
+        if (string.Equals(action, AppResources.Exit))
             await Shell.Current.Navigation.PopAsync();
     }
 
