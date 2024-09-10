@@ -27,6 +27,12 @@ public class ProtocolRepository(SqliteContext context, IOptions<ApplicationSetti
         return [.. protocols.OrderByDescending(item => item.Id)];
     }
 
+    public async Task<int> GetNextFireEscapeNum(int orderId)
+    {
+        var fireEscapeNum = await (await connection).ExecuteScalarAsync<int>("select Max(FireEscapeNum) from Protocols where OrderId=?", orderId);
+        return ++fireEscapeNum;
+    }
+
     public async Task AddImageAsync(Protocol protocol, FileResult? imageFile)
     {
         if (imageFile == null)

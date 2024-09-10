@@ -13,6 +13,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
     {
         var newProtocol = await protocolRepository.CopyAsync(protocol);
         newProtocol.Stairs = await stairsRepository.CreateAsync(newProtocol);
+        newProtocol.FireEscapeNum = await protocolRepository.GetNextFireEscapeNum(protocol.OrderId);
         return await protocolRepository.SaveAsync(newProtocol);
     }
 
@@ -20,6 +21,7 @@ public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepo
     {
         var newProtocol = await protocolRepository.CopyAsync(protocol);
         newProtocol.Stairs = await stairsRepository.CopyAsync(protocol.Stairs);
+        newProtocol.FireEscapeNum = await protocolRepository.GetNextFireEscapeNum(protocol.OrderId);
         return await protocolRepository.SaveAsync(newProtocol);
     }
 
