@@ -13,7 +13,7 @@
     x:DataType="control:ServiceabilityEditControl"
     x:Class="FireEscape.Views.Controls.ServiceabilityEditControl">
 
-    <Grid x:Name="grid" RowDefinitions="auto, *" ColumnDefinitions="*, *">
+    <Grid x:Name="grid" RowDefinitions="auto, *" ColumnDefinitions="*, .6*">
         <Grid.Resources>
             <ResourceDictionary>
                 <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter"/>

@@ -109,30 +109,30 @@
                 Margin="10">
                 <StackLayout>
                     <Grid RowDefinitions="Auto,*">
-                        <Label Style="{StaticResource Titleline}" FontSize="18" Grid.Row ="0" Text="{Binding EditObject.SupportBeams.Caption}" Margin="10,5,0,0" />
+                        <Label Style="{StaticResource Titleline}" FontSize="18" Grid.Row ="0" Text="{Binding SupportBeams.Caption}" Margin="10,5,0,0" />
                         <Label
                             Grid.Row ="1" 
                             FontSize="16"
-                            TextColor = "{Binding EditObject.SupportBeams.TestPointCount,  Converter={StaticResource IntZeroToColorConverter}}"
+                            TextColor = "{Binding SupportBeams.TestPointCount,  Converter={StaticResource IntZeroToColorConverter}}"
                             Margin="10,0,0,5">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{x:Static lang:AppResources.TestPointCountTrim}" />
                                     <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                    <Span Text="{Binding EditObject.SupportBeams.TestPointCount}" />
+                                    <Span Text="{Binding SupportBeams.TestPointCount}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
                         <Label
                             Grid.Row ="1"
                             FontSize="16"
-                            TextColor = "{Binding EditObject.SupportBeams.WithstandLoadCalcResult,  Converter={StaticResource FloatZeroToColorConverter}}"
+                            TextColor = "{Binding SupportBeams.WithstandLoadCalcResult,  Converter={StaticResource FloatZeroToColorConverter}}"
                             Margin="0,0,10,5" HorizontalTextAlignment="End">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{x:Static lang:AppResources.WithstandLoad}" />
                                     <Span Text="{x:Static lang:AppResources.CaptionDivider}" />
-                                    <Span Text="{Binding EditObject.SupportBeams.WithstandLoadCalcResult}" />
+                                    <Span Text="{Binding SupportBeams.WithstandLoadCalcResult}" />
                                     <Span Text=" " />
                                     <Span Text="{x:Static lang:AppResources.WithstandLoadUnit}" />
                                 </FormattedString>
@@ -145,16 +145,16 @@
                         PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
                         LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"
                         Style="{StaticResource DefaultNumericEdit}"
-                        Value="{Binding EditObject.SupportBeams.SupportBeamsCount}"
-                        HasError="{Binding EditObject.SupportBeams.SupportBeamsCount, Converter={StaticResource IntZeroToBoolConverter}}"/>
+                        Value="{Binding SupportBeams.SupportBeamsCount}"
+                        HasError="{Binding SupportBeams.SupportBeamsCount, Converter={StaticResource IntZeroToBoolConverter}}"/>
 
                     <ctrl:ServiceabilityEditControl
                         EditorFocused="EditorFocused"
                         LabelText="{x:Static lang:AppResources.WallDistance}"
                         PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        HasError="{Binding EditObject.SupportBeams.WallDistance.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
-                        ServiceabilityValue="{Binding EditObject.SupportBeams.WallDistance}"
+                        HasError="{Binding SupportBeams.WallDistance.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
+                        ServiceabilityValue="{Binding SupportBeams.WallDistance}"
                         ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
 
                     <ctrl:ServiceabilityEditControl
@@ -162,7 +162,7 @@
                         LabelText="{x:Static lang:AppResources.Deformation}"
                         PlaceholderText="{x:Static lang:AppResources.DeformationHint}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
-                        ServiceabilityValue="{Binding EditObject.SupportBeams.Deformation}"
+                        ServiceabilityValue="{Binding SupportBeams.Deformation}"
                         ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
                 </StackLayout>
             </Border>
@@ -176,6 +176,17 @@
                 HasError="{Binding EditObject.StepsCount, Converter={StaticResource IntZeroToBoolConverter}}"
                 IsEnabled="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
                 ValueChangedCommand="{Binding UpdatStairsElementsCommand}"/>
+
+            <ctrl:ServiceabilityEditControl
+                EditorFocused="EditorFocused"
+                EditorUnfocused="StairsWidthEditorUnfocused"
+                LabelText="{x:Static lang:AppResources.StepsDistance}"
+                PlaceholderText="{x:Static lang:AppResources.StepsDistanceHint}"
+                ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
+                IsVisible="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
+                HasError="{Binding StepsP1.StepsDistance.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
+                ServiceabilityValue="{Binding StepsP1.StepsDistance}"
+                ServiceabilityTypes="{Binding StairsSettings.ServiceabilityTypes}"/>
 
             <ctrl:ServiceabilityEditControl
                 EditorFocused="EditorFocused"

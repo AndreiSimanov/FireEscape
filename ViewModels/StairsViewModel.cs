@@ -30,22 +30,11 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     [ObservableProperty]
     BottomSheetState bottomSheetState;
 
-    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
-    {
-        base.OnPropertyChanged(e);
-        if (e.PropertyName == nameof(BottomSheetState))
-        {
-            if (BottomSheetState == BottomSheetState.FullExpanded)
-            {
-                SetPlatformSizes(SelectedStairsElement, true);
-            }
-            else
-            {
-                SetPlatformSizes(SelectedStairsElement, false);
-                SelectedStairsElement?.UpdateCalcWithstandLoad();
-            }
-        }
-    }
+    [ObservableProperty]
+    SupportBeamsP1? supportBeams;
+
+    [ObservableProperty]
+    StepsP1? stepsP1;
 
     [RelayCommand]
     void UpdatStairsElements() => EditObject?.UpdateStairsElements();
@@ -166,6 +155,29 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         },
         element,
         AppResources.DeleteStairsElementError);
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        if (e.PropertyName == nameof(BottomSheetState))
+        {
+            if (BottomSheetState == BottomSheetState.FullExpanded)
+            {
+                SetPlatformSizes(SelectedStairsElement, true);
+            }
+            else
+            {
+                SetPlatformSizes(SelectedStairsElement, false);
+                SelectedStairsElement?.UpdateCalcWithstandLoad();
+            }
+        }
+
+        if (e.PropertyName == nameof(EditObject))
+        {
+            SupportBeams = EditObject!.StairsElements.FirstOrDefault(element => element.StairsElementType == typeof(SupportBeamsP1)) as SupportBeamsP1;
+            StepsP1 = EditObject!.StairsElements.FirstOrDefault(element => element.StairsElementType == typeof(StepsP1)) as StepsP1;
+        }
+    }
 
     protected override List<string> GetEditObjectValidationResult()
     {
