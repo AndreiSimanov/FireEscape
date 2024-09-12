@@ -624,4 +624,7 @@
   <data name="StairwayAbsentHint" xml:space="preserve">
     <value>Отсутствует марш П2</value>
   </data>
+  <data name="FilesAccessPermissionWarning" xml:space="preserve">
+    <value>Установите доступ к управлению всеми файлами!</value>
+  </data>
 </root>

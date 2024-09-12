@@ -624,4 +624,7 @@
   <data name="StairwayAbsentHint" xml:space="preserve">
     <value>There is no stairway for P2</value>
   </data>
+  <data name="FilesAccessPermissionWarning" xml:space="preserve">
+    <value>Allow permission access to manage all files!</value>
+  </data>
 </root>

@@ -28,7 +28,7 @@ public static class PdfReportWriter
 
     static async Task<Document> GetDocument(PdfDocument pdfDoc, string fontName, float fontSize)
     {
-        var fontFilePath = await AddFontIfNotExisitAsync(AppUtils.DefaultContentFolder, fontName);
+        var fontFilePath = await AddFontIfNotExisitAsync(ApplicationSettings.DefaultContentFolder, fontName);
         var document = new Document(pdfDoc);
         var font = PdfFontFactory.CreateFont(fontFilePath);
         document.SetFont(font);

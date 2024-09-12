@@ -5,20 +5,32 @@ namespace FireEscape.Common;
 
 public static class AppUtils
 {
-    public static string DefaultContentFolder
-    {
-        get
-        {
 
+    public static string GetDefaultContentFolder(string applicationFolderName)
+    {
 #if ANDROID
-            var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
-            return (docsDirectory!.AbsoluteFile.Parent == null)
-                ? docsDirectory!.AbsoluteFile.Path
-                : docsDirectory!.AbsoluteFile.Parent;
-#else
-            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#endif
+        if (OperatingSystem.IsAndroidVersionAtLeast(30) &&
+            Android.OS.Environment.ExternalStorageDirectory != null &&
+            Android.OS.Environment.IsExternalStorageManager)
+        {
+            return CreateFolderIfNotExists(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, applicationFolderName);
         }
+
+        var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
+        return (docsDirectory!.AbsoluteFile.Parent == null) ? docsDirectory!.AbsoluteFile.Path : docsDirectory!.AbsoluteFile.Parent;
+#else
+        return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#endif
+
+    }
+
+    public static Task<bool> GetAllFilesAccessPermissionAsync()
+    {
+#if ANDROID
+        return MainActivity.AllFilesAccessPermissionTask;
+#else
+        return Task.FromResult(true);
+#endif
     }
 
     public static async Task<bool> IsNetworkAccessAsync()

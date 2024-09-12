@@ -538,6 +538,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Установите доступ к управлению всеми файлами!.
+        /// </summary>
+        internal static string FilesAccessPermissionWarning {
+            get {
+                return ResourceManager.GetString("FilesAccessPermissionWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пожарная лестница.
         /// </summary>
         internal static string FireEscape {

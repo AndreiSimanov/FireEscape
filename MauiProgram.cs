@@ -67,8 +67,9 @@ public static class MauiProgram
 #endif
                 options.MaxLevel = LogLevel.Critical;
             }).
-             AddStreamingFileLogger(options =>
+             AddStreamingFileLogger(async (options) =>
              {
+                 await AppUtils.GetAllFilesAccessPermissionAsync();
                  options.RetainDays = 2;
                  options.FolderPath = ApplicationSettings.LogFolder;
              });
