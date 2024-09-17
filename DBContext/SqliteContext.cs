@@ -8,10 +8,9 @@ public class SqliteContext : IAsyncDisposable
 
     public SqliteContext(IOptions<ApplicationSettings> applicationSettings)
     {
-        var dbPath = Path.Combine(AppUtils.DefaultContentFolder, applicationSettings.Value.DbName);
         connection = new AsyncLazy<SQLiteAsyncConnection>(async () =>
         {
-            var conn = new SQLiteAsyncConnection(dbPath);
+            var conn = new SQLiteAsyncConnection(Path.Combine(await ApplicationSettings.GetDefaultContentFolderAsync(), applicationSettings.Value.DbName));
             //await conn.DropTableAsync<Order>();
             //await conn.DropTableAsync<Protocol>();
             //await conn.DropTableAsync<Stairs>();

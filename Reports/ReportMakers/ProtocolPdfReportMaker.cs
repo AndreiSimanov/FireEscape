@@ -1,10 +1,10 @@
 ﻿using FireEscape.Converters;
+using FireEscape.Reports.Interfaces;
 using FireEscape.Reports.ReportDataProviders;
 using FireEscape.Reports.ReportWriters;
 using iText.IO.Image;
 using iText.Layout;
 using iText.Layout.Element;
-using Microsoft.Extensions.Options;
 using Border = iText.Layout.Borders.Border;
 using Cell = iText.Layout.Element.Cell;
 using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
@@ -13,17 +13,13 @@ using VerticalAlignment = iText.Layout.Properties.VerticalAlignment;
 
 namespace FireEscape.Reports.ReportMakers;
 
-public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : IProtocolPdfReportMaker
+public class ProtocolPdfReportMaker(IProtocolReportDataProvider protocolRdp) : IProtocolPdfReportMaker
 {
-    ProtocolReportDataProvider? protocolRdp;
-    readonly ReportSettings reportSettings = reportSettings.Value;
-    public async Task MakeReportAsync(ProtocolReportDataProvider protocolRdp, string outputPath)
+    public async Task CreateReportAsync(Order order, Protocol protocol, string outputPath)
     {
-        if (protocolRdp == null)
-            throw new ArgumentNullException(nameof(protocolRdp));
-        this.protocolRdp = protocolRdp;
         var tempPdfFile = outputPath + ".tmp";
-        var document = await PdfReportWriter.CreatePdfDocumentAsync(tempPdfFile, reportSettings.FontName, reportSettings.FontSize);
+        var document = await PdfReportWriter.CreatePdfDocumentAsync(tempPdfFile, protocolRdp.FontName, protocolRdp.FontSize);
+        protocolRdp.Init(order, protocol);
         try
         {
             MakeHeader(document);
@@ -43,7 +39,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             document.Close();
         }
 
-        document = await PdfReportWriter.OpenPdfDocumentAsync(tempPdfFile, outputPath, reportSettings.FontName, reportSettings.FontSize);
+        document = await PdfReportWriter.OpenPdfDocumentAsync(tempPdfFile, outputPath, protocolRdp.FontName, protocolRdp.FontSize);
         try
         {
             MakeNumberOfPages(document);
@@ -104,7 +100,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
             .SetBorder(Border.NO_BORDER);
 
         var dateCell = new Cell()
-            .Add(new Paragraph(string.Format(reportSettings.DateFormat, protocolRdp.ProtocolDate))
+            .Add(new Paragraph(string.Format(protocolRdp.DateFormat, protocolRdp.ProtocolDate))
             .SetTextAlignment(TextAlignment.RIGHT)
             .SetBold())
             .SetBorder(Border.NO_BORDER);
@@ -139,7 +135,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
         document.Add(GetParagraph()
             .AddAll(new[] {
                 new Text("Высота лестницы: ").SetBold(),
-                new Text(protocolRdp.StairsHeight.ToString(reportSettings.FloatFormat)).SetBold().SetUnderline(),
+                new Text(protocolRdp.StairsHeight.ToString(protocolRdp.FloatFormat)).SetBold().SetUnderline(),
                 new Text(" м.")}));
 
         document.Add(GetParagraph()
@@ -337,7 +333,7 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
         var testPointCount = stairsElementResult.IsAbsent ? "-" : stairsElementResult.TestPointCount.ToString();
         table.AddCell(MakeCell(testPointCount, true, TextAlignment.CENTER));
 
-        var calcWithstandLoad = stairsElementResult.IsAbsent ? "-" : stairsElementResult.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat);
+        var calcWithstandLoad = stairsElementResult.IsAbsent ? "-" : stairsElementResult.WithstandLoadCalcResult.ToString(protocolRdp.FloatFormat);
         table.AddCell(MakeCell(calcWithstandLoad, true, TextAlignment.CENTER));
 
         var serviceability = stairsElementResult.IsAbsent ?
@@ -368,8 +364,8 @@ public class ProtocolPdfReportMaker(IOptions<ReportSettings> reportSettings) : I
 
         var pdfImage = new iText.Layout.Element.Image(ImageDataFactory.Create(protocolRdp.ImageFilePath))
             .SetHorizontalAlignment(HorizontalAlignment.CENTER)
-            .SetMaxWidth(pageSize.GetWidth() / (100f / reportSettings.ImageScale))
-            .SetMaxHeight(pageSize.GetHeight() / (100f / reportSettings.ImageScale))
+            .SetMaxWidth(pageSize.GetWidth() / (100f / protocolRdp.ImageScale))
+            .SetMaxHeight(pageSize.GetHeight() / (100f / protocolRdp.ImageScale))
             .SetRotationAngle(ImageUtils.GetRotation(protocolRdp.ImageFilePath));
         document.Add(new Paragraph(" "));
         document.Add(pdfImage);

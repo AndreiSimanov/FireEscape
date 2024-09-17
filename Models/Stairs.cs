@@ -56,10 +56,6 @@ public partial class Stairs : BaseObject
 
     [Ignore]
     [JsonIgnore]
-    public SupportBeamsP1? SupportBeams => StairsElements.FirstOrDefault(element => element.StairsElementType == typeof(SupportBeamsP1)) as SupportBeamsP1;
-
-    [Ignore]
-    [JsonIgnore]
     public BaseStairsTypeEnum BaseStairsType => StairsType == StairsTypeEnum.P2 ? BaseStairsTypeEnum.P2 : BaseStairsTypeEnum.P1;
 
     [ObservableProperty]

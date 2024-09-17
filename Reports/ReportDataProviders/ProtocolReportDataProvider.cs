@@ -1,24 +1,28 @@
-﻿using FireEscape.Converters;
-using FireEscape.Factories.Interfaces;
+﻿using FireEscape.Factories.Interfaces;
 using FireEscape.Models.Attributes;
+using FireEscape.Reports.Interfaces;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace FireEscape.Reports.ReportDataProviders;
 
-public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSettings reportSettings, IStairsFactory stairsFactory, ServiceabilityLimit[] allServiceabilityLimits)
+public class ProtocolReportDataProvider(IStairsFactory stairsFactory, IOptions<StairsSettings> stairsSettings, IOptions<ReportSettings> reportSettings) : IProtocolReportDataProvider
 {
+    Order order = new();
+    Protocol protocol = new();
     List<StairsElementResult>? stairsElementResults;
-
     ServiceabilityLimit[]? serviceabilityLimits;
+    readonly ReportSettings reportSettings = reportSettings.Value;
+    readonly ServiceabilityLimit[] allServiceabilityLimits = stairsSettings.Value.ServiceabilityLimits ?? [];
 
     ServiceabilityLimit[] ServiceabilityLimits
     {
         get
         {
             serviceabilityLimits ??= allServiceabilityLimits.Where(item =>
-                    item.BaseStairsType == Stairs.BaseStairsType &&
-                    (!item.StairsType.HasValue || item.StairsType == Stairs.StairsType) &&
-                    (!item.IsEvacuation.HasValue || item.IsEvacuation == Stairs.IsEvacuation)).ToArray();
+                item.BaseStairsType == Stairs.BaseStairsType &&
+                (!item.StairsType.HasValue || item.StairsType == Stairs.StairsType) &&
+                (!item.IsEvacuation.HasValue || item.IsEvacuation == Stairs.IsEvacuation)).ToArray();
             return serviceabilityLimits;
         }
     }
@@ -52,6 +56,19 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
     public IEnumerable<(string, string)> PlatformP2Sizes => GetCalcParams<PlatformP2>();
     public IEnumerable<(string, string)> StairwayP2Calc => GetStairsElementResultCalc<StairwayP2>();
     public IEnumerable<(string, string)> PlatformP2Calc => GetStairsElementResultCalc<PlatformP2>();
+    public string FontName => reportSettings.FontName;
+    public float FontSize => reportSettings.FontSize;
+    public string DateFormat => reportSettings.DateFormat;
+    public string FloatFormat => reportSettings.FloatFormat;
+    public float ImageScale => reportSettings.ImageScale;
+
+    public void Init(Order order, Protocol protocol)
+    {
+        serviceabilityLimits = null;
+        stairsElementResults = null;
+        this.order = order;
+        this.protocol = protocol;
+    }
 
     public bool HasStairsFence
     {
@@ -115,9 +132,9 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         }
     }
 
-    public float? MaxStairsP1Height 
-    { 
-        get 
+    public float? MaxStairsP1Height
+    {
+        get
         {
             var stairsHeightlimit = allServiceabilityLimits.FirstOrDefault(limit => limit.StairsType == StairsTypeEnum.P1_1 &&
                 limit.ServiceabilityName == $"{nameof(Stairs)}.{nameof(Stairs.StairsHeight)}");
@@ -137,7 +154,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
             return $"({StairsHeight.ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K1}*{element.TestPointCount})*{BaseStairsElement.K3} = {element.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)}";
 
         if (element is BasePlatformElement platformElement)
-           return $"({platformElement.Size}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{platformElement.SupportBeamsCount})*{BaseStairsElement.K3} = {platformElement.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)}";
+            return $"({platformElement.Size}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{platformElement.SupportBeamsCount})*{BaseStairsElement.K3} = {platformElement.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)}";
 
         if (element is StairwayP2 stairwayP2)
             return $"({(stairwayP2.StairwayLength / 1000).ToString(reportSettings.FloatFormat)}*{BaseStairsElement.K2})/({BaseStairsElement.K4}*{stairwayP2.SupportBeamsCount})*{BaseStairsElement.K3}*{BaseStairsElement.COS_ALPHA} = {stairwayP2.WithstandLoadCalcResult.ToString(reportSettings.FloatFormat)}";
@@ -186,7 +203,7 @@ public class ProtocolReportDataProvider(Order order, Protocol protocol, ReportSe
         if (serviceabilityRecord.ServiceabilityType == ServiceabilityTypeEnum.Approve)
             yield break;
 
-        var floatFormat = serviceabilityRecord.Multiplier > 1? reportSettings.FloatFormat : string.Empty;
+        var floatFormat = serviceabilityRecord.Multiplier > 1 ? reportSettings.FloatFormat : string.Empty;
 
         if (serviceabilityRecord.MaxValue.HasValue && serviceabilityRecord.Value > serviceabilityRecord.MaxValue)
         {

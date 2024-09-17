@@ -307,7 +307,7 @@
     <value>Количество ступеней</value>
   </data>
   <data name="StepsCountHint" xml:space="preserve">
-    <value>Укажите количество ступеней лестницы</value>
+    <value>Укажите кол-во ступеней лестницы</value>
   </data>
   <data name="WeldSeamServiceability" xml:space="preserve">
     <value>Качество сварных швов соответствует ГОСТ</value>
@@ -538,7 +538,7 @@
     <value>Расст. между ступенями</value>
   </data>
   <data name="StepsDistanceHint" xml:space="preserve">
-    <value>Укажите расстояние между ступенями</value>
+    <value>Укажите расст. между ступенями</value>
   </data>
   <data name="BuildingMountedTrim" xml:space="preserve">
     <value>на здание</value>
@@ -623,5 +623,8 @@
   </data>
   <data name="StairwayAbsentHint" xml:space="preserve">
     <value>Отсутствует марш П2</value>
+  </data>
+  <data name="FilesAccessPermissionWarning" xml:space="preserve">
+    <value>Установите доступ к управлению всеми файлами!</value>
   </data>
 </root>

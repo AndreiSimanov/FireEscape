@@ -538,6 +538,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Установите доступ к управлению всеми файлами!.
+        /// </summary>
+        internal static string FilesAccessPermissionWarning {
+            get {
+                return ResourceManager.GetString("FilesAccessPermissionWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пожарная лестница.
         /// </summary>
         internal static string FireEscape {
@@ -1303,7 +1312,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите количество ступеней лестницы.
+        ///   Looks up a localized string similar to Укажите кол-во ступеней лестницы.
         /// </summary>
         internal static string StepsCountHint {
             get {
@@ -1321,7 +1330,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Укажите расстояние между ступенями.
+        ///   Looks up a localized string similar to Укажите расст. между ступенями.
         /// </summary>
         internal static string StepsDistanceHint {
             get {

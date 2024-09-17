@@ -1,6 +1,8 @@
 ﻿using FireEscape.DBContext;
 using FireEscape.Factories;
 using FireEscape.Factories.Interfaces;
+using FireEscape.Reports.Interfaces;
+using FireEscape.Reports.ReportDataProviders;
 using FireEscape.Reports.ReportMakers;
 using FireEscape.Validators;
 using FluentValidation;
@@ -21,9 +23,10 @@ public static class ModuleInitializer
         services.AddSingleton<IOrderRepository, OrderRepository>();
         services.AddSingleton<IProtocolRepository, ProtocolRepository>();
         services.AddSingleton<IStairsRepository, StairsRepository>();
-        services.AddSingleton<IReportRepository, PdfWriterRepository>();
         services.AddSingleton<IFileHostingRepository, DropboxRepository>();
+        services.AddSingleton<IReportRepository, PdfWriterRepository>();
         services.AddSingleton<IProtocolPdfReportMaker, ProtocolPdfReportMaker>();
+        services.AddSingleton<IProtocolReportDataProvider, ProtocolReportDataProvider>();
 
         services.AddSingleton<ReportService>();
         services.AddSingleton<OrderService>();
