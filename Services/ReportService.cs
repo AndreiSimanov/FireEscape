@@ -7,7 +7,7 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
 {
     public async Task CreateSingleReportAsync(Order order, Protocol protocol, bool incrementFileNameIfExists = false)
     {
-        var folderPath = PrepareOutputFolder(order);
+        var folderPath = await PrepareOutputFolderAsync(order);
         if (string.IsNullOrWhiteSpace(folderPath))
             return;
 
@@ -23,7 +23,7 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
 
     public async Task CreateBatchReportAsync(Order order, Protocol[] protocols, CancellationToken ct, IProgress<(double progress, string outputPath)>? progress = null)
     {
-        var folderPath = PrepareOutputFolder(order);
+        var folderPath = await PrepareOutputFolderAsync(order);
         if (string.IsNullOrWhiteSpace(folderPath))
             return;
         var userAccount = await userAccountService.GetCurrentUserAccountAsync();
@@ -43,14 +43,15 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
         }
     }
 
-    public static IEnumerable<FileInfo> GetReports(Order order) => new DirectoryInfo(PrepareOutputFolder(order)).EnumerateFiles();
+    public static async Task<IEnumerable<FileInfo>> GetReportsAsync(Order order) => 
+        new DirectoryInfo(await PrepareOutputFolderAsync(order)).EnumerateFiles();
 
     public static async Task MakeReportArchiveAsync(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
     {
         if (files.Count == 0)
             return;
 
-        using var archiveStream = await ReportService.GetArchiveStream(files, ct, progress);
+        using var archiveStream = await GetArchiveStream(files, ct, progress);
 
         if (ct.IsCancellationRequested)
             return;
@@ -100,9 +101,9 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
             throw new Exception(string.Format(AppResources.UnregisteredApplicationMessage, userAccountService.CurrentUserAccountId));
     }
 
-    static string PrepareOutputFolder(Order order)
+    static async Task<string> PrepareOutputFolderAsync(Order order)
     {
-        var outputPath = ApplicationSettings.DocumentsFolder;
+        var outputPath = await ApplicationSettings.GetDocumentsFolderAsync();
         var defaultOrderFolderName = $"{AppResources.Order}_{order.Id}_";
         var orderFolderName = defaultOrderFolderName + (string.IsNullOrWhiteSpace(order.Name) ? string.Empty : AppUtils.ToValidFileName(order.Name.Trim()));
         var fullPath = Path.Combine(outputPath, orderFolderName);

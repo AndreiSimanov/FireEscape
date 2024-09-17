@@ -8,9 +8,10 @@ public static class AppUtils
 {
     const string MULTIPLE_SPACES_PATTERN = @"([ ])\1+";
 
-    public static string GetDefaultContentFolder(string applicationFolderName)
+    public static async Task<string> GetDefaultContentFolderAsync(string applicationFolderName)
     {
 #if ANDROID
+        await MainActivity.AllFilesAccessPermissionTask;
         if (OperatingSystem.IsAndroidVersionAtLeast(30) &&
             Android.OS.Environment.ExternalStorageDirectory != null &&
             Android.OS.Environment.IsExternalStorageManager)
@@ -21,20 +22,11 @@ public static class AppUtils
         var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
         return (docsDirectory!.AbsoluteFile.Parent == null) ? docsDirectory!.AbsoluteFile.Path : docsDirectory!.AbsoluteFile.Parent;
 #else
+        await Task.FromResult(true);
         return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
 
     }
-
-    public static Task<bool> GetAllFilesAccessPermissionAsync()
-    {
-#if ANDROID
-        return MainActivity.AllFilesAccessPermissionTask;
-#else
-        return Task.FromResult(true);
-#endif
-    }
-
     public static async Task<bool> IsNetworkAccessAsync()
     {
         if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)

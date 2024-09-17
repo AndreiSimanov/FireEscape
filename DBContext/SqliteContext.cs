@@ -10,8 +10,7 @@ public class SqliteContext : IAsyncDisposable
     {
         connection = new AsyncLazy<SQLiteAsyncConnection>(async () =>
         {
-            await AppUtils.GetAllFilesAccessPermissionAsync();
-            var conn = new SQLiteAsyncConnection(Path.Combine(ApplicationSettings.DefaultContentFolder, applicationSettings.Value.DbName));
+            var conn = new SQLiteAsyncConnection(Path.Combine(await ApplicationSettings.GetDefaultContentFolderAsync(), applicationSettings.Value.DbName));
             //await conn.DropTableAsync<Order>();
             //await conn.DropTableAsync<Protocol>();
             //await conn.DropTableAsync<Stairs>();

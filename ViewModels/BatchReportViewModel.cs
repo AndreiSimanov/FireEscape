@@ -121,12 +121,15 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
         AppResources.CreateReportError);
 
     [RelayCommand]
-    void GetReports() =>
-        DoBusyCommand(() =>
+    Task GetReportsAsync() =>
+        DoBusyCommandAsync(async () =>
         {
             Reset();
             if (Order != null)
-                Files = ReportService.GetReports(Order).ToObservableCollection();
+            {
+                var reports = await ReportService.GetReportsAsync(Order);
+                Files = reports.ToObservableCollection();
+            }
             FilesExists = Files.Count > 0;
         },
         AppResources.CreateReportError);

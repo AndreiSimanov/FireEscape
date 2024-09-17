@@ -69,9 +69,8 @@ public static class MauiProgram
             }).
              AddStreamingFileLogger(async (options) =>
              {
-                 await AppUtils.GetAllFilesAccessPermissionAsync();
                  options.RetainDays = 2;
-                 options.FolderPath = ApplicationSettings.LogFolder;
+                 options.FolderPath =  await ApplicationSettings.GetLogFolderAsync();
              });
         builder.Services.ConfigureServices();
         return builder.Build();

@@ -18,7 +18,7 @@ public class OrderRepository(SqliteContext context, IOrderFactory factory) : Bas
         });
 
         var imageFileMask = $"{order.Id}_*.{ImageUtils.IMAGE_FILE_EXTENSION}";
-        var dir = new DirectoryInfo(ApplicationSettings.ImagesFolder);
+        var dir = new DirectoryInfo(await ApplicationSettings.GetImagesFolderAsync());
         foreach (var file in dir.EnumerateFiles(imageFileMask))
             file.Delete();
     }
