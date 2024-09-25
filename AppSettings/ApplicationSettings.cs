@@ -22,11 +22,11 @@ public class ApplicationSettings
     public required UnitOfMeasure PrimaryUnitOfMeasure { get; set; }
     public required UnitOfMeasure SecondaryUnitOfMeasure { get; set; }
 
-    public static Task<string> GetDefaultContentFolderAsync() => AppUtils.GetDefaultContentFolderAsync(APPLICATION_FOLDER_NAME);
+    public static Task<string> GetDefaultContentFolderAsync() => AppUtils.GetExternalContentFolderAsync(APPLICATION_FOLDER_NAME);
     public static async Task<string> GetImagesFolderAsync() => AppUtils.CreateFolderIfNotExists(await GetDefaultContentFolderAsync(), IMAGES_FOLDER);
     public static async Task<string> GetDocumentsFolderAsync() => AppUtils.CreateFolderIfNotExists(await GetDefaultContentFolderAsync(), DOCUMENTS_FOLDER);
-    public static async Task<string> GetLogFolderAsync() => AppUtils.CreateFolderIfNotExists(await GetDefaultContentFolderAsync(), LOG_FOLDER);
 
+    public static string LogFolder => AppUtils.CreateFolderIfNotExists(AppUtils.DefaultContentFolder, LOG_FOLDER);
     public static string CacheFolder => FileSystem.CacheDirectory;
 
     /*
