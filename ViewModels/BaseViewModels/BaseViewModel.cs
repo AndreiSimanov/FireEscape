@@ -76,7 +76,7 @@ public partial class BaseViewModel(ILogger<BaseViewModel> logger) : ObservableOb
         }
         catch (Exception ex)
         {
-            ProcessExeptionAsync(exceptionCaption, ex).Wait();
+            ProcessExeptionAsync(exceptionCaption, ex);
         }
         finally
         {
@@ -91,7 +91,7 @@ public partial class BaseViewModel(ILogger<BaseViewModel> logger) : ObservableOb
         }
         catch (Exception ex)
         {
-            ProcessExeptionAsync(exceptionCaption, ex).Wait();
+            ProcessExeptionAsync(exceptionCaption, ex);
         }
     }
 }

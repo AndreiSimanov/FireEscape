@@ -28,7 +28,10 @@ public abstract partial class BaseStairsElement : ObservableObject
     public virtual BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P1;
 
     [JsonIgnore]
-    public virtual bool Required => false;
+    public virtual bool IsRequired => false;
+
+    [JsonIgnore]
+    public virtual bool IsSingleElement => true;
 
     [JsonIgnore]
     public abstract int PrintOrder { get; }

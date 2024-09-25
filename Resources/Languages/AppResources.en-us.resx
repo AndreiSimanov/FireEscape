@@ -337,7 +337,7 @@
     <value>Copy</value>
   </data>
   <data name="CopyProtocolError" xml:space="preserve">
-    <value>Unable to copy protocol</value>
+    <value>Unable to copy the protocol</value>
   </data>
   <data name="DeleteStairsElement" xml:space="preserve">
     <value>Delete the stairs element?</value>
@@ -626,5 +626,14 @@
   </data>
   <data name="FilesAccessPermissionWarning" xml:space="preserve">
     <value>Allow permission access to manage all files!</value>
+  </data>
+  <data name="AddStairsElementError" xml:space="preserve">
+    <value>Unable to add stairs element</value>
+  </data>
+  <data name="CopyStairsElementError" xml:space="preserve">
+    <value>Unable to copy the stairs element</value>
+  </data>
+  <data name="CopyStairsError" xml:space="preserve">
+    <value>Unable to copy the stairs</value>
   </data>
 </root>

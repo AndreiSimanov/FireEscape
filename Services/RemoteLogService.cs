@@ -18,13 +18,13 @@ public class RemoteLogService(IFileHostingRepository fileHostingRepository, ILog
         var lastCount = log.Length < maxLogItemsCount ? log.Length : maxLogItemsCount - 1;
         log = [.. log.TakeLast(lastCount), .. new[] { remoteLogMessage }];
         SetLocalLog(remoteLogCategory, log);
-        return TryToUploadLogAsync(key, remoteLogCategory, log);
+        return UploadLogAsync(key, remoteLogCategory, log);
     }
 
     RemoteLogMessage[] GetLocalLog(RemoteLogCategoryType remoteLogCategory)
     {
         var json = Preferences.Default.Get(EnumDescriptionTypeConverter.GetEnumDescription(remoteLogCategory), string.Empty);
-        return AppUtils.TryToDeserialize<RemoteLogMessage[]>(json) ?? [];
+        return AppUtils.TryDeserialize<RemoteLogMessage[]>(json, out var result) ? result! : [];
     }
 
     void SetLocalLog(RemoteLogCategoryType remoteLogCategory, RemoteLogMessage[] messages)
@@ -33,7 +33,7 @@ public class RemoteLogService(IFileHostingRepository fileHostingRepository, ILog
         Preferences.Set(EnumDescriptionTypeConverter.GetEnumDescription(remoteLogCategory), json);
     }
 
-    async Task TryToUploadLogAsync(string key, RemoteLogCategoryType remoteLogCategory, RemoteLogMessage[] messages)
+    async Task UploadLogAsync(string key, RemoteLogCategoryType remoteLogCategory, RemoteLogMessage[] messages)
     {
         if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
             return;
@@ -52,9 +52,8 @@ public class RemoteLogService(IFileHostingRepository fileHostingRepository, ILog
     {
         if (string.IsNullOrWhiteSpace(key) || !await AppUtils.IsNetworkAccessAsync())
             return [];
-
         var folder = Path.Join(remoteLogSettings.RemoteLogFolderName, EnumDescriptionTypeConverter.GetEnumDescription(remoteLogCategory));
         var json = await fileHostingRepository.DownloadJsonAsync(key, folder);
-        return AppUtils.TryToDeserialize<RemoteLogMessage[]>(json) ?? [];
+        return AppUtils.TryDeserialize<RemoteLogMessage[]>(json, out var result) ? result! : [];
     }
 }

@@ -124,6 +124,15 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно добавить элемент лестницы.
+        /// </summary>
+        internal static string AddStairsElementError {
+            get {
+                return ResourceManager.GetString("AddStairsElementError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Администратор.
         /// </summary>
         internal static string Administrator {
@@ -219,6 +228,24 @@ namespace FireEscape.Resources.Languages {
         internal static string CopyProtocolError {
             get {
                 return ResourceManager.GetString("CopyProtocolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно скопировать элемент лестницы.
+        /// </summary>
+        internal static string CopyStairsElementError {
+            get {
+                return ResourceManager.GetString("CopyStairsElementError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно скопировать лестницу.
+        /// </summary>
+        internal static string CopyStairsError {
+            get {
+                return ResourceManager.GetString("CopyStairsError", resourceCulture);
             }
         }
         

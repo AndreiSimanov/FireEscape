@@ -9,6 +9,7 @@ public partial class StairsPage : BaseStairsPage
     {
         InitializeComponent();
         Content.SizeChanged += ContentSizeChanged;
+        stairsElements.Scrolled += StairsElementsScrolled;
     }
 
     void ContentSizeChanged(object? sender, EventArgs e) =>
@@ -19,8 +20,27 @@ public partial class StairsPage : BaseStairsPage
         if (ViewModel != null)
         {
             await ViewModel.AddStairsElementCommand.ExecuteAsync(null);
-            stairsElements.ScrollTo(0);
+            await ScrollUpStairsElementsAsync();
         }
+    }
+
+    async void CopyStairsElement(object sender, SwipeItemTapEventArgs e)
+    {
+        if (e.Item is not BaseStairsElement stairsElement)
+            return;
+        ViewModel?.CopyStairsElementCommand.Execute(stairsElement);
+        await ScrollUpStairsElementsAsync();
+    }
+
+    async Task ScrollUpStairsElementsAsync()
+    {
+        stairsElements.Scrolled -= StairsElementsScrolled;
+        stairsElements.BeginUpdate();
+        stairsElements.ScrollTo(0);
+        stairsElements.EndUpdate();
+        await Task.Delay(500); // preventing call HideBottomSheet while stairsElements scrolling
+        stairsElements.Scrolled -= StairsElementsScrolled;
+        stairsElements.Scrolled += StairsElementsScrolled;
     }
 
     void StairsTypeChanged(object sender, EventArgs e)
@@ -43,7 +63,7 @@ public partial class StairsPage : BaseStairsPage
 
     void ScrollViewScrolled(object sender, ScrolledEventArgs e) => HideBottomSheet();
 
-    void StairsElementsScrolled(object sender, DXCollectionViewScrolledEventArgs e) => HideBottomSheet();
+    void StairsElementsScrolled(object? sender, DXCollectionViewScrolledEventArgs e) => HideBottomSheet();
 
     void SetSelectedStairsElements(BaseStairsElement? element = null) => ViewModel?.SelectStairsElementCommand.Execute(element);
 
