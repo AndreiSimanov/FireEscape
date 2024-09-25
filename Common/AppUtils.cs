@@ -8,7 +8,7 @@ public static class AppUtils
 {
     const string MULTIPLE_SPACES_PATTERN = @"([ ])\1+";
 
-    public static async Task<string> GetDefaultContentFolderAsync(string applicationFolderName)
+    public static async Task<string> GetExternalContentFolderAsync(string applicationFolderName)
     {
 #if ANDROID
         await MainActivity.AllFilesAccessPermissionTask;
@@ -19,14 +19,28 @@ public static class AppUtils
             return CreateFolderIfNotExists(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, applicationFolderName);
         }
 
-        var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
-        return (docsDirectory!.AbsoluteFile.Parent == null) ? docsDirectory!.AbsoluteFile.Path : docsDirectory!.AbsoluteFile.Parent;
+        return DefaultContentFolder;
 #else
         await Task.FromResult(true);
         return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
 
     }
+
+    public static string DefaultContentFolder
+    {
+        get
+        {
+
+#if ANDROID
+            var docsDirectory = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments);
+            return (docsDirectory!.AbsoluteFile.Parent == null) ? docsDirectory!.AbsoluteFile.Path : docsDirectory!.AbsoluteFile.Parent;
+#else
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+#endif
+        }
+    }
+
     public static async Task<bool> IsNetworkAccessAsync()
     {
         if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
