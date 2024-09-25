@@ -71,18 +71,21 @@ public static class AppUtils
                 dir.Delete(true);
     }
 
-    public static T? TryToDeserialize<T>(string json) 
+    public static bool TryDeserialize<T>(string json, out T? result)
     {
+        result = default;
         if (string.IsNullOrWhiteSpace(json))
-            return default;
+            return false;
+         
         try
         {
-            return JsonSerializer.Deserialize<T>(json) ?? default;
+            result = JsonSerializer.Deserialize<T>(json);
         }
         catch
         {
-            return default;
+            return false;
         }
+        return result != null;
     }
 
     public static async void SafeFireAndForget(this Task task,  Action<Exception>? onException)

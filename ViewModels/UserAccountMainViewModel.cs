@@ -30,7 +30,7 @@ public partial class UserAccountMainViewModel(UserAccountService userAccountServ
             {
                 IsRefreshing = false;
                 UserAccounts.Clear();
-                await foreach (var userAccount in userAccountService.GetAsync())
+                await foreach (var userAccount in userAccountService.GetUserAccountsAsync())
                 {
                     UserAccounts.Add(userAccount);
                 }

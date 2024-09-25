@@ -11,6 +11,7 @@ public partial class StairwayP2 : BaseSupportBeamsElement
 
     public override string Name => AppResources.Stairway;
     public override BaseStairsTypeEnum BaseStairsType => BaseStairsTypeEnum.P2;
+    public override bool IsSingleElement => false;
     public override int PrintOrder => 30;
     public override string Caption => Name + " " + ElementNumber;
     public override int TestPointCount => 1;

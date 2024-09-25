@@ -25,7 +25,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
             userAccount = GetLocalUserAccount();
             if (userAccount == null)
             {
-                TryToGetUserAccountAsync().SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
+                GetUserAccountAsync().SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
                 return GetNewUserAccount();
             }
             CheckRemoteUserAccount(userAccount);
@@ -35,7 +35,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
         if (!await AppUtils.IsNetworkAccessAsync())
             return null;
 
-        userAccount = await TryToGetUserAccountAsync();
+        userAccount = await GetUserAccountAsync();
         return userAccount;
     }
 
@@ -56,7 +56,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
             Preferences.Default.Remove(USER_ACCOUNT);
     }
 
-    public async IAsyncEnumerable<UserAccount> GetAsync()
+    public async IAsyncEnumerable<UserAccount> GetUserAccountsAsync()
     {
         if (!await AppUtils.IsNetworkAccessAsync())
             yield break;
@@ -107,7 +107,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
         fileHostingRepository.UploadJsonAsync(userAccount.Id,
             JsonSerializer.Serialize(userAccount), applicationSettings.UserAccountsFolderName);
 
-    async Task<UserAccount?> TryToGetUserAccountAsync()
+    async Task<UserAccount?> GetUserAccountAsync()
     {
         try
         {
@@ -157,11 +157,8 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
 
     async Task<UserAccount?> DownloadUserAccountAsync(string userAccountId)
     {
-        UserAccount? userAccount = null;
         var json = await fileHostingRepository.DownloadJsonAsync(userAccountId, applicationSettings.UserAccountsFolderName);
-        if (!string.IsNullOrWhiteSpace(json))
-            userAccount = JsonSerializer.Deserialize<UserAccount>(json);
-        return userAccount;
+        return AppUtils.TryDeserialize<UserAccount>(json, out var userAccount) ? userAccount : null;
     }
 
     UserAccount? GetLocalUserAccount()
@@ -169,7 +166,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
         lock (syncObject)
         {
             var json = Preferences.Default.Get(USER_ACCOUNT, string.Empty);
-            return AppUtils.TryToDeserialize<UserAccount>(json);
+            return AppUtils.TryDeserialize<UserAccount>(json, out var userAccount) ? userAccount : null;
         }
     }
 
@@ -192,7 +189,7 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
 
         var checkCounter = Preferences.Default.Get(CHECK_COUNTER, 0);
         if (checkCounter == 0 || !IsValidUserAccount(userAccount) || string.Equals(userAccount.Name, NEW_USER_NAME))
-            TryToGetUserAccountAsync().SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
+            GetUserAccountAsync().SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
         if (checkCounter > 0)
             Preferences.Default.Set(CHECK_COUNTER, --checkCounter);
     }

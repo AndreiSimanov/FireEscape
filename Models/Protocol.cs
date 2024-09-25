@@ -3,7 +3,7 @@
 namespace FireEscape.Models;
 
 [Table("Protocols")]
-public partial class Protocol : BaseDocument, ICloneable
+public partial class Protocol : BaseDocument
 {
     [Indexed]
     [Column(nameof(OrderId))]
@@ -42,6 +42,4 @@ public partial class Protocol : BaseDocument, ICloneable
     [Ignore]
     [JsonIgnore]
     public bool HasImage => !string.IsNullOrWhiteSpace(ImageFilePath) && File.Exists(ImageFilePath);
-
-    public object Clone() => MemberwiseClone();
 }

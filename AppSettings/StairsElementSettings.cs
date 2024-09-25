@@ -4,6 +4,6 @@ public readonly record struct StairsElementSettings(
     BaseStairsTypeEnum BaseStairsType,
     string TypeName,
     float WithstandLoad,
-    bool Required,
+    bool AddToStairsByDefault,
     int MaxCount,
     int SupportBeamsCount);

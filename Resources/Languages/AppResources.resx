@@ -627,4 +627,13 @@
   <data name="FilesAccessPermissionWarning" xml:space="preserve">
     <value>Установите доступ к управлению всеми файлами!</value>
   </data>
+  <data name="AddStairsElementError" xml:space="preserve">
+    <value>Невозможно добавить элемент лестницы</value>
+  </data>
+  <data name="CopyStairsElementError" xml:space="preserve">
+    <value>Невозможно скопировать элемент лестницы</value>
+  </data>
+  <data name="CopyStairsError" xml:space="preserve">
+    <value>Невозможно скопировать лестницу</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using FireEscape.Factories.Interfaces;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 namespace FireEscape.Factories;
 
@@ -22,15 +23,18 @@ public class ProtocolFactory(IOptions<ProtocolSettings> ProtocolSettings) : IPro
 
     public Protocol CopyProtocol(Protocol protocol)
     {
-        var newProtocol = (Protocol)protocol.Clone();
-        newProtocol.Id = 0;
-        newProtocol.Image = null;
-        newProtocol.ImageFilePath = null;
-        newProtocol.Stairs = new();
-        newProtocol.StairsId = 0;
-        newProtocol.FireEscapeNum = 0;
-        newProtocol.Created = DateTime.Now;
-        newProtocol.Updated = DateTime.Now;
-        return newProtocol;
+        if (AppUtils.TryDeserialize<Protocol>(JsonSerializer.Serialize(protocol), out var copy))
+        {
+            copy!.Id = 0;
+            copy.Image = null;
+            copy.ImageFilePath = null;
+            copy.Stairs = new();
+            copy.StairsId = 0;
+            copy.FireEscapeNum = 0;
+            copy.Created = DateTime.Now;
+            copy.Updated = DateTime.Now;
+            return copy;
+        }
+        throw new Exception(AppResources.CopyProtocolError);
     }
 }

@@ -59,7 +59,8 @@
                 <conv:FloatZeroToObjectConverter x:Key="FloatZeroToBoolConverter"  TrueObject="True" FalseObject="False" />
                 <conv:IntZeroToObjectConverter x:Key="IntZeroToBoolConverter"  TrueObject="True" FalseObject="False" />
                 <toolkit:EnumToBoolConverter x:Key="EnumToBoolConverter" />
-                <toolkit:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="{dx:ThemeColor Background}" FalseObject="#D74F67" />
+                <toolkit:BoolToObjectConverter x:Key="DeleteBoolToObjectConverter" TrueObject="{dx:ThemeColor Background}" FalseObject="#D74F67" />
+                <toolkit:BoolToObjectConverter x:Key="CopyBoolToObjectConverter" TrueObject="{dx:ThemeColor Background}" FalseObject="Green" />
                 <toolkit:BoolToObjectConverter x:Key="BoolToImageColorConverter" TrueObject="Transparent" FalseObject="{dx:ThemeColor Background}" />
             </ResourceDictionary>
         </ScrollView.Resources>
@@ -220,7 +221,6 @@
             <dxcv:DXCollectionView 
                 x:Name="stairsElements"
                 ItemsSource="{Binding EditObject.StairsElements}"
-                Scrolled="StairsElementsScrolled"
                 AllowLiveDataShaping="True"
                 IsScrollBarVisible="False"
                 SelectionMode="Single"
@@ -230,18 +230,33 @@
                 <dxcv:DXCollectionView.ItemTemplate>
                     <DataTemplate x:DataType="baseelements:BaseStairsElement">
                         <dxcv:SwipeContainer FullSwipeMode="None" Margin="5,5,5,5">
+                            <dxcv:SwipeContainer.StartSwipeItems>
+                                <dxcv:CustomSwipeItem
+                                    BackgroundColor="{Binding IsSingleElement, Converter={StaticResource CopyBoolToObjectConverter}}"
+                                    Tap="CopyStairsElement">
+                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                        <dx:DXImage 
+                                            TintColor="{Binding IsSingleElement, Converter={StaticResource BoolToImageColorConverter}}"
+                                            Source="copy"/>
+                                        <Label 
+                                            Style="{StaticResource SubLine}" 
+                                            TextColor="{Binding IsSingleElement, Converter={StaticResource BoolToImageColorConverter}}"
+                                            Text="{x:Static lang:AppResources.Copy}" />
+                                    </StackLayout>
+                                </dxcv:CustomSwipeItem>
+                            </dxcv:SwipeContainer.StartSwipeItems>
                             <dxcv:SwipeContainer.EndSwipeItems>
                                 <dxcv:CustomSwipeItem
-                                    BackgroundColor="{Binding Required, Converter={StaticResource BoolToObjectConverter}}"
+                                    BackgroundColor="{Binding IsRequired, Converter={StaticResource DeleteBoolToObjectConverter}}"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=DeleteElementCommand}"
                                     CommandParameter="{Binding .}">
                                     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                         <dx:DXImage 
-                                            TintColor="{Binding Required, Converter={StaticResource BoolToImageColorConverter}}"
+                                            TintColor="{Binding IsRequired, Converter={StaticResource BoolToImageColorConverter}}"
                                             Source="delete"/>
                                         <Label 
                                             Style="{StaticResource SubLine}" 
-                                            TextColor="{Binding Required, Converter={StaticResource BoolToImageColorConverter}}"
+                                            TextColor="{Binding IsRequired, Converter={StaticResource BoolToImageColorConverter}}"
                                             Text="{x:Static lang:AppResources.Delete}" />
                                     </StackLayout>
                                 </dxcv:CustomSwipeItem>

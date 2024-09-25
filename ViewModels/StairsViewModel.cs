@@ -125,24 +125,27 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
             if (elementNames.Length != 0)
             {
                 var action = await Shell.Current.DisplayActionSheet(AppResources.SelectStairsElement, AppResources.Cancel, string.Empty, elementNames);
-                var element = availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action));
-                if (element != null)
-                {
-                    EditObject.StairsElements.Insert(0, element);
-                    UpdatStairsElements();
-                    SetPlatformP1Width();
-                    SelectStairsElement(element);
-                }
+                AddStairsElement(availableStairsElements.FirstOrDefault(item => string.Equals(item.ToString(), action)));
             }
         },
-        AppResources.AddProtocolError);
+        AppResources.AddStairsElementError);
+
+    [RelayCommand]
+    void CopyStairsElement(BaseStairsElement stairsElement) =>
+     DoBusyCommand(() =>
+     {
+         if (EditObject == null || stairsElement == null || stairsElement.IsSingleElement)
+             return;
+         AddStairsElement(stairsFactory.CopyStairsElement(EditObject, stairsElement));
+     },
+     AppResources.CopyStairsElementError);
 
     [RelayCommand]
     Task DeleteElementAsync(BaseStairsElement element) =>
         DoBusyCommandAsync(async () =>
         {
             SelectedStairsElement = element;
-            if (EditObject == null || element.Required)
+            if (EditObject == null || element.IsRequired)
                 return;
             var action = await Shell.Current.DisplayActionSheet(AppResources.DeleteStairsElement, AppResources.Cancel, AppResources.Delete);
             if (string.Equals(action, AppResources.Delete))
@@ -190,6 +193,18 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         DoCommandAsync(() => stairsService.SaveAsync(EditObject!),
             EditObject,
             AppResources.SaveProtocolError);
+
+    void AddStairsElement(BaseStairsElement? stairsElement)
+    {
+        if (EditObject != null && stairsElement != null)
+        {
+            EditObject.StairsElements.Insert(0, stairsElement);
+            UpdateStepsCount();
+            UpdatStairsElements();
+            SetPlatformP1Width();
+            SelectStairsElement(stairsElement);
+        }
+    }
 
     public static string PlatformLength => AddUnitOfMeasure(AppResources.PlatformLength, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
     public static string PlatformWidth => AddUnitOfMeasure(AppResources.PlatformWidth, UnitOfMeasureSettings.PrimaryUnitOfMeasure);

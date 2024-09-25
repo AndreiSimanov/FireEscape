@@ -23,11 +23,14 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
 
     public Stairs CopyStairs(Stairs stairs)
     {
-        var copy = JsonSerializer.Deserialize<Stairs>(JsonSerializer.Serialize(stairs)) ?? throw new Exception("Unable to copy the stairs");
-        copy.Id = 0;
-        copy.Created = DateTime.Now;
-        copy.Updated = DateTime.Now;
-        return copy;
+        if (AppUtils.TryDeserialize<Stairs>(JsonSerializer.Serialize(stairs), out var copy))
+        {
+            copy!.Id = 0;
+            copy.Created = DateTime.Now;
+            copy.Updated = DateTime.Now;
+            return copy;
+        }
+        throw new Exception(AppResources.CopyStairsError);
     }
 
     public IEnumerable<BaseStairsElement> GetAvailableStairsElements(Stairs stairs)
@@ -51,6 +54,17 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
         }
     }
 
+    public BaseStairsElement CopyStairsElement(Stairs stairs, BaseStairsElement stairsElement)
+    {
+        var availableStairsElement = GetAvailableStairsElements(stairs).FirstOrDefault(item => item.StairsElementType == stairsElement.StairsElementType);
+        if (availableStairsElement != null && AppUtils.TryDeserialize<BaseStairsElement>(JsonSerializer.Serialize(stairsElement), out var copy))
+        {
+            copy!.ElementNumber = availableStairsElement!.ElementNumber;
+            return copy;
+        }
+        throw new Exception(AppResources.CopyStairsElementError);
+    }
+
     static BaseStairsElement? CreateElement(Type type, int elementNumber, StairsElementSettings elementSettings)
     {
         if (Activator.CreateInstance(type) is BaseStairsElement stairsElement)
@@ -68,12 +82,12 @@ public class StairsFactory(IOptions<StairsSettings> stairsSettings) : IStairsFac
     {
         if (stairsSettings.StairsElementSettings == null)
             yield break;
-        foreach (var elementSetting in stairsSettings.StairsElementSettings.Where(item => item.Required))
+        foreach (var elementSetting in stairsSettings.StairsElementSettings.Where(item => item.AddToStairsByDefault))
         {
             var elementType = Type.GetType(elementSetting.TypeName);
             if (elementType == null)
                 continue;
-            var stairsElement = StairsFactory.CreateElement(elementType, 1, elementSetting);
+            var stairsElement = CreateElement(elementType, 1, elementSetting);
             if (stairsElement == null)
                 continue;
             yield return stairsElement;
