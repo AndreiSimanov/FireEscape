@@ -8,7 +8,7 @@ namespace FireEscape;
 public partial class App : Application
 {
     readonly ApplicationSettings applicationSettings;
-    public App(UserAccountService userAccountService, IOptions<ApplicationSettings> applicationSettings, ILogger<App> logger)
+    public App(IUserAccountService userAccountService, IOptions<ApplicationSettings> applicationSettings, ILogger<App> logger)
     {
         this.applicationSettings = applicationSettings.Value;
         SetThemeColor();

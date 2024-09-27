@@ -15,6 +15,8 @@ public static class ModuleInitializer
     {
         services.AddSingleton<SqliteContext>();
 
+        services.AddTransient<IValidator<Stairs>, StairsValidator>();
+
         services.AddSingleton<IOrderFactory, OrderFactory>();
         services.AddSingleton<IProtocolFactory, ProtocolFactory>();
         services.AddSingleton<IStairsFactory, StairsFactory>();
@@ -28,41 +30,32 @@ public static class ModuleInitializer
         services.AddSingleton<IProtocolPdfReportMaker, ProtocolPdfReportMaker>();
         services.AddSingleton<IProtocolReportDataProvider, ProtocolReportDataProvider>();
 
-        services.AddSingleton<ReportService>();
-        services.AddSingleton<OrderService>();
-        services.AddSingleton<ProtocolService>();
-        services.AddSingleton<StairsService>();
-        services.AddSingleton<UserAccountService>();
-        services.AddSingleton<RemoteLogService>();
+        services.AddSingleton<IReportService, ReportService>();
+        services.AddSingleton<IOrderService, OrderService>();
+        services.AddSingleton<IProtocolService, ProtocolService>();
+        services.AddSingleton<IStairsService, StairsService>();
+        services.AddSingleton<IUserAccountService, UserAccountService>();
+        services.AddSingleton<IRemoteLogService, RemoteLogService>();
 
-        services.AddSingleton<OrderMainViewModel>();
-        services.AddSingleton<OrderMainPage>();
-
+        services.AddTransient<OrderMainViewModel>();
         services.AddTransient<OrderViewModel>();
-        services.AddSingleton<OrderPage>();
-
         services.AddTransient<ProtocolMainViewModel>();
-        services.AddSingleton<ProtocolMainPage>();
-
         services.AddTransient<ProtocolViewModel>();
-        services.AddSingleton<ProtocolPage>();
-
         services.AddTransient<StairsViewModel>();
-        services.AddSingleton<StairsPage>();
-
-        services.AddSingleton<UserAccountMainViewModel>();
-        services.AddSingleton<UserAccountMainPage>();
-
+        services.AddTransient<UserAccountMainViewModel>();
         services.AddTransient<UserAccountViewModel>();
-        services.AddSingleton<UserAccountPage>();
-
         services.AddTransient<BatchReportViewModel>();
-        services.AddSingleton<BatchReportPage>();
-
         services.AddTransient<RemoteLogViewModel>();
-        services.AddSingleton<RemoteLogPage>();
 
-        services.AddTransient<IValidator<Stairs>, StairsValidator>();
+        services.AddSingleton<OrderMainPage>();
+        services.AddSingleton<OrderPage>();
+        services.AddSingleton<ProtocolMainPage>();
+        services.AddSingleton<ProtocolPage>();
+        services.AddSingleton<StairsPage>();
+        services.AddSingleton<UserAccountMainPage>();
+        services.AddSingleton<UserAccountPage>();
+        services.AddSingleton<BatchReportPage>();
+        services.AddSingleton<RemoteLogPage>();
 
         return services;
     }

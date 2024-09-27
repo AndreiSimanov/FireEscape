@@ -1,12 +1,11 @@
-﻿using FireEscape.Factories.Interfaces;
-using FireEscape.Models.Attributes;
+﻿using FireEscape.Models.Attributes;
 using FireEscape.Reports.Interfaces;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace FireEscape.Reports.ReportDataProviders;
 
-public class ProtocolReportDataProvider(IStairsFactory stairsFactory, IOptions<StairsSettings> stairsSettings, IOptions<ReportSettings> reportSettings) : IProtocolReportDataProvider
+public class ProtocolReportDataProvider(IStairsRepository stairsRepository, IOptions<StairsSettings> stairsSettings, IOptions<ReportSettings> reportSettings) : IProtocolReportDataProvider
 {
     Order order = new();
     Protocol protocol = new();
@@ -107,7 +106,7 @@ public class ProtocolReportDataProvider(IStairsFactory stairsFactory, IOptions<S
                 }
             }
 
-            stairsElementResults.AddRange(stairsFactory.GetAvailableStairsElements(Stairs)
+            stairsElementResults.AddRange(stairsRepository.GetAvailableStairsElements(Stairs)
                 .Where(element => !stairsElementResults.Any(item => item.StairsElementType == element.StairsElementType))
                 .Select(element => new StairsElementResult([element], true, [])));
 

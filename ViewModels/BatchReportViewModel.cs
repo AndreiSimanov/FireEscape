@@ -5,7 +5,7 @@ namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
 [QueryProperty(nameof(Protocols), nameof(Protocol))]
-public partial class BatchReportViewModel(ReportService reportService, RemoteLogService remoteLogService, UserAccountService userAccountService, ILogger<BatchReportViewModel> logger) : BaseViewModel(logger), IDisposable
+public partial class BatchReportViewModel(IReportService reportService, ILogger<BatchReportViewModel> logger) : BaseViewModel(logger), IDisposable
 {
     [ObservableProperty]
     Order? order;
@@ -67,13 +67,6 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
             SelectedItem = null;
             Files.Clear();
 
-            var message = $"{AppResources.Order}{AppResources.CaptionDivider} {Order.Name}{Environment.NewLine}" +
-                $"{AppResources.NumberOfProtocols}{AppResources.CaptionDivider} {Protocols.Length}{Environment.NewLine}" +
-                $"{AppResources.PrimaryExecutorSign}{AppResources.CaptionDivider} {Order.PrimaryExecutorSign}{Environment.NewLine}" +
-                $"{AppResources.SecondaryExecutorSign}{AppResources.CaptionDivider} {Order.SecondaryExecutorSign}";
-
-            remoteLogService.LogAsync(userAccountService.CurrentUserAccountId, RemoteLogCategoryType.BatchReport, message).SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
-
             var progressIndicator = new Progress<(double progress, string outputPath)>(progress =>
             {
                 Files.Add(new FileInfo(progress.outputPath));
@@ -108,7 +101,7 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
                 IsMakingReportArchive = true;
                 var progressIndicator = new Progress<double>(progress => ArchiveProgress = progress);
                 cts = new CancellationTokenSource();
-                await ReportService.MakeReportArchiveAsync(Files, cts.Token, progressIndicator);
+                await ArchiveUtils.MakeArchiveAsync(Files, cts.Token, progressIndicator);
             }
             finally
             {
@@ -127,7 +120,7 @@ public partial class BatchReportViewModel(ReportService reportService, RemoteLog
             Reset();
             if (Order != null)
             {
-                var reports = await ReportService.GetReportsAsync(Order);
+                var reports = await reportService.GetReportsAsync(Order);
                 Files = reports.ToObservableCollection();
             }
             FilesExists = Files.Count > 0;

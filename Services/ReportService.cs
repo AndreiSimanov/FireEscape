@@ -1,23 +1,21 @@
-﻿using System.IO.Compression;
-using System.Text;
+﻿using System.Text;
 
 namespace FireEscape.Services;
 
-public class ReportService(UserAccountService userAccountService, IReportRepository reportRepository)
+public class ReportService(IUserAccountService userAccountService, IRemoteLogService remoteLogService, 
+    IReportRepository reportRepository, ILogger<ReportService> logger) : IReportService
 {
     public async Task CreateSingleReportAsync(Order order, Protocol protocol, bool incrementFileNameIfExists = false)
     {
         var folderPath = await PrepareOutputFolderAsync(order);
         if (string.IsNullOrWhiteSpace(folderPath))
             return;
-
-        var userAccount = await userAccountService.GetCurrentUserAccountAsync();
-        CheckUserAccount(userAccount);
+        await userAccountService.CheckCurrentUserAsync();
         var outputPath = Path.Combine(folderPath, GetFileName(order, protocol));
         if (incrementFileNameIfExists)
             outputPath = IncrementFileNameIfExists(outputPath);
         await reportRepository.CreateReportAsync(order, protocol, outputPath);
-        userAccountService.UpdateExpirationCount(userAccount!);
+        userAccountService.UpdateExpirationCount();
         await Launcher.OpenAsync(new OpenFileRequest { Title = AppResources.PdfView, File = new ReadOnlyFile(outputPath) });
     }
 
@@ -26,16 +24,16 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
         var folderPath = await PrepareOutputFolderAsync(order);
         if (string.IsNullOrWhiteSpace(folderPath))
             return;
-        var userAccount = await userAccountService.GetCurrentUserAccountAsync();
-        CheckUserAccount(userAccount);
+        await userAccountService.CheckCurrentUserAsync();
         AppUtils.DeleteFolderContent(folderPath);
+        AddRemoteLog(order, protocols);
         double count = 0;
         foreach (var protocol in protocols)
         {
             var outputPath = Path.Combine(folderPath, GetFileName(order, protocol));
             outputPath = IncrementFileNameIfExists(outputPath);
             await reportRepository.CreateReportAsync(order, protocol, outputPath);
-            userAccountService.UpdateExpirationCount(userAccount!);
+            userAccountService.UpdateExpirationCount();
             progress?.Report((++count / protocols.Length, outputPath));
             if (ct.IsCancellationRequested)
                 break;
@@ -43,62 +41,17 @@ public class ReportService(UserAccountService userAccountService, IReportReposit
         }
     }
 
-    public static async Task<IEnumerable<FileInfo>> GetReportsAsync(Order order) => 
+    public async Task<IEnumerable<FileInfo>> GetReportsAsync(Order order) =>
         new DirectoryInfo(await PrepareOutputFolderAsync(order)).EnumerateFiles();
 
-    public static async Task MakeReportArchiveAsync(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
+    void AddRemoteLog(Order order, Protocol[] protocols)
     {
-        if (files.Count == 0)
-            return;
+        var message = $"{AppResources.Order}{AppResources.CaptionDivider} {order.Name}{Environment.NewLine}" +
+            $"{AppResources.NumberOfProtocols}{AppResources.CaptionDivider} {protocols.Length}{Environment.NewLine}" +
+            $"{AppResources.PrimaryExecutorSign}{AppResources.CaptionDivider} {order.PrimaryExecutorSign}{Environment.NewLine}" +
+            $"{AppResources.SecondaryExecutorSign}{AppResources.CaptionDivider} {order.SecondaryExecutorSign}";
 
-        using var archiveStream = await GetArchiveStream(files, ct, progress);
-
-        if (ct.IsCancellationRequested)
-            return;
-
-        var archiveFileName = files.FirstOrDefault()!.Directory!.Name;
-        if (string.IsNullOrWhiteSpace(archiveFileName))
-            archiveFileName = AppResources.Order;
-
-        archiveFileName += archiveFileName.EndsWith('.') ? "zip" : ".zip";
-
-        var archiveFilePath = Path.Combine(ApplicationSettings.CacheFolder, archiveFileName);
-
-        await using (var fileStream = new FileStream(archiveFilePath, FileMode.OpenOrCreate))
-        {
-            await archiveStream.CopyToAsync(fileStream);
-        }
-
-        await Share.RequestAsync(new ShareFileRequest
-        {
-            Title = AppResources.SharingOrderZip,
-            File = new ShareFile(archiveFilePath)
-        });
-    }
-
-    static async Task<MemoryStream> GetArchiveStream(ICollection<FileInfo> files, CancellationToken ct, IProgress<double>? progress = null)
-    {
-        var ms = new MemoryStream();
-        double count = 0;
-        using (var a = new ZipArchive(ms, ZipArchiveMode.Create, true))
-        {
-            foreach (var fileInfo in files)
-            {
-                a.CreateEntryFromFile(fileInfo.FullName, fileInfo.Name);
-                progress?.Report(++count / files.Count);
-                if (ct.IsCancellationRequested)
-                    break;
-                await Task.Yield();
-            }
-        }
-        ms.Position = 0;
-        return ms;
-    }
-
-    void CheckUserAccount(UserAccount? userAccount)
-    {
-        if (!UserAccountService.IsValidUserAccount(userAccount))
-            throw new Exception(string.Format(AppResources.UnregisteredApplicationMessage, userAccountService.CurrentUserAccountId));
+        remoteLogService.LogAsync(userAccountService.CurrentUserAccountId, RemoteLogCategoryType.BatchReport, message).SafeFireAndForget(ex => logger.LogError(ex, ex.Message));
     }
 
     static async Task<string> PrepareOutputFolderAsync(Order order)

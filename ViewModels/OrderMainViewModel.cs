@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels;
 
-public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicationSettings, OrderService orderService, ProtocolService protocolService,
-    UserAccountService userAccountService, ReportService reportService, ILogger<OrderMainViewModel> logger) : BaseViewModel(logger)
+public partial class OrderMainViewModel(IOrderService orderService, IProtocolService protocolService, IUserAccountService userAccountService, 
+    IReportService reportService, IOptions<ApplicationSettings> applicationSettings, ILogger<OrderMainViewModel> logger) : BaseViewModel(logger)
 {
     readonly ApplicationSettings applicationSettings = applicationSettings.Value;
     PagingParameters pageParams;
@@ -106,12 +106,6 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
         order,
         AppResources.EditOrderError);
 
-    Task GoToAsync(Order order)
-    {
-        SelectedItem = order;
-        return Shell.Current.GoToAsync(nameof(OrderPage), true,
-            new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
-    }
 
     [RelayCommand]
     Task GoToProtocolsAsync(Order order) =>
@@ -160,6 +154,13 @@ public partial class OrderMainViewModel(IOptions<ApplicationSettings> applicatio
             }
         },
         AppResources.OpenUserAccountMainPageError);
+
+    Task GoToAsync(Order order)
+    {
+        SelectedItem = order;
+        return Shell.Current.GoToAsync(nameof(OrderPage), true,
+            new Dictionary<string, object> { { nameof(OrderViewModel.EditObject), order } });
+    }
 
     [RelayCommand] //For test only 
     Task AddOrdersAsync() =>

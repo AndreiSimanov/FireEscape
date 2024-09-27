@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace FireEscape.Services;
 
-public class RemoteLogService(IFileHostingRepository fileHostingRepository, ILogger<RemoteLogService> logger, IOptions<RemoteLogSettings> remoteLogSettings)
+public class RemoteLogService(IFileHostingRepository fileHostingRepository, ILogger<RemoteLogService> logger, IOptions<RemoteLogSettings> remoteLogSettings) : IRemoteLogService
 {
     readonly RemoteLogSettings remoteLogSettings = remoteLogSettings.Value;
 
