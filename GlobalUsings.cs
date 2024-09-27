@@ -12,6 +12,7 @@ global using FireEscape.Repositories;
 global using FireEscape.Repositories.Interfaces;
 global using FireEscape.Resources.Languages;
 global using FireEscape.Services;
+global using FireEscape.Services.Interfaces;
 global using FireEscape.ViewModels;
 global using FireEscape.ViewModels.BaseViewModels;
 global using FireEscape.Views;

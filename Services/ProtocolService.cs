@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.Services;
 
-public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepository stairsRepository, ISearchDataRepository searchDataRepository)
+public class ProtocolService(IProtocolRepository protocolRepository, IStairsRepository stairsRepository, ISearchDataRepository searchDataRepository) : IProtocolService
 {
     public async Task<Protocol> CreateAsync(Order order)
     {

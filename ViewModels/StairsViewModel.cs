@@ -1,24 +1,14 @@
-﻿using DevExpress.Data.Extensions;
-using DevExpress.Maui.Controls;
-using FireEscape.Factories.Interfaces;
+﻿using DevExpress.Maui.Controls;
 using Microsoft.Extensions.Options;
 using System.ComponentModel;
 
 namespace FireEscape.ViewModels;
 
-public partial class StairsViewModel : BaseEditViewModel<Stairs>
+public partial class StairsViewModel(IStairsService stairsService, IOptions<StairsSettings> stairsSettings, ILogger<StairsViewModel> logger) : BaseEditViewModel<Stairs>(logger)
 {
     const int MAX_EXPAND_PLATFORM_SIZES = 30;
-    readonly StairsService stairsService;
-    readonly IStairsFactory stairsFactory;
-    public StairsSettings StairsSettings { get; private set; }
-
-    public StairsViewModel(StairsService stairsService, IOptions<StairsSettings> stairsSettings, IStairsFactory stairsFactory, ILogger<StairsViewModel> logger) : base(logger)
-    {
-        this.stairsService = stairsService;
-        this.stairsFactory = stairsFactory;
-        StairsSettings = stairsSettings.Value;
-    }
+    bool platformSizesExpanded = false;
+    public StairsSettings StairsSettings { get; private set; } = stairsSettings.Value;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(BottomSheetState))]
@@ -69,16 +59,14 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
     [RelayCommand]
     void HideBottomSheet() => BottomSheetState = BottomSheetState.Hidden;
 
-    bool expanded = false;
-
     void SetPlatformSizes(BaseStairsElement? element, bool expand)
     {
-        if (element is not BasePlatformElement platformElement || expanded == expand)
+        if (element is not BasePlatformElement platformElement || platformSizesExpanded == expand)
             return;
 
-        expanded = expand;
+        platformSizesExpanded = expand;
 
-        if (expanded)
+        if (platformSizesExpanded)
         {
             var platformSizeStubs = Enumerable.Range(1, MAX_EXPAND_PLATFORM_SIZES - platformElement.PlatformSizes.Length).Select(o => new PlatformSize());
             SelectedPlatformSizes = platformElement.PlatformSizes.
@@ -110,16 +98,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
         {
             if (EditObject == null)
                 return;
-            var availableStairsElements = stairsFactory.GetAvailableStairsElements(EditObject);
-            if (EditObject.BaseStairsType == BaseStairsTypeEnum.P2)
-            {
-                var platformIndex = EditObject.StairsElements.FindIndex(element => element.StairsElementType == typeof(PlatformP2));
-                var stairwayIndex = EditObject.StairsElements.FindIndex(element => element.StairsElementType == typeof(StairwayP2));
-                if ((stairwayIndex > platformIndex || stairwayIndex == -1) && platformIndex != -1)
-                    availableStairsElements = availableStairsElements.OrderBy(item => item.Name);
-                else
-                    availableStairsElements = availableStairsElements.OrderByDescending(item => item.Name);
-            }
+            var availableStairsElements = stairsService.GetAvailableStairsElements(EditObject);
 
             var elementNames = availableStairsElements.Select(item => item.ToString()).ToArray();
             if (elementNames.Length != 0)
@@ -136,7 +115,7 @@ public partial class StairsViewModel : BaseEditViewModel<Stairs>
      {
          if (EditObject == null || stairsElement == null || stairsElement.IsSingleElement)
              return;
-         AddStairsElement(stairsFactory.CopyStairsElement(EditObject, stairsElement));
+         AddStairsElement(stairsService.CopyStairsElement(EditObject, stairsElement));
      },
      AppResources.CopyStairsElementError);
 

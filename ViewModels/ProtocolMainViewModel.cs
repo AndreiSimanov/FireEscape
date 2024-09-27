@@ -6,7 +6,7 @@ using Protocol = FireEscape.Models.Protocol;
 namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Order), nameof(Order))]
-public partial class ProtocolMainViewModel(ProtocolService protocolService, ReportService reportService,
+public partial class ProtocolMainViewModel(IProtocolService protocolService, IReportService reportService,
     ILogger<ProtocolMainViewModel> logger) : BaseViewModel(logger)
 {
     [ObservableProperty]

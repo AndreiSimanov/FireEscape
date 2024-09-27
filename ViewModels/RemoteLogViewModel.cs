@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
-using System;
 using System.Collections.ObjectModel;
 
 namespace FireEscape.ViewModels;
 
 [QueryProperty(nameof(Key), nameof(Key))]
-public partial class RemoteLogViewModel(RemoteLogService remoteLogService, ILogger<RemoteLogViewModel> logger) : BaseViewModel(logger)
+public partial class RemoteLogViewModel(IRemoteLogService remoteLogService, ILogger<RemoteLogViewModel> logger) : BaseViewModel(logger)
 {
     [ObservableProperty]
     string? key;

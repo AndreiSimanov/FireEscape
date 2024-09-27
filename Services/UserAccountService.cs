@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace FireEscape.Services;
 
-public class UserAccountService(IFileHostingRepository fileHostingRepository, ILogger<UserAccountService> logger, IOptions<ApplicationSettings> applicationSettings)
+public class UserAccountService(IFileHostingRepository fileHostingRepository, ILogger<UserAccountService> logger, IOptions<ApplicationSettings> applicationSettings) : IUserAccountService
 {
     const string USER_ACCOUNT = "UserAccount";
     const string NEW_USER_NAME = "New User";
@@ -69,9 +69,10 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
         }
     }
 
-    public void UpdateExpirationCount(UserAccount userAccount)
+    public void UpdateExpirationCount()
     {
-        if (IsCurrentUserAccount(userAccount) && userAccount.ExpirationCount > 0)
+        var userAccount = GetLocalUserAccount();
+        if (userAccount?.ExpirationCount > 0)
         {
             userAccount.ExpirationCount--;
             SetLocalUserAccount(userAccount);
@@ -97,6 +98,13 @@ public class UserAccountService(IFileHostingRepository fileHostingRepository, IL
             }
             return userAccountId;
         }
+    }
+
+    public async Task CheckCurrentUserAsync()
+    {
+        var userAccount = await GetCurrentUserAccountAsync();
+        if (!IsValidUserAccount(userAccount))
+            throw new Exception(string.Format(AppResources.UnregisteredApplicationMessage, CurrentUserAccountId));
     }
 
     public static bool IsValidUserAccount(UserAccount? userAccount) => userAccount != null && userAccount.IsValidUserAccount;
