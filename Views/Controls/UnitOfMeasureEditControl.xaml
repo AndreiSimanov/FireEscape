@@ -14,11 +14,13 @@
     x:Class="FireEscape.Views.Controls.UnitOfMeasureEditControl">
 
     <dxe:NumericEdit
-        Style="{StaticResource DefaultNumericEdit}"
         x:Name="numEdit"
+        Grid.Column="0"
+        Style="{StaticResource DefaultNumericEdit}"
         LabelText="{Binding LabelText}"
         PlaceholderText="{Binding PlaceholderText}"
-        Grid.Column="0"
+        MaxValue="{Binding MaxValue}"
+        MinValue="{Binding MinValue}"
         Value="{Binding Value}"
         HasError="{Binding HasError}"
         ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"/>

@@ -9,6 +9,7 @@ public record StairsSettings
     public string[] ServiceabilityTypes => EnumDescriptionTypeConverter.GetEnumDescriptions<ServiceabilityTypeEnum>().ToArray();
     public ServiceabilityLimit[]? ServiceabilityLimits { get; set; }
     public StairsElementSettings[]? StairsElementSettings { get; set; }
+    public static MeasureLimits MeasureLimits { get; set; }
     public bool WeldSeamServiceability { get; set; }
     public bool ProtectiveServiceability { get; set; }
 }

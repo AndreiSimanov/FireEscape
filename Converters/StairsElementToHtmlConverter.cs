@@ -67,8 +67,8 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
         if (value is StairwayP2 stairwayP2)
         {
             AddRow<int, float>(new ColumnData<int>(AppResources.SupportBeamsCount, string.Empty, stairwayP2.SupportBeamsCount, true));
-            AddRow<int, float>(new ColumnData<int>(AppResources.StepsCount, string.Empty, stairwayP2.StepsCount, true),
-                new ColumnData<float>(AppResources.StairwayLength, UnitOfMeasure.Symbol, stairwayP2.StairwayLength / UnitOfMeasure.Multiplier, true));
+            AddRow<int, decimal>(new ColumnData<int>(AppResources.StepsCount, string.Empty, stairwayP2.StepsCount, true),
+                new ColumnData<decimal>(AppResources.StairwayLength, UnitOfMeasure.Symbol, UnitOfMeasure.ConvertToUnit(stairwayP2.StairwayLength), true));
         }
 
         AddServiceabilityRow(AppResources.Deformation, value.Deformation,  false);
@@ -79,7 +79,7 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
 
     void AddServiceabilityRow(string label, ServiceabilityProperty serviceabilityProperty,  bool isZeroWarning)
     {
-        AddRow<float, string>(new ColumnData<float>(label, UnitOfMeasure.Symbol, serviceabilityProperty.Value / UnitOfMeasure.Multiplier, isZeroWarning),
+        AddRow<decimal, string>(new ColumnData<decimal>(label, UnitOfMeasure.Symbol, UnitOfMeasure.ConvertToUnit(serviceabilityProperty.Value), isZeroWarning),
             new ColumnData<string>(AppResources.Gost, string.Empty, EnumDescriptionTypeConverter.GetEnumDescription(serviceabilityProperty.ServiceabilityType), false));
 
         /*

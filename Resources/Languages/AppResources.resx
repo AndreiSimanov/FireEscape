@@ -304,7 +304,7 @@
     <value>Укажите ширину лестницы</value>
   </data>
   <data name="StepsCount" xml:space="preserve">
-    <value>Количество ступеней</value>
+    <value>Кол-во ступеней</value>
   </data>
   <data name="StepsCountHint" xml:space="preserve">
     <value>Укажите кол-во ступеней лестницы</value>

@@ -72,8 +72,8 @@ public partial class StairsViewModel(IStairsService stairsService, IOptions<Stai
             SelectedPlatformSizes = platformElement.PlatformSizes.
                 Select(item => new PlatformSize
                 {
-                    Length = item.Length / UnitOfMeasureSettings.PrimaryUnitOfMeasure.Multiplier,
-                    Width = item.Width / UnitOfMeasureSettings.PrimaryUnitOfMeasure.Multiplier
+                    Length = UnitOfMeasureSettings.PrimaryUnitOfMeasure.ConvertToUnit(item.Length),
+                    Width = UnitOfMeasureSettings.PrimaryUnitOfMeasure.ConvertToUnit(item.Width)
                 }).
                 Concat(platformSizeStubs).
                 ToArray();
@@ -84,8 +84,8 @@ public partial class StairsViewModel(IStairsService stairsService, IOptions<Stai
                 Where(platformSize => platformSize.Length > 0 || platformSize.Width > 0).
                 Select(item => new PlatformSize
                 {
-                    Length = item.Length * UnitOfMeasureSettings.PrimaryUnitOfMeasure.Multiplier,
-                    Width = item.Width * UnitOfMeasureSettings.PrimaryUnitOfMeasure.Multiplier
+                    Length =  UnitOfMeasureSettings.PrimaryUnitOfMeasure.ConvertFromUnit(item.Length),
+                    Width = UnitOfMeasureSettings.PrimaryUnitOfMeasure.ConvertFromUnit(item.Width)
                 }).
                 ToArray();
             SelectedPlatformSizes = [];

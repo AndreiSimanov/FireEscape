@@ -23,9 +23,11 @@
 
         <control:UnitOfMeasureEditControl
             x:Name="numEdit"
+            Grid.Column="0"
             LabelText="{Binding LabelText}"
             PlaceholderText="{Binding PlaceholderText}"
-            Grid.Column="0"
+            MaxValue="{Binding MaxValue}"
+            MinValue="{Binding MinValue}"
             Value="{Binding ServiceabilityValue.Value}"
             HasError="{Binding HasError}"
             ValueChangedCommand="{Binding Source={x:Reference this}, Path=ValueChangedCommand}"/>
