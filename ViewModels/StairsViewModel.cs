@@ -72,8 +72,8 @@ public partial class StairsViewModel(IStairsService stairsService, IOptions<Stai
             SelectedPlatformSizes = platformElement.PlatformSizes.
                 Select(item => new PlatformSize
                 {
-                    Length = UnitOfMeasureSettings.PrimaryUnitOfMeasure.ConvertToUnit(item.Length),
-                    Width = UnitOfMeasureSettings.PrimaryUnitOfMeasure.ConvertToUnit(item.Width)
+                    Length = ApplicationSettings.PrimaryUnitOfMeasure.ConvertToUnit(item.Length),
+                    Width = ApplicationSettings.PrimaryUnitOfMeasure.ConvertToUnit(item.Width)
                 }).
                 Concat(platformSizeStubs).
                 ToArray();
@@ -84,8 +84,8 @@ public partial class StairsViewModel(IStairsService stairsService, IOptions<Stai
                 Where(platformSize => platformSize.Length > 0 || platformSize.Width > 0).
                 Select(item => new PlatformSize
                 {
-                    Length =  UnitOfMeasureSettings.PrimaryUnitOfMeasure.ConvertFromUnit(item.Length),
-                    Width = UnitOfMeasureSettings.PrimaryUnitOfMeasure.ConvertFromUnit(item.Width)
+                    Length = ApplicationSettings.PrimaryUnitOfMeasure.ConvertFromUnit(item.Length),
+                    Width = ApplicationSettings.PrimaryUnitOfMeasure.ConvertFromUnit(item.Width)
                 }).
                 ToArray();
             SelectedPlatformSizes = [];
@@ -185,7 +185,7 @@ public partial class StairsViewModel(IStairsService stairsService, IOptions<Stai
         }
     }
 
-    public static string PlatformLength => AddUnitOfMeasure(AppResources.PlatformLength, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
-    public static string PlatformWidth => AddUnitOfMeasure(AppResources.PlatformWidth, UnitOfMeasureSettings.PrimaryUnitOfMeasure);
+    public static string PlatformLength => AddUnitOfMeasure(AppResources.PlatformLength, ApplicationSettings.PrimaryUnitOfMeasure);
+    public static string PlatformWidth => AddUnitOfMeasure(AppResources.PlatformWidth, ApplicationSettings.PrimaryUnitOfMeasure);
     static string AddUnitOfMeasure(string val, UnitOfMeasure unitOfMeasure) => string.IsNullOrWhiteSpace(val) ? string.Empty : string.Format(val + " ({0})", unitOfMeasure.Symbol);
 }

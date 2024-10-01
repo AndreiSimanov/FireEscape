@@ -1,6 +1,6 @@
 ﻿namespace FireEscape.Services;
 
-public class OrderService(IOrderRepository orderRepository, IUserAccountService userAccountService, ISearchDataRepository searchDataRepository) : IOrderService
+public class OrderService(IUserAccountService userAccountService, IOrderRepository orderRepository, ISearchDataRepository searchDataRepository) : IOrderService
 {
     public async Task<Order> CreateAsync()
     {

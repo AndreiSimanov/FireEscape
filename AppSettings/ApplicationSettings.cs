@@ -19,8 +19,8 @@ public class ApplicationSettings
     public required ColorSettings LightColorSettings { get; set; }
     public required ColorSettings DarkColorSettings { get; set; }
     public required string DbName { get; set; }
-    public required UnitOfMeasure PrimaryUnitOfMeasure { get; set; }
-    public required UnitOfMeasure SecondaryUnitOfMeasure { get; set; }
+    public static UnitOfMeasure PrimaryUnitOfMeasure { get; set; }
+    public static UnitOfMeasure SecondaryUnitOfMeasure { get; set; }
 
     public static Task<string> GetDefaultContentFolderAsync() => AppUtils.GetExternalContentFolderAsync(APPLICATION_FOLDER_NAME);
     public static async Task<string> GetImagesFolderAsync() => AppUtils.CreateFolderIfNotExists(await GetDefaultContentFolderAsync(), IMAGES_FOLDER);

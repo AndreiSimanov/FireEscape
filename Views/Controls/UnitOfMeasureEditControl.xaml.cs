@@ -91,13 +91,13 @@ public partial class UnitOfMeasureEditControl : ContentView
                 var unitOfMeasureConverter = valueConverter as UnitOfMeasureConverter;
                 if (unitOfMeasureConverter != null)
                 {
-                    MaxValue = Math.Min(MaxValue, unitOfMeasureConverter.UnitOfMeasure.MaxValue);
                     MaxDecimalDigitCount = unitOfMeasureConverter.UnitOfMeasure.MaxDecimalDigitCount;
                     UnitOfMeasureSymbol = $" ({unitOfMeasureConverter.UnitOfMeasure.Symbol})";
                 }
                 else
                     UnitOfMeasureSymbol = string.Empty;
 
+                OnPropertyChanged(nameof(MaxDecimalDigitCount));
                 OnPropertyChanged(nameof(UnitOfMeasureSymbol));
                 OnPropertyChanged(nameof(LabelText));
                 OnPropertyChanged(nameof(PlaceholderText));
