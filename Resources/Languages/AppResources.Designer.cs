@@ -1330,7 +1330,7 @@ namespace FireEscape.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Количество ступеней.
+        ///   Looks up a localized string similar to Кол-во ступеней.
         /// </summary>
         internal static string StepsCount {
             get {

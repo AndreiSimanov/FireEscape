@@ -49,10 +49,10 @@
                 <conv:StairsElementToHeightConverter x:Key="StairsElementToHeightConverter" />
                 <conv:StairsElementToHtmlConverter 
                     x:Key="StairsElementToHtmlConverter" 
-                    UnitOfMeasure="{x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}"
+                    UnitOfMeasure="{x:Static appSettings:ApplicationSettings.PrimaryUnitOfMeasure}"
                     PrimaryColor="{dx:ThemeColor Primary}" SurfaceColor="{dx:ThemeColor Outline}" SurfaceVariantColor="{dx:ThemeColor SurfaceVariant}" />
-                <conv:UnitOfMeasureConverter x:Key="PrimaryUnitOfMeasureConverter" UnitOfMeasure="{x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}" />
-                <conv:UnitOfMeasureConverter x:Key="SecondaryUnitOfMeasureConverter" UnitOfMeasure="{x:Static appSettings:UnitOfMeasureSettings.SecondaryUnitOfMeasure}" />
+                <conv:UnitOfMeasureConverter x:Key="PrimaryUnitOfMeasureConverter" UnitOfMeasure="{x:Static appSettings:ApplicationSettings.PrimaryUnitOfMeasure}" />
+                <conv:UnitOfMeasureConverter x:Key="SecondaryUnitOfMeasureConverter" UnitOfMeasure="{x:Static appSettings:ApplicationSettings.SecondaryUnitOfMeasure}" />
                 <conv:EnumToStringConverter x:Key="EnumToStringConverter" />
                 <conv:FloatZeroToObjectConverter x:Key="FloatZeroToColorConverter"  TrueObject="{x:Static appSettings:ColorSettings.WarningColor}" FalseObject="{x:Static appSettings:ColorSettings.AcceptColor}" />
                 <conv:IntZeroToObjectConverter x:Key="IntZeroToColorConverter"  TrueObject="{x:Static appSettings:ColorSettings.WarningColor}" FalseObject="{x:Static appSettings:ColorSettings.AcceptColor}" />
@@ -99,6 +99,7 @@
                 EditorUnfocused="StairsWidthEditorUnfocused"
                 LabelText ="{x:Static lang:AppResources.StairsWidth}"
                 PlaceholderText ="{x:Static lang:AppResources.StairsWidthHint}"
+                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                 HasError="{Binding EditObject.StairsWidth.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
                 ServiceabilityValue="{Binding EditObject.StairsWidth}"
@@ -146,6 +147,7 @@
                         PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
                         LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"
                         Style="{StaticResource DefaultNumericEdit}"
+                        MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=SupportBeamsMaxCount}"
                         Value="{Binding SupportBeams.SupportBeamsCount}"
                         HasError="{Binding SupportBeams.SupportBeamsCount, Converter={StaticResource IntZeroToBoolConverter}}"/>
 
@@ -153,6 +155,7 @@
                         EditorFocused="EditorFocused"
                         LabelText="{x:Static lang:AppResources.WallDistance}"
                         PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"
+                        MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                         HasError="{Binding SupportBeams.WallDistance.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
                         ServiceabilityValue="{Binding SupportBeams.WallDistance}"
@@ -162,6 +165,7 @@
                         EditorFocused="EditorFocused"
                         LabelText="{x:Static lang:AppResources.Deformation}"
                         PlaceholderText="{x:Static lang:AppResources.DeformationHint}"
+                        MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=DeformationMaxSizeInUnits}"
                         ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                         ServiceabilityValue="{Binding SupportBeams.Deformation}"
                         ServiceabilityTypes ="{Binding StairsSettings.ServiceabilityTypes}"/>
@@ -173,6 +177,7 @@
                 PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"
                 LabelText="{x:Static lang:AppResources.StepsCount}"
                 Style="{StaticResource DefaultNumericEdit}"
+                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StepsMaxCount}"
                 Value="{Binding EditObject.StepsCount}"
                 HasError="{Binding EditObject.StepsCount, Converter={StaticResource IntZeroToBoolConverter}}"
                 IsEnabled="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
@@ -183,6 +188,7 @@
                 EditorUnfocused="StairsWidthEditorUnfocused"
                 LabelText="{x:Static lang:AppResources.StepsDistance}"
                 PlaceholderText="{x:Static lang:AppResources.StepsDistanceHint}"
+                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                 IsVisible="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
                 HasError="{Binding StepsP1.StepsDistance.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -193,6 +199,7 @@
                 EditorFocused="EditorFocused"
                 LabelText ="{x:Static lang:AppResources.StairsHeight}"
                 PlaceholderText ="{x:Static lang:AppResources.StairsHeightHint}"
+                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsHeightUnits}"
                 ValueConverter="{StaticResource SecondaryUnitOfMeasureConverter}"
                 HasError="{Binding EditObject.StairsHeight.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
                 ServiceabilityValue="{Binding EditObject.StairsHeight}"
@@ -203,6 +210,7 @@
                 EditorFocused="EditorFocused"
                 LabelText ="{x:Static lang:AppResources.GroundDistance}"
                 PlaceholderText ="{x:Static lang:AppResources.GroundDistanceHint}"
+                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                 ServiceabilityValue="{Binding EditObject.GroundDistance}"
                 IsVisible="{Binding EditObject.BaseStairsType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:BaseStairsTypeEnum.P1}}"
@@ -297,6 +305,7 @@
                             <dxe:NumericEdit
                                 Style="{StaticResource DefaultNumericEdit}"
                                 Grid.Column="0"
+                                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairwayStepsMaxCount}"
                                 Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsCount}"
                                 HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsCount, Converter={StaticResource IntZeroToBoolConverter}}"
                                 ValueChangedCommand="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=UpdateStepsCountCommand}"
@@ -304,6 +313,7 @@
                                 PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"/>
                             <ctrl:UnitOfMeasureEditControl
                                 Grid.Column="1"
+                                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                                 Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayLength}"
                                 HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayLength, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -316,6 +326,7 @@
                             ColumnDefinitions="*, *">
                             <ctrl:UnitOfMeasureEditControl
                                 Grid.Column="0"
+                                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                                 Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformLength.Value}"
                                 HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformLength.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -323,6 +334,7 @@
                                 PlaceholderText ="{x:Static lang:AppResources.PlatformLengthHint}"/>
                             <ctrl:UnitOfMeasureEditControl
                                 Grid.Column="1"
+                                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                                 Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformWidth.Value}"
                                 HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformWidth.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -334,6 +346,7 @@
                             PlaceholderText="{x:Static lang:AppResources.SupportBeamsPairsCountHint}"
                             LabelText="{x:Static lang:AppResources.SupportBeamsPairsCount}"
                             Style="{StaticResource DefaultNumericEdit}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=SupportBeamsMaxCount}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:SupportBeamsP1}}"
                             Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount, Converter={StaticResource IntZeroToBoolConverter}}"/>
@@ -341,6 +354,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.PlatformLength}"
                             PlaceholderText="{x:Static lang:AppResources.PlatformLengthHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP1}}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformLength.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -350,6 +364,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.PlatformWidth}"
                             PlaceholderText="{x:Static lang:AppResources.PlatformWidthHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP1}}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformWidth.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -359,6 +374,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
                             PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:PlatformP1}}"
                             ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.PlatformFenceHeight}"
@@ -368,6 +384,7 @@
                             LabelText="{x:Static lang:AppResources.SupportBeamsCount}"
                             PlaceholderText="{x:Static lang:AppResources.SupportBeamsCountHint}"
                             Style="{StaticResource DefaultNumericEdit}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=SupportBeamsMaxCount}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource SupportBeamsEnumConverter}}"
                             Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.SupportBeamsCount, Converter={StaticResource IntZeroToBoolConverter}}"/>
@@ -375,6 +392,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.StairsFenceHeight}"
                             PlaceholderText="{x:Static lang:AppResources.StairsFenceHeightHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:FenceP2}}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.FenceHeight.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -384,6 +402,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.WallDistance}"
                             PlaceholderText="{x:Static lang:AppResources.WallDistanceHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:SupportBeamsP1}}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.WallDistance.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -393,6 +412,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.GroundDistance}"
                             PlaceholderText="{x:Static lang:AppResources.GroundDistanceHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:FenceP1}}"
                             ServiceabilityValue="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.GroundDistance}"
@@ -401,6 +421,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.StepsDistance}"
                             PlaceholderText="{x:Static lang:AppResources.StepsDistanceHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:StepsP1}}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsDistance.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -410,6 +431,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.StepsWidth}"
                             PlaceholderText="{x:Static lang:AppResources.StepsWidthHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:StepsP2}}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsWidth.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -419,6 +441,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.StepsHeight}"
                             PlaceholderText="{x:Static lang:AppResources.StepsHeightHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             IsVisible="{Binding SelectedStairsElement.StairsElementType, Converter={StaticResource TypeToBoolConverter}, ConverterParameter={x:Type elements:StepsP2}}"
                             HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StepsHeight.Value, Converter={StaticResource FloatZeroToBoolConverter}}"
@@ -435,6 +458,7 @@
                         <ctrl:ServiceabilityEditControl
                             LabelText="{x:Static lang:AppResources.Deformation}"
                             PlaceholderText="{x:Static lang:AppResources.DeformationHint}"
+                            MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=DeformationMaxSizeInUnits}"
                             ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                             ServiceabilityValue="{Binding SelectedStairsElement.Deformation}"
                             ServiceabilityTypes="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=StairsSettings.ServiceabilityTypes}"/>
@@ -454,14 +478,14 @@
                                 ItemsSource="{Binding SelectedPlatformSizes}">
                                 <dxg:DataGridView.Columns>
                                     <dxg:NumberColumn 
-                                        MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
+                                        MaxDecimalDigitCount="{Binding Source={x:Static appSettings:ApplicationSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
                                         MinValue="0" 
-                                        MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
+                                        MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                                         Caption="{x:Static viewmodel:StairsViewModel.PlatformLength}" HeaderFontSize="12" FieldName="Length" AllowNullValue="True" HorizontalContentAlignment="Center" />
                                     <dxg:NumberColumn 
-                                        MaxDecimalDigitCount="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
+                                        MaxDecimalDigitCount="{Binding Source={x:Static appSettings:ApplicationSettings.PrimaryUnitOfMeasure}, Path=MaxDecimalDigitCount}"
                                         MinValue="0" 
-                                        MaxValue="{Binding Source={x:Static appSettings:UnitOfMeasureSettings.PrimaryUnitOfMeasure}, Path=MaxValue}"
+                                        MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
                                         Caption="{x:Static viewmodel:StairsViewModel.PlatformWidth}" HeaderFontSize="12" FieldName="Width" AllowNullValue="True" HorizontalContentAlignment="Center"/>
                                 </dxg:DataGridView.Columns>
                             </dxg:DataGridView>

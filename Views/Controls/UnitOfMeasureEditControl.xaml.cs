@@ -34,6 +34,20 @@ public partial class UnitOfMeasureEditControl : ContentView
         set => SetValue(PlaceholderTextProperty, value);
     }
 
+    public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(decimal), typeof(UnitOfMeasureEditControl), defaultBindingMode: BindingMode.OneWay);
+    public decimal MaxValue
+    {
+        get => (decimal)GetValue(MaxValueProperty);
+        set => SetValue(MaxValueProperty, value);
+    }
+
+    public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(decimal), typeof(UnitOfMeasureEditControl), defaultBindingMode: BindingMode.OneWay);
+    public decimal MinValue
+    {
+        get => (decimal)GetValue(MinValueProperty);
+        set => SetValue(MinValueProperty, value);
+    }
+
     public static readonly BindableProperty ValueChangedCommandProperty = BindableProperty.Create(nameof(ValueChangedCommand), typeof(ICommand), typeof(UnitOfMeasureEditControl));
     public ICommand ValueChangedCommand
     {
@@ -55,8 +69,6 @@ public partial class UnitOfMeasureEditControl : ContentView
 
     public string? UnitOfMeasureSymbol { get; private set; }
 
-    public decimal MinValue { get => numEdit.MinValue; set => numEdit.MinValue = value; }
-    public decimal MaxValue { get => numEdit.MaxValue; set => numEdit.MaxValue = value; }
     public int MaxDecimalDigitCount { get => numEdit.MaxDecimalDigitCount; set => numEdit.MaxDecimalDigitCount = value; }
 
     IValueConverter? valueConverter;
@@ -79,13 +91,13 @@ public partial class UnitOfMeasureEditControl : ContentView
                 var unitOfMeasureConverter = valueConverter as UnitOfMeasureConverter;
                 if (unitOfMeasureConverter != null)
                 {
-                    MaxValue = unitOfMeasureConverter.UnitOfMeasure.MaxValue;
                     MaxDecimalDigitCount = unitOfMeasureConverter.UnitOfMeasure.MaxDecimalDigitCount;
                     UnitOfMeasureSymbol = $" ({unitOfMeasureConverter.UnitOfMeasure.Symbol})";
                 }
                 else
                     UnitOfMeasureSymbol = string.Empty;
 
+                OnPropertyChanged(nameof(MaxDecimalDigitCount));
                 OnPropertyChanged(nameof(UnitOfMeasureSymbol));
                 OnPropertyChanged(nameof(LabelText));
                 OnPropertyChanged(nameof(PlaceholderText));

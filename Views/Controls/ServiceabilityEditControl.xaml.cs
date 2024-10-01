@@ -12,7 +12,7 @@ public partial class ServiceabilityEditControl : ContentView
         set => SetValue(ServiceabilityValueProperty, value);
     }
 
-    public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(UnitOfMeasureEditControl), defaultBindingMode: BindingMode.OneWay);
+    public static readonly BindableProperty HasErrorProperty = BindableProperty.Create(nameof(HasError), typeof(bool), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.OneWay);
     public bool HasError
     {
         get => (bool)GetValue(HasErrorProperty);
@@ -38,6 +38,20 @@ public partial class ServiceabilityEditControl : ContentView
     {
         get => (string)GetValue(PlaceholderTextProperty);
         set => SetValue(PlaceholderTextProperty, value);
+    }
+
+    public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(decimal), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.OneWay);
+    public decimal MaxValue
+    {
+        get => (decimal)GetValue(MaxValueProperty);
+        set => SetValue(MaxValueProperty, value);
+    }
+
+    public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(decimal), typeof(ServiceabilityEditControl), defaultBindingMode: BindingMode.OneWay);
+    public decimal MinValue
+    {
+        get => (decimal)GetValue(MinValueProperty);
+        set => SetValue(MinValueProperty, value);
     }
 
     public static readonly BindableProperty ValueChangedCommandProperty = BindableProperty.Create(nameof(ValueChangedCommand), typeof(ICommand), typeof(ServiceabilityEditControl));
