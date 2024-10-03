@@ -68,7 +68,7 @@ public class StairsElementToHtmlConverter : BaseConverterOneWay<BaseStairsElemen
         {
             AddRow<int, float>(new ColumnData<int>(AppResources.SupportBeamsCount, string.Empty, stairwayP2.SupportBeamsCount, true));
             AddRow<int, decimal>(new ColumnData<int>(AppResources.StepsCount, string.Empty, stairwayP2.StepsCount, true),
-                new ColumnData<decimal>(AppResources.StairwayLength, UnitOfMeasure.Symbol, UnitOfMeasure.ConvertToUnit(stairwayP2.StairwayLength), true));
+                new ColumnData<decimal>(AppResources.Length, UnitOfMeasure.Symbol, UnitOfMeasure.ConvertToUnit(stairwayP2.StairwayLength), true));
         }
 
         AddServiceabilityRow(AppResources.Deformation, value.Deformation,  false);

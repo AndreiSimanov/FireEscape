@@ -636,4 +636,7 @@
   <data name="CopyStairsError" xml:space="preserve">
     <value>Невозможно скопировать лестницу</value>
   </data>
+  <data name="Length" xml:space="preserve">
+    <value>Длинна</value>
+  </data>
 </root>
