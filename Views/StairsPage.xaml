@@ -313,7 +313,7 @@
                                 PlaceholderText="{x:Static lang:AppResources.StepsCountHint}"/>
                             <ctrl:UnitOfMeasureEditControl
                                 Grid.Column="1"
-                                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairsElementMaxSizeInUnits}"
+                                MaxValue="{Binding Source={x:Static appSettings:StairsSettings.MeasureLimits}, Path=StairwayMaxLengthInUnits}"
                                 ValueConverter="{StaticResource PrimaryUnitOfMeasureConverter}"
                                 Value="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayLength}"
                                 HasError="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:StairsViewModel}}, Path=SelectedStairsElement.StairwayLength, Converter={StaticResource FloatZeroToBoolConverter}}"
